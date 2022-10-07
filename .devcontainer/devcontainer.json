@@ -21,7 +21,10 @@
 		"d9705996.perl-toolbox",
 		"valentjn.vscode-ltex",
 		"sygene.auto-correct",
-		"edb.settings-on-fire"
+		"edb.settings-on-fire",
+		"James-Yu.latex-workshop",
+		"ritwickdey.LiveServer",
+		"ms-vsliveshare.vsliveshare"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
