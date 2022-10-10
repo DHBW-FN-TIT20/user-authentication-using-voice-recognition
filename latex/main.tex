@@ -52,28 +52,32 @@
 \def\vDHBWLogoPfad{images/DHBW_logo.jpg}                          %% relativer Pfad Bsp.: images/DHBW_logo.jpg
 \def\vUnterschrift{}                    %% Pfad zu Bild mit Unterschrift (für digitale Abgabe) Bsp.: images/Unterschrift.png
 
-\def\vTitel{}                           %% 
+\def\vTitel{Authentifizierung von Benutzern mittels Sprechererkennung}                           %% 
 \def\vUntertitel{}                      %% 
-\def\vArbeitstyp{}                      %% Projektarbeit/Seminararbeit/Bachelorarbeit
-\def\vArbeitsbezeichnung{}              %% T1000/T2000/T3000
+\def\vArbeitstyp{Studienarbeit}                      %% Projektarbeit/Seminararbeit/Bachelorarbeit
+\def\vArbeitsbezeichnung{T3200}              %% T1000/T2000/T3000
 
-\def\vAutor{}                           %% Vorname Nachname
+\def\vLB{Lukas Braun}
+\def\vJB{Johannes Brandenburger}
+\def\vHS{Henry Schuler}
+
+
+\def\vAutor{\vLB, \vJB, \vHS}                           %% Vorname Nachname
 \def\vMatrikelnummer{}                  %% 7-stellige Zahl
-\def\vKursKuerzel{}                     %% Bsp.: TIT20
-\def\vPhasenbezeichnung{}               %% Praxisphase/Theoriephase
-\def\vStudienJahr{}                     %% erste/zweite/dritte
-\def\vDHBWStandort{}                    %% Bsp.: Ravensburg
-\def\vDHBWCampus{}                      %% Bsp.: Friedrichshafen
-\def\vFakultaet{}                       %% Technik/Wirtschaft
-\def\vStudiengang{}                     %% Informationstechnik/...
+\def\vKursKuerzel{TIT20}                     %% Bsp.: TIT20
+\def\vPhasenbezeichnung{Theoriephasen}               %% Praxisphase/Theoriephase
+\def\vStudienJahr{dritte}                     %% erste/zweite/dritte
+\def\vDHBWStandort{Ravensburg}                    %% Bsp.: Ravensburg
+\def\vDHBWCampus{Friedrichshafen}                      %% Bsp.: Friedrichshafen
+\def\vFakultaet{Technik}                       %% Technik/Wirtschaft
+\def\vStudiengang{Informatik}                     %% Informationstechnik/...
+\def\vKurs{TIT20}                     %% IT/...
 
-\def\vBetrieb{}                         %% 
-\def\vBearbeitungsort{}                 %% 
-\def\vAbteilung{}                       %% 
-\def\vBetreuer{}                        %% Vorname Nachname
+\def\vBearbeitungsort{Friedrichshafen}                 %%                       %% 
+\def\vBetreuer{Prof. Dr. Jürgen Schneider}                        %% Vorname Nachname
 
 \def\vAbgabedatum{\today}               %% DD. MONTH YYYY
-\def\vBearbeitungszeitraum{}            %% DD.MM.YYYY - DD.MM.YYYY
+\def\vBearbeitungszeitraum{01.10.2022 -}            %% DD.MM.YYYY - DD.MM.YYYY
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Eigene Kommandos %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -138,6 +142,7 @@
 
   \include{pages/titel}
   % \include{pages/sperrvermerk}
+  \include{pages/gendererklaerung}
   \include{pages/selbststaendigkeitserklaerung}
   \include{pages/abstract}
   \include{pages/inhaltsverzeichnis}
