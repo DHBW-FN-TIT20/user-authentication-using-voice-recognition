@@ -1,0 +1,1 @@
+Parts of this folder require a database (where certain values of the wave files (fft values) are stored)
