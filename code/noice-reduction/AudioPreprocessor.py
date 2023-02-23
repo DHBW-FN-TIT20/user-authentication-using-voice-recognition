@@ -3,14 +3,15 @@ import matplotlib.pyplot as plt
 import librosa
 import librosa.display
 import soundfile as sf
-import scipy
-import os
-import math
-import random
-import pandas as pd
-from tabulate import tabulate
-from pydub import AudioSegment
-from pydub.silence import split_on_silence
+import noisereduce as nr
+# import scipy
+# import os
+# import math
+# import random
+# import pandas as pd
+# from tabulate import tabulate
+# from pydub import AudioSegment
+# from pydub.silence import split_on_silence
 
 class AudioPreprocessor:
 
@@ -82,11 +83,11 @@ class AudioPreprocessor:
     @staticmethod
     def remove_silence(y, sr):
 
-        threshold = 0.02
-        pause_length_in_ms = 100
+        threshold = 0.005
+        pause_length_in_ms = 200
+        keep_at_start_and_end = 50
         counter_below_threshold = 0
         indices_to_remove = []
-        keep_at_start_and_end = 10
         
         for i, amp in enumerate(y):
             if abs(amp) < threshold:
@@ -106,11 +107,21 @@ class AudioPreprocessor:
         sf.write("/Users/johannes/repos/sa-hs-lb-jb/code/noice-reduction/removed_silence.wav", y_, sr)
         AudioPreprocessor.plot(y_, sr)
         return y_, sr
-        
+
+    @staticmethod
+    def remove_noise(y, sr):
+
+        y_ = nr.reduce_noise(y=y, sr=sr)
+
+        sf.write("/Users/johannes/repos/sa-hs-lb-jb/code/noice-reduction/removed_noise.wav", y_, sr)
+        AudioPreprocessor.plot(y_, sr)
+        return y_, sr
+
 
 def main():
-    y, sr = librosa.load("/Users/johannes/repos/sa-hs-lb-jb/code/noice-reduction/download.wav")
+    y, sr = librosa.load("/Users/johannes/repos/sa-hs-lb-jb/code/noice-reduction/martin.wav")
     AudioPreprocessor.plot(y=y, sr=sr)
+    y, sr = AudioPreprocessor.remove_noise(y=y, sr=sr)
     AudioPreprocessor.remove_silence(y=y, sr=sr)
     plt.show()
 
