@@ -81,7 +81,7 @@ class AudioPreprocessor:
         fig.colorbar(mappable=im, shrink=0.65, orientation='horizontal', ax=axs[1])
 
     @staticmethod
-    def remove_silence(y, sr):
+    def remove_silence(y):
 
         threshold = 0.005
         pause_length_in_ms = 200
@@ -104,26 +104,56 @@ class AudioPreprocessor:
 
         y_ = np.delete(y, indices_to_remove)
 
-        sf.write("/Users/johannes/repos/sa-hs-lb-jb/code/noice-reduction/removed_silence.wav", y_, sr)
-        AudioPreprocessor.plot(y_, sr)
-        return y_, sr
+        return y_
 
     @staticmethod
     def remove_noise(y, sr):
 
         y_ = nr.reduce_noise(y=y, sr=sr)
 
-        sf.write("/Users/johannes/repos/sa-hs-lb-jb/code/noice-reduction/removed_noise.wav", y_, sr)
-        AudioPreprocessor.plot(y_, sr)
-        return y_, sr
+        return y_
+
+    @staticmethod
+    def create_frames(y, frame_size, overlap):
+        frames = []
+        if overlap >= frame_size or frame_size <= 0 or overlap < 0:
+            return frames
+
+        index = 0
+        while index + frame_size < y.shape[0]:
+            frames.append(y[index: index + frame_size])
+            index = index + frame_size - overlap
+        
+        return frames
+
+    @staticmethod
+    def window_frames(frames, window_function=np.hamming):
+        windowed_frames = []
+        for frame in frames:
+            windowed_frames.append(frame * window_function(frame.shape[0]))
+        return windowed_frames
+
+    @staticmethod
+    def load_preprocessed_frames(filepath=None, y=None, sr=None):
+
+        if filepath is None and (y is None or sr is None):
+            raise ValueError("Either filepath or y and sr must be given.")
+        
+        if y is None or sr is None:
+            y, sr = librosa.load(filepath)
+
+        y = AudioPreprocessor.remove_noise(y=y, sr=sr)
+        y = AudioPreprocessor.remove_silence(y=y)
+
+        frames = AudioPreprocessor.create_frames(y=y, frame_size=1000, overlap=100)
+        windowed_frames = AudioPreprocessor.window_frames(frames=frames, window_function=np.hanning)
+
+        return windowed_frames
 
 
 def main():
-    y, sr = librosa.load("/Users/johannes/repos/sa-hs-lb-jb/code/noice-reduction/martin.wav")
-    AudioPreprocessor.plot(y=y, sr=sr)
-    y, sr = AudioPreprocessor.remove_noise(y=y, sr=sr)
-    AudioPreprocessor.remove_silence(y=y, sr=sr)
-    plt.show()
+    frames = AudioPreprocessor.load_preprocessed_frames("/Users/johannes/repos/sa-hs-lb-jb/code/noice-reduction/download.wav")
+    print(frames)
 
 if __name__ == '__main__':
     main()
