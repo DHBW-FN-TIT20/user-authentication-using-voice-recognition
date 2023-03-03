@@ -3,13 +3,13 @@ import librosa
 import os
 import tensorflow as tf
 from tensorflow import keras
-from FeatureExtraction import FeatureExtraction
+from FeatureExtractor.FeatureExtractor import FeatureExtractor, Feature
 from DatasetHandler import DatasetHandler
-from AudioPreprocessor import AudioPreprocessor
+from AudioPreprocessor.AudioPreprocessor import AudioPreprocessor
 
 class FeatureEvaluator:
     def __init__(self, dataset_basepath):
-        _, self.n_features = FeatureExtraction.extract_features([], 0)
+        self.n_features = 0
         self.dataset = DatasetHandler(dataset_basepath)
         self.nn_data = ([], [])
         self.total_input_chunks = 0
@@ -17,16 +17,21 @@ class FeatureEvaluator:
         self.nn_data_is_created = False
         self.model_is_created = False
         self.start_at_speaker = 0
+        self.frames_per_chunk = 0
+        self.feature_list = []
 
-    def create_nn_data(self, total_input_chunks, n_speaker, start_at_speaker = 0, start_at_file = 0):
+    def create_nn_data(self, total_input_chunks, frames_per_chunk, n_speaker, start_at_speaker = 0, start_at_file = 0, feature_list = [[Feature.MFCC, 13, [1, 2]], [Feature.LPC, 12, []]]):
+        # [Feature.MFCC, 13, [1, 2]], # MFCC  -> order=13 -> delta 1 and 2
+        # [Feature.LPC, 12, []]       # LPC   -> order=12 -> no deltas
         self.total_input_chunks = total_input_chunks
         self.n_speaker = n_speaker
         self.start_at_speaker = start_at_speaker
         nn_input_chunks_per_speaker = int(total_input_chunks/n_speaker)
-        frames_per_speaker = nn_input_chunks_per_speaker * 20
+        self.frames_per_chunk = frames_per_chunk
+        frames_per_speaker = nn_input_chunks_per_speaker * self.frames_per_chunk
+        self.feature_list = feature_list
 
         all_speakers = []
-        n_features = 0
         for speaker_index in range(0, n_speaker):
             all_speakers.append([])
             file_index = 0
@@ -42,23 +47,25 @@ class FeatureEvaluator:
                 frames = AudioPreprocessor.window_frames(frames=frames)
                 n_frames_of_current_speaker += len(frames)
 
-                features, n_features = FeatureExtraction.extract_features(frames, sr)
+                extractor = FeatureExtractor(frames, sr)
+                features = extractor.extract_features(feature_list)
+                self.n_features = extractor.get_last_feature_count()
 
                 all_speakers[speaker_index] = all_speakers[speaker_index] + features
 
                 file_index += 1
             print()
-
-        X = np.zeros((total_input_chunks, n_features*20))
+        
+        X = np.zeros((total_input_chunks, self.frames_per_chunk*self.n_features))
         y = np.zeros(total_input_chunks, dtype='uint8')
 
         for speaker_index in range(0, n_speaker):
             for chunk_index in range(0, nn_input_chunks_per_speaker):
 
                 input_chunk_list = []
-                for frame_index in range(0, 20):
+                for frame_index in range(0, self.frames_per_chunk):
                     input_chunk_list.append(
-                        (all_speakers[speaker_index][20*chunk_index+frame_index]))
+                        (all_speakers[speaker_index][chunk_index*self.frames_per_chunk+frame_index]))
 
                 X[speaker_index * nn_input_chunks_per_speaker + chunk_index] = np.concatenate(input_chunk_list)
                 y[speaker_index * nn_input_chunks_per_speaker + chunk_index] = speaker_index
@@ -88,7 +95,7 @@ class FeatureEvaluator:
 
             # model takes 20 frames a n_features coefficients
             model = tf.keras.Sequential([
-                tf.keras.layers.Flatten(input_shape=[self.n_features*20]),
+                tf.keras.layers.Flatten(input_shape=[self.n_features*self.frames_per_chunk]),
                 tf.keras.layers.Dense(16, activation=tf.nn.relu),
                 tf.keras.layers.Dense(16, activation=tf.nn.relu),
                 tf.keras.layers.Dense(self.n_speaker, activation=tf.nn.softmax)
@@ -129,14 +136,16 @@ class FeatureEvaluator:
         frames = AudioPreprocessor.create_frames(y=y_, frame_size=500, overlap=100)
         frames = AudioPreprocessor.window_frames(frames=frames)
 
-        mfccs, n_features = FeatureExtraction.extract_features(frames, sr)
+        extractor = FeatureExtractor(frames, sr)
+        features = extractor.extract_features(self.feature_list)
+        n_features = extractor.get_last_feature_count()
 
-        X = np.zeros((int(len(mfccs)/20), n_features*20))
+        X = np.zeros((int(len(features)/self.frames_per_chunk), n_features*self.frames_per_chunk))
 
-        for chunk_index in range(0, int(len(mfccs)/20)):
+        for chunk_index in range(0, int(len(features)/self.frames_per_chunk)):
             input_chunk_list = []
-            for frame_index in range(0, 20):
-                input_chunk_list.append((mfccs[20*chunk_index+frame_index]))
+            for frame_index in range(0, self.frames_per_chunk):
+                input_chunk_list.append((features[chunk_index*self.frames_per_chunk+frame_index]))
             X[chunk_index] = np.concatenate(input_chunk_list)
 
         pred = self.model.predict(X)
