@@ -116,18 +116,20 @@ class FeatureEvaluator:
 
         self.model_is_created = True
 
-    def evaluate_model_with_example(self, speaker_index, file_index):
+    def evaluate_model_with_example(self, speaker_index, file_index, verbose=1):
 
         X, y = self.nn_data
 
         if (not self.model_is_created or self.n_speaker == None or len(X) == 0 or len(y) == 0):
-            print("Error: First create model with create_model()")
+            
+            if verbose == 1: print("Error: First create model with create_model()")
             return
 
-        test_loss, test_acc = self.model.evaluate(X[-int(self.total_input_chunks/6):], y[-int(self.total_input_chunks/6):])
+        if verbose == 1:
+            test_loss, test_acc = self.model.evaluate(X[-int(self.total_input_chunks/6):], y[-int(self.total_input_chunks/6):])
 
-        print(f"Test accuracy: {test_acc}")
-        print(f"Test loss: {test_loss}")
+            print(f"Test accuracy: {test_acc}")
+            print(f"Test loss: {test_loss}")
 
         y_, sr = librosa.load(self.dataset.filepath(speaker_index, file_index))
 
@@ -148,13 +150,64 @@ class FeatureEvaluator:
                 input_chunk_list.append((features[chunk_index*self.frames_per_chunk+frame_index]))
             X[chunk_index] = np.concatenate(input_chunk_list)
 
-        pred = self.model.predict(X)
+        pred = self.model.predict(X, verbose=verbose) 
         result = []
+        hits_correct = 0
+        hits_incorrect = 0
+        hits_on_closest_incorrect_speaker = 0
 
         for speaker_i in range(0, self.n_speaker):
-            print(
-                f"Speaker {speaker_i + self.start_at_speaker}: {np.count_nonzero(np.argmax(pred, axis=1) == speaker_i)}")
+            if verbose == 1: print(f"Speaker {speaker_i + self.start_at_speaker}: {np.count_nonzero(np.argmax(pred, axis=1) == speaker_i)}")
+            hits_on_speaker_i = np.count_nonzero(np.argmax(pred, axis=1) == speaker_i)
             result.append({
                 "speaker": speaker_i + self.start_at_speaker,
-                "count": np.count_nonzero(np.argmax(pred, axis=1) == speaker_i)
+                "count": hits_on_speaker_i
             })
+            if (speaker_i + self.start_at_speaker == speaker_index):
+                hits_correct += hits_on_speaker_i
+            else:
+                hits_incorrect += hits_on_speaker_i
+                if (hits_on_speaker_i > hits_on_closest_incorrect_speaker):
+                    hits_on_closest_incorrect_speaker = hits_on_speaker_i
+
+        # difference between the hits on the correct speaker and the hits on closest incorrect speaker
+        # the bigger the difference, the more confident the model is in its prediction
+        diff_correct_closest_incorrect = hits_correct - hits_on_closest_incorrect_speaker
+        if verbose == 1:
+            print(f"Correct: {hits_correct}, Incorrect: {hits_incorrect}")
+            print(f"Diff correct - closest incorrect: {diff_correct_closest_incorrect}")
+
+        return result, hits_correct, hits_incorrect, diff_correct_closest_incorrect
+
+
+    def evaluate_extensively(self, speaker_indices: list, file_indices: list):
+
+        if (not self.model_is_created or self.n_speaker == None):
+            print("Error: First create model with create_model()")
+            return
+
+        result = []
+        hits_correct = 0
+        hits_incorrect = 0
+        diff_correct_closest_incorrect = 0
+
+        for speaker_index in speaker_indices:
+            for file_index in file_indices:
+                print(f"Evaluating speaker {speaker_index} and file {file_index} (Correct: {hits_correct}, Incorrect: {hits_incorrect})", end="\r")
+                evaluation_result = self.evaluate_model_with_example(speaker_index, file_index, verbose=0)
+                if (evaluation_result == None):
+                    print(f"Error: Evaluation of speaker {speaker_index} and file {file_index} failed")
+                    return
+                r, c, i, d = evaluation_result
+                result.append(r)
+                hits_correct += c
+                hits_incorrect += i
+                diff_correct_closest_incorrect += d
+
+        diff_correct_closest_incorrect /= len(speaker_indices) * len(file_indices)
+
+        print(end="\x1b[2K") # clear line
+        print("Evaluation finished")
+        print(f"Correct: {hits_correct}, Incorrect: {hits_incorrect}")
+        print(f"Average difference between correct and closest incorrect: {diff_correct_closest_incorrect}")
+
