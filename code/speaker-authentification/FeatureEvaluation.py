@@ -19,6 +19,8 @@ class FeatureEvaluator:
         self.start_at_speaker = 0
         self.frames_per_chunk = 0
         self.feature_list = []
+        self.dense_layer_sizes = []
+        self.epochs = 0
 
     def create_nn_data(self, total_input_chunks, frames_per_chunk, n_speaker, start_at_speaker = 0, start_at_file = 0, feature_list = [[Feature.MFCC, 13, [1, 2]], [Feature.LPC, 12, []]]):
         # [Feature.MFCC, 13, [1, 2]], # MFCC  -> order=13 -> delta 1 and 2
@@ -80,43 +82,55 @@ class FeatureEvaluator:
         p = np.random.permutation(len(a))
         return a[p], b[p]
 
-    def create_model(self):
+    def create_model(self, dense_layer_sizes:list=[], epochs:int=0, verbose:int=1):
 
         if (not self.nn_data_is_created):
             print("Error: First create nn data with create_nn_data()")
             return
 
+        # process parameters
+        if (len(dense_layer_sizes) == 0):
+            dense_layer_sizes = [16, 16]
+        self.dense_layer_sizes = dense_layer_sizes
+        if (epochs == 0):
+            epochs = 1000
+        self.epochs = epochs
+
         test_accuracy_achieved = False
         while (not test_accuracy_achieved):
+
+            tf.keras.backend.clear_session()
+
+            dense_layers = []
+            for dense_layer_size in dense_layer_sizes:
+                dense_layers.append(tf.keras.layers.Dense(dense_layer_size, activation=tf.nn.relu))
 
             X, y = self.nn_data
             X, y = self.unison_shuffled_copies(X, y)
             self.nn_data = (X, y)
 
-            # model takes 20 frames a n_features coefficients
             model = tf.keras.Sequential([
                 tf.keras.layers.Flatten(input_shape=[self.n_features*self.frames_per_chunk]),
-                tf.keras.layers.Dense(16, activation=tf.nn.relu),
-                tf.keras.layers.Dense(16, activation=tf.nn.relu),
+                *dense_layers,
                 tf.keras.layers.Dense(self.n_speaker, activation=tf.nn.softmax)
             ])
 
             model.compile(optimizer=tf.optimizers.Adam(), loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-            model.fit(X[int(5*self.total_input_chunks/6):], y[int(5 * self.total_input_chunks/6):], epochs=1000, verbose=0)  # type: ignore
+            model.fit(X[int(5*self.total_input_chunks/6):], y[int(5 * self.total_input_chunks/6):], epochs=epochs, verbose=0) # type: ignore
 
-            test_loss, test_acc = model.evaluate(X[-int(self.total_input_chunks/6):], y[-int(self.total_input_chunks/6):])
-
+            test_loss, test_acc = model.evaluate(X[-int(self.total_input_chunks/6):], y[-int(self.total_input_chunks/6):], verbose=verbose) # type: ignore
+            
             if (test_acc > 0.9):
                 test_accuracy_achieved = True
                 self.model = model
-                print(f"Model accuracy achieved: {test_acc}")
+                if verbose == 1: print(f"Model accuracy achieved: {test_acc}")
             else: 
-                print("Model accuracy not achieved, retrying...")
+                if verbose == 1: print("Model accuracy not achieved, retrying...")
 
         self.model_is_created = True
 
-    def evaluate_model_with_example(self, speaker_index, file_index, verbose=1):
+    def evaluate_model_with_example(self, speaker_index, file_index, verbose: int=1):
 
         X, y = self.nn_data
 
@@ -150,7 +164,7 @@ class FeatureEvaluator:
                 input_chunk_list.append((features[chunk_index*self.frames_per_chunk+frame_index]))
             X[chunk_index] = np.concatenate(input_chunk_list)
 
-        pred = self.model.predict(X, verbose=verbose) 
+        pred = self.model.predict(X, verbose=verbose) # type: ignore
         result = []
         hits_correct = 0
         hits_incorrect = 0
@@ -180,7 +194,7 @@ class FeatureEvaluator:
         return result, hits_correct, hits_incorrect, diff_correct_closest_incorrect
 
 
-    def evaluate_extensively(self, speaker_indices: list, file_indices: list):
+    def evaluate_extensively(self, speaker_indices: list, file_indices: list, rebuild_model_every_iteration=True, verbose:int=0):
 
         if (not self.model_is_created or self.n_speaker == None):
             print("Error: First create model with create_model()")
@@ -194,7 +208,12 @@ class FeatureEvaluator:
         for speaker_index in speaker_indices:
             for file_index in file_indices:
                 print(f"Evaluating speaker {speaker_index} and file {file_index} (Correct: {hits_correct}, Incorrect: {hits_incorrect})", end="\r")
-                evaluation_result = self.evaluate_model_with_example(speaker_index, file_index, verbose=0)
+                
+                # TODO: check if working correctly (maybe out of memory)
+                if rebuild_model_every_iteration:
+                    self.create_model(dense_layer_sizes=self.dense_layer_sizes, epochs=self.epochs, verbose=verbose)
+
+                evaluation_result = self.evaluate_model_with_example(speaker_index, file_index, verbose=verbose)
                 if (evaluation_result == None):
                     print(f"Error: Evaluation of speaker {speaker_index} and file {file_index} failed")
                     return
