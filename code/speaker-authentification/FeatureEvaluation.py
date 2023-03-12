@@ -6,6 +6,7 @@ from tensorflow import keras
 from FeatureExtractor.FeatureExtractor import FeatureExtractor, Feature
 from DatasetHandler import DatasetHandler
 from AudioPreprocessor.AudioPreprocessor import AudioPreprocessor
+import json
 
 class FeatureEvaluator:
     def __init__(self, dataset_basepath):
@@ -230,3 +231,39 @@ class FeatureEvaluator:
         print(f"Correct: {hits_correct}, Incorrect: {hits_incorrect}")
         print(f"Average difference between correct and closest incorrect: {diff_correct_closest_incorrect}")
 
+        # store result in file
+
+        def feature_set_to_string(feature_set):
+            feature_set_string = ""
+            for feature in feature_set:
+                feature_set_string += f"{feature[0].name} {feature[1]} "
+                for i in feature[2]:
+                    feature_set_string += f"{i} "
+                feature_set_string += " |  "
+            return feature_set_string
+
+        result_dict = {
+            "config": {
+                "dense_layer_sizes": self.dense_layer_sizes,
+                "epochs": self.epochs,
+                "frames_per_chunk": self.frames_per_chunk,
+                "feature_list": feature_set_to_string(self.feature_list),
+                "start_at_speaker": self.start_at_speaker,
+                "n_speaker": self.n_speaker,
+                "speaker_indices": speaker_indices,
+                "file_indices": file_indices,
+                "rebuild_model_every_iteration": rebuild_model_every_iteration
+            },
+            "hits_correct": hits_correct,
+            "hits_incorrect": hits_incorrect,
+            "diff_correct_closest_incorrect": diff_correct_closest_incorrect
+        }
+
+        data = []
+        with open("evaluation_results.json", "r") as evaluation_results_file:
+            data = json.load(evaluation_results_file)
+            data.append(result_dict)
+            evaluation_results_file.close()
+        with open("evaluation_results.json", "w") as evaluation_results_file:
+            json.dump(data, evaluation_results_file, indent=2)
+            evaluation_results_file.close()
