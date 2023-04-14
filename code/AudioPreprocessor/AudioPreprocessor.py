@@ -1,6 +1,6 @@
 import numpy as np
-import noisereduce as nr
 import librosa
+import noisereduce as nr
 
 class AudioPreprocessor:
     @staticmethod
@@ -57,6 +57,13 @@ class AudioPreprocessor:
         return array
 
     @staticmethod
+    def remove_noise(y, sr):
+        # prop_decrease 0.8 only reduces noise by 0.8 -> sound quality is better than at 1.0
+        y_ = nr.reduce_noise(y=y, sr=sr, prop_decrease=0.8)
+
+        return y_
+
+    @staticmethod
     def remove_silence(y):
         threshold = 0.005
         pause_length_in_ms = 200
@@ -78,13 +85,6 @@ class AudioPreprocessor:
                 indices_to_remove.append(index)
 
         y_ = np.delete(y, indices_to_remove)
-
-        return y_
-
-    @staticmethod
-    def remove_noise(y, sr):
-        # prop_decrease 0.8 only reduces noise by 0.8 -> sound quality is better than at 1.0
-        y_ = nr.reduce_noise(y=y, sr=sr, prop_decrease=0.8)
 
         return y_
 
@@ -127,10 +127,3 @@ class AudioPreprocessor:
         windowed_frames = AudioPreprocessor.window_frames(frames=frames)
 
         return windowed_frames
-
-def main():
-    frames = AudioPreprocessor.load_preprocessed_frames("./audio.wav")
-    print(frames)
-
-if __name__ == '__main__':
-    main()
