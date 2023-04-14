@@ -30,7 +30,7 @@ class FeatureExtractor:
         """
         feature_set = None
         
-        if feature_list.size > 0:
+        if len(feature_list) > 0:
             for feature_info in feature_list:
                 features = self.extractors[feature_info[0].value].calculate_features(self.frames, self.sr, feature_info[1])
                 if feature_set is None:

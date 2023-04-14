@@ -1,6 +1,6 @@
-
+__pycache__
 .DS_Store
-.vscode/launch.json
+.vscode/*
 code/noice-reduction/martin.wav
 code/noice-reduction/own-sample.wav
 code/noice-reduction/removed_noise.wav
