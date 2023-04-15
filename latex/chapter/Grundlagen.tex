@@ -1,30 +1,33 @@
 \section{Grundlagen}
-- Menschliche Stimme
-- Authentifizierung
-- Audioanalyse und -verarbeitung
-  - Fourier-Transformation
-  - Neuronale Netze
-\subsection{Menschliche Stimme}
 
-\subsection{Audioanalyse und -verarbeitung}
+\subsection{Authentifizierung}
+% TODO: Grundlagen der Authentifizierung (Definition, Verfahren, ...)
+% Heutige Anwendungsbereiche und gängige Verfahren
+% (Wo/Warum) wird Stimmauthentifizierung aktuell eingesetzt?
+% Was wären mögliche Einsatzgebiete?
+\subsection{Menschliche Stimme}
+\subsubsection{Stimmerzeugung}
+\subsubsection{Stimmwahrnehmung}
+
+\subsection{Audioanalyse}
 \subsubsection{Signalvorverarbeitung}
 Um ein gegebenes Audiosignal einheitlich verarbeiten zu können, muss dieses zunächst mittels verschiedener Verfahren vorbereitet werden.
 Ziel dieser Vorverarbeitung ist es, die Effizienz und Effektivität des anschließenden Verarbeitungsprozesses zu erhöhen und somit ein verbessertes Ergebnis zu erzielen \autocite[vgl.][S. 11672]{lokesh_speech_2019}.
-Die Vorverarbeitung im Rahmen dieser Arbeit beinhaltet die vier Schritte Rauschreduzierung, Pausen entfernen, Framing und Windowing, welche in den folgenden Unterkapiteln genauer erläutert werden.
+Die Vorverarbeitung im Rahmen dieser Arbeit beinhaltet die vier Schritte Rauschreduzierung, Pausen entfernen, Framing und Windowing, welche im Folgenden genauer erläutert werden.
 
-\subsubsection{Rauschreduzierung}\label{sec:Rauschreduzierung}
+\paragraph{Rauschreduzierung}\label{sec:Rauschreduzierung}
 Um störende Frequenzen aus dem Audiosignal zu entfernen, wird eine Rauschreduzierungsfunktion verwendet.
 Die in dieser Arbeit verwendete Funktion nutzt den sogenannten Spectral Noise Gate Algorithmus.
 Dabei wird zunächst die Signatur des Rauschens ermittelt.
 Basierend darauf kann das Rauschen anschließend verringert werden \autocite[vgl.][S. 25]{kiapuchinski_spectral_2012}.
 
-\subsubsection{Pausen entfernen}
+\paragraph{Pausen entfernen}
 Die für die Sprecherauthentifizierung relevanten Daten stecken in dem aufgezeichneten Signal der Stimme.
 Sprechpausen innerhalb des Audiosignals enthalten somit keine brauchbaren Informationen, weshalb diese herausgefiltert werden müssen.
 Durch den vorangehenden Schritt der Rauschreduzierung kann hier ein stark vereinfachtes Verfahren gewählt werden.
 Liegt das Signal für einen definierten Zeitraum unterhalb einer definierten Lautstärke, werden die entsprechenden Signalwerte aus dem Gesamtsignal entfernt.
 
-\subsubsection{Framing}\label{sec:Framing}
+\paragraph{Framing}\label{sec:Framing}
 Für eine detaillierte Analyse des Audiosignals muss dieses in kleinere Blöcke unterteilt werden.
 Dieser Prozess wird als Framing bezeichnet.
 Dabei muss zunächst eine einheitliche Blockgröße festgelegt werden.
@@ -32,7 +35,7 @@ Da Stimmsignale aufgrund der Eigenschaften des Vokaltrakts über eine Periode vo
 Zusätzlich wird eine Überlagerungszeit definiert, welche eine Überlappung der einzelnen Blöcke verursacht.
 Durch die Überlappung wird ein Zusammenhang zwischen zwei benachbarten Frames und damit auch den anschließend berechneten Koeffizienten hergestellt \autocite[vgl.][S. 457]{richter_signal_2022}.
 
-\subsubsection{Windowing}
+\paragraph{Windowing}
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth, keepaspectratio]{images/hann_window.png}
@@ -46,11 +49,10 @@ Durch den Nulldurchgang am Anfang und Ende der Fensterfunktion werden die Amplit
 Wird der Schritt des Windowing nicht durchgeführt, führt dies zu einem Phänomen namens spectral leakage.
 Bei der Transformation des Signals von dem Zeitbereich in den Frequenzbereich resultiert der Amplitudensprung an den Blockenden in der Registrierung einer Vielzahl von Frequenzen.
 Wie der Name bereits beschreibt, wird aus einer eindeutigen Frequenz, ein Spektrum aus Frequenzen, die nicht Teil des Signals sind \autocite[vgl.][S. 1296]{wu_new_2012}.
-\subsubsection{FFT/MFCC}
 
 %%%% paste from t3000
 
-\subsection{Fourier Analyse}
+\subsubsection{Fourier Analyse}
 
 Jean-Baptiste Joseph Fourier (1768 - 1830) war ein französischer Mathematiker.
 Er war in seinem Mathematikstudium Schüler von Lagrange, Laplace und Monge und veröffentlichte 1822 seine Arbeit \gqq{Theorie der Analytischen Funktionen}.
@@ -61,7 +63,7 @@ Der Begriff Fourier-Analyse ist in der Literatur hauptsächlich für zwei Dinge 
 Zum einen würdigt er die Rolle Fouriers in der Entwicklung der Mathematik.
 Zum anderen ist er ein Überbegriff für eine Reihe an mathematischen Verfahren, die von Fourier entwickelt wurden \autocite[vgl.][S. 1]{picard_fourier-analyse_1996}.
 
-\subsubsection{Fourier-Reihe}
+\paragraph{Fourier-Reihe}
 
 % Reihenentwicklung einer periodischen Funktion in Funktionsreihe aus Sinus- und Cosinusfunktionen
 
@@ -104,7 +106,7 @@ Die Fourier-Koeffizienten $a_n$ und $b_n$ sagen also aus, wie stark einzelne Fre
 Diese Frequenzanteile sind als Output der Fourier-Reihe zu verstehen und können als Merkmale für periodische Signale verwendet werden.
 $a_0$ ist der Mittelwert der Funktion $s(t)$.
 
-\subsubsection{Kontinuierliche Fourier-Transformation}
+\paragraph{Kontinuierliche Fourier-Transformation}
 
 % Aperiodische Signale werden in kontinuierliches Spektrum zerlegt
 
@@ -131,15 +133,15 @@ Da bei der Weiterverarbeitung in der Regel nur der Normalteil des Spektrums ben�
     \Re(\underline{S}(f)) = \int_{-\infty}^{\infty} s(t) \cdot cos(2\pi ft) dt
 \end{equation}
 
-durchgeführt. \autocite[vgl.][S. 350f]{picard_fourier-analyse_1996}
+durchgeführt \autocite[vgl.][S. 350f]{picard_fourier-analyse_1996}.
 
-\subsubsection{Diskrete Fourier-Transformation}
+\paragraph{Diskrete Fourier-Transformation}
 
 % Diskrete Signale werden in diskretes Spektrum zerlegt
 Bei den bisherigen Analyseverfahren, wurden immer kontinuierliche Signale betrachtet.
 Das heißt, dass für jeden Zeitpunkt $t$ ein Wert $s(t)$ existiert.
 
-Bei der Diskreten Fourier-Transformation (DFT) können diskrete Signale verarbeitet werden, die aus einer Folge von $N$ Werten $s_0, s_1, \dots, s_{N-1}$ bestehen, weshalb diese Methode besonders interessant für elektronisch aufgezeichnete Signale ist.
+Bei der \ac{DFT} können diskrete Signale verarbeitet werden, die aus einer Folge von $N$ Werten ($s_0, s_1, \dots, s_{N-1}$) bestehen, weshalb diese Methode besonders interessant für elektronisch aufgezeichnete Signale ist.
 
 Da keine kontinuierliche Funktion vorliegt, besteht keine Möglichkeit mehr, ein Integral zu bilden, weshalb die Formel jetzt mit einer Summe aufgestellt ist:
 
@@ -147,16 +149,17 @@ Da keine kontinuierliche Funktion vorliegt, besteht keine Möglichkeit mehr, ein
     S_k = \frac{1}{N} \sum_{n=0}^{N-1} s_n \cdot e^{-j2\pi \frac{kn}{N}}
 \end{equation}
 
-Der Output der DFT ist wieder eine komplexe Wertereihe, deren Realteil $\Re(S_k)$ und Imaginärteil $\Im(S_k)$ die Amplitude und Phase der $k$-ten Frequenzkomponente des Signals $s_n$ beschreiben.
+Der Output der \ac{DFT} ist wieder eine komplexe Wertereihe, deren Realteil $\Re(S_k)$ und Imaginärteil $\Im(S_k)$ die Amplitude und Phase der $k$-ten Frequenzkomponente des Signals $s_n$ beschreiben.
 Der Realteil lässt sich durch die Umformung der Formel in die Form
 
 \begin{equation}
     \Re(S_k) = \frac{2}{N} \sum_{n=0}^{N-1} s_n \cdot cos(2\pi \frac{kn}{N})
 \end{equation}
 
-berechnen. \autocite[vgl.][S. 567ff]{smith_scientist_1997}
+berechnen \autocite[vgl.][S. 567ff]{smith_scientist_1997}.
 
 Um auf die jeweiligen Frequenzanteile des Signals zu schließen, können die Output-Bins $S_k$ mit folgender Formel in die Frequenzen $f_k$ umgerechnet werden:
+% TODO: Bins erklären
 
 \begin{equation}
     f_k = \frac{k}{N} \cdot f_s
@@ -166,47 +169,79 @@ wobei $f_s$ die Abtastrate des Signals ist.
 
 \paragraph{Fast Fourier Transformation}
 
-Die Diskrete Fourier-Transformation würde sich nach der obigen Formel implementieren und für jedes Signal nutzen lassen.
-Allerdings ist die Komplexität der DFT mit $\mathcal{O}(N^2)$ sehr hoch, weshalb die Fast Fourier Transformation (FFT) entwickelt wurde, die den gleichen Output liefert, aber mit einer Komplexität von $\mathcal{O}(N log(N))$. \autocite[vgl.][S. 338]{beucher_signale_2011}
+Die \ac{DFT} würde sich nach der obigen Formel implementieren und für jedes Signal nutzen lassen.
+Allerdings ist die Komplexität der \ac{DFT} mit $\mathcal{O}(N^2)$ sehr hoch, weshalb die \ac{FFT} entwickelt wurde, die den gleichen Output liefert, aber mit einer Komplexität von $\mathcal{O}(N log(N))$ \autocite[vgl.][S. 338]{beucher_signale_2011}.
 
-Die Fast Fourier Transformation ist also eine für Computer optimierte Implementierung der Diskreten Fourier-Transformation.
-Eine genaue Erklärung, warum FFT signifikant weniger Berechnungen benötigt, würde für diese Projektarbeit zu sehr ins Detail gehen.
+Die \ac{FFT} ist also eine für Computer optimierte Implementierung der \ac{DFT}.
+Eine genaue Erklärung, warum \ac{FFT} signifikant weniger Berechnungen benötigt, würde für diese Seminararbeit zu sehr ins Detail gehen.
+% TODO: Vlt doch ausführlich erklären
 Einfach gesagt, nutzt der Algorithmus aber die Eigenschaft von Sinus- und Cosinus-Wellen, dass Wellen mehrfacher Frequenz an bestimmten Stellen dieselben Werte annehmen und so nur einmal berechnet werden müssen.
 
-\begin{figure}[H]
+\begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{./fft-advantage.png}
+    \includegraphics[width=0.5\textwidth]{images/fft-advantage.png}
     \caption{Sinuswellen mit 1hz, 2hz, 3hz, 4hz überlagern sich bei $t=0,5$}{Quelle: Eigene Darstellung}
     \label{fig:fft-advantage}
 \end{figure}\noindent
 
-Durch diese Eigenschaft und das rekursive Aufteilen des Signals in gerade und ungerade Datenpunkte spart der Algorithmus sehr viele Berechnungen ein. \autocite[vgl.][S. 643]{oppenheim_discrete-time_1999}
+Durch diese Eigenschaft und das rekursive Aufteilen des Signals in gerade und ungerade Datenpunkte spart der Algorithmus sehr viele Berechnungen ein \autocite[vgl.][S. 643]{oppenheim_discrete-time_1999}.
 
 \newpage
 
-\subsection{MFCC}
+\subsubsection{Mel Frequency Cepstral Coefficients}
+Die \ac{DFT} ist durch das Herausfiltern der vorhandenen Frequenzen bereits gut geeignet, um wesentliche Merkmale, wie die Stimmlage und Stimmfarbe einer Aufzeichnung, zu bestimmen.
+Allerdings werden in der Praxis meistens die \ac{MFCC} benutzt, die zwar auf einer Fourier-Analyse basieren, aber noch weitere Berechnungsschritte erfordern.
 
-Die diskrete Fourieranalyse ist durch das Herausfiltern der vorhandenen Frequenzen bereits gut geeignet, um wesentliche Merkmale, wie die Stimmlage und Stimmfarbe einer Aufzeichnung, zu bestimmen.
-Allerdings werden in der Praxis meistens die Mel Frequency Cepstral Coefficients (MFCC) benutzt, die zwar auf einer Fourier-Analyse basieren, aber noch weitere Berechnungsschritte erfordern.
-
-Der Vorteil von Merkmalen wie MFCC ist zunächst, dass so Audio-Signale mit verschiedenen Längen und Abtastraten besser miteinander verglichen werden können.
-Das liegt daran dass, bei einer Analyse der MFCC eine feste Anzahl Koeffizienten entsteht.
+Der Vorteil von Merkmalen wie \ac{MFCC} ist zunächst, dass so Audio-Signale mit verschiedenen Längen und Abtastraten besser miteinander verglichen werden können.
+Das liegt daran dass, bei einer Analyse der \ac{MFCC} eine feste Anzahl Koeffizienten entsteht.
 Die Anzahl hängt dabei, anders als bei einer Fouriertransformation, nicht von der Frame-Länge und Abtastrate ab.
-Zudem sind die MFCCs mehr auf die menschliche Wahrnehmung von Tönen abgestimmt und robuster gegenüber Hintergrundrauschen.
+Zudem sind die \acp{MFCC} mehr auf die menschliche Wahrnehmung von Tönen abgestimmt und robuster gegenüber Hintergrundrauschen.
 
-Um die Mel Frequency Cepstral Coefficients zu berechnen sind mehrere Schritte nötig:
+Um die Mel Frequency Cepstral Coefficients zu berechnen sind mehrere Schritte nötig \autocite[vgl. ][S. 2]{logan_mel_2000}:
 
 \begin{enumerate}
     \item \textbf{Framing}\\Unterteilen des Signals 20 - 40 ms Abschnitte
-    \item \textbf{Diskrete Fourier-Transformation}\\Bestimmung der Frequenzkomponenten
+    \item \textbf{\ac{DFT}}\\Bestimmung der Frequenzkomponenten
     \item \textbf{Logarithmierung}\\Näher an menschlicher Wahrnehmung
     \item \textbf{Abbildung auf die Mel-Skala\footnote{Das Mel ist eine Maßeinheit für die wahrgenommene Tonhöhe. Das Mel verläuft ab einer gewissen Frequenz logarithmisch und nicht mehr proportional zu Hertz, da ein Mensch die Tonhöhe logarithmisch wahrnimmt.}}\\Zusammenfassung von Frequenzen zu Mel-Bänder mithilfe von Dreiecksfiltern
     \item \textbf{Diskrete Kosinustransformation}\\Ähnlich zur inversen Fourier-Transformation
-\end{enumerate}\autocite[vgl. ][S. 2]{logan_mel_2000}
-
+\end{enumerate}
 %%%%
-\subsubsection{LPC}
+\subsubsection{Linear Predicitve Coding}
+Die Grundlage von \ac{LPC} bildet das \ac{AR} Modell.
+Die \ac{AR} basiert auf dem Konzept der multiplen Regression und wird auf zeitlich veränderliche Prozesse angewandt.
+Dabei wird eine Kriteriumsvariable unter Betrachtung von einer beliebigen Anzahl an Prädiktorvariablen vorhergesagt \autocite[vgl.][S. 37-38]{canela_multiple_2019}.
+Im speziellen Fall der \ac{AR} handelt es sich bei den Prädiktorvariablen um vorhergehende Werte des Prozesses.
+Ein \ac{AR} Modell sagt somit den Wert zu einem Zeitpunkt $n$, basierend auf $p$ Vorgängerwerten des Prozesses voraus.
+Es gilt somit der in Formel~\ref{eq:autoregression} dargestellte Zusammenhang, wobei $\hat{s}_n$ den vorausgesagten Wert, $s_{n-k}$ die vorhergehenden Werte, $a_{k}$ die Regressionsgewichte und $p$ die Anzahl an verwendeten Vorgängerwerten darstellt \autocite[][S. 1304]{atal_effectiveness_1974}.
+\begin{equation}
+  \hat{s}_{n} = \sum_{k=1}^{p} s_{n-k}a_{k}
+  \label{eq:autoregression}
+\end{equation}
 
-\subsubsection{Künstliche Intelligenz}
+Zur Bestimmung der Regressionsgewichte wurden verschiedene rekursive Verfahren entwickelt.
+Neben der Yule-Walker Methode stellt der Burg Algorithmus eine beliebte Alternative dar, welcher in \citeauthor[][S. 443]{marple_new_1980} beschrieben ist.
+% TODO: Formeln evtl. mit in die Arbeit ziehen
+% Evtl: Formeln des Burg Algorithmus auflisten und erklären
+% Evtl: Was hat Yule-Walker und Levinson damit zu tun?
+\newline
+\newline
+Bei dem Verfahren \ac{LPC} wird der Ansatz verfolgt, Rückschlüsse von dem akustischen Signal auf die Stimmerzeugung zu ziehen.
+Dazu wird ein \ac{AR}-Filter verwendet um ein vereinfachtes Modell des menschlichen Stimmtrakts zu erstellen.
+Die Regressionsgewichte $a_k$ entsprechen dabei den \ac{LPC}-Koeffizienten.
+% TODO: Genauer erklären warum die Gewichte eine Rolle spielen -> Stimmerzeugung mit Grundrauschen + Koeffizienten als Filter
+\newline
+\newline
+Bei der Stimmerzeugung spielen die sogenannten Formanten eine Rolle.
+Diese beschreiben die akustische Energie in einem unveränderlichen Frequenzbereich, welche wiederum von den Resonanz- und Interferenzeigenschaften des Artikulationsraums abhängen.
+Dadurch werden bestimmte Frequenzen verstärkt, während andere gedämpft werden \autocite[vgl.][S. 259]{fitch_evolution_2000}.
+Das durch die \ac{LPC}-Koeffizienten erstellte Modell erfasst die Resonanzeigenschaften des Signals, wodurch Rückschlüsse auf die Formanten geschlossen werden können.
+Da die Struktur der Formanten sprecherspezifisch ist, kann der Sprecher somit über die \ac{LPC}-Koeffizienten identifiziert werden \autocite[vgl.][S. 117]{sidorov_text-independent_2010}.
+\newline
+\newline
+Zur Berechnung der \ac{LPC}-Koeffizienten wird zunächst die selbe Annahme wie in Kapitel~\ref{sec:Framing} getroffen, dass sich die Form des Vokaltrakts und das in den Stimmritzen erzeugte Signal über den betrachteten Zeitraum nicht verändert \autocite[vgl.][S. 1304]{atal_effectiveness_1974}.
+Somit lassen sich die Koeffizienten des \ac{AR}-Filters mittels des Burg-Algorithmus berechnen.
+
+\subsection{Neuronale Netze}
 
 
