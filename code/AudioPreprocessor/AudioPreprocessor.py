@@ -1,20 +1,8 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import librosa
-import librosa.display
-import soundfile as sf
 import noisereduce as nr
-# import scipy
-# import os
-# import math
-# import random
-# import pandas as pd
-# from tabulate import tabulate
-# from pydub import AudioSegment
-# from pydub.silence import split_on_silence
 
 class AudioPreprocessor:
-
     @staticmethod
     def int_to_float(array, type=np.float32):
         """
@@ -65,24 +53,18 @@ class AudioPreprocessor:
                     array = type(array / np.max(np.abs(array)) * np.iinfo(type).max)
                 else:
                     array = type(array * np.iinfo(type).max)
+
         return array
 
     @staticmethod
-    def norm_mel(y, sr):
-        mel = librosa.feature.melspectrogram(y=y, sr = sr, n_mels = 80)
-        return np.log10(np.maximum(mel, 1e-10)).T
+    def remove_noise(y, sr):
+        # prop_decrease 0.8 only reduces noise by 0.8 -> sound quality is better than at 1.0
+        y_ = nr.reduce_noise(y=y, sr=sr, prop_decrease=0.8)
 
-    @staticmethod
-    def plot(y, sr):
-        mel = AudioPreprocessor.norm_mel(y, sr)
-        fig, axs = plt.subplots(2, figsize=(10, 8))
-        axs[0].plot(y)
-        im = axs[1].imshow(np.rot90(mel), aspect='auto', interpolation='none')
-        fig.colorbar(mappable=im, shrink=0.65, orientation='horizontal', ax=axs[1])
+        return y_
 
     @staticmethod
     def remove_silence(y):
-
         threshold = 0.005
         pause_length_in_ms = 200
         keep_at_start_and_end = 50
@@ -107,19 +89,14 @@ class AudioPreprocessor:
         return y_
 
     @staticmethod
-    def remove_noise(y, sr):
-
-        y_ = nr.reduce_noise(y=y, sr=sr)
-
-        return y_
-
-    @staticmethod
     def create_frames(y, frame_size, overlap):
         frames = []
+        
         if overlap >= frame_size or frame_size <= 0 or overlap < 0:
             return frames
 
         index = 0
+        
         while index + frame_size < y.shape[0]:
             frames.append(y[index: index + frame_size])
             index = index + frame_size - overlap
@@ -127,15 +104,16 @@ class AudioPreprocessor:
         return frames
 
     @staticmethod
-    def window_frames(frames, window_function=np.hamming):
+    def window_frames(frames, window_function=np.hanning):
         windowed_frames = []
+
         for frame in frames:
             windowed_frames.append(frame * window_function(frame.shape[0]))
+
         return windowed_frames
 
     @staticmethod
     def load_preprocessed_frames(filepath=None, y=None, sr=None):
-
         if filepath is None and (y is None or sr is None):
             raise ValueError("Either filepath or y and sr must be given.")
         
@@ -146,14 +124,6 @@ class AudioPreprocessor:
         y = AudioPreprocessor.remove_silence(y=y)
 
         frames = AudioPreprocessor.create_frames(y=y, frame_size=1000, overlap=100)
-        windowed_frames = AudioPreprocessor.window_frames(frames=frames, window_function=np.hanning)
+        windowed_frames = AudioPreprocessor.window_frames(frames=frames)
 
         return windowed_frames
-
-
-def main():
-    frames = AudioPreprocessor.load_preprocessed_frames("/Users/johannes/repos/sa-hs-lb-jb/code/noice-reduction/download.wav")
-    print(frames)
-
-if __name__ == '__main__':
-    main()

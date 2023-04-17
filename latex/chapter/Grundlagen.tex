@@ -1,4 +1,247 @@
 \section{Grundlagen}
+
+\subsection{Authentifizierung}
+% TODO: Grundlagen der Authentifizierung (Definition, Verfahren, ...)
+% Heutige Anwendungsbereiche und gängige Verfahren
+% (Wo/Warum) wird Stimmauthentifizierung aktuell eingesetzt?
+% Was wären mögliche Einsatzgebiete?
+\subsection{Menschliche Stimme}
+\subsubsection{Stimmerzeugung}
+\subsubsection{Stimmwahrnehmung}
+
+\subsection{Audioanalyse}
+\subsubsection{Signalvorverarbeitung}
+Um ein gegebenes Audiosignal einheitlich verarbeiten zu können, muss dieses zunächst mittels verschiedener Verfahren vorbereitet werden.
+Ziel dieser Vorverarbeitung ist es, die Effizienz und Effektivität des anschließenden Verarbeitungsprozesses zu erhöhen und somit ein verbessertes Ergebnis zu erzielen \autocite[vgl.][S. 11672]{lokesh_speech_2019}.
+Die Vorverarbeitung im Rahmen dieser Arbeit beinhaltet die vier Schritte Rauschreduzierung, Pausen entfernen, Framing und Windowing, welche im Folgenden genauer erläutert werden.
+
+\paragraph{Rauschreduzierung}\label{sec:Rauschreduzierung}
+Um störende Frequenzen aus dem Audiosignal zu entfernen, wird eine Rauschreduzierungsfunktion verwendet.
+Die in dieser Arbeit verwendete Funktion nutzt den sogenannten Spectral Noise Gate Algorithmus.
+Dabei wird zunächst die Signatur des Rauschens ermittelt.
+Basierend darauf kann das Rauschen anschließend verringert werden \autocite[vgl.][S. 25]{kiapuchinski_spectral_2012}.
+
+\paragraph{Pausen entfernen}
+Die für die Sprecherauthentifizierung relevanten Daten stecken in dem aufgezeichneten Signal der Stimme.
+Sprechpausen innerhalb des Audiosignals enthalten somit keine brauchbaren Informationen, weshalb diese herausgefiltert werden müssen.
+Durch den vorangehenden Schritt der Rauschreduzierung kann hier ein stark vereinfachtes Verfahren gewählt werden.
+Liegt das Signal für einen definierten Zeitraum unterhalb einer definierten Lautstärke, werden die entsprechenden Signalwerte aus dem Gesamtsignal entfernt.
+
+\paragraph{Framing}\label{sec:Framing}
+Für eine detaillierte Analyse des Audiosignals muss dieses in kleinere Blöcke unterteilt werden.
+Dieser Prozess wird als Framing bezeichnet.
+Dabei muss zunächst eine einheitliche Blockgröße festgelegt werden.
+Da Stimmsignale aufgrund der Eigenschaften des Vokaltrakts über eine Periode von 10-30 ms stationär sind, wird eine Blockgröße in dieser Zeitordnung verwendet.
+Zusätzlich wird eine Überlagerungszeit definiert, welche eine Überlappung der einzelnen Blöcke verursacht.
+Durch die Überlappung wird ein Zusammenhang zwischen zwei benachbarten Frames und damit auch den anschließend berechneten Koeffizienten hergestellt \autocite[vgl.][S. 457]{richter_signal_2022}.
+
+\paragraph{Windowing}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth, keepaspectratio]{images/hann_window.png}
+  \caption{Von Hann Fensterfunktion \autocite{noauthor_numpyhanning_nodate}}
+  \label{fig:vonHannFenster}
+\end{figure}
+Um die bei der Unterteilung des Audiosignals entstandenen Diskontinuitäten aufzulösen, wird eine Fensterfunktion auf die einzelnen Blöcke angewendet.
+Abbildung~\ref{fig:vonHannFenster} zeigt die von Hann Fensterfunktion, welche neben dem Hamming Fenster zu den typischen Fensterfunktionen in der Audiosignalverarbeitung zählt.
+Durch den Nulldurchgang am Anfang und Ende der Fensterfunktion werden die Amplituden des Blocksignals nach Anwenden der Funktion an den Grenzen auf Null gezogen, wodurch sich ein kontinuierlicher, periodischer Signalverlauf ergibt \autocite[vgl.][S. 462]{richter_signal_2022}.
+
+Wird der Schritt des Windowing nicht durchgeführt, führt dies zu einem Phänomen namens spectral leakage.
+Bei der Transformation des Signals von dem Zeitbereich in den Frequenzbereich resultiert der Amplitudensprung an den Blockenden in der Registrierung einer Vielzahl von Frequenzen.
+Wie der Name bereits beschreibt, wird aus einer eindeutigen Frequenz, ein Spektrum aus Frequenzen, die nicht Teil des Signals sind \autocite[vgl.][S. 1296]{wu_new_2012}.
+
+%%%% paste from t3000
+
+\subsubsection{Fourier Analyse}
+
+Jean-Baptiste Joseph Fourier (1768 - 1830) war ein französischer Mathematiker.
+Er war in seinem Mathematikstudium Schüler von Lagrange, Laplace und Monge und veröffentlichte 1822 seine Arbeit \gqq{Theorie der Analytischen Funktionen}.
+Damit legte er die Grundlagen für die Fourier-Reihe und die Fourier-Transformation.
+Diese Verfahren sind bis heute in der Mathematik und Physik von großer Bedeutung und bilden die Grundlage für die Fourier-Analyse. Fourier gilt daher als einer der wichtigsten Mathematiker aller Zeiten \autocite[vgl.][o. S.]{heinz_klaus_strick_joseph_2012}.
+
+Der Begriff Fourier-Analyse ist in der Literatur hauptsächlich für zwei Dinge verwendet worden.
+Zum einen würdigt er die Rolle Fouriers in der Entwicklung der Mathematik.
+Zum anderen ist er ein Überbegriff für eine Reihe an mathematischen Verfahren, die von Fourier entwickelt wurden \autocite[vgl.][S. 1]{picard_fourier-analyse_1996}.
+
+\paragraph{Fourier-Reihe}
+
+% Reihenentwicklung einer periodischen Funktion in Funktionsreihe aus Sinus- und Cosinusfunktionen
+
+Die Fourier-Reihe ist ein Verfahren, mit dem eine periodische Funktion in eine unendliche Summe von Sinus- und Cosinusfunktionen zerlegt werden kann.
+Wenn ein Signal $s(t)$ folgende Eigenschaften aufweist:
+
+\begin{itemize}
+    \item $s(t)$ ist periodisch mit der Periode $T$ (d.h. $s(t+T) = s(t)$)
+    \item $s(t)$ ist stetig mit endlich vielen Sprungstellen im Intervall $[0,T]$
+    \item $\int_{0}^{\infty} |s(t)| dt < \infty$
+\end{itemize}
+
+dann kann $s(t)$ in
+
+\begin{equation}
+s(t) = \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cdot cos(n\omega_0t) + \sum_{n=1}^{\infty} b_n \cdot sin(n\omega_0t)
+\end{equation}
+
+zerlegt werden, wobei
+
+\begin{equation}
+a_0 = \frac{2}{T} \int_{0}^{T} s(t) dt
+\end{equation}
+
+\begin{equation}
+a_n = \frac{2}{T} \int_{0}^{T} s(t) \cdot cos(n\omega_0t) dt
+\end{equation}
+
+\begin{equation}
+b_n = \frac{2}{T} \int_{0}^{T} s(t) \cdot sin(n\omega_0t) dt
+\end{equation}
+
+\begin{equation}
+\omega_0 = \frac{2\pi}{T}
+\end{equation}
+
+sind \autocite[vgl.][S. 19f]{ries_fourier-reihe_2018}.
+
+Die Fourier-Koeffizienten $a_n$ und $b_n$ sagen also aus, wie stark einzelne Frequenzen in $s(t)$ vorkommen.
+Diese Frequenzanteile sind als Output der Fourier-Reihe zu verstehen und können als Merkmale für periodische Signale verwendet werden.
+$a_0$ ist der Mittelwert der Funktion $s(t)$.
+
+\paragraph{Kontinuierliche Fourier-Transformation}
+
+% Aperiodische Signale werden in kontinuierliches Spektrum zerlegt
+
+Anders als bei der Fourier Reihe, können mit der verallgemeinerten kontinuierlichen Fourier-Transformation auch aperiodische Signale zerlegt werden, die folgende Eigenschaften aufweisen:
+
+\begin{itemize}
+    \item $s(t)$ ist stückweise stetig
+    \item $\int_{-\infty}^{\infty} |s(t)| dt < \infty$
+\end{itemize}
+
+Die Fourier-Transformation liefert eine Transformierte Funktion $\underline{S}(f)$, die als Spektrum des Signals $s(t)$ bezeichnet wird.
+Es wird also die Dimension Zeit $t$ in die Dimension Frequenz $f$ transformiert.
+Die Formel für die Fourier-Transformation lautet:
+
+\begin{equation}
+    \underline{S}(f) = \int_{-\infty}^{\infty} s(t) \cdot e^{-j2\pi ft} dt
+\end{equation}
+
+Wie bereits an der Formel zu erkennen ist, ist das Ergebnis der Fourier-Transformation eine komplexe Funktion mit einem Realteil $\Re(\underline{S}(f))$ und einem Imaginärteil $\Im(\underline{S}(f))$.
+
+Da bei der Weiterverarbeitung in der Regel nur der Normalteil des Spektrums benötigt wird, wird die Fourier-Transformation in der Praxis meistens in der Form
+
+\begin{equation}
+    \Re(\underline{S}(f)) = \int_{-\infty}^{\infty} s(t) \cdot cos(2\pi ft) dt
+\end{equation}
+
+durchgeführt \autocite[vgl.][S. 350f]{picard_fourier-analyse_1996}.
+
+\paragraph{Diskrete Fourier-Transformation}
+
+% Diskrete Signale werden in diskretes Spektrum zerlegt
+Bei den bisherigen Analyseverfahren, wurden immer kontinuierliche Signale betrachtet.
+Das heißt, dass für jeden Zeitpunkt $t$ ein Wert $s(t)$ existiert.
+
+Bei der \ac{DFT} können diskrete Signale verarbeitet werden, die aus einer Folge von $N$ Werten ($s_0, s_1, \dots, s_{N-1}$) bestehen, weshalb diese Methode besonders interessant für elektronisch aufgezeichnete Signale ist.
+
+Da keine kontinuierliche Funktion vorliegt, besteht keine Möglichkeit mehr, ein Integral zu bilden, weshalb die Formel jetzt mit einer Summe aufgestellt ist:
+
+\begin{equation}
+    S_k = \frac{1}{N} \sum_{n=0}^{N-1} s_n \cdot e^{-j2\pi \frac{kn}{N}}
+\end{equation}
+
+Der Output der \ac{DFT} ist wieder eine komplexe Wertereihe, deren Realteil $\Re(S_k)$ und Imaginärteil $\Im(S_k)$ die Amplitude und Phase der $k$-ten Frequenzkomponente des Signals $s_n$ beschreiben.
+Der Realteil lässt sich durch die Umformung der Formel in die Form
+
+\begin{equation}
+    \Re(S_k) = \frac{2}{N} \sum_{n=0}^{N-1} s_n \cdot cos(2\pi \frac{kn}{N})
+\end{equation}
+
+berechnen \autocite[vgl.][S. 567ff]{smith_scientist_1997}.
+
+Um auf die jeweiligen Frequenzanteile des Signals zu schließen, können die Output-Bins $S_k$ mit folgender Formel in die Frequenzen $f_k$ umgerechnet werden:
+% TODO: Bins erklären
+
+\begin{equation}
+    f_k = \frac{k}{N} \cdot f_s
+\end{equation}
+
+wobei $f_s$ die Abtastrate des Signals ist.
+
+\paragraph{Fast Fourier Transformation}
+
+Die \ac{DFT} würde sich nach der obigen Formel implementieren und für jedes Signal nutzen lassen.
+Allerdings ist die Komplexität der \ac{DFT} mit $\mathcal{O}(N^2)$ sehr hoch, weshalb die \ac{FFT} entwickelt wurde, die den gleichen Output liefert, aber mit einer Komplexität von $\mathcal{O}(N log(N))$ \autocite[vgl.][S. 338]{beucher_signale_2011}.
+
+Die \ac{FFT} ist also eine für Computer optimierte Implementierung der \ac{DFT}.
+Eine genaue Erklärung, warum \ac{FFT} signifikant weniger Berechnungen benötigt, würde für diese Seminararbeit zu sehr ins Detail gehen.
+% TODO: Vlt doch ausführlich erklären
+Einfach gesagt, nutzt der Algorithmus aber die Eigenschaft von Sinus- und Cosinus-Wellen, dass Wellen mehrfacher Frequenz an bestimmten Stellen dieselben Werte annehmen und so nur einmal berechnet werden müssen.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/fft-advantage.png}
+    \caption{Sinuswellen mit 1hz, 2hz, 3hz, 4hz überlagern sich bei $t=0,5$}{Quelle: Eigene Darstellung}
+    \label{fig:fft-advantage}
+\end{figure}\noindent
+
+Durch diese Eigenschaft und das rekursive Aufteilen des Signals in gerade und ungerade Datenpunkte spart der Algorithmus sehr viele Berechnungen ein \autocite[vgl.][S. 643]{oppenheim_discrete-time_1999}.
+
+\newpage
+
+\subsubsection{Mel Frequency Cepstral Coefficients}
+Die \ac{DFT} ist durch das Herausfiltern der vorhandenen Frequenzen bereits gut geeignet, um wesentliche Merkmale, wie die Stimmlage und Stimmfarbe einer Aufzeichnung, zu bestimmen.
+Allerdings werden in der Praxis meistens die \ac{MFCC} benutzt, die zwar auf einer Fourier-Analyse basieren, aber noch weitere Berechnungsschritte erfordern.
+
+Der Vorteil von Merkmalen wie \ac{MFCC} ist zunächst, dass so Audio-Signale mit verschiedenen Längen und Abtastraten besser miteinander verglichen werden können.
+Das liegt daran dass, bei einer Analyse der \ac{MFCC} eine feste Anzahl Koeffizienten entsteht.
+Die Anzahl hängt dabei, anders als bei einer Fouriertransformation, nicht von der Frame-Länge und Abtastrate ab.
+Zudem sind die \acp{MFCC} mehr auf die menschliche Wahrnehmung von Tönen abgestimmt und robuster gegenüber Hintergrundrauschen.
+
+Um die Mel Frequency Cepstral Coefficients zu berechnen sind mehrere Schritte nötig \autocite[vgl. ][S. 2]{logan_mel_2000}:
+
+\begin{enumerate}
+    \item \textbf{Framing}\\Unterteilen des Signals 20 - 40 ms Abschnitte
+    \item \textbf{\ac{DFT}}\\Bestimmung der Frequenzkomponenten
+    \item \textbf{Logarithmierung}\\Näher an menschlicher Wahrnehmung
+    \item \textbf{Abbildung auf die Mel-Skala\footnote{Das Mel ist eine Maßeinheit für die wahrgenommene Tonhöhe. Das Mel verläuft ab einer gewissen Frequenz logarithmisch und nicht mehr proportional zu Hertz, da ein Mensch die Tonhöhe logarithmisch wahrnimmt.}}\\Zusammenfassung von Frequenzen zu Mel-Bänder mithilfe von Dreiecksfiltern
+    \item \textbf{Diskrete Kosinustransformation}\\Ähnlich zur inversen Fourier-Transformation
+\end{enumerate}
+%%%%
+\subsubsection{Linear Predicitve Coding}
+Die Grundlage von \ac{LPC} bildet das \ac{AR} Modell.
+Die \ac{AR} basiert auf dem Konzept der multiplen Regression und wird auf zeitlich veränderliche Prozesse angewandt.
+Dabei wird eine Kriteriumsvariable unter Betrachtung von einer beliebigen Anzahl an Prädiktorvariablen vorhergesagt \autocite[vgl.][S. 37-38]{canela_multiple_2019}.
+Im speziellen Fall der \ac{AR} handelt es sich bei den Prädiktorvariablen um vorhergehende Werte des Prozesses.
+Ein \ac{AR} Modell sagt somit den Wert zu einem Zeitpunkt $n$, basierend auf $p$ Vorgängerwerten des Prozesses voraus.
+Es gilt somit der in Formel~\ref{eq:autoregression} dargestellte Zusammenhang, wobei $\hat{s}_n$ den vorausgesagten Wert, $s_{n-k}$ die vorhergehenden Werte, $a_{k}$ die Regressionsgewichte und $p$ die Anzahl an verwendeten Vorgängerwerten darstellt \autocite[][S. 1304]{atal_effectiveness_1974}.
+\begin{equation}
+  \hat{s}_{n} = \sum_{k=1}^{p} s_{n-k}a_{k}
+  \label{eq:autoregression}
+\end{equation}
+
+Zur Bestimmung der Regressionsgewichte wurden verschiedene rekursive Verfahren entwickelt.
+Neben der Yule-Walker Methode stellt der Burg Algorithmus eine beliebte Alternative dar, welcher in \citeauthor[][S. 443]{marple_new_1980} beschrieben ist.
+% TODO: Formeln evtl. mit in die Arbeit ziehen
+% Evtl: Formeln des Burg Algorithmus auflisten und erklären
+% Evtl: Was hat Yule-Walker und Levinson damit zu tun?
+\newline
+\newline
+Bei dem Verfahren \ac{LPC} wird der Ansatz verfolgt, Rückschlüsse von dem akustischen Signal auf die Stimmerzeugung zu ziehen.
+Dazu wird ein \ac{AR}-Filter verwendet um ein vereinfachtes Modell des menschlichen Stimmtrakts zu erstellen.
+Die Regressionsgewichte $a_k$ entsprechen dabei den \ac{LPC}-Koeffizienten.
+% TODO: Genauer erklären warum die Gewichte eine Rolle spielen -> Stimmerzeugung mit Grundrauschen + Koeffizienten als Filter
+\newline
+\newline
+Bei der Stimmerzeugung spielen die sogenannten Formanten eine Rolle.
+Diese beschreiben die akustische Energie in einem unveränderlichen Frequenzbereich, welche wiederum von den Resonanz- und Interferenzeigenschaften des Artikulationsraums abhängen.
+Dadurch werden bestimmte Frequenzen verstärkt, während andere gedämpft werden \autocite[vgl.][S. 259]{fitch_evolution_2000}.
+Das durch die \ac{LPC}-Koeffizienten erstellte Modell erfasst die Resonanzeigenschaften des Signals, wodurch Rückschlüsse auf die Formanten geschlossen werden können.
+Da die Struktur der Formanten sprecherspezifisch ist, kann der Sprecher somit über die \ac{LPC}-Koeffizienten identifiziert werden \autocite[vgl.][S. 117]{sidorov_text-independent_2010}.
+\newline
+\newline
+Zur Berechnung der \ac{LPC}-Koeffizienten wird zunächst die selbe Annahme wie in Kapitel~\ref{sec:Framing} getroffen, dass sich die Form des Vokaltrakts und das in den Stimmritzen erzeugte Signal über den betrachteten Zeitraum nicht verändert \autocite[vgl.][S. 1304]{atal_effectiveness_1974}.
+Somit lassen sich die Koeffizienten des \ac{AR}-Filters mittels des Burg-Algorithmus berechnen.
+
 \subsection{Künstliche Intelligenz}
 \ac{KI} hat in den letzten Jahren stark Aufmerksamkeit gewonnen und gilt als eine der wichtigsten Technologien des 21. Jahrhunderts.
 Spätestens seit der Veröffentlichung und dem Erfolg durch den Chatbot ChatGPT am 30. November 2022 sind die Möglichkeiten von \ac{KI} den meisten Menschen bekannt. ChatGPT hat innerhalb von fünf Tagen die Schwelle von einer Million Nutzer erreicht. Spotify oder Facebook zum Vergleich haben hierfür 5 beziehungsweise 10 Monate benötigt \autocite[vgl. ][]{janson_infografik_2023}.
@@ -20,3 +263,4 @@ Eine weit verbreitete Definition stammt von Elaine Rich die sagt, dass sich \ac{
 \newparagraph
 Aufgrund der Entwicklung seit Mitte des 20. Jahrhunderts gliedert sich das Thema \ac{KI} in viele Teilgebiete.
 % letztes Jahrzent vorallem Fortschritte im Bereich ML / grundsätzlich Lernen, welches relevant ist für Arbeit
+
