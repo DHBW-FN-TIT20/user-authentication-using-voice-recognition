@@ -35,10 +35,10 @@ Dabei gibt es sowohl stimmhafte, als auch stimmlose Konsonanten \autocite[vgl.][
 % INFO: Hier könnte noch genauer auf stimmlose Konsonanten eingegangen werden -> z.B. was Grundfrequenz oder ähnliches angeht.
 
 \subsubsection{Stimmwahrnehmung}
-Im Gegensatz zu der Stimmerzeugung, lässt sich die Stimmwahrnehmung nicht anhand der Anatomie des menschlichen Ohrs erklären.
+Im Gegensatz zu der Stimmerzeugung, lässt sich die Stimmwahrnehmung nicht ausschließlich anhand der Anatomie des menschlichen Ohrs erklären.
 Deshalb werden in diesem Kapitel Eigenschaften der Stimme betrachtet, welche in Verbindung mit der Stimmwahrnehmung stehen.
-Dazu zählen die Konzepte der Grundfrequenz, der Formanten und der Lautstärke.
-% TODO: Alle drei Konzepte genauer erklären
+Dazu zählen die Konzepte der Formanten und der Tonheit.
+% TODO: Satz überarbeiten + gegebenenfalls Tonhöhen- und Lautstärkenwahrnehmung hinzufügen
 
 \paragraph{Formanten}
 Bei der Stimmerzeugung werden bestimmte Frequenzbereiche durch den Vokaltrakt verstärkt.
@@ -49,6 +49,21 @@ Dabei ist die Position der Formanten sowohl von dem jeweiligen Vokal, als auch d
 % Besonders Vokale interessant -> stimmhaft + kontinuierlich/ungehindert, Formanten
 % 
 % INFO: Wichtig für Ausblick -> Bei Einsatz in Telefonie muss das Übertragungsspektrum berücksichtigt werden (kleiner als menschliche Stimme -> Verluste, ggf. von Grundfrequenz) => Schlechtere Qualität / Erkennung
+
+\paragraph{Tonheit}
+In der Psychoakustik unterscheidet sich die wahrgenommene Tonhöhe (auch Tonheit genannt) von der physikalischen Tonhöhe.
+Die physikalische Tonhöhe wird durch die Grundfrequenz eines Tons bestimmt.
+Eine Verdopplung der Grundfrequenz führt dabei zu einer Verdopplung der Tonhöhe.
+Der Mensch nimmt jedoch diese Frequenzdifferenzen unterschiedlich wahr.
+Während für geringe Frequenzen bis zu 500 Hz eine Ton mit doppelter Frequenz auch doppelt so hoch wahrgenommen wird, ist für Töne höherer Frequenz ein größerer Abstand notwendig.
+Aus diesem Grund wurde im Jahr 1937 die Mel-Skala durch Stevens, Volkman und Newmann vorgeschlagen \autocite[vgl.][S. 11]{moser_psychoakustische_2018}.
+Diese verläuft logarithmisch zur Frequenz, was auf den Aufbau der Basilarmembran im Innenohr zurückzuführen ist \autocite[vgl.][S. 54]{kroger_neuronale_2018}.
+Als Bezug zwischen der Frequenz und der Mel-Skala wurde dabei die Frequenz 1000 Hz gewählt, welche 1000 mel entspricht.
+Für die Umrechnung zwischen den beiden Skalen wird folgende Formel verwendet \autocite[vgl.][S. 94-95]{pfister_sprachverarbeitung_2017}:
+\begin{equation}
+    \label{eq:mel}
+    h(f) = 2595 \cdot \log_{10}\left(1 + \frac{f}{700}\right)
+\end{equation}
 
 \subsection{Audioanalyse}
 \subsubsection{Signalvorverarbeitung}
