@@ -6,8 +6,64 @@
 % (Wo/Warum) wird Stimmauthentifizierung aktuell eingesetzt?
 % Was wären mögliche Einsatzgebiete?
 \subsection{Menschliche Stimme}
+
+
 \subsubsection{Stimmerzeugung}
+Die Stimmerzeugung unterteilt sich in zwei Phasen: die Phonation (Stimmbildung) und die Resonanz.
+Bei der Phonation werden die Stimmbänder im Kehlkopf durch den Luftstrom in Schwingung versetzt, wodurch ein Ton (bestehend aus dem Grundton, sowie Obertönen) erzeugt wird.
+Abhängig von der Spannung und Länge der Stimmbänder kann dabei die Tonhöhe des erzeugten Grundtons variiert werden.
+Da sich der Kehlkopf bei Männern während des Stimmbruchs stärker vergrößert, liegt ihre Grundfrequenz tiefer \autocite[vgl.][S. 278-279]{clauss_humanbiologie_2018}.
+
+Der erzeugte Grundton gelangt anschließend in den Vokaltrakt, bestehend aus dem Rachen-, Mund- und Nasenraum.
+Dieser besitzt spezifische Resonanzeigenschaften, wodurch die Frequenzkomponenten des Grundtons verändert (verstärkt oder abgeschwächt) werden.
+Durch die Artikulatoren Zunge, Lippen, Kiefer und Gaumensegel kann der Vokaltrakt und damit dessen Resonanzeigenschaften verändert werden.
+Somit können die verschiedenen Laute, aus denen die Sprache aufgebaut ist, erzeugt werden \autocite[vgl.][S. 13-14]{pfister_sprachverarbeitung_2017}.
+
+In der deutschen und englischen Sprache werden die Buchstaben des Alphabets grundlegend in Vokale und Konsonanten unterteilt.
+Im folgenden werden die beiden Kategorien kurz erläutert.
+
+\paragraph{Vokale}
+Vokale zählen zu den stimmhaften Lauten.
+Das bedeutet, dass hier die Stimmbänder im Kehlkopf einen Grundton erzeugen, welcher durch den Vokaltrakt verstärkt wird.
+Die Luft kann dabei ungehindert durch den Mund ausströmen.
+Die unterschiedlichen Vokale werden besonders durch die Position der Zunge und der Lippen gebildet \autocite[vgl.][S. 14]{pfister_sprachverarbeitung_2017}.
+
+\paragraph{Konsonanten}
+Im Gegensatz zu den Vokalen zeichnen sich Konsonanten dadurch aus, dass der Luftstrom teilweise oder vollständig durch eine Verengung behindert wird.
+Die Verengung wird durch die Artikulatoren erzeugt.
+Dabei gibt es sowohl stimmhafte, als auch stimmlose Konsonanten \autocite[vgl.][S. 15]{pfister_sprachverarbeitung_2017}.
+% INFO: Hier könnte noch genauer auf stimmlose Konsonanten eingegangen werden -> z.B. was Grundfrequenz oder ähnliches angeht.
+
 \subsubsection{Stimmwahrnehmung}
+Im Gegensatz zu der Stimmerzeugung, lässt sich die Stimmwahrnehmung nicht ausschließlich anhand der Anatomie des menschlichen Ohrs erklären.
+Deshalb werden in diesem Kapitel Eigenschaften der Stimme betrachtet, welche in Verbindung mit der Stimmwahrnehmung stehen.
+Dazu zählen die Konzepte der Formanten und der Tonheit.
+% TODO: Satz überarbeiten + gegebenenfalls Tonhöhen- und Lautstärkenwahrnehmung hinzufügen
+
+\paragraph{Formanten}
+Bei der Stimmerzeugung werden bestimmte Frequenzbereiche durch den Vokaltrakt verstärkt.
+Diese Frequenzbereiche werden als Formanten bezeichnet und durch die Attribute (Mitten-)Frequenz, Bandbreite und Amplitude beschrieben.
+Die Formanten werden in aufsteigender Frequenz angeordnet und mit $F_1, F_2, F_3 \dots$ bezeichnet.
+Da die Formanten durch die Resonanzeigenschaften des Vokaltraktes erzeugt werden, sind diese besonders für die Erkennung von Vokalen relevant \autocite[vgl.][S. 19-20]{pfister_sprachverarbeitung_2017}.
+Dabei ist die Position der Formanten sowohl von dem jeweiligen Vokal, als auch dem jeweiligen Sprecher abhängig.
+% Besonders Vokale interessant -> stimmhaft + kontinuierlich/ungehindert, Formanten
+% 
+% INFO: Wichtig für Ausblick -> Bei Einsatz in Telefonie muss das Übertragungsspektrum berücksichtigt werden (kleiner als menschliche Stimme -> Verluste, ggf. von Grundfrequenz) => Schlechtere Qualität / Erkennung
+
+\paragraph{Tonheit}
+In der Psychoakustik unterscheidet sich die wahrgenommene Tonhöhe (auch Tonheit genannt) von der physikalischen Tonhöhe.
+Die physikalische Tonhöhe wird durch die Grundfrequenz eines Tons bestimmt.
+Eine Verdopplung der Grundfrequenz führt dabei zu einer Verdopplung der Tonhöhe.
+Der Mensch nimmt jedoch diese Frequenzdifferenzen unterschiedlich wahr.
+Während für geringe Frequenzen bis zu 500 Hz eine Ton mit doppelter Frequenz auch doppelt so hoch wahrgenommen wird, ist für Töne höherer Frequenz ein größerer Abstand notwendig.
+Aus diesem Grund wurde im Jahr 1937 die Mel-Skala durch Stevens, Volkman und Newmann vorgeschlagen \autocite[vgl.][S. 11]{moser_psychoakustische_2018}.
+Diese verläuft logarithmisch zur Frequenz, was auf den Aufbau der Basilarmembran im Innenohr zurückzuführen ist \autocite[vgl.][S. 54]{kroger_neuronale_2018}.
+Als Bezug zwischen der Frequenz und der Mel-Skala wurde dabei die Frequenz 1000 Hz gewählt, welche 1000 mel entspricht.
+Für die Umrechnung zwischen den beiden Skalen wird folgende Formel verwendet \autocite[vgl.][S. 94-95]{pfister_sprachverarbeitung_2017}:
+\begin{equation}
+    \label{eq:mel}
+    h(f) = 2595 \cdot \log_{10}\left(1 + \frac{f}{700}\right)
+\end{equation}
 
 \subsection{Audioanalyse}
 \subsubsection{Signalvorverarbeitung}
