@@ -3,7 +3,7 @@ import os
 
 configs_structured = {
     "amount_of_frames": [10000, 15000],
-    "size_of_frame": [1000, 1300],
+    "size_of_frame": [400, 600],
     "LPC": {
         "order": [13, 20],
         "weight": [0, 1]
