@@ -1,16 +1,17 @@
 from Controller import Controller
 
-def main():
-    configs = [
-        {
-            "amount_of_frames": 1000,
-            # TODO: add more config
-        }
-    ]
+import json
+import os
 
-    controller = Controller()
-    controller.set_config(configs[0])
-    controller.start()
+def main():
+    with open(os.path.join(os.path.dirname(__file__), "Configs", "configs.json"), "r") as json_file:
+        data = json.load(json_file)
+
+        print(data[0])
+
+        controller = Controller("/home/henry/Downloads/test.csv")
+        controller.set_config(data[0])
+        controller.start()
 
 if __name__ == "__main__":
     main()
