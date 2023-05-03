@@ -1,4 +1,5 @@
 from FeatureExtractor.LPCExtractor import LPCExtractor
+from FeatureExtractor.LPCCExtractor import LPCCExtractor
 from FeatureExtractor.MFCCExtractor import MFCCExtractor
 
 import librosa
@@ -7,7 +8,8 @@ from enum import Enum
 
 class Feature(Enum):
     LPC = 0
-    MFCC = 1
+    LPCC = 1
+    MFCC = 2
 
 class FeatureExtractor:
     def __init__(self, frames, sr):
@@ -15,6 +17,7 @@ class FeatureExtractor:
         self.sr = sr
         self.extractors = [
             LPCExtractor(),
+            LPCCExtractor(),
             MFCCExtractor()
         ]
         self.last_feature_count = 0
