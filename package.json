@@ -1,0 +1,20 @@
+{
+  "name": "sa-hs-lb-jb",
+  "version": "1.0.0",
+  "description": "von Henry Schuler, Lukas Braun und Johannes Brandenburger",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "update-latex-literature": "node ./latex/update-literature"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DHBW-FN-TIT20/sa-hs-lb-jb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DHBW-FN-TIT20/sa-hs-lb-jb/issues"
+  },
+  "homepage": "https://github.com/DHBW-FN-TIT20/sa-hs-lb-jb#readme"
+}
