@@ -298,6 +298,54 @@ Da die Struktur der Formanten sprecherspezifisch ist, kann der Sprecher somit ü
 Zur Berechnung der \ac{LPC}-Koeffizienten wird zunächst die selbe Annahme wie in Kapitel~\ref{sec:Framing} getroffen, dass sich die Form des Vokaltrakts und das in den Stimmritzen erzeugte Signal über den betrachteten Zeitraum nicht verändert \autocite[vgl.][S. 1304]{atal_effectiveness_1974}.
 Somit lassen sich die Koeffizienten des \ac{AR}-Filters mittels des Burg-Algorithmus berechnen.
 
-\subsection{Neuronale Netze}
-
-
+\subsection{Künstliche Intelligenz}
+\ac{KI} hat in den letzten Jahren stark Aufmerksamkeit gewonnen und gilt als eine der wichtigsten Technologien des 21. Jahrhunderts.
+Spätestens seit der Veröffentlichung und dem Erfolg durch den Chatbot ChatGPT am 30. November 2022 sind die Möglichkeiten von \ac{KI} den meisten Menschen bekannt. ChatGPT hat innerhalb von fünf Tagen die Schwelle von einer Million Nutzer erreicht. Spotify oder Facebook zum Vergleich haben hierfür 5 beziehungsweise 10 Monate benötigt \autocite[vgl. ][]{janson_infografik_2023}.
+\newparagraph
+Die Statistik die im Jahre 2022 vom IDC erstellt wurde prognostiziert für die Anwendungsfelder Hardware, Software und IT-Services im Jahre 2024 einen weltweiten Umsatz von 554,3 Milliarden US-Dollar.
+Dies entspricht einer Steigerung von 171 Milliarden US-Dollar (44,6 \%) im Vergleich zum Jahr 2021 \autocite[vgl. ][]{idc_kunstliche_2022}.
+Dies unterstreicht noch einmal die Relevanz von \ac{KI} im aktuellen Zeitalter.
+Doch was ist \ac{KI} und wie ist Sie für diese Arbeit von Relevanz, diese Fragen werden im Folgenden beantwortet.
+% ---- %
+\newparagraph
+Die Idee einer \acl{KI} ist bereits seit Mitte des 20. Jahrhunderts existent. 1955 definierte John McCarthy, einer der Pioniere der \ac{KI}, als erster den Begriff der \acl{KI} wie folgt:
+\begin{quote}
+  \gqq{Ziel der KI ist es, Maschinen zu entwickeln, die sich verhalten, als verfügten sie über Intelligenz.}
+  \autocite[][S. 1]{ertel_grundkurs_2016}
+\end{quote}\noindent
+Aus heutiger Sicht ist diese Definition nicht mehr ausreichend.
+Eine weit verbreitete Definition stammt von Elaine Rich die sagt, dass sich \ac{KI} mit der Entwicklung von Computeralgorithmen befasse, für Probleme, die Menschen im Moment noch besser lösen können \autocite[vgl. ][]{rich_artificial_1983}.
+%Themenfelder KI
+\newparagraph
+Aufgrund der Entwicklung seit Mitte des 20. Jahrhunderts gliedert sich das Thema \ac{KI} in viele Teilgebiete.
+% letztes Jahrzent vorallem Fortschritte im Bereich ML / grundsätzlich Lernen, welches relevant ist für Arbeit
+Die verschiedenen Teilgebiete sind in der Abbildung \ref{fig:KI-Teilgebiete} dargestellt.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/KI_teilgebiete.png}
+    \customcaption{Teilgebiete Künstliche Intelligenz}{\autocite[vgl.][]{noauthor_subsets_nodate}}
+    \label{fig:KI-Teilgebiete}
+\end{figure}\noindent
+Insbesondere das Thema \ac{ML} hat in den letzten zehn Jahren viel Beachtung gefunden. 
+\ac{ML} spielt für diese Studienarbeit eine entscheidende Rolle und wird deshalb im folgenden genauer betrachtet.
+\newline
+\ac{ML} ist nicht neu, bereits in den 1950er Jahren wurden von Arthur Lee Samuels die ersten \ac{ML} Programme entwickelt \autocite[vgl.][S. 5]{judith_hurwitz_machine_2018}.
+Der Aufschwung von \ac{ML} im letzten Jahrzehnt ist auf steigende und bezahlbare Rechenleistung bzw. Speichergrößen zurückzuführen.
+\ac{ML} beschreibt den Prozess bei dem Computeralgorithmen trainiert werden, um ihre Leistung bei einer bestimmten Aufgabe zu verbessern ohne das dies explizit programmiert werden muss.
+Hierzu werden dem Computer Daten bereitgestellt aus welchen er lernt.
+Der Computer kann anschließend aus den Daten gewonnenen Erkenntnisse nutzen, um Vorhersagen für neue Daten zu treffen \autocite[vgl.][S. 4]{judith_hurwitz_machine_2018}.
+% Beispielsweise wird dem Computer eine Liste mit Häusern, deren Eigenschaften (z.B. Anzahl Zimmer, Wohnfläche, Alter und Standort) und einem Verkaufspreis zu Verfügung gestellt.
+% Mit \ac{ML} wird ein Modell trainiert, das die Auswirkungen der Eigenschaften auf den Verkaufspreis analysiert.
+% Dieses Modell kann verwendet werden, um den Verkaufspreis von anderen Häusern vorherzusagen.
+Die Vorhersagen stimmen nicht immer zu 100 \%, die Vorhersagegenauigkeit hängt von verschiedenen Faktoren ab, welche je nach Anwendungsfall variieren.
+\newline
+\ac{ML} lässt sich in die drei Kategorien überwachtes Lernen, unüberwachtes Lernen und verstärktes Lernen gliedern.
+Beim überwachten Lernen besteht der Trainingsdatensatz aus Eingabewerten und gewünschten Ausgabewerten.
+Der Algorithmus generiert eine Abbildungsfunktion, die die Eingabewerte auf die Ausgabewerte abbildet.
+Der Computer wird sozusagen unterrichtet, Vorhersagen für zukünftige Daten auf Grundlage von Bestandsdaten zu erstellen \autocite[vgl][S. 11]{thakkar_beginning_2019}.
+Im Gegensatz dazu besteht der Trainingsdatensatz beim unüberwachten Lernen nur aus unmarkierten Eingabewerten.
+Das Ziel von unüberwachtem Lernen besteht darin Muster oder Strukturen zu erkennen.
+Der Computer unterrichtet sich sozusagen selbst \autocites[vgl.][S. 11-12]{thakkar_beginning_2019}[vgl.][S. 6]{etaati_machine_2019}.
+Verstärktes Lernen ist ein verhaltensbasiertes Lernmodell.
+Hierzu interagiert der Lernalgorithmus mit der Umgebung und erhält Belohnungen, wenn er die gewünschten Ergebnisse erzielt. 
+Der Computer erlernt so das ideale Verhalten innerhalb der Umgebung \autocite[vgl][S. 12]{thakkar_beginning_2019}.
