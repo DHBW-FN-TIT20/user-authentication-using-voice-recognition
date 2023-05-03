@@ -23,6 +23,7 @@ configs_structured = {
 }
 
 configs_flat = []
+config_id = 0
 for amount_of_frames in configs_structured["amount_of_frames"]:
     for size_of_frame in configs_structured["size_of_frame"]:
         for LPC_order in configs_structured["LPC"]["order"]:
@@ -34,17 +35,19 @@ for amount_of_frames in configs_structured["amount_of_frames"]:
                                 for delta_MFCC_order in configs_structured["delta_MFCC"]["order"]:
                                     for delta_MFCC_weight in configs_structured["delta_MFCC"]["weight"]:
                                         configs_flat.append({
+                                            "id": config_id,
                                             "amount_of_frames": amount_of_frames,
                                             "size_of_frame": size_of_frame,
-                                            "LPC_order": LPC_order,
-                                            "LPC_weight": LPC_weight,
-                                            "MFCC_order": MFCC_order,
-                                            "MFCC_weight": MFCC_weight,
-                                            "LPCC_order": LPCC_order,
-                                            "LPCC_weight": LPCC_weight,
-                                            "delta_MFCC_order": delta_MFCC_order,
-                                            "delta_MFCC_weight": delta_MFCC_weight
+                                            "lpc_order": LPC_order,
+                                            "lpc_weight": LPC_weight,
+                                            "mfcc_order": MFCC_order,
+                                            "mfcc_weight": MFCC_weight,
+                                            "lpcc_order": LPCC_order,
+                                            "lpcc_weight": LPCC_weight,
+                                            "delta_mfcc_order": delta_MFCC_order,
+                                            "delta_mfcc_weight": delta_MFCC_weight
                                         })
+                                        config_id += 1
 
 # store it in the same directory as this file
 with open(os.path.join(os.path.dirname(__file__), "configs.json"), "w") as f:
