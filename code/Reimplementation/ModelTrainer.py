@@ -34,6 +34,8 @@ class ModelTrainer:
 
         # shuffle dataset
         X, y = self.unison_shuffled_copies(self.training_data["X"], self.training_data["y"])
+        self.training_data["X"] = X
+        self.training_data["y"] = y
 
         # create hidden/dense layers
         hidden_layer = []
