@@ -1,29 +1,94 @@
 import os
+from pathlib import Path
+import librosa
+import numpy as np
+import soundfile as sf
 
 basePath = "/home/henry/Downloads/archive/50_speakers_audio_data"
+targetPath = "/home/henry/Downloads/audio_dataset"
 
-# get all folder names in basePath
-folders = os.listdir(basePath)
+def rename_files(basePath):
+    # get all folder names in basePath
+    folders = os.listdir(basePath)
 
-# loop through all folders
-for folder in folders:
-    # get speaker number (last two digits of folder name)
-    speaker_number = int(folder[-2:])
+    # loop through all folders
+    for folder in folders:
+        # get speaker number (last two digits of folder name)
+        speaker_number = int(folder[-2:])
 
-    # replace folder 50 with 22 (missing folder)
-    if speaker_number == 50:
-        speaker_number = 22
-    
-    # rename folder
-    os.rename(os.path.join(basePath, folder), os.path.join(basePath, f"Speaker{speaker_number:04}"))
+        # replace folder 50 with 22 (missing folder)
+        if speaker_number == 50:
+            speaker_number = 22
+        
+        # rename folder
+        os.rename(os.path.join(basePath, folder), os.path.join(basePath, f"Speaker{speaker_number:04}"))
 
-    # get all files in folder
-    files = os.listdir(os.path.join(basePath, f"Speaker{speaker_number:04}"))
+        # get all files in folder
+        files = os.listdir(os.path.join(basePath, f"Speaker{speaker_number:04}"))
 
-    # loop through all files
-    for file in files:
-        # get file number
-        file_number = int(file.split("_")[-1].split(".")[0])
+        # loop through all files
+        for file in files:
+            # get file number
+            file_number = int(file.split("_")[-1].split(".")[0])
 
-        # rename file
-        os.rename(os.path.join(basePath, f"Speaker{speaker_number:04}", file), os.path.join(basePath, f"Speaker{speaker_number:04}", f"Speaker{speaker_number:02}_{file_number:04}.wav"))
+            # rename file
+            os.rename(os.path.join(basePath, f"Speaker{speaker_number:04}", file), os.path.join(basePath, f"Speaker{speaker_number:04}", f"Speaker{speaker_number:02}_{file_number:04}.wav"))
+
+def create_dataset(sourcePath, targetPath):
+    """
+    sourcePath: path to the 50_speaker_audio_data folder
+    targetPath: custom new folder to save the dataset
+    """
+    used_speaker_numbers = [11, 12, 13, 14, 15, 17, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 33, 37, 38, 39]
+
+    new_speaker_index = 0
+
+    for speaker_number in used_speaker_numbers:
+        speaker_source_path = os.path.join(sourcePath, f"Speaker{speaker_number:04}")
+
+        target_folder = os.path.join(targetPath, f"Speaker{new_speaker_index:04}")
+        # mkdir if not exists
+        if not os.path.exists(target_folder):
+            Path(target_folder).mkdir(parents=True, exist_ok=True)
+
+        # count files in folder
+        files = os.listdir(speaker_source_path)
+        file_count = len(files)
+
+        # TRAINING DATA
+        # combine files 0 - file_count - 4
+        # create float32 array
+        training_data = np.array([], dtype=np.float32)
+        sr = 0
+        for i in range(file_count - 4):
+            # load file
+            file_path = os.path.join(speaker_source_path, f"Speaker{speaker_number:02}_{i:04}.wav")
+            y, sr = librosa.load(file_path)
+            training_data = np.append(training_data, y)
+            
+        # save file
+        target_file_path = os.path.join(target_folder, f"Training_Speaker{new_speaker_index:02}.wav")
+        sf.write(target_file_path, training_data, sr, subtype='PCM_24')
+        print(f"New speaker {new_speaker_index:02} with {len(training_data)/sr/60:.2f} minutes of training data.")
+
+
+        # VALIDATION DATA
+        val_file_index = 0
+        for i in range(file_count - 4, file_count - 1):
+            # load file
+            file_path = os.path.join(speaker_source_path, f"Speaker{speaker_number:02}_{i:04}.wav")
+            y, sr = librosa.load(file_path)
+            
+            current_limit = 15*sr
+            while current_limit < len(y):
+                # save file
+                target_file_path = os.path.join(target_folder, f"Validation_Speaker{new_speaker_index:02}_{val_file_index:04}.wav")
+                sf.write(target_file_path, y[current_limit - 15*sr:current_limit], sr, subtype='PCM_24')
+
+                current_limit += 15*sr
+                val_file_index += 1
+
+        new_speaker_index += 1
+
+if __name__ == "__main__":
+    create_dataset(basePath, targetPath)
