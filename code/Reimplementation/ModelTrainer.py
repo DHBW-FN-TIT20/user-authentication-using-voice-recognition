@@ -77,7 +77,7 @@ class ModelTrainer:
         self.neural_network_id = neural_network_id
 
     def get_training_data(self):
-        return self.training_data
+        return (self.training_data["X"], self.training_data["y"])
 
     def set_training_data(self, X, y):
         self.training_data = { "X": X, "y": y }
