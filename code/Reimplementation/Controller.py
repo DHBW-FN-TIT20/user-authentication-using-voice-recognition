@@ -80,8 +80,8 @@ class Controller:
         # COLLECTING TRAINING DATA
         print("Collecting training data for all 20 speakers.")
 
-        training_X = np.array([])
-        training_y = np.array([])
+        training_X = None
+        training_y = None
 
         for speaker_id in range(20):
             print(f"Collecting training data for speaker {speaker_id} ...")
@@ -92,8 +92,15 @@ class Controller:
 
             if features is not None:
                 # append features to X and y
-                training_X = np.append(training_X, features)
-                training_y = np.append(training_y, np.full(len(features), speaker_id))
+                if training_X is None:
+                    training_X = features
+                else:
+                    training_X = np.concatenate((training_X, features), axis=0)
+                
+                if training_y is None:
+                    training_y = np.full(len(features), speaker_id)
+                else:
+                    training_y = np.concatenate((training_y, np.full(len(features), speaker_id)), axis=0)
 
         print("Training data collected.")
 
