@@ -2,6 +2,7 @@ from ModelTrainer import ModelTrainer
 from Evaluator import Evaluator
 import json
 import os
+import tensorflow as tf
 
 class Serializer:
     def __init__(self, folder_path):
