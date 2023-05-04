@@ -4,12 +4,15 @@ import librosa
 import numpy as np
 import soundfile as sf
 
-basePath = "/home/henry/Downloads/archive/50_speakers_audio_data"
-targetPath = "/home/henry/Downloads/audio_dataset"
+# base_path = "/home/henry/Downloads/archive/50_speakers_audio_data"
+# target_path = "/home/henry/Downloads/audio_dataset"
 
-def rename_files(basePath):
-    # get all folder names in basePath
-    folders = os.listdir(basePath)
+base_path = os.path.join(os.path.dirname(__file__), "data", "50_speakers_audio_data")
+target_path = os.path.join(os.path.dirname(__file__), "data", "audio_dataset")
+
+def rename_files(base_path):
+    # get all folder names in base_path
+    folders = os.listdir(base_path)
 
     # loop through all folders
     for folder in folders:
@@ -21,10 +24,10 @@ def rename_files(basePath):
             speaker_number = 22
         
         # rename folder
-        os.rename(os.path.join(basePath, folder), os.path.join(basePath, f"Speaker{speaker_number:04}"))
+        os.rename(os.path.join(base_path, folder), os.path.join(base_path, f"Speaker{speaker_number:04}"))
 
         # get all files in folder
-        files = os.listdir(os.path.join(basePath, f"Speaker{speaker_number:04}"))
+        files = os.listdir(os.path.join(base_path, f"Speaker{speaker_number:04}"))
 
         # loop through all files
         for file in files:
@@ -32,12 +35,12 @@ def rename_files(basePath):
             file_number = int(file.split("_")[-1].split(".")[0])
 
             # rename file
-            os.rename(os.path.join(basePath, f"Speaker{speaker_number:04}", file), os.path.join(basePath, f"Speaker{speaker_number:04}", f"Speaker{speaker_number:02}_{file_number:04}.wav"))
+            os.rename(os.path.join(base_path, f"Speaker{speaker_number:04}", file), os.path.join(base_path, f"Speaker{speaker_number:04}", f"Speaker{speaker_number:02}_{file_number:04}.wav"))
 
-def create_dataset(sourcePath, targetPath):
+def create_dataset(sourcePath, target_path):
     """
     sourcePath: path to the 50_speaker_audio_data folder
-    targetPath: custom new folder to save the dataset
+    target_path: custom new folder to save the dataset
     """
     used_speaker_numbers = [11, 12, 13, 14, 15, 17, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 33, 37, 38, 39]
 
@@ -46,7 +49,7 @@ def create_dataset(sourcePath, targetPath):
     for speaker_number in used_speaker_numbers:
         speaker_source_path = os.path.join(sourcePath, f"Speaker{speaker_number:04}")
 
-        target_folder = os.path.join(targetPath, f"Speaker{new_speaker_index:04}")
+        target_folder = os.path.join(target_path, f"Speaker{new_speaker_index:04}")
         # mkdir if not exists
         if not os.path.exists(target_folder):
             Path(target_folder).mkdir(parents=True, exist_ok=True)
@@ -104,8 +107,6 @@ def split_to_eight_min(sourcePath):
         j += 1
         sf.write(os.path.join(sourcePath, f"Speaker{i:04}", f"Training_Speaker{i:02}_{j:02}.wav"), y[current_limit:], sr, subtype='PCM_24')
        
-
-
 if __name__ == "__main__":
-    # create_dataset(basePath, targetPath)
-    split_to_eight_min(targetPath)
+    # create_dataset(base_path, target_path)
+    split_to_eight_min(target_path)
