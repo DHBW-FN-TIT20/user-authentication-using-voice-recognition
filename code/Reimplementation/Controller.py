@@ -152,8 +152,7 @@ class Controller:
 
             print("Start evaluating network.")
 
-            evaluator = Evaluator(neural_network, neural_network_id)
-            evaluator.set_test_data(test_X, test_y)
+            evaluator = Evaluator(neural_network, neural_network_id, test_X, test_y)
             evaluator.evaluate()
             results = evaluator.get_results()
 
