@@ -52,7 +52,18 @@ class Controller:
 
         extractor = FeatureExtractor(frames=windowed_frames, sr=sr)
 
-        return extractor.extract_features(feature_list=feature_list)
+        features = extractor.extract_features(feature_list=feature_list)
+
+        # cluster 10 frames into 1
+        print("Clustering features ...")
+
+        clustered_features = []
+
+        for i in range(int(len(features) / 10)):
+            clustered_features.append(np.concatenate((features[i*10:(i+1)*10]), axis=0))
+
+        return clustered_features
+
 
     def start(self):
         # INITIALIZATION

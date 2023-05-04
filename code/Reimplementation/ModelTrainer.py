@@ -52,7 +52,7 @@ class ModelTrainer:
         model.compile(optimizer=tf.optimizers.Adam(), loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
         # train model
-        model.fit(X, y, epochs=epochs, verbose=0) # type: ignore
+        model.fit(X, y, epochs=epochs) # type: ignore
 
         # evaluate model (only if needed)
         # loss, accuracy = model.evaluate(X, y, verbose=0)
