@@ -9,7 +9,7 @@ def main():
 
         print(data[0])
 
-        controller = Controller("/home/henry/Downloads/test.csv")
+        controller = Controller(os.path.join(os.path.dirname(__file__), "results.csv"))
         controller.set_config(data[0])
         controller.start()
 

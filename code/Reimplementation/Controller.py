@@ -7,12 +7,13 @@ from Serializer import Serializer
 
 import numpy as np
 import librosa
+import os
 
 class Controller:
     def __init__(self, csv_path):
         self.config = None
-        self.data_path = "/home/henry/Downloads/audio_dataset"
-        self.serialize_base_path="/home/henry/Downloads/serialized"
+        self.data_path = os.path.join(os.path.dirname(__file__), "..", "data", "audio_dataset")
+        self.serialize_base_path = os.path.join(os.path.dirname(__file__), "serializations")
         self.csv_path = csv_path
 
     def append_results_to_csv(self, test_results, neural_network_id):
