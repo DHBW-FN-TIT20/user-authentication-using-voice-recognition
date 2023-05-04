@@ -39,8 +39,8 @@ class ModelTrainer:
 
         # create hidden/dense layers
         hidden_layer = []
-        for neurons in hidden_layer_neurons:
-            hidden_layer.append(tf.keras.layers.Dense(neurons, activation=tf.nn.relu))
+        for i, neurons in enumerate(hidden_layer_neurons):
+            hidden_layer.append(tf.keras.layers.Dense(neurons, activation=tf.nn.relu, name=f"hidden_layer_{i}"))
         
         # create model
         tf.keras.backend.clear_session()
