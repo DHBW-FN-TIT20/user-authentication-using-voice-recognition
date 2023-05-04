@@ -16,7 +16,7 @@ def main():
     #     controller.set_config(config)
     #     controller.start()
 
-    controller.set_config(configs[42])
+    controller.set_config(configs[1])
     controller.start()
 
 if __name__ == "__main__":
