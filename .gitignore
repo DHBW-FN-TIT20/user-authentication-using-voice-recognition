@@ -4,5 +4,6 @@ __pycache__
 code/noice-reduction/martin.wav
 code/noice-reduction/own-sample.wav
 code/noice-reduction/removed_noise.wav
+code/Reimplementation/serializations/
 *.wav
 *.pdf
