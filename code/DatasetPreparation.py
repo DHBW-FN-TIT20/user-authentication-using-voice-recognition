@@ -90,5 +90,22 @@ def create_dataset(sourcePath, targetPath):
 
         new_speaker_index += 1
 
+def split_to_eight_min(sourcePath):
+    for i in range(20):
+        file_path = os.path.join(sourcePath, f"Speaker{i:04}", f"Training_Speaker{i:02}.wav")
+
+        y, sr = librosa.load(file_path)
+
+        current_limit = 8*60*sr
+        print(current_limit)
+
+        j = 0
+        sf.write(os.path.join(sourcePath, f"Speaker{i:04}", f"Training_Speaker{i:02}_{j:02}.wav"), y[0:current_limit], sr, subtype='PCM_24')
+        j += 1
+        sf.write(os.path.join(sourcePath, f"Speaker{i:04}", f"Training_Speaker{i:02}_{j:02}.wav"), y[current_limit:], sr, subtype='PCM_24')
+       
+
+
 if __name__ == "__main__":
-    create_dataset(basePath, targetPath)
+    # create_dataset(basePath, targetPath)
+    split_to_eight_min(targetPath)

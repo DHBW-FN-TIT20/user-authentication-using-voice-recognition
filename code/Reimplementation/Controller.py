@@ -37,7 +37,7 @@ class Controller:
         y = audio_preprocessor.remove_silence(y)
         y = audio_preprocessor.remove_noise(y, sr)
 
-        frames = audio_preprocessor.create_frames(y=y, frame_size=self.config["size_of_frame"], overlap=0.5)
+        frames = audio_preprocessor.create_frames(y=y, frame_size=int(self.config["size_of_frame"]), overlap=int(0.5 * int(self.config["size_of_frame"])))
 
         if limit_frames:
             if len(frames) < self.config["amount_of_frames"]:
@@ -86,13 +86,14 @@ class Controller:
         for speaker_id in range(20):
             print(f"Collecting training data for speaker {speaker_id} ...")
 
-            training_file_path = ds_handler.get_training_file_path(speaker_id)
+            training_file_path = ds_handler.get_training_file_path(speaker_id, 0)
 
             features = self.extract_features(training_file_path, speaker_id, feature_list, limit_frames=True)
 
-            # append features to X and y
-            training_X = np.append(training_X, features)
-            training_y = np.append(training_y, np.full(len(features), speaker_id))
+            if features is not None:
+                # append features to X and y
+                training_X = np.append(training_X, features)
+                training_y = np.append(training_y, np.full(len(features), speaker_id))
 
         print("Training data collected.")
 
@@ -106,13 +107,14 @@ class Controller:
             print(f"Collecting test data for speaker {speaker_id} ...")
 
             for i in range(5):
-                test_file_path = ds_handler.get_test_file_path(speaker_id, i)
+                test_file_path = ds_handler.get_validation_file_path(speaker_id, i)
 
                 features = self.extract_features(test_file_path, speaker_id, feature_list, limit_frames=False)
 
-                # add X and y to the lists
-                test_X.append(features)
-                test_y.append(np.full(len(features), speaker_id))
+                if features is not None:
+                    # add X and y to the lists
+                    test_X.append(features)
+                    test_y.append(np.full(len(features), speaker_id))
 
         print("Test data collected.")
 
