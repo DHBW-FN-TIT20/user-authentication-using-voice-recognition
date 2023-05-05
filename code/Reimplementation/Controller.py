@@ -5,6 +5,7 @@ from ModelTrainer import ModelTrainer
 from Evaluator import Evaluator
 from Serializer import Serializer
 
+import time
 import numpy as np
 import librosa
 import os
@@ -29,7 +30,7 @@ class Controller:
     def set_config(self, config):
         self.config = config
 
-    def extract_features(self, file_path, speaker_id, feature_list, limit_frames=True):
+    def extract_features(self, file_path, speaker_id, feature_list, limit_frames=True, multiprocessing=False):
         audio_preprocessor = AudioPreprocessor()
 
         # load and preprocess file
@@ -52,7 +53,7 @@ class Controller:
 
         extractor = FeatureExtractor(frames=windowed_frames, sr=sr)
 
-        features = extractor.extract_features(feature_list=feature_list)
+        features = extractor.extract_features(feature_list=feature_list, multiprocessing=multiprocessing)
 
         # cluster 10 frames into 1
         print("Clustering features ...")
@@ -94,12 +95,15 @@ class Controller:
         training_X = None
         training_y = None
 
+        # TEMP: time measurement
+        start_time = time.time()
+
         for speaker_id in range(20):
             print(f"Collecting training data for speaker {speaker_id} ...")
 
             training_file_path = ds_handler.get_training_file_path(speaker_id, 0)
 
-            features = self.extract_features(training_file_path, speaker_id, feature_list, limit_frames=True)
+            features = self.extract_features(training_file_path, speaker_id, feature_list, limit_frames=True, multiprocessing=True)
 
             if features is not None:
                 # append features to X and y
@@ -127,7 +131,7 @@ class Controller:
             for i in range(5):
                 test_file_path = ds_handler.get_validation_file_path(speaker_id, i)
 
-                features = self.extract_features(test_file_path, speaker_id, feature_list, limit_frames=False)
+                features = self.extract_features(test_file_path, speaker_id, feature_list, limit_frames=False, multiprocessing=False)
 
                 if features is not None:
                     # add X and y to the lists
@@ -135,6 +139,10 @@ class Controller:
                     test_y.append(np.full(len(features), speaker_id))
 
         print("Test data collected.")
+
+        # TEMP: time measurement
+        end_time = time.time()
+        print(f"##### Time needed for collecting data: {end_time - start_time} seconds.")
 
         # TRAINING
         # execute training 3 times with different sorted training data
