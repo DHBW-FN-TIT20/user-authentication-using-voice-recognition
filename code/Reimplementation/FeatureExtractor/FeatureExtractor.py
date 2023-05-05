@@ -36,14 +36,17 @@ class FeatureExtractor:
         if len(feature_list) > 0:
             for feature_info in feature_list:
                 features = self.extractors[feature_info[0].value].calculate_features(self.frames, self.sr, feature_info[1])
-                if feature_set is None:
-                    feature_set = np.array(features)
-                else:
-                    np.concatenate((feature_set, np.array(features)), axis=1)
                 
                 for delta in feature_info[2]:
-                    delta_features = librosa.feature.delta(np.array(features), order=delta, mode='nearest')
-                    np.concatenate((feature_set, delta_features), axis=1)
+                    if delta == 0:
+                        delta_features = features
+                    else:
+                        delta_features = librosa.feature.delta(np.array(features), order=delta, mode='nearest')
+                        
+                    if feature_set is None:
+                        feature_set = np.array(delta_features)
+                    else:
+                        np.concatenate((feature_set, delta_features), axis=1)
             
             feature_set = feature_set.tolist()
             self.last_feature_count = len(feature_set[0])

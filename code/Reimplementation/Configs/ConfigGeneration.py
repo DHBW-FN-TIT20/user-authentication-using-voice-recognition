@@ -23,7 +23,7 @@ configs_structured = {
 }
 
 configs_flat = []
-config_id = 0
+config_id = -1
 for amount_of_frames in configs_structured["amount_of_frames"]:
     for size_of_frame in configs_structured["size_of_frame"]:
         for LPC_order in configs_structured["LPC"]["order"]:
@@ -48,6 +48,9 @@ for amount_of_frames in configs_structured["amount_of_frames"]:
                                             "delta_mfcc_weight": delta_MFCC_weight
                                         })
                                         config_id += 1
+
+# drop first config (all zeros)
+configs_flat = configs_flat[1:]
 
 # store it in the same directory as this file
 with open(os.path.join(os.path.dirname(__file__), "configs.json"), "w") as f:

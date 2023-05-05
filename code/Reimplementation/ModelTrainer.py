@@ -1,5 +1,4 @@
 import numpy as np
-import librosa
 import tensorflow as tf
 import uuid
 
@@ -39,8 +38,8 @@ class ModelTrainer:
 
         # create hidden/dense layers
         hidden_layer = []
-        for neurons in hidden_layer_neurons:
-            hidden_layer.append(tf.keras.layers.Dense(neurons, activation=tf.nn.relu))
+        for i, neurons in enumerate(hidden_layer_neurons):
+            hidden_layer.append(tf.keras.layers.Dense(neurons, activation=tf.nn.relu, name=f"hidden_layer_{i}"))
         
         # create model
         tf.keras.backend.clear_session()
@@ -52,7 +51,7 @@ class ModelTrainer:
         model.compile(optimizer=tf.optimizers.Adam(), loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
         # train model
-        model.fit(X, y, epochs=epochs, verbose=0) # type: ignore
+        model.fit(X, y, epochs=epochs) # type: ignore
 
         # evaluate model (only if needed)
         # loss, accuracy = model.evaluate(X, y, verbose=0)
