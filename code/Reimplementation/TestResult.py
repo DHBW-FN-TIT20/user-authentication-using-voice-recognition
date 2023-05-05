@@ -1,5 +1,5 @@
 class TestResult:
-    def __init__(self, speaker_id, sample_id, correspondence):
-        self.speaker_id = speaker_id
-        self.sample_id = sample_id
-        self.correspondence = correspondence
+    def __init__(self, speaker_id: int, sample_id: int, correspondence: dict[int, float]):
+        self.speaker_id: int = speaker_id #expected speaker
+        self.sample_id: int = sample_id
+        self.correspondence: dict[int, float] = correspondence
