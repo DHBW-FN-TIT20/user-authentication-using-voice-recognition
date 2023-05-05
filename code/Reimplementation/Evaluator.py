@@ -27,7 +27,7 @@ class Evaluator:
             self.results.append(result)              # save the TestResult object in the list
     
     def get_test_data(self):
-        return self.test_data, self.test_data_y
+        return self.test_data_x, self.test_data_y
     
     def get_results(self):
         return self.results

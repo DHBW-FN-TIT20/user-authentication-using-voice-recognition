@@ -21,7 +21,6 @@ class Controller:
             for test_result in test_results:
                 csv_string = f'{neural_network_id};{test_result.sample_id};{self.config["amount_of_frames"]};{self.config["size_of_frame"]};{self.config["lpc_weight"]};{self.config["lpc_order"]};{self.config["mfcc_weight"]};{self.config["mfcc_order"]};{self.config["lpcc_weight"]};{self.config["lpcc_order"]};{self.config["delta_mfcc_weight"]};{self.config["delta_mfcc_order"]};{test_result.speaker_id};'
                 for speaker_id in range(20):
-                    # TODO: Check with Lukas if this is correct
                     csv_string += str(test_result.correspondence[f"{speaker_id}"]) or "0"
                     csv_string += ";"
                 csv_file.write(csv_string + "\n")
@@ -159,7 +158,7 @@ class Controller:
             print("Evaluation finished, saving data ...")
         
             serializer = Serializer(self.serialize_base_path)
-            # serializer.serialize(trainer, evaluator)
+            serializer.serialize(trainer, evaluator)
 
             self.append_results_to_csv(results, neural_network_id)
 
