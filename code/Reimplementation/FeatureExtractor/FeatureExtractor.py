@@ -22,7 +22,7 @@ class FeatureExtractor:
         ]
         self.last_feature_count = 0
 
-    def extract_features(self, feature_list): #(*@\label{line:extract_features}@*)
+    def extract_features(self, feature_list, multiprocessing=False): #(*@\label{line:extract_features}@*)
         """_summary_
 
         Args:
@@ -35,7 +35,7 @@ class FeatureExtractor:
         
         if len(feature_list) > 0:
             for feature_info in feature_list:
-                features = self.extractors[feature_info[0].value].calculate_features(self.frames, self.sr, feature_info[1])
+                features = self.extractors[feature_info[0].value].calculate_features(self.frames, self.sr, feature_info[1], multiprocessing=multiprocessing)
                 
                 for delta in feature_info[2]:
                     if delta == 0:
