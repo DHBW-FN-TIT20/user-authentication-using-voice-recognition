@@ -10,7 +10,10 @@ class Serializer:
         self.folder_path = folder_path
 
     def serialize(self, model_trainer: ModelTrainer, evaluator: Evaluator):
-        
+        # check if folder_path exists, otherwise create
+        if not os.path.exists(self.folder_path):
+            os.makedirs(self.folder_path)
+
         # create a folder for the neural_network_id
         os.mkdir(os.path.join(self.folder_path, model_trainer.neural_network_id))
 
