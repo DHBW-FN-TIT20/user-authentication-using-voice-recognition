@@ -12,12 +12,12 @@ def main():
 
     # for each config start the controller
     controller = Controller(os.path.join(os.path.dirname(__file__), "results.csv"))
-    # for config in configs:
-    #     controller.set_config(config)
-    #     controller.start()
-
-    controller.set_config(configs[1])
-    controller.start()
+    # start ID is inclusive, end ID is exclusive
+    for i in range(0, 100):
+        print(f"Starting config {i}")
+        controller.set_config(configs[i])
+        controller.start()
+        print(f"Finished config {i}")
 
 if __name__ == "__main__":
     main()

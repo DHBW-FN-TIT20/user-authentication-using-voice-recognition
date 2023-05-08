@@ -24,7 +24,7 @@ class ModelTrainer:
             return
         
         # config
-        epochs = 1000
+        epochs = 250
         hidden_layer_neurons = [128, 64, 32]
 
         # config based on the training data
