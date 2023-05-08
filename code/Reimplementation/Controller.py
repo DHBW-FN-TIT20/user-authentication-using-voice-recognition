@@ -86,6 +86,10 @@ class Controller:
         for i in range(self.config["delta_mfcc_weight"]):
             feature_list.append([Feature.MFCC, self.config["delta_mfcc_order"], [1]])
 
+        if feature_list == []:
+            print("No features selected. Aborting.")
+            return
+
         print("Initialization finished.")
 
         # COLLECTING TRAINING DATA
