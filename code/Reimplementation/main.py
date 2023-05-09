@@ -33,8 +33,8 @@ def main():
     import datetime
 
     now = datetime.datetime.now()
-    timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
-    timestamp = timestamp.replace(" ", "_")
+    timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
+    # timestamp = timestamp.replace(" ", "_")
     filename = f"results_{timestamp}.csv"
     print(f"Results will be saved in {filename}")
     controller = Controller(os.path.join(os.path.dirname(__file__), filename))
