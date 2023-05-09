@@ -16,7 +16,7 @@ class MFCCExtractor(ExtractorInterface):
 
         if multiprocessing:
 
-            with Pool(8) as p:
+            with Pool(12) as p:
                 mfccs = p.starmap(self.calculate_mfcc, [(frame, sr, order) for frame in frames])
 
             return mfccs
