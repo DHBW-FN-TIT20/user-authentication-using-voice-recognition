@@ -3,6 +3,9 @@ from FeatureExtractor.LPCCExtractor import LPCCExtractor
 from FeatureExtractor.MFCCExtractor import MFCCExtractor
 
 import librosa
+import os
+import json
+import pickle
 import numpy as np
 from enum import Enum
 
@@ -22,7 +25,66 @@ class FeatureExtractor:
         ]
         self.last_feature_count = 0
 
-    def extract_features(self, feature_list, multiprocessing=False): #(*@\label{line:extract_features}@*)
+    def dump_features(self, config, feature_set, featureIndex, spaker_id, feature_order, testflag: bool, test_sample_id=-1):
+        # create a new folder for the feature_set
+        # Define the base directory for the folders
+        base_dir = "C:/Code/sa-hs-lb-jb/code/Reimplementation/datadump/"
+
+        # Find the next available folder ID by iterating over existing folders
+        folder_id = 1
+        while os.path.exists(os.path.join(base_dir + str(folder_id))):
+            folder_id += 1
+
+        # Create the new folder with the unique ID
+        new_folder_path = base_dir + str(folder_id) + "/"
+        os.makedirs(new_folder_path)
+
+        filepath = new_folder_path + "feature_set.pickle"
+        # save feature_set to a file
+        with open(filepath, 'wb') as f:
+            pickle.dump(feature_set, f)
+
+        # save config in same folder as json
+        # Create New Config
+        # featureIndex --> 0 = LPC, 1 = LPCC, 2 = MFCC
+
+        dump_config ={
+            "speaker_id": spaker_id,
+            "test_sample_id": test_sample_id,
+            "testflag": testflag,
+            "amount_of_frames": config["amount_of_frames"],
+            "size_of_frame": config["size_of_frame"],
+            "FeatureType": featureIndex,
+            "FeatureOrder": feature_order,
+        }
+        with open(new_folder_path + "config.json", "w") as f:
+            json.dump(dump_config, f, indent=4) 
+
+    def load_features(self, config, featureIndex, speaker_id, feature_order, testflag: bool, test_sample_id=-1):
+        # check if feature is calculated local
+        # the datasets are stored in the datadump folder
+        # foreach folder in dataset read the config
+        # if the config is the same as the current config
+        # load the feature_set from the folder
+
+        base_dir = "C:\Code\sa-hs-lb-jb\code\Reimplementation\datadump"
+        feature_set = None
+        # Find the next available folder ID by iterating over existing folders
+        for dir_name in os.listdir(base_dir):
+            dir_path = os.path.join(base_dir, dir_name)
+            # read config.json
+            with open(dir_path + "/config.json", "r") as f:
+                config_json = json.load(f)
+                # check if config is useful
+                # featureIndex --> 0 = LPC, 1 = LPCC, 2 = MFCC
+                if config_json["FeatureType"] == featureIndex and config_json["speaker_id"] == speaker_id and config_json["testflag"] == testflag and config_json["test_sample_id"] == test_sample_id and config_json["FeatureOrder"] == feature_order:
+                    # load feature_set from file
+                    with open(dir_path+ "/feature_set.pickle", "rb") as f:
+                        feature_set = pickle.load(f)
+                        print(f"Loaded feature_set from datadump {dir_path} for featureIndex {featureIndex}")
+                        return feature_set
+
+    def extract_features(self,config, feature_list, speaker_id, test_sample_id, testflag = False, multiprocessing=False): #(*@\label{line:extract_features}@*)
         """_summary_
 
         Args:
@@ -35,8 +97,13 @@ class FeatureExtractor:
         
         if len(feature_list) > 0:
             for feature_info in feature_list:
-                features = self.extractors[feature_info[0].value].calculate_features(self.frames, self.sr, feature_info[1], multiprocessing=multiprocessing)
-                
+                # check if feature is calculated local
+                features = self.load_features(config, feature_info[0].value, test_sample_id=test_sample_id, feature_order = feature_info[1], speaker_id = speaker_id, testflag = testflag)
+                if features is None:
+                    features = self.extractors[feature_info[0].value].calculate_features(self.frames, self.sr, feature_info[1], multiprocessing=multiprocessing)
+                    # feature_info[0].value --> 0 = LPC, 1 = LPCC, 2 = MFCC
+                    # dump features
+                    self.dump_features(config, features, feature_info[0].value, test_sample_id = test_sample_id, feature_order = feature_info[1], spaker_id = speaker_id, testflag = testflag)
                 for delta in feature_info[2]:
                     if delta == 0:
                         delta_features = features
@@ -50,7 +117,6 @@ class FeatureExtractor:
             
             feature_set = feature_set.tolist()
             self.last_feature_count = len(feature_set[0])
-        
         return feature_set
     
     def get_last_feature_count(self):

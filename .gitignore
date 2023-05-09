@@ -8,3 +8,4 @@ code/Reimplementation/serializations/
 *.wav
 *.pdf
 code/Reimplementation/result*.csv
+code/Reimplementation/datadump/

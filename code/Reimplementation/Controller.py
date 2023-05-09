@@ -29,7 +29,7 @@ class Controller:
     def set_config(self, config):
         self.config = config
 
-    def extract_features(self, file_path, speaker_id, feature_list, limit_frames=True, multiprocessing=False):
+    def extract_features(self, file_path, speaker_id, feature_list, test_sample_id = -1, limit_frames=True, multiprocessing=False, testflag = False):
         audio_preprocessor = AudioPreprocessor()
 
         # load and preprocess file
@@ -52,7 +52,7 @@ class Controller:
 
         extractor = FeatureExtractor(frames=windowed_frames, sr=sr)
 
-        features = extractor.extract_features(feature_list=feature_list, multiprocessing=multiprocessing)
+        features = extractor.extract_features(feature_list=feature_list, config=self.config, test_sample_id = test_sample_id, multiprocessing=multiprocessing, speaker_id=speaker_id, testflag = testflag)
 
         # cluster 10 frames into 1
         print("Clustering features ...")
@@ -105,8 +105,7 @@ class Controller:
             print(f"Collecting training data for speaker {speaker_id} ...")
 
             training_file_path = ds_handler.get_training_file_path(speaker_id, 0)
-
-            features = self.extract_features(training_file_path, speaker_id, feature_list, limit_frames=True, multiprocessing=True)
+            features = self.extract_features(training_file_path, speaker_id, feature_list, test_sample_id=-1, limit_frames=True, multiprocessing=True, testflag = False)
 
             if features is not None:
                 # append features to X and y
@@ -130,11 +129,10 @@ class Controller:
 
         for speaker_id in range(20):
             print(f"Collecting test data for speaker {speaker_id} ...")
-
             for i in range(5):
                 test_file_path = ds_handler.get_validation_file_path(speaker_id, i)
 
-                features = self.extract_features(test_file_path, speaker_id, feature_list, limit_frames=False, multiprocessing=False)
+                features = self.extract_features(test_file_path, speaker_id, feature_list, test_sample_id=i, limit_frames=False, multiprocessing=False, testflag = True)
 
                 if features is not None:
                     # add X and y to the lists
