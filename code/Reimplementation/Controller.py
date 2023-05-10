@@ -29,7 +29,7 @@ class Controller:
     def set_config(self, config):
         self.config = config
 
-    def extract_features(self, file_path, speaker_id, feature_list, test_sample_id = -1, limit_frames=True, multiprocessing=False, testflag = False):
+    def extract_features(self, file_path, speaker_id, feature_list, test_sample_id = -1, limit_frames=True, multiprocessing=False, testflag = False, dump_test_flag = False):
         audio_preprocessor = AudioPreprocessor()
 
         # load and preprocess file
@@ -52,7 +52,7 @@ class Controller:
 
         extractor = FeatureExtractor(frames=windowed_frames, sr=sr)
 
-        features = extractor.extract_features(feature_list=feature_list, config=self.config, test_sample_id = test_sample_id, multiprocessing=multiprocessing, speaker_id=speaker_id, testflag = testflag)
+        features = extractor.extract_features(feature_list=feature_list, config=self.config, test_sample_id = test_sample_id, multiprocessing=multiprocessing, speaker_id=speaker_id, testflag = testflag, dump_test_flag = dump_test_flag)
 
         # cluster 10 frames into 1
         print("Clustering features ...")
@@ -65,7 +65,9 @@ class Controller:
         return clustered_features
 
 
-    def start(self):
+    def start(self, dump_test_flag = False):
+        if dump_test_flag is True:
+            print("####################        DUMP TEST        ####################")
         # INITIALIZATION
         print("Initialization started.")
         
@@ -105,7 +107,7 @@ class Controller:
             print(f"Collecting training data for speaker {speaker_id} ...")
 
             training_file_path = ds_handler.get_training_file_path(speaker_id, 0)
-            features = self.extract_features(training_file_path, speaker_id, feature_list, test_sample_id=-1, limit_frames=True, multiprocessing=True, testflag = False)
+            features = self.extract_features(training_file_path, speaker_id, feature_list, test_sample_id=-1, limit_frames=True, multiprocessing=True, testflag = False, dump_test_flag = dump_test_flag)
 
             if features is not None:
                 # append features to X and y
@@ -132,7 +134,7 @@ class Controller:
             for i in range(5):
                 test_file_path = ds_handler.get_validation_file_path(speaker_id, i)
 
-                features = self.extract_features(test_file_path, speaker_id, feature_list, test_sample_id=i, limit_frames=False, multiprocessing=False, testflag = True)
+                features = self.extract_features(test_file_path, speaker_id, feature_list, test_sample_id=i, limit_frames=False, multiprocessing=False, testflag = True, dump_test_flag = dump_test_flag)
 
                 if features is not None:
                     # add X and y to the lists
