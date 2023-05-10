@@ -113,6 +113,7 @@ class FeatureExtractor:
                         print(f"Feature Dump Test (Speaker: {speaker_id}, TestSampleId: {test_sample_id}) for Feature {feature_info[0].value} was not successful")
                 else:
                 # check if feature is calculated local
+                    features = None
                     features = self.load_features(config, feature_info[0].value, test_sample_id=test_sample_id, feature_order = feature_info[1], speaker_id = speaker_id, testflag = testflag)
                     if features is None:
                         features = self.extractors[feature_info[0].value].calculate_features(self.frames, self.sr, feature_info[1], multiprocessing=multiprocessing)
@@ -132,8 +133,8 @@ class FeatureExtractor:
                             # Append Feature to Feature Set
                             np.concatenate((feature_set, delta_features), axis=1)
             
-                feature_set = feature_set.tolist()
-                self.last_feature_count = len(feature_set[0])
+            feature_set = feature_set.tolist()
+            self.last_feature_count = len(feature_set[0])
         return feature_set
     
     def get_last_feature_count(self):
