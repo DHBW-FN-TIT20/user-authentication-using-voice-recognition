@@ -54,6 +54,10 @@ class Controller:
 
         features = extractor.extract_features(feature_list=feature_list, config=self.config, test_sample_id = test_sample_id, multiprocessing=multiprocessing, speaker_id=speaker_id, testflag = testflag, dump_test_flag = dump_test_flag)
 
+        # Return None if dump_test_flag is True
+        if dump_test_flag is True:
+            return None
+        
         # cluster 10 frames into 1
         print("Clustering features ...")
 
@@ -149,6 +153,10 @@ class Controller:
 
         # TRAINING
         # execute training 3 times with different sorted training data
+
+        # return if dump_test_flag is True
+        if dump_test_flag is True:
+            return
 
         for training_process in range(3):
             print(f"Start training process {training_process}.")

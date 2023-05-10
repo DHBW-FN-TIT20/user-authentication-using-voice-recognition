@@ -111,29 +111,29 @@ class FeatureExtractor:
                         print(f"Feature Dump Test (Speaker: {speaker_id}, TestSampleId: {test_sample_id}) for Feature {feature_info[0].value} was successful")
                     else:
                         print(f"Feature Dump Test (Speaker: {speaker_id}, TestSampleId: {test_sample_id}) for Feature {feature_info[0].value} was not successful")
-
+                else:
                 # check if feature is calculated local
-                features = self.load_features(config, feature_info[0].value, test_sample_id=test_sample_id, feature_order = feature_info[1], speaker_id = speaker_id, testflag = testflag)
-                if features is None:
-                    features = self.extractors[feature_info[0].value].calculate_features(self.frames, self.sr, feature_info[1], multiprocessing=multiprocessing)
-                    # feature_info[0].value --> 0 = LPC, 1 = LPCC, 2 = MFCC
-                    # dump features
-                    self.dump_features(config, features, feature_info[0].value, test_sample_id = test_sample_id, feature_order = feature_info[1], spaker_id = speaker_id, testflag = testflag)
-                for delta in feature_info[2]:
-                    if delta == 0:
-                        delta_features = features
-                    else:
-                        delta_features = librosa.feature.delta(np.array(features), order=delta, mode='nearest')
-                        
-                    if feature_set is None:
-                        # First Feature --> Create Feature Set
-                        feature_set = np.array(delta_features)
-                    else:
-                        # Append Feature to Feature Set
-                        np.concatenate((feature_set, delta_features), axis=1)
+                    features = self.load_features(config, feature_info[0].value, test_sample_id=test_sample_id, feature_order = feature_info[1], speaker_id = speaker_id, testflag = testflag)
+                    if features is None:
+                        features = self.extractors[feature_info[0].value].calculate_features(self.frames, self.sr, feature_info[1], multiprocessing=multiprocessing)
+                        # feature_info[0].value --> 0 = LPC, 1 = LPCC, 2 = MFCC
+                        # dump features
+                        self.dump_features(config, features, feature_info[0].value, test_sample_id = test_sample_id, feature_order = feature_info[1], spaker_id = speaker_id, testflag = testflag)
+                    for delta in feature_info[2]:
+                        if delta == 0:
+                            delta_features = features
+                        else:
+                            delta_features = librosa.feature.delta(np.array(features), order=delta, mode='nearest')
+                            
+                        if feature_set is None:
+                            # First Feature --> Create Feature Set
+                            feature_set = np.array(delta_features)
+                        else:
+                            # Append Feature to Feature Set
+                            np.concatenate((feature_set, delta_features), axis=1)
             
-            feature_set = feature_set.tolist()
-            self.last_feature_count = len(feature_set[0])
+                feature_set = feature_set.tolist()
+                self.last_feature_count = len(feature_set[0])
         return feature_set
     
     def get_last_feature_count(self):
