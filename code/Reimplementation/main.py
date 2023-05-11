@@ -43,7 +43,7 @@ def main():
     for i in range(configId[0], configId[1]):
         print(f"Starting config {i}")
         controller.set_config(configs[i])
-        controller.start(configId[2])
+        controller.start(False)
         print(f"Finished config {i}")
 
 if __name__ == "__main__":
