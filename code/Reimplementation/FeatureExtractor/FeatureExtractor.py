@@ -77,7 +77,7 @@ class FeatureExtractor:
                 config_json = json.load(f)
                 # check if config is useful
                 # featureIndex --> 0 = LPC, 1 = LPCC, 2 = MFCC
-                if config_json["FeatureType"] == featureIndex and config_json["speaker_id"] == speaker_id and config_json["testflag"] == testflag and config_json["test_sample_id"] == test_sample_id and config_json["FeatureOrder"] == feature_order:
+                if config_json["FeatureType"] == featureIndex and config_json["amount_of_frames"] == config["amount_of_frames"] and config_json["size_of_frame"] == config["size_of_frame"] and config_json["speaker_id"] == speaker_id and config_json["testflag"] == testflag and config_json["test_sample_id"] == test_sample_id and config_json["FeatureOrder"] == feature_order:
                     # load feature_set from file
                     with open(dir_path+ "/feature_set.pickle", "rb") as f:
                         feature_set = pickle.load(f)
