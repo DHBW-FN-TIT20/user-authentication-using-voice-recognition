@@ -9,3 +9,4 @@ code/Reimplementation/serializations/
 *.pdf
 code/Reimplementation/result*.csv
 code/Reimplementation/datadump/
+code/Reimplementation/results
