@@ -9,7 +9,7 @@ import copy
 
 def get_config_id_without_features():
     configs = []
-    with open(os.path.join(os.path.dirname(__file__), "Configs", "configs.json"), "r") as json_file:
+    with open(os.path.join(os.path.dirname(__file__), "Configs", "config.json"), "r") as json_file:
         configs = json.load(json_file)
 
     id_list = []
@@ -43,7 +43,7 @@ def get_config_id_from_features(arguments):
             int(arguments[11]) == config["delta_mfcc_order"]):
             return config["id"]
     
-def write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distance, min_rel_distance_speaker_id, correct_asserted_test_samples, value_count):
+def write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distance, min_rel_distance_speaker_id, correct_asserted_test_samples, correct_asserted_absolute, false_asserted_absolute, not_asserted_absolute, value_count):
     ### absolute accuracy
 
     for i in range(3):
@@ -77,6 +77,25 @@ def write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distanc
             data_list['correct_asserted_test_samples_per_nn'][i]['y'].append(correct_asserted_test_samples / value_count)
             break
 
+    for i in range(3):
+        if config_id not in data_list['correct_asserted_absolute'][i]['x']:
+            data_list['correct_asserted_absolute'][i]['x'].append(config_id)
+            data_list['correct_asserted_absolute'][i]['y'].append(correct_asserted_absolute / value_count)
+            break
+
+    for i in range(3):
+        if config_id not in data_list['false_asserted_absolute'][i]['x']:
+            data_list['false_asserted_absolute'][i]['x'].append(config_id)
+            data_list['false_asserted_absolute'][i]['y'].append(false_asserted_absolute / value_count)
+            break
+
+    for i in range(3):
+        if config_id not in data_list['not_asserted_absolute'][i]['x']:
+            data_list['not_asserted_absolute'][i]['x'].append(config_id)
+            data_list['not_asserted_absolute'][i]['y'].append(not_asserted_absolute / value_count)
+            break
+    
+
 def compare_nn_accuracy_per_config():
     """
         This function calculates the average accuracy of all three neural networks for each config.
@@ -109,11 +128,14 @@ def compare_nn_accuracy_per_config():
         'min_relative_distance_speaker_id': copy.deepcopy(data),
         'min_relative_distance_speaker_id_amount': copy.deepcopy(data),
         'correct_asserted_test_samples_per_nn': copy.deepcopy(data),
+        'correct_asserted_absolute': copy.deepcopy(data),
+        'false_asserted_absolute': copy.deepcopy(data),
+        'not_asserted_absolute': copy.deepcopy(data),
     }
 
     # Read results.csv
     # with open(os.path.join(os.path.dirname(__file__), "results.csv"), "r") as csv_file:
-    with open("/home/henry/Documents/Studium/Studienarbeit/Ergebnisse/combined.csv", "r") as csv_file:
+    with open("/home/henry/Documents/Studium/Studienarbeit/Ergebnisse/without.csv", "r") as csv_file:
         lines = csv_file.readlines()
         uuid = ""
         uuid_line = []
@@ -122,6 +144,10 @@ def compare_nn_accuracy_per_config():
         min_rel_distance = 10000
         min_rel_distance_speaker_id = -1
         correct_asserted_test_samples = 0
+        correct_asserted_absolute = 0
+        false_asserted_absolute = 0
+        not_asserted_absolute = 0
+        absolute_percent = 0.65
         value_count = 0
         has_one_value = False
         for line in lines:
@@ -140,7 +166,7 @@ def compare_nn_accuracy_per_config():
                 if has_one_value:
                     print(f"Config {config_id} has 0.0 value")
 
-                write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distance, min_rel_distance_speaker_id, correct_asserted_test_samples, value_count)
+                write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distance, min_rel_distance_speaker_id, correct_asserted_test_samples, correct_asserted_absolute, false_asserted_absolute, not_asserted_absolute, value_count)
 
                 # reset values
                 uuid = arguments[0]
@@ -152,7 +178,10 @@ def compare_nn_accuracy_per_config():
                 min_rel_distance = 10000
                 min_rel_distance_speaker_id = -1
                 correct_asserted_test_samples = 0
-            else:
+                correct_asserted_absolute = 0
+                false_asserted_absolute = 0
+                not_asserted_absolute = 0
+            if uuid == arguments[0]:
                 speaker_id = int(arguments[12])
                 if uuid == "06409118-ae25-40f9-82b3-19683673f3ca":
                     print(23)
@@ -178,6 +207,14 @@ def compare_nn_accuracy_per_config():
                 if rel_distance > 0:
                     correct_asserted_test_samples += 1
 
+                if speaker_percent >= absolute_percent:
+                    correct_asserted_absolute += 1
+                elif speaker_percent < absolute_percent:
+                    if float(sorted_array[-1]) >= absolute_percent:
+                        false_asserted_absolute += 1
+                    else:
+                        not_asserted_absolute += 1
+
                 if speaker_percent == 0.0:
                     has_one_value = True
                 value_count += 1
@@ -189,12 +226,12 @@ def compare_nn_accuracy_per_config():
                 if has_one_value:
                     print(f"Config {config_id} has 0.0 value")
 
-                write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distance, min_rel_distance_speaker_id, correct_asserted_test_samples, value_count)
+                write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distance, min_rel_distance_speaker_id, correct_asserted_test_samples, correct_asserted_absolute, false_asserted_absolute, not_asserted_absolute, value_count)
 
-    for config_id in get_config_id_without_features():
-        for i in range(3):
-            data_list['absolute_accuracy'][i]['x'].append(config_id)
-            data_list['absolute_accuracy'][i]['y'].append(1.0)
+    # for config_id in get_config_id_without_features():
+    #     for i in range(3):
+    #         data_list['absolute_accuracy'][i]['x'].append(config_id)
+    #         data_list['absolute_accuracy'][i]['y'].append(1.0)
 
     for speaker_id in range(20):
         data_list['min_relative_distance_speaker_id_amount'][0]['x'].append(speaker_id)
@@ -203,7 +240,7 @@ def compare_nn_accuracy_per_config():
 
 
     layout = {
-        'xaxis': {'title': 'ID'},
+        'xaxis': {'title': 'configID'},
         'yaxis': {'title': 'Percentage'}
     }
 
@@ -213,7 +250,7 @@ def compare_nn_accuracy_per_config():
         html.H4('Interactive plot with custom data source'),
         dcc.Graph(id="graph"),
         html.P("Type"),
-        dcc.RadioItems(['absolute_accuracy', 'relative_accuracy', 'min_relative_distance', 'min_relative_distance_speaker_id', 'min_relative_distance_speaker_id_amount', 'correct_asserted_test_samples_per_nn'], value='absolute_accuracy', id="type_value"),
+        dcc.RadioItems(['absolute_accuracy', 'relative_accuracy', 'min_relative_distance', 'min_relative_distance_speaker_id', 'min_relative_distance_speaker_id_amount', 'correct_asserted_test_samples_per_nn', 'correct_asserted_absolute', 'false_asserted_absolute', 'not_asserted_absolute'], value='absolute_accuracy', id="type_value"),
     ])
 
 
@@ -224,7 +261,7 @@ def compare_nn_accuracy_per_config():
         this_data = {'data': data_list[type_value], 'layout': layout}
         fig = go.Figure(
             data=this_data,
-            layout_title_text="Native Plotly rendering in Dash"
+            layout_title_text="Not asserted test samples per nn (absolute 65%)"
         )
         return fig
 
