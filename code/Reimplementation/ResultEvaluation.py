@@ -1,7 +1,5 @@
 import plotly.graph_objects as go
 from dash import Dash, dcc, html, Input, Output
-import plotly.express as px
-import plotly.subplots as sp
 import numpy as np
 import os
 import json
@@ -131,6 +129,10 @@ def compare_nn_accuracy_per_config():
         'correct_asserted_absolute': copy.deepcopy(data),
         'false_asserted_absolute': copy.deepcopy(data),
         'not_asserted_absolute': copy.deepcopy(data),
+        'absolute_accuracy_per_config': [{'x': [], 'y': [], 'name': 'absolute_accuracy', 'type': 'bar'}],
+        'correct_asserted_per_config': [{'x': [], 'y': [], 'name': 'correct_asserted', 'type': 'bar'}],
+        'false_asserted_per_config': [{'x': [], 'y': [], 'name': 'false_asserted', 'type': 'bar'}],
+        'not_asserted_per_config': [{'x': [], 'y': [], 'name': 'not_asserted', 'type': 'bar'}],
     }
 
     # Read results.csv
@@ -228,15 +230,59 @@ def compare_nn_accuracy_per_config():
 
                 write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distance, min_rel_distance_speaker_id, correct_asserted_test_samples, correct_asserted_absolute, false_asserted_absolute, not_asserted_absolute, value_count)
 
-    # for config_id in get_config_id_without_features():
-    #     for i in range(3):
-    #         data_list['absolute_accuracy'][i]['x'].append(config_id)
-    #         data_list['absolute_accuracy'][i]['y'].append(1.0)
-
     for speaker_id in range(20):
         data_list['min_relative_distance_speaker_id_amount'][0]['x'].append(speaker_id)
         data_list['min_relative_distance_speaker_id_amount'][0]['y'].append(sum(data_list['min_relative_distance_speaker_id'][i]['y'].count(speaker_id) for i in range(3)))
 
+    # Create datasets that combine the data of all 3 NN per config
+
+    for config_id in range(511):
+        found_items = 0
+        acc = 0
+        for i in range(3):
+            if config_id in data_list['absolute_accuracy'][i]['x']:
+                found_items += 1
+                acc += data_list['absolute_accuracy'][i]['y'][data_list['absolute_accuracy'][i]['x'].index(config_id)]
+        if found_items > 0:
+            acc = acc / found_items
+            data_list['absolute_accuracy_per_config'][0]['x'].append(config_id)
+            data_list['absolute_accuracy_per_config'][0]['y'].append(acc)
+
+    for config_id in range(511):
+        found_items = 0
+        acc = 0
+        for i in range(3):
+            if config_id in data_list['correct_asserted_absolute'][i]['x']:
+                found_items += 1
+                acc += data_list['correct_asserted_absolute'][i]['y'][data_list['correct_asserted_absolute'][i]['x'].index(config_id)]
+        if found_items > 0:
+            acc = acc / found_items
+            data_list['correct_asserted_per_config'][0]['x'].append(config_id)
+            data_list['correct_asserted_per_config'][0]['y'].append(acc)
+
+    for config_id in range(511):
+        found_items = 0
+        acc = 0
+        for i in range(3):
+            if config_id in data_list['false_asserted_absolute'][i]['x']:
+                found_items += 1
+                acc += data_list['false_asserted_absolute'][i]['y'][data_list['false_asserted_absolute'][i]['x'].index(config_id)]
+        if found_items > 0:
+            acc = acc / found_items
+            data_list['false_asserted_per_config'][0]['x'].append(config_id)
+            data_list['false_asserted_per_config'][0]['y'].append(acc)
+
+    for config_id in range(511):
+        found_items = 0
+        acc = 0
+        for i in range(3):
+            if config_id in data_list['not_asserted_absolute'][i]['x']:
+                found_items += 1
+                acc += data_list['not_asserted_absolute'][i]['y'][data_list['not_asserted_absolute'][i]['x'].index(config_id)]
+        if found_items > 0:
+            acc = acc / found_items
+            data_list['not_asserted_per_config'][0]['x'].append(config_id)
+            data_list['not_asserted_per_config'][0]['y'].append(acc)
 
 
     layout = {
@@ -250,7 +296,7 @@ def compare_nn_accuracy_per_config():
         html.H4('Interactive plot with custom data source'),
         dcc.Graph(id="graph"),
         html.P("Type"),
-        dcc.RadioItems(['absolute_accuracy', 'relative_accuracy', 'min_relative_distance', 'min_relative_distance_speaker_id', 'min_relative_distance_speaker_id_amount', 'correct_asserted_test_samples_per_nn', 'correct_asserted_absolute', 'false_asserted_absolute', 'not_asserted_absolute'], value='absolute_accuracy', id="type_value"),
+        dcc.RadioItems(['absolute_accuracy', 'relative_accuracy', 'min_relative_distance', 'min_relative_distance_speaker_id', 'min_relative_distance_speaker_id_amount', 'correct_asserted_test_samples_per_nn', 'correct_asserted_absolute', 'false_asserted_absolute', 'not_asserted_absolute', 'absolute_accuracy_per_config', 'correct_asserted_per_config', 'false_asserted_per_config', 'not_asserted_per_config'], value='absolute_accuracy', id="type_value"),
     ])
 
 
@@ -261,7 +307,10 @@ def compare_nn_accuracy_per_config():
         this_data = {'data': data_list[type_value], 'layout': layout}
         fig = go.Figure(
             data=this_data,
-            layout_title_text="Not asserted test samples per nn (absolute 65%)"
+            # layout_title_text="Average absolute accuracy"
+            # layout_title_text="Correct asserted test samples (absolute 65%)"
+            # layout_title_text="False asserted test samples (absolute 65%)"
+            layout_title_text="Not asserted test samples (absolute 65%)"
         )
         return fig
 
@@ -270,111 +319,3 @@ def compare_nn_accuracy_per_config():
 
 if __name__ == "__main__":
     compare_nn_accuracy_per_config()
-    # print(get_config_id_without_features())
-
-    # app = Dash(__name__)
-
-
-    # app.layout = html.Div([
-    #     html.H4('Interactive nn accuracy per config'),
-    #     dcc.Graph(id="graph"),
-    #     html.P("Config:"),
-    #     dcc.Slider(id="config", min=0, max=510, value=0, 
-    #             marks={0: '0', 510: '510'})
-    # ])
-
-    # @app.callback(
-    #     Output("graph", "figure"), 
-    #     Input("config", "value"))
-     
-    # def display_color(config):
-    #     data = np.random.normal(mean, std, size=500) # replace with your own data source
-    #     fig = px.histogram(data, range_x=[-10, 10])
-    #     return fig
-
-    # app.run_server(debug=True)
-
-
-
-# data = [
-#     {
-#         'x': [], 
-#         'y': [], 
-#         'name': 'Bar 0',
-#         'type': 'bar'
-#     },
-#     {
-#         'x': [], 
-#         'y': [], 
-#         'name': 'Bar 1',
-#         'type': 'bar'
-#     },
-#     {
-#         'x': [], 
-#         'y': [], 
-#         'name': 'Bar 2',
-#         'type': 'bar'
-#     },
-#     {
-#         'x': [], 
-#         'y': [], 
-#         'name': 'Bar 3',
-#         'type': 'bar'
-#     },
-#     {
-#         'x': [], 
-#         'y': [], 
-#         'name': 'Bar 4',
-#         'type': 'bar'
-#     }
-# ]
-
-# # Read results.csv
-# with open("/home/henry/Downloads/results.csv", "r") as csv_file:
-#     # iterate through lines
-#     # uuid = ""
-#     # accuracy = 0
-#     # value_count = 0
-#     # for line in csv_file:
-#     #     values = line.split(";")
-#     #     if values[0] != uuid:
-#     #         if uuid != "":
-#     #             # save values
-#     #             accuracy = accuracy / value_count
-#     #             data[0]['x'].append(uuid)
-#     #             data[0]['y'].append(accuracy)
-#     #         uuid = values[0]
-#     #         accuracy = 0
-#     #         value_count = 0
-
-#     #     if values[0] == uuid:
-#     #         speaker_id = int(values[12])
-#     #         speaker_percent = float(values[13 + speaker_id])
-#     #         accuracy += speaker_percent
-#     #         value_count += 1
-
-#     # percentage of correct predictions for each speaker
-#     uuid = "44e8a2bb-cf16-456d-ba41-3a8bd2e8a97f"
-#     for line in csv_file:
-#         values = line.split(";")
-#         if uuid == "":
-#             uuid = values[0]
-#         if uuid == values[0]:
-#             file_number = int(values[1])
-#             speaker_id = int(values[12])
-#             speaker_percent = float(values[13 + speaker_id])
-#             data[file_number]['x'].append(speaker_id)
-#             data[file_number]['y'].append(speaker_percent)
-            
-
-
-
-# layout = {
-#     'xaxis': {'title': 'ID'},
-#     'yaxis': {'title': 'Percentage'}
-# }
-
-# fig = {'data': data, 'layout': layout}
-
-# plot = go.Figure(fig)
-# plot.show()
