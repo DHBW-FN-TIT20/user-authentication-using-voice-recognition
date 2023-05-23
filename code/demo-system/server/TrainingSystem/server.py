@@ -78,12 +78,12 @@ def hello():
     correspondence = {}
     for id in range(20):
         correspondence[f"{id}"] = np.count_nonzero(np.argmax(prediction, axis=1) == id) / len(prediction)
-    absulute_accuracy_of_selected_speaker = correspondence[f"{selected_speaker_id}"]
+    absolute_accuracy_of_selected_speaker = correspondence[f"{selected_speaker_id}"]
 
     # return the result
     result = {
-        "absulute_accuracy_of_selected_speaker": absulute_accuracy_of_selected_speaker,
-        "is_authenticated": absulute_accuracy_of_selected_speaker > 0.7,
+        "absolute_accuracy_of_selected_speaker": absolute_accuracy_of_selected_speaker,
+        "is_authenticated": absolute_accuracy_of_selected_speaker > 0.7,
     }
     return jsonify(result)
 

@@ -29,7 +29,7 @@ export default function Info(props: InfoProps) {
           <p>
             Mit diesen Features wurde ein neuronales Netz mit 20 verschiedenen Sprechern trainiert, welches im Backend dieser Applikation zum Einsatz kommt.
             In der Oberfläche können Sie sich nun als eine der 20 Personen authentifizieren.
-            Dazu geben Sie die zu authentifizierende <b>userId</b> in das Eingabefeld ein.
+            Dazu geben Sie die zu authentifizierende <b>userId</b> (0-19) in das Eingabefeld ein.
             Anschließend können Sie aus einer Vielzahl an Sprachaufnahmen für die verschiedenen Sprecher eine Aufnahme auswählen die für die Authentifikation verwendet werden soll.
             Nachdem Sie auf <b>Login</b> geklickt haben, wird die Authentifikation durchgeführt und das Ergebnis angezeigt.
           </p>

@@ -6,7 +6,7 @@ import { faClose, faUser, faFile } from '@fortawesome/free-solid-svg-icons'
 export interface ResultProps {
   authenticatingUserId: number;
   selectedFile: {speakerId: number, sampleId: number};
-  results: {absulute_accuracy_of_selected_speaker: number, is_authenticated: boolean};
+  results: {absolute_accuracy_of_selected_speaker: number, is_authenticated: boolean};
   close: () => void;
 }
 
@@ -53,7 +53,7 @@ export default function Result(props: ResultProps) {
             </tbody>
           </table>
           <p>
-            Mit einer Wahrscheinlichkeit von <b>{(props.results.absulute_accuracy_of_selected_speaker * 100).toFixed(4)} %</b> gehört die angegebene Datei zu dem zu authentifizierenden Benutzer.
+            Mit einer Wahrscheinlichkeit von <b>{(props.results.absolute_accuracy_of_selected_speaker * 100).toFixed(4)} %</b> gehört die angegebene Datei zu dem zu authentifizierenden Benutzer.
           </p>
           <p>
             {
