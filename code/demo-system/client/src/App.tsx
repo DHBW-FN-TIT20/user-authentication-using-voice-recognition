@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import'./App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faFile } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faFile, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import Result from './Result';
+import Info from './Info';
 
 async function login(userId: number, selectedUserId: number, selectedFileIndex: number) {
   // get the current url and remove everything after the main url and remove the port if exists
@@ -29,6 +30,7 @@ function App() {
   const [showResults, setShowResults] = useState<boolean>(false);
   const [results, setResults] = useState<any>({absulute_accuracy_of_selected_speaker: 0, is_authenticated: false});
   const [fetching, setFetching] = useState<boolean>(false);
+  const [showInfo, setShowInfo] = useState<boolean>(false);
   
   const audioRef = useRef<HTMLAudioElement>(null)
 
@@ -69,6 +71,9 @@ function App() {
           }
         }}
       >
+        <FontAwesomeIcon icon={faInfoCircle} className="infoIcon" size="2x" onClick={() => {
+          setShowInfo(!showInfo);
+        }} />
         <h2>Login</h2>
         <div
           className='userWrapper'
@@ -153,6 +158,12 @@ function App() {
               setShowResults(false);
             }}
           />
+      }
+      {
+        showInfo &&
+        <Info 
+          close={() => setShowInfo(false)}
+        />
       }
     </div>
   );

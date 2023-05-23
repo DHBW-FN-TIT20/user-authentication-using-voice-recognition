@@ -18,6 +18,9 @@ root.render(
       </h1>
     </header>
     <App />
+    <footer className="App-footer">
+      Johannes Brandenburger, Lukas Braun, Henry Schuler
+    </footer>
   </React.StrictMode>
 );
 
