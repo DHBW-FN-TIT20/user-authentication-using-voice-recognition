@@ -1,31 +1,87 @@
 .loginForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 15px;
 
-  width: 100%;
-  height: 100%;
+  background: #DDDDDD;
+  border-radius: 5px;
+
+  width: 75%;
+  height: 50%;
   max-height: 100%;
   overflow: hidden;
+  padding: 20px;
+}
+
+.loginForm h2 {
+  margin: 0;
+}
+
+.loginForm h3 {
+  margin: 5px 0;
+}
+
+.userWrapper {
+  width: 100%;
+}
+
+.fileWrapper {
+  width: 100%;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .fileList {
-  overflow-y: auto;
-  max-height: 300px;
-}
+  position: relative;
+  border-radius: 5px;
 
-.selected {
-  color: red;
+  width: 100%;
+  overflow-y: auto;
 }
 
 .fileItem {
   display: flex;
-  margin: 5px;
-  padding: 5px;
+  justify-content: center;
+  margin: 5px 0;
+  padding: 10px;
+  gap: 20px;
 
   cursor: pointer;
 
-  background-color: #BBBBBB;
+  background-color: #AAAAAA;
   border-radius: 5px;
+}
+
+.fileItem:nth-child(9n) {
+  margin-bottom: 20px;
+}
+
+.fileItem:last-of-type {
+  margin-bottom: 0;
+}
+
+.selected {
+  position: sticky;
+  top: 0;
+  bottom: 0;
+  background-color: #0f588b;
+  color: white;
+}
+
+.audioPlayer {
+  display: flex;
+  padding-top: 10px;
+}
+
+.audioPlayer audio {
+  width: 100%;
 }
