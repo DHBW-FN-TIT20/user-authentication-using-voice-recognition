@@ -2,11 +2,12 @@ import React from 'react'
 import './Result.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose, faUser, faFile } from '@fortawesome/free-solid-svg-icons'
+import { Line } from 'react-chartjs-2'
 
 export interface ResultProps {
   authenticatingUserId: number;
   selectedFile: {speakerId: number, sampleId: number};
-  results: {absolute_accuracy_of_selected_speaker: number, is_authenticated: boolean};
+  results: {absolute_accuracy_of_selected_speaker: number, is_authenticated: boolean, absolute_accuracy_of_all_speakers: number[]};
   close: () => void;
 }
 
@@ -67,6 +68,31 @@ export default function Result(props: ResultProps) {
               </span>
             }
           </p>
+          <div className="chart">
+            <Line 
+              data={{
+                labels: Array.from(Array(20).keys()),
+                datasets: [
+                  {
+                    label: 'Zuordnungswahrscheinlichkeit',
+                    data: props.results.absolute_accuracy_of_all_speakers,
+                    pointRadius: 6,
+                    pointBackgroundColor: Array(20).fill("").map((color, index) => index === props.authenticatingUserId ? (props.results.is_authenticated ? "#03AC13B0" : "#FF000090") : "#22222240 "),
+                  },
+                  {
+                    label: 'Schwellwert',
+                    data: Array(20).fill(0.7),
+                    borderColor: 'rgba(255, 0, 0, 1)',
+                    backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                    pointRadius: 0,
+                  }
+                ],
+              }}
+              options={{
+                maintainAspectRatio: false,
+              }}
+            />
+          </div>
         </div>
         <div
           className="navigation"

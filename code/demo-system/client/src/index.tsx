@@ -5,7 +5,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import Chart, { CategoryScale } from 'chart.js/auto';
 config.autoAddCss = false;
+Chart.register(CategoryScale)
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

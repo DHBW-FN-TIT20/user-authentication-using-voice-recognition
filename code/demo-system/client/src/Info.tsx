@@ -21,7 +21,7 @@ export default function Info(props: InfoProps) {
         <div className='content'>
           <h3>Studienarbeit</h3>
           <p>
-            Im Rahmen unserer Studienarbeit haben wir uns mit der Thematik der Sprachauthentifizierung beschäftigt.
+            Im Rahmen unserer Studienarbeit haben wir uns mit der Thematik der Sprecherauthentifizierung beschäftigt.
             Dafür haben wir verschiedene Features aus Sprachaufnahmen extrahiert mit denen wir anschließend ein neuronales Netz trainiert haben.
             Aus einer Vielzahl an Features haben wir in einer ausführlichen Auswertung die besten Features ausgewählt (20 MFCC + 20 delta MFCC bei 15000 Frames a 600 Samples).
           </p>

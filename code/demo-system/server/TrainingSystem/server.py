@@ -76,14 +76,17 @@ def hello():
     test_data_x, test_data_y = generate_test_data(int(speaker_id), int(sample_id))
     prediction = neural_network.predict(np.asarray(test_data_x[0]))
     correspondence = {}
+    absolute_accuracy_of_all_speakers = []
     for id in range(20):
         correspondence[f"{id}"] = np.count_nonzero(np.argmax(prediction, axis=1) == id) / len(prediction)
+        absolute_accuracy_of_all_speakers.append(correspondence[f"{id}"])
     absolute_accuracy_of_selected_speaker = correspondence[f"{selected_speaker_id}"]
 
     # return the result
     result = {
         "absolute_accuracy_of_selected_speaker": absolute_accuracy_of_selected_speaker,
         "is_authenticated": absolute_accuracy_of_selected_speaker > 0.7,
+        "absolute_accuracy_of_all_speakers": absolute_accuracy_of_all_speakers
     }
     return jsonify(result)
 

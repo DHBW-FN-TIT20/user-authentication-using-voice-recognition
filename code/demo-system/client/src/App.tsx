@@ -9,12 +9,13 @@ async function login(userId: number, selectedUserId: number, selectedFileIndex: 
   try {
     // get the current url and remove everything after the main url and remove the port if exists
     const url = window.location.href.replace(/\/[^\/]*$/, "").replace(/:\d+$/, "");
-    const response = await fetch(`${url}:5500/?speaker_id=${userId}&sample_id=${selectedFileIndex}&selected_speaker_id=${selectedUserId}`);
+    const response = await fetch(`${url}:5500/?speaker_id=${selectedUserId}&sample_id=${selectedFileIndex}&selected_speaker_id=${userId}`);
   
     if (!response.ok) {
       return { 
         absolute_accuracy_of_selected_speaker: 0,
-        is_authenticated: false
+        is_authenticated: false,
+        absolute_accuracy_of_all_speakers: []
       };
     }
   
@@ -25,7 +26,8 @@ async function login(userId: number, selectedUserId: number, selectedFileIndex: 
     console.error(e);
     return {
       absolute_accuracy_of_selected_speaker: 0,
-      is_authenticated: false
+      is_authenticated: false,
+      absolute_accuracy_of_all_speakers: []
     }
   }
 }
@@ -36,7 +38,7 @@ function App() {
   const [selectedUserId, setSelectedUserId] = useState<number>(NaN);
   const [selectedFileIndex, setSelectedFileIndex] = useState<number>(NaN);
   const [showResults, setShowResults] = useState<boolean>(false);
-  const [results, setResults] = useState<any>({absolute_accuracy_of_selected_speaker: 0, is_authenticated: false});
+  const [results, setResults] = useState<any>({absolute_accuracy_of_selected_speaker: 0, is_authenticated: false, absolute_accuracy_of_all_speakers: []});
   const [fetching, setFetching] = useState<boolean>(false);
   const [showInfo, setShowInfo] = useState<boolean>(false);
   

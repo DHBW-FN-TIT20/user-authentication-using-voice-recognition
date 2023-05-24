@@ -47,3 +47,8 @@ h2 {
 table tbody tr td:last-of-type {
   padding-left: 5px;
 }
+
+.chart {
+  min-height: 30vh;
+  max-height: 30vh;
+}
