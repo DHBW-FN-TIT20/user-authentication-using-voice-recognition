@@ -64,13 +64,38 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route("/", methods=["GET", "POST"])
-def hello():
+def handle_api_request():
+
+    parameter_error_message = """
+    <h1>Parameter Error</h1>
+    <b>Please provide the following parameters:</b>
+    <ul>
+        <li>speaker_id: The id of the speaker of the audio sample (0-19)</li>
+        <li>sample_id: The id of the sample to be tested (0-8)</li>
+        <li>selected_speaker_id: The id of the speaker that should be authenticated (0-19)</li>
+    </ul>
+    """
 
     # get the url parameters
-    args = request.args
-    speaker_id = args["speaker_id"]
-    sample_id = args["sample_id"]
-    selected_speaker_id = args["selected_speaker_id"]
+    try:
+        args = request.args
+        speaker_id = args["speaker_id"]
+        sample_id = args["sample_id"]
+        selected_speaker_id = args["selected_speaker_id"]
+    except:
+        return parameter_error_message
+
+    # check if the parameters are valid
+    print(speaker_id, sample_id, selected_speaker_id)
+    if not (
+        speaker_id.isnumeric() and 
+        sample_id.isnumeric() and 
+        selected_speaker_id.isnumeric() and
+        0 <= int(speaker_id) <= 19 and
+        0 <= int(sample_id) <= 8 and
+        0 <= int(selected_speaker_id) <= 19
+    ):
+        return parameter_error_message
 
     # generate test data and predict the selected speaker
     test_data_x, test_data_y = generate_test_data(int(speaker_id), int(sample_id))
