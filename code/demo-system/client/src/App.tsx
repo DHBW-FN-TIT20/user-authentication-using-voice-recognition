@@ -66,6 +66,17 @@ function App() {
     updateSong();
   }, [selectedUserId, selectedFileIndex])
 
+  useEffect(() => {
+    // eventlistener on esc -> setShowResults(false);
+    const escFunction = (event: KeyboardEvent) => {
+      if(event.key === 'Escape') {
+        setShowResults(false);
+        setLoginDisabled(false);
+      }
+    }
+    document.addEventListener("keydown", escFunction, false);
+  }, [])
+
   return (
     <div className="App">
       <form
@@ -162,10 +173,8 @@ function App() {
             selectedFile={{speakerId: selectedUserId, sampleId: selectedFileIndex}}
             results={results}
             close={() => {
-              setUserId(NaN);
-              setSelectedUserId(NaN);
-              setSelectedFileIndex(NaN);
               setShowResults(false);
+              setLoginDisabled(false);
             }}
           />
       }
