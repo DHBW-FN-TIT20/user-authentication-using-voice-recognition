@@ -363,7 +363,7 @@ Zwischen der Eingabe- und Ausgabeschicht liegen mehrere versteckte Schichten (hi
 Jede Schicht besteht aus mehreren Neuronen (Knoten), welche über gewichtete Kanten miteinander verbunden sind \autocite[vgl.][S. 26]{sonnet_neuronale_2022}.
 Die Informationen werden durch die Neuronen in der Eingabeschicht aufgenommen und durch die Neuronen in der Ausgabeschicht ausgegeben.
 Die Neuronen in der versteckten Schicht verarbeiten die Informationen.
-Ein grundsätzlicher Aufbau eines neuronale Netzes ist in Abb. \ref{fig:StructureNN} dargestellt.
+Ein grundsätzlicher Aufbau eines neuronalen Netzes ist in Abb. \ref{fig:StructureNN} dargestellt.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/structure_NN.png}
@@ -376,6 +376,16 @@ Von der Aktivierung ist abhängig, ob das Neuron feuert, sprich seinen errechnet
 Dies gibt Aufschluss über die Relevanz die vorangegangenen Werte.
 % //TODO Quelle dazu suchen sonst \autocite[vgl.][S. 27]{sonnet_neuronale_2022}. beschreibt aber nut Aktivierung nicht was dies bedeutet
 Somit können durch die Gewichte der Kanten und den Wert der Neuronen Informationen abgebildet werden.
+\autocite[vgl.][S. 27]{sonnet_neuronale_2022}
 \newparagraph
-% Trainieren von NN
+Für das Training von neuronalen Netzen werden viele klassifizierte Daten benötigt, welche als Ausgangspunkt dienen.
+Das Training läuft iterativ in Schleifen, in sogenannte Epochen ab.
+Nach jedem Durchlauf werden mithilfe des Feedbacks der Ausgabeschicht die Gewichte der Kanten und der Wert der Neuronen angepasst.
+Zu Beginn werden die Kanten-Gewichte und der Wert eines Neurons zufällig gesetzt.
+Dies wirkt sich auf das Ergebnis des gesamten Trainingsprozesses aus, da die zufällig gesetzten Werte so ungünstig sein können, dass das Netz während des Durchlaufs die Gewichte nicht ausreichend anpassen kann.
+Nach Abschluss des Trainings kann das Netz bewertet werden.
+Hierbei werden abhängig vom der gewählten Technologie unterschiedlich Parameter ausgegeben.
+Grundsätzlich kann ein Netz immer beurteilt werden in dem bereits klassifizierte Daten, durch das Netz klassifizieren lässt und anschließend das Ergebnis das neuronale Netz mit dem tatsächlichen Ergebnis vergleicht.
+Im Regelfall werden hierbei Daten genommen, welche zwar aus dem gleichen Datensatz stammen aber jedoch nicht für das Training genutzt wurden.
+\autocite[vgl.][]{marcel_mikl_wie_2018}
 % Arten von NN
