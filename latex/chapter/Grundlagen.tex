@@ -339,13 +339,53 @@ Der Computer kann anschließend aus den Daten gewonnenen Erkenntnisse nutzen, um
 % Dieses Modell kann verwendet werden, um den Verkaufspreis von anderen Häusern vorherzusagen.
 Die Vorhersagen stimmen nicht immer zu 100 \%, die Vorhersagegenauigkeit hängt von verschiedenen Faktoren ab, welche je nach Anwendungsfall variieren.
 \newline
-\ac{ML} lässt sich in die drei Kategorien überwachtes Lernen, unüberwachtes Lernen und verstärktes Lernen gliedern.
+\ac{ML} lässt sich in die drei Kategorien überwachtes Lernen, unüberwachtes Lernen und verstärkendes Lernen gliedern.
 Beim überwachten Lernen besteht der Trainingsdatensatz aus Eingabewerten und gewünschten Ausgabewerten.
 Der Algorithmus generiert eine Abbildungsfunktion, die die Eingabewerte auf die Ausgabewerte abbildet.
 Der Computer wird sozusagen unterrichtet, Vorhersagen für zukünftige Daten auf Grundlage von Bestandsdaten zu erstellen \autocite[vgl][S. 11]{thakkar_beginning_2019}.
 Im Gegensatz dazu besteht der Trainingsdatensatz beim unüberwachten Lernen nur aus unmarkierten Eingabewerten.
 Das Ziel von unüberwachtem Lernen besteht darin Muster oder Strukturen zu erkennen.
 Der Computer unterrichtet sich sozusagen selbst \autocites[vgl.][S. 11-12]{thakkar_beginning_2019}[vgl.][S. 6]{etaati_machine_2019}.
-Verstärktes Lernen ist ein verhaltensbasiertes Lernmodell.
+Verstärkendes Lernen ist ein verhaltensbasiertes Lernmodell.
 Hierzu interagiert der Lernalgorithmus mit der Umgebung und erhält Belohnungen, wenn er die gewünschten Ergebnisse erzielt. 
 Der Computer erlernt so das ideale Verhalten innerhalb der Umgebung \autocite[vgl][S. 12]{thakkar_beginning_2019}.
+
+\subsection{Neuronale Netze}
+In engem Zusammenhang zu \acl{ML} stehen die sogenannten \aclp{NN}.
+Ein neuronales Netz ist ein maschinelles Modell, das auf dem Vorbild der Abläufe im Gehirn von Mensch und Tier basiert.
+Durch geeignete mathematische Operationen wird versucht die Art und Weise abzubilden wie das menschliche Gehirn Probleme angeht beziehungsweise Zusammenhänge aus beobachten Daten erkennt \autocites[vgl.][S. 604]{backhaus_multivariate_2016}[vgl.][S. 31]{judith_hurwitz_machine_2018}.
+Aus den vorhin genannten Lernalgorithmen (überwachtes, unüberwachtes, und verstärkendes Lernen) ergibt sich als Ergebnis ein neuronales Netz, welches das erlernte Wissen in seiner Struktur speichert \autocite[vgl.][S. 427]{guresen_definition_2011}.
+\newparagraph
+%Aufbau von neuronalen Netzen
+Ein neuronales Netz ist prinzipiell in Schichten aufgebaut.
+In jedem neuronalen Netz gibt es eine Eingabe- und Ausgabeschicht.
+Zwischen der Eingabe- und Ausgabeschicht liegen mehrere versteckte Schichten (hidden layers).
+Jede Schicht besteht aus mehreren Neuronen (Knoten), welche über gewichtete Kanten miteinander verbunden sind \autocite[vgl.][S. 26]{sonnet_neuronale_2022}.
+Die Informationen werden durch die Neuronen in der Eingabeschicht aufgenommen und durch die Neuronen in der Ausgabeschicht ausgegeben.
+Die Neuronen in der versteckten Schicht verarbeiten die Informationen.
+Ein grundsätzlicher Aufbau eines neuronalen Netzes ist in Abb. \ref{fig:StructureNN} dargestellt.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/structure_NN.png}
+    \customcaption{Grundsätzlicher Aufbau eines neuronalen Netzes}{\autocite[][]{daniel_john_neuronales_2022}}
+    \label{fig:StructureNN}
+\end{figure}\noindent
+Ein Neuron ermittelt seine Aktivierung aufgrund der Eingaben der vorherigen Neuronen und gibt daraus aufbauend einen Wert aus.
+Dieser Wert kann durch die Gewichte auf den Kanten beeinflusst werden.
+Von der Aktivierung ist abhängig, ob das Neuron feuert, sprich seinen errechneten Wert weitergibt.
+Dies gibt Aufschluss über die Relevanz die vorangegangenen Werte.
+% //TODO Quelle dazu suchen sonst \autocite[vgl.][S. 27]{sonnet_neuronale_2022}. beschreibt aber nut Aktivierung nicht was dies bedeutet
+Somit können durch die Gewichte der Kanten und den Wert der Neuronen Informationen abgebildet werden.
+\autocite[vgl.][S. 27]{sonnet_neuronale_2022}
+\newparagraph
+Für das Training von neuronalen Netzen werden viele klassifizierte Daten benötigt, welche als Ausgangspunkt dienen.
+Das Training läuft iterativ in Schleifen, in sogenannte Epochen ab.
+Nach jedem Durchlauf werden mithilfe des Feedbacks der Ausgabeschicht die Gewichte der Kanten und der Wert der Neuronen angepasst.
+Zu Beginn werden die Kanten-Gewichte und der Wert eines Neurons zufällig gesetzt.
+Dies wirkt sich auf das Ergebnis des gesamten Trainingsprozesses aus, da die zufällig gesetzten Werte so ungünstig sein können, dass das Netz während des Durchlaufs die Gewichte nicht ausreichend anpassen kann.
+Nach Abschluss des Trainings kann das Netz bewertet werden.
+Hierbei werden abhängig vom der gewählten Technologie unterschiedlich Parameter ausgegeben.
+Grundsätzlich kann ein Netz immer beurteilt werden in dem bereits klassifizierte Daten, durch das Netz klassifizieren lässt und anschließend das Ergebnis das neuronale Netz mit dem tatsächlichen Ergebnis vergleicht.
+Im Regelfall werden hierbei Daten genommen, welche zwar aus dem gleichen Datensatz stammen aber jedoch nicht für das Training genutzt wurden.
+\autocite[vgl.][]{marcel_mikl_wie_2018}
+% Arten von NN
