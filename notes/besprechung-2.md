@@ -6,11 +6,11 @@ Diese Studienarbeit soll die Frage beantworten, ob eine Benutzerauthentifizierun
 Dafür werden zunächst Versuche mit verschiedenen Analyse-Methoden durchgeführt und auf dessen Basis eine Applikation entwickelt, die eine Stimm-Authentifizierung demonstriert.
 
 ## Gliederung
-
-- Einleitung
+- *Abstract*
+- Einleitung **Lukas**
   - Projektumfeld
   - Wissenschaftliche Frage und Ziel der Arbeit
-- Theoretische Grundlagen und Stand der Technik
+- Theoretische Grundlagen **Henry**
   - Menschliche Stimme
   - Authentifizierung
   - Audioanalyse und -verarbeitung
@@ -18,20 +18,30 @@ Dafür werden zunächst Versuche mit verschiedenen Analyse-Methoden durchgeführ
     - Dynamic Time Warping
     - Neuronale Netze
     - ...
-- Versuche
-  - ...
-- Konzept der Applikation
-  - ...
-  - Analyse-Pipeline
-    - Feature-Extraktion
-      - Fourier-Transformation
-      - Dynamic Time Warping
-    - Klassifikation
-      - Neuronales Netz
+- Stand der Technik **Johannes**
+- Konzeption
+  - Anforderungsanalyse **Johannes**
+    - Keine neuen Sprecher während der Laufzeit -> Fest definierte Sprecher
+  - Konzept Versuchsystem
     - ...
+    - Analyse-Pipeline
+      - Feature-Extraktion
+        - Fourier-Transformation
+        - Dynamic Time Warping
+      - Klassifikation
+        - Neuronales Netz
+      - ...
+  - Konzept Demosystem **Henry**
+    - Erweitern des Versuchsystems
 - Umsetzung der Applikation
+  - Technisches Projektumfeld
   - ...
 - Evaluation
+  - Versuche
+    - Durchführung der Versuche
+    - Auswertung der Diagramme
+    - ...
+  - DemoSystem
 - Fazit
 - Ausblick
 
