@@ -1,0 +1,18 @@
+\section{Konzeption}
+
+\subsection{Festlegung der Systemanforderungen}
+
+Die grundlegende Anforderung an diese Studienarbeit war es, ein Sprecheridentifikationssystem zu entwickeln, welches über eine Webapplikation bedient werden kann.
+Da diese Anforderungsbeschreibung noch viel Spielraum über den Funktionsumfang dieses Systems lässt, werden in diesem Kapitel die Anforderungen an das System genauer spezifiziert.
+
+
+\begin{itemize}
+    \item Das System soll lediglich ein Demo-System darstellen, welches die Machbarkeit eines test-unabhängigen Sprecheridentifikationssystems aufzeigt. Es soll nicht in einem produktiven Umfeld eingesetzt werden können.
+    \item Der Datensatz für das System ist zu Begin festgelegt. Das heißt, es werden nur bereits bekannte Sprecher identifiziert. Zudem können keine neuen Sprecher regisiert werden, es ist also auch keine Aufnahmemöglichkeit benötigt.
+    \item Das System beschränkt sich auf das Identifizieren eines Sprechers unter 20 Sprechern.
+    \item Ein Sprecher wird authentifiziert, wenn ein Audio-Clip von 20 Sekunden des Sprechers in das System gegeben wird. Der Audio-Clip ist dem System bisher unbekannt, aber in ähnlichen Bedingungen aufgenommen, wie die bekannten Clips.
+    \item Das Sprecheridentifikationssystems sollte im Back-End laufen. Die Bedienung erfolgt über eine Webapplikation, die mit dem System über eine Schnittstelle kommuniziert.
+    \item In der Web-Oberfläche des Demo-Systems soll der zu authentifizierende Sprecher (einer der 20) und ein Verifikations-Clip ausgewählt werden können. Es soll für jeden Sprecher 5 Clips zur Auswahl geben.
+    \item So soll der Nutzer des Demo-Systems testen können, was passiert, wenn ein zum authentifizierenden Sprecher passender bzw. unpassender Verifikations-Clip ins System gegeben wird.
+    \item Das System soll dem Nutzer dann Informationen über die Identifikations-Verteilung (zu welchem Sprecher passt der Clip zu welchem Prozentsatz) und dem Authentifizierungs-Status (\gqq{erfolgreich}/\gqq{nicht erfolgreich}") als Rückmeldung darstellen.
+\end{itemize}
