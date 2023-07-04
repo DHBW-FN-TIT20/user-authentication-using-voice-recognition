@@ -1,12 +1,51 @@
 \section{Grundlagen}
+Um die Hintergründe und Herangehensweisen der Studienarbeit nachzuvollziehen müssen zunächst verschiedene Grundlagen vorgestellt werden.
+Dabei findet zunächst eine Definition des Begriffs Sprecherauthentifizierung statt.
+Anschließend wird ein Basisverständnis für die Technische Umsetzung mittels eines Exkurses über den Aufbau der menschlichen Stimme hergestellt.
+Die konkret verwendeten Algorithmen werden in dem Kapitel Audioanalyse beschrieben.
+Außerdem findet eine kurze Einführung in den Bereich der künstlichen Intelligenz, sowie der \ac{NN} statt.
+Abgeschlossen wird das Grundlagenkapitel mit einem Verfahren zur Analyse von Sicherheitsrisiken, den Attack Trees.
 
-\subsection{Authentifizierung}
+\subsection{Sprecherauthentifizierung}
+In der Kryptographie beschreibt der Begriff Authentifizierung \gqq{eine Identität durch eine identitätsgebundene Information zu überprüfen} \autocite[][S. 129]{tsolkas_rollen_2017}.
+Zu den identitätsgebundenen Informationen zählt unter Anderem die biometrische Information der Stimme für die Sprecherauthentifizierung.
+
+Zu den heutigen Einsatzgebieten der Sprecherauthentifizierung zählen hauptsächlich Telefon-Hotlines, welche anstelle oder in Ergänzung zu wissensbasierten Sicherheitsfragen auch die Informationen der Stimme auswerten um diese für die Authentifizierung zu verwenden.
+So kommt die Sprecherauthentifizierung beispielsweise bereits bei den Hotlines der schweizer Banken Postfinance, Migros und Cler, aber auch der deutschen Telekom zum Einsatz, wodurch eine Authentifizierung mittels Kundendaten unterstützt wird oder gänzlich entfällt \autocite[vgl.][]{anz_mit_2023} \autocite[vgl.][]{noauthor_authentifizierung_nodate} \autocite[vgl.][]{noauthor_meine_nodate}.
+
+Im konkreten Anwendungsfall der Sprecherauthentifizierung wird zwischen Textunabhängigen und Textabhängigen Authentifizierungssystemen mit open-set oder closed-set Datensätzen unterschieden.
 % TODO: Grundlagen der Authentifizierung (Definition, Verfahren, ...)
 % Heutige Anwendungsbereiche und gängige Verfahren
 % (Wo/Warum) wird Stimmauthentifizierung aktuell eingesetzt?
 % Was wären mögliche Einsatzgebiete?
-\subsection{Menschliche Stimme}
+% - "eine Identität durch eine identitätsgebundene Information zu überprüfen" (Rollen und Berechtigungskonzepte, S. 129)
+% - Beispielsweise
+%     - UserID + Passwort
+%     - Challenge Response
+%     - Token
+%     - Biometrie -> Sprechererkennung (Fingerabdruck, Iris)
+% - Einsatzgebiet:
+%     - Hotline (Banken/Telekom) -> Artikel als Quelle
+%         - Keine Fragen/Passwörter/Kundendaten merken
+%     - Bsp.: Google-Assistant / Alexa
 
+\subsubsection{Textunabhängig und Textabhängig}
+Textunabhängige Systeme beziehen sich ausschließlich auf die Charakteristiken der Stimme ohne dabei den Inhalt des Gesprochenen auszuwerten.
+Für die Authentifizierung kann somit eine beliebige Wortkombination eingesprochen werden.
+
+Textabhängige Systeme hingegen implementieren zusätzlich eine Texterkennung wodurch neben der Stimmcharakteristik auch der gesprochene Satz dem vorgegebenen Satz entsprechen muss \autocite[vgl.][S. 2]{thullier_text-independent_2017}.
+Dadurch kann das Authentifizierungssystem mit einem bestimmten Satz trainiert werden, wodurch die Authentifizierung verbessert werden kann \autocite[vgl.][S.]{sidorov_text-independent_2010}.
+Im Gegensatz zu Textunabhängigen Systemen steigen jedoch die Anforderungen an die Trainingsdaten stark an, da der verwendete Satz von jedem Sprecher einzeln eingesprochen werden muss und somit keine bereits existierenden Aufzeichnungen verwendet werden können.
+
+\subsubsection{Open- und closed-set}
+Open- und closed-set Sprecherauthentifizierung unterscheidet sich in der Zusammensetzung und Klassifizierung des Test- und Anwendungsdatensatzes.
+Während bei open-set Anwendungen sowohl Sprachaufzeichnungen von bekannten, als auch unbekannten Sprechern ausgewertet werden, ist die Anwendung bei closed-set ausschließlich auf die bekannten Sprecher begrenzt.
+
+Somit ordnet eine closed-set Anwendung eine Sprachaufzeichnung immer einem der bekannten Sprecher zu, während in einer open-set Anwendung auch eine Klassifikation als unbekannt stattfindet.
+
+\subsection{Menschliche Stimme}
+Um die grundlegenden Konzepte hinter den in dieser Arbeit verwendeten Verfahren zur Parameterextraktion zu verstehen, werden in diesem Kapitel die wesentlichen Grundlagen zu der menschlichen Stimme vorgestellt.
+Dabei wird sowohl auf die Stimmerzeugung, als auch die Stimmwahrnehmung eingegangen.
 
 \subsubsection{Stimmerzeugung}
 Die Stimmerzeugung unterteilt sich in zwei Phasen: die Phonation (Stimmbildung) und die Resonanz.
@@ -66,6 +105,11 @@ Für die Umrechnung zwischen den beiden Skalen wird folgende Formel verwendet \a
 \end{equation}
 
 \subsection{Audioanalyse}
+Basierend auf den biologischen Grundlagen der menschlichen Stimme, welche im vorangehenden Kapitel vorgestellt wurden, beschäftigt sich dieses Kapitel nun mit der Generierung von Parametern aus Stimmaufzeichnungen, die einen Rückschluss auf den Sprecher erlauben.
+Dazu wird zunächst auf die benötigten Vorverarbeitungsschritte eingegangen, die zur Weiterverarbeitung der aufgezeichneten Audiodatei benötigt werden.
+Anschließend wird das grundlegende Konzept der Fourier Analyse vorgestellt, welches zusammen mit dem vorangehenden Kapitel der Stimmwahrnehmung die Basis für die \ac{MFCC} bildet.
+Abschließend werden basierend auf den Konzepten der Stimmerzeugung die \ac{LPC} Koeffizienten eingeführt.
+
 \subsubsection{Signalvorverarbeitung}
 Um ein gegebenes Audiosignal einheitlich verarbeiten zu können, muss dieses zunächst mittels verschiedener Verfahren vorbereitet werden.
 Ziel dieser Vorverarbeitung ist es, die Effizienz und Effektivität des anschließenden Verarbeitungsprozesses zu erhöhen und somit ein verbessertes Ergebnis zu erzielen \autocite[vgl.][S. 11672]{lokesh_speech_2019}.
@@ -109,15 +153,8 @@ Wie der Name bereits beschreibt, wird aus einer eindeutigen Frequenz, ein Spektr
 %%%% paste from t3000
 
 \subsubsection{Fourier Analyse}
-
-Jean-Baptiste Joseph Fourier (1768 - 1830) war ein französischer Mathematiker.
-Er war in seinem Mathematikstudium Schüler von Lagrange, Laplace und Monge und veröffentlichte 1822 seine Arbeit \gqq{Theorie der Analytischen Funktionen}.
-Damit legte er die Grundlagen für die Fourier-Reihe und die Fourier-Transformation.
-Diese Verfahren sind bis heute in der Mathematik und Physik von großer Bedeutung und bilden die Grundlage für die Fourier-Analyse. Fourier gilt daher als einer der wichtigsten Mathematiker aller Zeiten \autocite[vgl.][o. S.]{heinz_klaus_strick_joseph_2012}.
-
-Der Begriff Fourier-Analyse ist in der Literatur hauptsächlich für zwei Dinge verwendet worden.
-Zum einen würdigt er die Rolle Fouriers in der Entwicklung der Mathematik.
-Zum anderen ist er ein Überbegriff für eine Reihe an mathematischen Verfahren, die von Fourier entwickelt wurden \autocite[vgl.][S. 1]{picard_fourier-analyse_1996}.
+Die Grundlage für die Fourier Analyse stellt die von Jean-Baptiste Joseph Fourier entwickelte Fourier Reihe dar.
+In diesem Unterkapitel wird dabei zunächst die Fourier Reihe vorgestellt und anschließend die in dieser Arbeit verwendete \ac{FFT} daraus schrittweise abgeleitet.
 
 \paragraph{Fourier-Reihe}
 
@@ -199,7 +236,7 @@ Das heißt, dass für jeden Zeitpunkt $t$ ein Wert $s(t)$ existiert.
 
 Bei der \ac{DFT} können diskrete Signale verarbeitet werden, die aus einer Folge von $N$ Werten ($s_0, s_1, \dots, s_{N-1}$) bestehen, weshalb diese Methode besonders interessant für elektronisch aufgezeichnete Signale ist.
 
-Da keine kontinuierliche Funktion vorliegt, besteht keine Möglichkeit mehr, ein Integral zu bilden, weshalb die Formel jetzt mit einer Summe aufgestellt ist:
+Da keine kontinuierliche Funktion vorliegt, besteht keine Möglichkeit mehr, ein Integral zu bilden, weshalb die Formel mit einer Summe aufgestellt ist:
 
 \begin{equation}
     S_k = \frac{1}{N} \sum_{n=0}^{N-1} s_n \cdot e^{-j2\pi \frac{kn}{N}}
@@ -228,10 +265,9 @@ wobei $f_s$ die Abtastrate des Signals ist.
 Die \ac{DFT} würde sich nach der obigen Formel implementieren und für jedes Signal nutzen lassen.
 Allerdings ist die Komplexität der \ac{DFT} mit $\mathcal{O}(N^2)$ sehr hoch, weshalb die \ac{FFT} entwickelt wurde, die den gleichen Output liefert, aber mit einer Komplexität von $\mathcal{O}(N log(N))$ \autocite[vgl.][S. 338]{beucher_signale_2011}.
 
-Die \ac{FFT} ist also eine für Computer optimierte Implementierung der \ac{DFT}.
+Die \ac{FFT} ist somit eine für Computer optimierte Implementierung der \ac{DFT}.
 Eine genaue Erklärung, warum \ac{FFT} signifikant weniger Berechnungen benötigt, würde für diese Seminararbeit zu sehr ins Detail gehen.
-% TODO: Vlt doch ausführlich erklären
-Einfach gesagt, nutzt der Algorithmus aber die Eigenschaft von Sinus- und Cosinus-Wellen, dass Wellen mehrfacher Frequenz an bestimmten Stellen dieselben Werte annehmen und so nur einmal berechnet werden müssen.
+Einfach gesagt, nutzt der Algorithmus die Eigenschaft von Sinus- und Cosinus-Wellen, dass Wellen mehrfacher Frequenz an bestimmten Stellen dieselben Werte annehmen und so nur einmal berechnet werden müssen.
 
 \begin{figure}
     \centering
@@ -242,27 +278,26 @@ Einfach gesagt, nutzt der Algorithmus aber die Eigenschaft von Sinus- und Cosinu
 
 Durch diese Eigenschaft und das rekursive Aufteilen des Signals in gerade und ungerade Datenpunkte spart der Algorithmus sehr viele Berechnungen ein \autocite[vgl.][S. 643]{oppenheim_discrete-time_1999}.
 
-\newpage
-
 \subsubsection{Mel Frequency Cepstral Coefficients}
-Die \ac{DFT} ist durch das Herausfiltern der vorhandenen Frequenzen bereits gut geeignet, um wesentliche Merkmale, wie die Stimmlage und Stimmfarbe einer Aufzeichnung, zu bestimmen.
-Allerdings werden in der Praxis meistens die \ac{MFCC} benutzt, die zwar auf einer Fourier-Analyse basieren, aber noch weitere Berechnungsschritte erfordern.
+Die \ac{DFT} ermöglicht es bereits wesentliche Merkmale wie die Stimmlage und -farbe einer aufgezeichneten Stimme zu bestimmen.
+Um die gewonnenen Merkmale der Fourier Analyse zu verbessern, werden weitere Berechnungsschritte durchgeführt, sodass die Merkmale in \ac{MFCC} umgewandelt werden.
 
-Der Vorteil von Merkmalen wie \ac{MFCC} ist zunächst, dass so Audio-Signale mit verschiedenen Längen und Abtastraten besser miteinander verglichen werden können.
-Das liegt daran dass, bei einer Analyse der \ac{MFCC} eine feste Anzahl Koeffizienten entsteht.
+Der Vorteil von Merkmalen wie \ac{MFCC} ist zunächst, dass Audio-Signale mit verschiedenen Längen und Abtastraten besser miteinander verglichen werden können.
+Das liegt daran, dass bei einer Analyse der \ac{MFCC} eine fest definierbare Anzahl an Koeffizienten generiert werden.
 Die Anzahl hängt dabei, anders als bei einer Fouriertransformation, nicht von der Frame-Länge und Abtastrate ab.
 Zudem sind die \acp{MFCC} mehr auf die menschliche Wahrnehmung von Tönen abgestimmt und robuster gegenüber Hintergrundrauschen.
 
-Um die Mel Frequency Cepstral Coefficients zu berechnen sind mehrere Schritte nötig \autocite[vgl. ][S. 2]{logan_mel_2000}:
+Um die \ac{MFCC} zu berechnen sind die folgenden vier Schritte notwendig \autocite[vgl. ][S. 2]{logan_mel_2000}:
 
 \begin{enumerate}
-    \item \textbf{Framing}\\Unterteilen des Signals 20 - 40 ms Abschnitte
     \item \textbf{\ac{DFT}}\\Bestimmung der Frequenzkomponenten
     \item \textbf{Logarithmierung}\\Näher an menschlicher Wahrnehmung
-    \item \textbf{Abbildung auf die Mel-Skala\footnote{Das Mel ist eine Maßeinheit für die wahrgenommene Tonhöhe. Das Mel verläuft ab einer gewissen Frequenz logarithmisch und nicht mehr proportional zu Hertz, da ein Mensch die Tonhöhe logarithmisch wahrnimmt.}}\\Zusammenfassung von Frequenzen zu Mel-Bänder mithilfe von Dreiecksfiltern
+    \item \textbf{Abbildung auf die Mel-Skala}\\Zusammenfassung von Frequenzen zu Mel-Bändern mithilfe von Dreiecksfiltern
     \item \textbf{Diskrete Kosinustransformation}\\Ähnlich zur inversen Fourier-Transformation
 \end{enumerate}
-%%%%
+
+Durch die Abbildung der ermittelten Frequenzen auf die Mel-Skala orientiert sich das Verfahren somit an der menschlichen Stimmwahrnehmung, welche bereits im vorangehenden Kapitel erläutert wurde.
+
 \subsubsection{Linear Predicitve Coding}
 Die Grundlage von \ac{LPC} bildet das \ac{AR} Modell.
 Die \ac{AR} basiert auf dem Konzept der multiplen Regression und wird auf zeitlich veränderliche Prozesse angewandt.
@@ -280,43 +315,38 @@ Neben der Yule-Walker Methode stellt der Burg Algorithmus eine beliebte Alternat
 % TODO: Formeln evtl. mit in die Arbeit ziehen
 % Evtl: Formeln des Burg Algorithmus auflisten und erklären
 % Evtl: Was hat Yule-Walker und Levinson damit zu tun?
-\newline
-\newline
+
 Bei dem Verfahren \ac{LPC} wird der Ansatz verfolgt, Rückschlüsse von dem akustischen Signal auf die Stimmerzeugung zu ziehen.
 Dazu wird ein \ac{AR}-Filter verwendet um ein vereinfachtes Modell des menschlichen Stimmtrakts zu erstellen.
 Die Regressionsgewichte $a_k$ entsprechen dabei den \ac{LPC}-Koeffizienten.
 % TODO: Genauer erklären warum die Gewichte eine Rolle spielen -> Stimmerzeugung mit Grundrauschen + Koeffizienten als Filter
-\newline
-\newline
-Bei der Stimmerzeugung spielen die sogenannten Formanten eine Rolle.
-Diese beschreiben die akustische Energie in einem unveränderlichen Frequenzbereich, welche wiederum von den Resonanz- und Interferenzeigenschaften des Artikulationsraums abhängen.
-Dadurch werden bestimmte Frequenzen verstärkt, während andere gedämpft werden \autocite[vgl.][S. 259]{fitch_evolution_2000}.
+
 Das durch die \ac{LPC}-Koeffizienten erstellte Modell erfasst die Resonanzeigenschaften des Signals, wodurch Rückschlüsse auf die Formanten geschlossen werden können.
 Da die Struktur der Formanten sprecherspezifisch ist, kann der Sprecher somit über die \ac{LPC}-Koeffizienten identifiziert werden \autocite[vgl.][S. 117]{sidorov_text-independent_2010}.
-\newline
-\newline
+
 Zur Berechnung der \ac{LPC}-Koeffizienten wird zunächst die selbe Annahme wie in Kapitel~\ref{sec:Framing} getroffen, dass sich die Form des Vokaltrakts und das in den Stimmritzen erzeugte Signal über den betrachteten Zeitraum nicht verändert \autocite[vgl.][S. 1304]{atal_effectiveness_1974}.
 Somit lassen sich die Koeffizienten des \ac{AR}-Filters mittels des Burg-Algorithmus berechnen.
 
 \subsection{Künstliche Intelligenz}
-\ac{KI} hat in den letzten Jahren stark Aufmerksamkeit gewonnen und gilt als eine der wichtigsten Technologien des 21. Jahrhunderts.
-Spätestens seit der Veröffentlichung und dem Erfolg durch den Chatbot ChatGPT am 30. November 2022 sind die Möglichkeiten von \ac{KI} den meisten Menschen bekannt. ChatGPT hat innerhalb von fünf Tagen die Schwelle von einer Million Nutzer erreicht. Spotify oder Facebook zum Vergleich haben hierfür 5 beziehungsweise 10 Monate benötigt \autocite[vgl. ][]{janson_infografik_2023}.
-\newparagraph
-Die Statistik die im Jahre 2022 vom IDC erstellt wurde prognostiziert für die Anwendungsfelder Hardware, Software und IT-Services im Jahre 2024 einen weltweiten Umsatz von 554,3 Milliarden US-Dollar.
+\ac{KI} hat in den letzten Jahren stark an Aufmerksamkeit gewonnen und gilt als eine der wichtigsten Technologien des 21. Jahrhunderts.
+Spätestens seit der Veröffentlichung und dem Erfolg durch den Chatbot ChatGPT am 30. November 2022 sind die Möglichkeiten von \ac{KI} den meisten Menschen bekannt. 
+ChatGPT hat innerhalb von fünf Tagen die Schwelle von einer Million Nutzer erreicht. 
+Spotify oder Facebook zum Vergleich haben hierfür 5 beziehungsweise 10 Monate benötigt \autocite[vgl. ][]{janson_infografik_2023}.
+
+Die Statistik die im Jahr 2022 von der International Data Corperation erstellt wurde prognostiziert für die Anwendungsfelder Hardware, Software und IT-Services im Jahr 2024 einen weltweiten Umsatz von 554,3 Milliarden US-Dollar.
 Dies entspricht einer Steigerung von 171 Milliarden US-Dollar (44,6 \%) im Vergleich zum Jahr 2021 \autocite[vgl. ][]{idc_kunstliche_2022}.
 Dies unterstreicht noch einmal die Relevanz von \ac{KI} im aktuellen Zeitalter.
 Doch was ist \ac{KI} und wie ist Sie für diese Arbeit von Relevanz, diese Fragen werden im Folgenden beantwortet.
-% ---- %
-\newparagraph
+
 Die Idee einer \acl{KI} ist bereits seit Mitte des 20. Jahrhunderts existent. 1955 definierte John McCarthy, einer der Pioniere der \ac{KI}, als erster den Begriff der \acl{KI} wie folgt:
 \begin{quote}
   \gqq{Ziel der KI ist es, Maschinen zu entwickeln, die sich verhalten, als verfügten sie über Intelligenz.}
   \autocite[][S. 1]{ertel_grundkurs_2016}
 \end{quote}\noindent
 Aus heutiger Sicht ist diese Definition nicht mehr ausreichend.
-Eine weit verbreitete Definition stammt von Elaine Rich die sagt, dass sich \ac{KI} mit der Entwicklung von Computeralgorithmen befasse, für Probleme, die Menschen im Moment noch besser lösen können \autocite[vgl. ][]{rich_artificial_1983}.
+Eine weit verbreitete Definition stammt von Elaine Rich welche sagt, dass sich \ac{KI} mit der Entwicklung von Computeralgorithmen befasse, für Probleme, die Menschen im Moment noch besser lösen können \autocite[vgl. ][]{rich_artificial_1983}.
 %Themenfelder KI
-\newparagraph
+
 Aufgrund der Entwicklung seit Mitte des 20. Jahrhunderts gliedert sich das Thema \ac{KI} in viele Teilgebiete.
 % letztes Jahrzent vorallem Fortschritte im Bereich ML / grundsätzlich Lernen, welches relevant ist für Arbeit
 Die verschiedenen Teilgebiete sind in der Abbildung \ref{fig:KI-Teilgebiete} dargestellt.
@@ -331,7 +361,7 @@ Insbesondere das Thema \ac{ML} hat in den letzten zehn Jahren viel Beachtung gef
 \newline
 \ac{ML} ist nicht neu, bereits in den 1950er Jahren wurden von Arthur Lee Samuels die ersten \ac{ML} Programme entwickelt \autocite[vgl.][S. 5]{judith_hurwitz_machine_2018}.
 Der Aufschwung von \ac{ML} im letzten Jahrzehnt ist auf steigende und bezahlbare Rechenleistung bzw. Speichergrößen zurückzuführen.
-\ac{ML} beschreibt den Prozess bei dem Computeralgorithmen trainiert werden, um ihre Leistung bei einer bestimmten Aufgabe zu verbessern ohne das dies explizit programmiert werden muss.
+\ac{ML} beschreibt den Prozess bei dem Computeralgorithmen trainiert werden, um ihre Leistung bei einer bestimmten Aufgabe zu verbessern ohne dass dies explizit programmiert werden muss.
 Hierzu werden dem Computer Daten bereitgestellt aus welchen er lernt.
 Der Computer kann anschließend aus den Daten gewonnenen Erkenntnisse nutzen, um Vorhersagen für neue Daten zu treffen \autocite[vgl.][S. 4]{judith_hurwitz_machine_2018}.
 % Beispielsweise wird dem Computer eine Liste mit Häusern, deren Eigenschaften (z.B. Anzahl Zimmer, Wohnfläche, Alter und Standort) und einem Verkaufspreis zu Verfügung gestellt.
@@ -352,10 +382,10 @@ Der Computer erlernt so das ideale Verhalten innerhalb der Umgebung \autocite[vg
 
 \subsection{Neuronale Netze}
 In engem Zusammenhang zu \acl{ML} stehen die sogenannten \aclp{NN}.
-Ein neuronales Netz ist ein maschinelles Modell, das auf dem Vorbild der Abläufe im Gehirn von Mensch und Tier basiert.
-Durch geeignete mathematische Operationen wird versucht die Art und Weise abzubilden wie das menschliche Gehirn Probleme angeht beziehungsweise Zusammenhänge aus beobachten Daten erkennt \autocites[vgl.][S. 604]{backhaus_multivariate_2016}[vgl.][S. 31]{judith_hurwitz_machine_2018}.
+Ein \ac{NN} ist ein maschinelles Modell, das auf dem Vorbild der Abläufe im Gehirn von Mensch und Tier basiert.
+Durch geeignete mathematische Operationen wird versucht die Art und Weise abzubilden wie das menschliche Gehirn Probleme angeht beziehungsweise Zusammenhänge aus beobachteten Daten erkennt \autocites[vgl.][S. 604]{backhaus_multivariate_2016}[vgl.][S. 31]{judith_hurwitz_machine_2018}.
 Aus den vorhin genannten Lernalgorithmen (überwachtes, unüberwachtes, und verstärkendes Lernen) ergibt sich als Ergebnis ein neuronales Netz, welches das erlernte Wissen in seiner Struktur speichert \autocite[vgl.][S. 427]{guresen_definition_2011}.
-\newparagraph
+
 %Aufbau von neuronalen Netzen
 Ein neuronales Netz ist prinzipiell in Schichten aufgebaut.
 In jedem neuronalen Netz gibt es eine Eingabe- und Ausgabeschicht.
@@ -377,15 +407,35 @@ Dies gibt Aufschluss über die Relevanz die vorangegangenen Werte.
 % //TODO Quelle dazu suchen sonst \autocite[vgl.][S. 27]{sonnet_neuronale_2022}. beschreibt aber nut Aktivierung nicht was dies bedeutet
 Somit können durch die Gewichte der Kanten und den Wert der Neuronen Informationen abgebildet werden.
 \autocite[vgl.][S. 27]{sonnet_neuronale_2022}
-\newparagraph
+
 Für das Training von neuronalen Netzen werden viele klassifizierte Daten benötigt, welche als Ausgangspunkt dienen.
 Das Training läuft iterativ in Schleifen, in sogenannte Epochen ab.
 Nach jedem Durchlauf werden mithilfe des Feedbacks der Ausgabeschicht die Gewichte der Kanten und der Wert der Neuronen angepasst.
 Zu Beginn werden die Kanten-Gewichte und der Wert eines Neurons zufällig gesetzt.
 Dies wirkt sich auf das Ergebnis des gesamten Trainingsprozesses aus, da die zufällig gesetzten Werte so ungünstig sein können, dass das Netz während des Durchlaufs die Gewichte nicht ausreichend anpassen kann.
 Nach Abschluss des Trainings kann das Netz bewertet werden.
-Hierbei werden abhängig vom der gewählten Technologie unterschiedlich Parameter ausgegeben.
-Grundsätzlich kann ein Netz immer beurteilt werden in dem bereits klassifizierte Daten, durch das Netz klassifizieren lässt und anschließend das Ergebnis das neuronale Netz mit dem tatsächlichen Ergebnis vergleicht.
-Im Regelfall werden hierbei Daten genommen, welche zwar aus dem gleichen Datensatz stammen aber jedoch nicht für das Training genutzt wurden.
+Hierbei werden abhängig von der gewählten Technologie unterschiedlich Parameter ausgegeben.
+Grundsätzlich kann ein Netz immer beurteilt werden indem bereits klassifizierte Daten durch das Netz klassifiziert werden und die Ergebnisse anschließend mit dem tatsächlichen Ergebnis verglichen werden.
+Im Regelfall werden hierbei Daten verwendet, welche zwar aus dem gleichen Datensatz stammen, jedoch nicht für das Training genutzt wurden.
 \autocite[vgl.][]{marcel_mikl_wie_2018}
 % Arten von NN
+
+\subsection{Gefahrenanalyse (Attack Trees)}
+Eine Möglichkeit der Beurteilung von sicherheitskritischen Systemen stellt die Gefahrenanalyse dar.
+Dabei wird durch verschiedene Herangehensweisen versucht, möglichst viele potentielle Gefahren und Angriffsstellen des Systems zu ermitteln und anschließend zu bewerten.
+Als Resultat ergibt sich eine klare Einschätzung der Gefahrensituation, wodurch eine Aussage über die Sicherheit des entwickelten Systems getroffen werden kann.
+
+Eine Vorgehensweise stellen dabei die sogenannten Attack Trees dar.
+Sie ermöglichen es in erster Linie, Gefahren strukturiert zu verwalten und übersichtlich darzustellen.
+Mittels einer Baumstruktur werden dabei Gefahren Schicht für Schicht in ihre Komponenten zerlegt.
+Dabei können Komponenten eines Elements entweder durch eine \gqq{oder} oder eine \gqq{und} Verknüpfung verbunden werden.
+Somit kann definiert werden ob für das Eintreten einer Gefahr lediglich eine Komponente oder eine Kombination von Komponenten eintreffen muss.
+
+Um festzustellen ob bereits alle Gefahren gefunden wurden, muss für jedes Element überprüft werden, ob es zusätzliche Wege gibt diese Gefahr zu erreichen.
+Dabei können neben der eigenen Erfahrung auch zusätzliche Quellen wie das Internet oder bereits existierende Attack Trees herangezogen werden.
+Wichtig ist dabei, dass auch von dem System bereits abgedeckte Gefahren mit aufgelistet und als solche markiert werden, sodass für den Betrachter ersichtlich wird, dass die Gefahr berücksichtigt wird \autocite[vgl.][S. 88-94]{shostack_threat_2014}.
+
+Nachdem der Attack Tree aufgestellt ist, können verschiedene Auswertungen durchgeführt werden.
+Dabei handelt es sich grundsätzlich um subjektive Einschätzungen.
+Beispielhaft kann eine binäre Einteilung der Basisgefahren in \gqq{möglich} und \gqq{unmöglich} stattfinden.
+Durch die Verknüpfungsregeln kann somit die Einteilung der Elternknoten ermittelt werden.
