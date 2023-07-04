@@ -16,3 +16,55 @@ Da diese Anforderungsbeschreibung noch viel Spielraum über den Funktionsumfang 
     \item So soll der Nutzer des Demo-Systems testen können, was passiert, wenn ein zu dem zu authentifizierenden Sprecher passender bzw. unpassender Verifikations-Clip ins System gegeben wird.
     \item Das System soll dem Nutzer dann Informationen über die Identifikations-Verteilung (zu welchem Sprecher passt der Clip zu welchem Prozentsatz) und den Authentifizierungs-Status (\gqq{erfolgreich}/\gqq{nicht erfolgreich}") als Rückmeldung darstellen.
 \end{itemize}
+
+\subsection{Demosystem}
+Das Demosystem baut auf dem Versuchssystem auf.
+Wie in den Anforderungen beschrieben, ist die Authentifizierung und damit auch das Versuchssystem Teil des Back-Ends.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth, keepaspectratio]{images/Architektur-Demosystem.png}
+    \caption{Architektur Demosystem}
+    \label{fig:ArchitectureDemoSystem}
+\end{figure}
+In Abbildung~\ref{fig:ArchitectureDemoSystem} ist die grundlegende Architektur des Demosystems dargestellt.
+Diese unterteilt sich in die zwei Elemente: Client (Front-End) und Server (Back-End).
+
+\subsubsection{Server}
+Der Server erhält dafür einen eigenen Einstiegspunkt, welcher eine Schnittstelle für den Client bereitstellt.
+Gleichzeitig fungiert der Server als Authentifizierungssystem.
+Dafür werden die Hauptkomponenten des Versuchssystem (DataSetHandler, AudioPreprocessor und FeatureExtractor) vom Server implementiert.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth, keepaspectratio]{images/Architektur-Demosystem.png} % TODO: Replace Image
+    \caption{Sequenzdiagramm handle\_api\_request (Server)}
+    \label{fig:SequenceHandleApiRequest}
+\end{figure}
+Abbildung~\ref{fig:SequenceHandleApiRequest} zeigt den Ablauf der über die Schnittstelle bereitgestellten Authentifizierungsfunktion des Servers.
+Dabei werden wie in den Anforderungen festgelegt, die Ergebnisse der Authentifizierung an den Client zurückgegeben.
+
+\subsubsection{Client}
+Der Client stellt die grafische Oberfläche für den Endnutzer bereit.
+Diese untergliedert sich in vier Komponenten.
+Index stellt den Einstiegspunkt der Applikation dar.
+Dieser implementiert lediglich die App Komponente.
+
+Innerhalb der App Komponente wird nun der allgemeine Login-Prozess dargestellt.
+Dafür implementiert die Komponente neben der grafischen Oberfläche auch eine Funktion zum Aufruf der Authentifizierungsfunktion des Servers.
+Die Antowrt des Servers wird dabei mittels einer zusätzlichen Komponente (Result) grafisch dargestellt.
+
+Für eine verbesserte Nutzerfreundlichkeit wird zusätzlich eine Info Komponente eingebunden, welche die grundlegende Bedienung und Vorgehensweise des Demosystems erklärt.
+
+\subsubsection{Schnittstellendefinition}
+Im Konkreten enthält die Anfrage des Clients die folgenden Informationen:
+\begin{itemize}
+    \item Zu authentifizierender Sprecher
+    \item Index der ausgewählten Sprachdatei
+    \item Sprecher der ausgewählten Sprachdatei
+\end{itemize}
+Die Antwort des Servers beinhaltet die Informationen:
+\begin{itemize}
+    \item Ermittelte Wahrscheinlichkeit des zu authentifizierenden Sprechers
+    \item Authentifizierungsstatus
+    \item Ermittelte Wahrscheinlichkeit je Sprecher
+\end{itemize}
