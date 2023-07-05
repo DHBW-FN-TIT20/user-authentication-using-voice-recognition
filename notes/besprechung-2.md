@@ -23,7 +23,13 @@ Dafür werden zunächst Versuche mit verschiedenen Analyse-Methoden durchgeführ
   - Anforderungsanalyse **Johannes**
     - Keine neuen Sprecher während der Laufzeit -> Fest definierte Sprecher
   - Konzept Versuchsystem
-    - ...
+    - Systemidee
+      - Literaturrecherche &rarr; Viele Features &rarr; Evaluierung dieser
+      - Erstellen von Parametern &rarr; Begründen warum diese
+      - Datensatz &rarr; Bearbeitung des DS
+      - Es entsteht ein System, das basierend auf den Input Konfigurationen einen Input Vektor und Test daten berechnet (beschreiben), zur Klassifikation wird ein NN genutzt.
+      Abschließend folgt eine Evaluation der ermittelten Daten &rarr; schließen auf richtige Daten
+      <!-- TODO Muss Evalution hier schon näher ausgeführt werden, also wie das gemacht wird -->
     - Analyse-Pipeline
       - Feature-Extraktion
         - Fourier-Transformation
