@@ -22,11 +22,18 @@ Da diese Anforderungsbeschreibung noch viel Spielraum über den Funktionsumfang 
 \subsubsection{Systemidee}
 
 Aus der Literaturrecherche in Kapitel \ref{stand_der_technik} gehen verschiedene Stimmmerkmale zur Benutzerauthentifizierung hervor.
-Die Ergebnisse der dargestellten Untersuchungen unterscheiden sich, in wie weit die unterschiedlichen Stimmerkmale die Stimme repräsentieren bzw. zuverlässig für eine korrekte Authentifizierung sind.
+Die Ergebnisse der dargestellten Untersuchungen unterscheiden sich, inwieweit die unterschiedlichen Stimmerkmale die Stimme repräsentieren bzw. zuverlässig für eine korrekte Authentifizierung sind.
 
 Da die Features \ac{MFCC}, \ac{LPC}, \ac{LPCC}, \ac{MFCC} und \ac{dMFCC} die grobe Schnittmenge der Untersuchungen darstellt, werden diese in einer eigens durchgeführten Versuchsreihe getestet und evaluiert.
 Hierfür wird ein System entworfen, das die Merkmale aus einem Datenset extrahiert und verschiedene Kombinationen vergleicht.
-Das Ziel dieses Systems ist, eine ideale Kombination aus Features herrauszufinden.
+Das Ziel dieses Systems ist, eine ideale Kombination aus Features herauszufinden.
+Ein grober Ablaufplan des Systems ist in der folgenden Abbildung \ref{fig:PAP_DemoSystem} dargestellt.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth, keepaspectratio]{images/PAP_Demosystem.pdf}
+    \caption{Ablauf Versuchssystem}
+    \label{fig:PAP_DemoSystem}
+\end{figure}
 
 % Dazu werden in einem ersten Schritt Konfigurationen definiert, welche die unterschiedlichen Zusammensetzungen der Features beschreibt.
 % Anschließend werden alles diese Zusammensetzungen berechnet und durch neuronale Netze klassifiziert.
