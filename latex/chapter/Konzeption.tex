@@ -37,7 +37,7 @@ Ein grober Ablaufplan des Systems ist in der folgenden Abbildung \ref{fig:PAP_De
 
 % Dazu werden in einem ersten Schritt Konfigurationen definiert, welche die unterschiedlichen Zusammensetzungen der Features beschreibt.
 % Anschließend werden alles diese Zusammensetzungen berechnet und durch neuronale Netze klassifiziert.
-% Abschließend erfolgt eine Auswertung der verschiedenen Konfigurationen um eine ideale Konfiguration von Features zu ermitteln
+% Abschließend erfolgt eine Auswertung der verschiedenen Konfigurationen, um eine ideale Konfiguration von Features zu ermitteln
 
 \subsubsection{Feature Kombinationen}
 
@@ -53,13 +53,13 @@ Die vorhin genannten Werte sind übersichtlich in der nachfolgenden Tabelle darg
 \begin{table}[H]
     \centering
     \begin{tabular}{l|l}
-        Bezeichner     & Werte        \\ \hline
-        Anzahl Frames         & 10000, 15000 \\ \hline
-        Länge Frames & 400, 600     \\ \hline
-        LPC            & 13, 20       \\ \hline
-        MFCC           & 13, 20       \\ \hline
-        LPCC           & 13, 20       \\ \hline
-        delta MFCC     & 13          
+        \textbf{Bezeichner} & \textbf{Werte}   \\ \hline
+        Anzahl der Frames   & 10000, 15000 \\ \hline
+        Länge der Frames    & 400, 600     \\ \hline
+        LPC                 & 13, 20       \\ \hline
+        MFCC                & 13, 20       \\ \hline
+        LPCC                & 13, 20       \\ \hline
+        delta MFCC          & 13          
     \end{tabular}
     \caption{Übersicht Featurekombinationen}
 \end{table}
@@ -97,14 +97,24 @@ Die vorhin genannten Werte sind übersichtlich in der nachfolgenden Tabelle darg
 % Der \codestyle{weight} Parameter gibt lediglich an ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
 
 \subsubsection{Datensatz}
-% Ehr in die Umsetzung
+
+Um die unterschiedlichen Kombinationen an Features zu vergleichen wird ein Datensatz benötigt, der mindestens 20 verschiedene Sprecher mit mindestens ca. 15 min unterschiedlichem Audio-Material benötigt.
+Die Audio-Clips müssen unter gleichen Bedingungen aufgenommen sein und in kompressionslosem WAV-Format vorliegen.
 
 \subsubsection{Feature Extraktion}
-In der Feature Extraktion werden die Stimmmerkmale aus den Trainingsdaten extrahiert.
-Hierzu müssen die Audiosignale zunächst vorverarbeitet werden.
-In welcher Form die Merkmale extrahiert werden hängt dabei von der aktuellen Konfiguration ab.
 
-\subsubsection{Klassifikation}
+In der Feature Extraktion werden die Stimmmerkmale aus dem Trainingsdaten extrahiert.
+Hierzu müssen die Audiosignale zunächst vorverarbeitet werden (siehe Kapitel \ref{preprocessing}).
+In welcher Form die Merkmale extrahiert werden hängt, dabei von der aktuellen Konfiguration ab.
+
+\subsubsection{Klassifikation und Evaluierung}
+
+Die Literaturrecherche hat ergeben, dass sich neuronale Netze gut als Klassifikations-Modell eignen (siehe Kapitel \ref{stand_der_technik}). 
+Deshalb werden bei der Klassifikation die berechneten Features aus dem Schritt zuvor genutzt, um neuronale Netze zu trainieren, sodass die Feature-Kombinationen bewertet werden können.
+Hierbei muss das Netz mehrmals durchlaufen werden, da zu Beginn des Trainings die Struktur zufällig gesetzt wird (siehe Kapitel \ref{sec:neuronaleNetze}).
+Anschließend werden die neuronalen Netze mit Testsdaten getestet, die nicht in den Trainingsdaten enthalten sind.
+Die Auswertung des Neuronalen Netzes wird gespeichert und nach Berechung aller Kombinationen ausgewertet.
+Somit soll die beste Kombination gefunden werden.
 
 \subsubsection{Software Architektur}
 % Einfügen des Klassendiagramms
