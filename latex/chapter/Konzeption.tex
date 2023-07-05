@@ -31,38 +31,61 @@ Das Ziel dieses Systems ist, eine ideale Kombination aus Features herrauszufinde
 \subsubsection{Feature Kombinationen}
 
 Um die Kombinationen zu generieren, werden zunächst die verschiedenen Möglichkeiten definiert und anschließend miteinander kombiniert, was zu über 500 verschiedenen Konfigurationen führt.
-
-\begin{lstlisting}[language=JavaScript,numbers=none,caption=Konfigurationsmöglichkeiten,label=configs]
-Configs = {
-    "amount_of_frames": [10000, 15000],
-    "size_of_frame": [400, 600],
-    "LPC": {
-        "order": [13, 20],
-        "weight": [0, 1]
-    },
-    "MFCC": {
-        "order": [13, 20],
-        "weight": [0, 1]
-    },
-    "LPCC": {
-        "order": [13, 20],
-        "weight": [0, 1]
-    },
-    "delta_MFCC": {
-        "order": [13],
-        "weight": [0, 1]
-    }
-}
-\end{lstlisting}
-
-Die Werte für die Anzahl und Länge der Frames \codestyle{amount_of_frames} und \codestyle{size_of_frame} berechnen sich aus vorherigen Versuchen, der verwendeten Abtastrate und der gewünschten Trainingsclip-Länge.
-
-
-Bei den Features gibt der \codestyle{order} Parameter die Anzahl der Features pro Frame an.
+Hierzu werden zusätzlich zu den oben genannten Features auch die Anzahl und Länge der Frames definiert.
+Für die Anzahl der Frames wurden 10000 und 15000 Frames definiert, für die Länge der Frames 400 und 600.
+Diese Werte berechnen sich aus vorherigen Versuchen, der verwendeten Abtastrate und der gewünschten Trainingsclip-Länge.
+Für die Features werden die Anzahl der Features pro Frame auf 13 und 20 festgelegt.
 Der Wert 13 ist aus der Literatur abgeleitet. %TODO CITE
 Der Wert 20 ist selbstständig ergänzt, um einen Vergleich zu ermöglichen.
-Um die Anzahl der Konfigurationen zu reduzieren und da die Relevanz von \ac{dMFCC} am geringsten ist, wird hier auf den zweiten Wert verzichtet.
-Der \codestyle{weight} Parameter gibt lediglich an ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
+Um die Anzahl der Konfigurationen zu reduzieren und da die Relevanz von \ac{dMFCC} am geringsten ist (s. Abb. \ref{fig:vergleichFeatureExtraction}), wird hier auf den zweiten Wert verzichtet.
+Die vorhin genannten Werte sind übersichtlich in der nachfolgenden Tabelle dargestellt.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l|l}
+        Bezeichner     & Werte        \\ \hline
+        Anzahl Frames         & 10000, 15000 \\ \hline
+        Länge Frames & 400, 600     \\ \hline
+        LPC            & 13, 20       \\ \hline
+        MFCC           & 13, 20       \\ \hline
+        LPCC           & 13, 20       \\ \hline
+        delta MFCC     & 13          
+    \end{tabular}
+    \caption{Übersicht Featurekombinationen}
+\end{table}
+
+% \begin{lstlisting}[language=JavaScript,numbers=none,caption=Konfigurationsmöglichkeiten,label=configs]
+% Configs = {
+%     "amount_of_frames": [10000, 15000],
+%     "size_of_frame": [400, 600],
+%     "LPC": {
+%         "order": [13, 20],
+%         "weight": [0, 1]
+%     },
+%     "MFCC": {
+%         "order": [13, 20],
+%         "weight": [0, 1]
+%     },
+%     "LPCC": {
+%         "order": [13, 20],
+%         "weight": [0, 1]
+%     },
+%     "delta_MFCC": {
+%         "order": [13],
+%         "weight": [0, 1]
+%     }
+% }
+% \end{lstlisting}
+
+% Die Werte für die Anzahl und Länge der Frames \codestyle{amount_of_frames} und \codestyle{size_of_frame} berechnen sich aus vorherigen Versuchen, der verwendeten Abtastrate und der gewünschten Trainingsclip-Länge.
+
+
+% Bei den Features gibt der \codestyle{order} Parameter die Anzahl der Features pro Frame an.
+% Der Wert 13 ist aus der Literatur abgeleitet. %TODO CITE
+% Der Wert 20 ist selbstständig ergänzt, um einen Vergleich zu ermöglichen.
+% Um die Anzahl der Konfigurationen zu reduzieren und da die Relevanz von \ac{dMFCC} am geringsten ist, wird hier auf den zweiten Wert verzichtet.
+% Der \codestyle{weight} Parameter gibt lediglich an ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
+
+
 % Dazu werden in einem ersten Schritt Konfigurationen definiert, welche die unterschiedlichen Zusammensetzungen der Features beschreibt.
 % Anschließend werden alles diese Zusammensetzungen berechnet und durch neuronale Netze klassifiziert.
 % Abschließend erfolgt eine Auswertung der verschiedenen Konfigurationen um eine ideale Konfiguration von Features zu ermitteln
