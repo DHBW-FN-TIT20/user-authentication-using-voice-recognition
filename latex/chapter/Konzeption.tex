@@ -28,6 +28,10 @@ Da die Features \ac{MFCC}, \ac{LPC}, \ac{LPCC}, \ac{MFCC} und \ac{dMFCC} die gro
 Hierfür wird ein System entworfen, das die Merkmale aus einem Datenset extrahiert und verschiedene Kombinationen vergleicht.
 Das Ziel dieses Systems ist, eine ideale Kombination aus Features herrauszufinden.
 
+% Dazu werden in einem ersten Schritt Konfigurationen definiert, welche die unterschiedlichen Zusammensetzungen der Features beschreibt.
+% Anschließend werden alles diese Zusammensetzungen berechnet und durch neuronale Netze klassifiziert.
+% Abschließend erfolgt eine Auswertung der verschiedenen Konfigurationen um eine ideale Konfiguration von Features zu ermitteln
+
 \subsubsection{Feature Kombinationen}
 
 Um die Kombinationen zu generieren, werden zunächst die verschiedenen Möglichkeiten definiert und anschließend miteinander kombiniert, was zu über 500 verschiedenen Konfigurationen führt.
@@ -85,7 +89,13 @@ Die vorhin genannten Werte sind übersichtlich in der nachfolgenden Tabelle darg
 % Um die Anzahl der Konfigurationen zu reduzieren und da die Relevanz von \ac{dMFCC} am geringsten ist, wird hier auf den zweiten Wert verzichtet.
 % Der \codestyle{weight} Parameter gibt lediglich an ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
 
+\subsubsection{Datensatz}
 
-% Dazu werden in einem ersten Schritt Konfigurationen definiert, welche die unterschiedlichen Zusammensetzungen der Features beschreibt.
-% Anschließend werden alles diese Zusammensetzungen berechnet und durch neuronale Netze klassifiziert.
-% Abschließend erfolgt eine Auswertung der verschiedenen Konfigurationen um eine ideale Konfiguration von Features zu ermitteln
+\subsubsection{Feature Extraktion}
+
+\subsubsection{Klassifikation}
+
+\subsubsection{Software Architektur}
+% Einfügen des Klassendiagramms
+% Beschreibung der Architektur
+% GGF Sequenzdiagramm
