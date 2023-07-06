@@ -109,25 +109,34 @@ In welcher Form die Merkmale extrahiert werden hängt, dabei von der aktuellen K
 
 \subsubsection{Klassifikation und Evaluierung}
 
-Die Literaturrecherche hat ergeben, dass sich neuronale Netze gut als Klassifikations-Modell eignen (siehe Kapitel \ref{stand_der_technik}). 
+Die Literaturrecherche hat ergeben, dass sich neuronale Netze gut als Klassifikationsmodell eignen (siehe Kapitel \ref{stand_der_technik}). 
 Deshalb werden bei der Klassifikation die berechneten Features aus dem Schritt zuvor genutzt, um neuronale Netze zu trainieren, sodass die Feature-Kombinationen bewertet werden können.
 Hierbei muss das Netz mehrmals durchlaufen werden, da zu Beginn des Trainings die Struktur zufällig gesetzt wird (siehe Kapitel \ref{sec:neuronaleNetze}).
-Anschließend werden die neuronalen Netze mit Testsdaten getestet, die nicht in den Trainingsdaten enthalten sind.
-Die Auswertung des Neuronalen Netzes wird gespeichert und nach Berechung aller Kombinationen ausgewertet.
-Somit soll die beste Kombination gefunden und das damit trainierte neuronale Netz für das Demosystem verwendet werden.
+Anschließend werden die neuronalen Netze mit Testdaten getestet, die nicht in den Trainingsdaten enthalten sind.
+Die Auswertung des neuronalen Netzes wird gespeichert und nach Berechung aller Kombinationen ausgewertet.
+Somit soll die beste Kombination gefunden und das damit trainierte neuronale Netz für das Demo-System verwendet werden.
 
 \subsubsection{Software Architektur}
-Um eine solide Grundlage für die Entwicklung zu schaffen, wird im folgenden die Softwarearchitektur für das System entwickelt.
-Hierzu wird zunächst basierend auf den vorangegangenen Definitionen ein Klasendiagramm erstellt.
+Um eine solide Grundlage für die Entwicklung zu schaffen, wird im Folgenden die Softwarearchitektur für das System entwickelt.
+Hierzu wird zunächst basierend auf den vorangegangenen Definitionen ein Klassendiagramm erstellt.
 In einem Folgeschritt wird der Ablauf in einem Sequenzdiagramm dargestellt. % optional
 \newparagraph
-Das Klassendiagram ist in der Abb. \ref{fig:klassendiagram-versuchssystem} dargestellt.
+Das Klassendiagramm ist in der Abb. \ref{fig:klassendiagram-versuchssystem} dargestellt.
+Das Klassendiagramm zeigt die Aufteilung in ....
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth, keepaspectratio]{images/klassendiagram-versuchssystem.pdf}
-    \caption{Klassendiagram Versuchssystem}
+    \caption{Klassendiagramm Versuchssystem}
     \label{fig:klassendiagram-versuchssystem}
-\end{figure}
+\end{figure}\noindent
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.82\textwidth, keepaspectratio]{images/versuchssytem_sequenzdiagramm.pdf}
+    \caption{Sequenzdiagramm Versuchssystem}
+    \label{fig:sequenzdiagramm-versuchssystem}
+\end{figure}\noindent
+
 
 
 % Beschreibung der Architektur
