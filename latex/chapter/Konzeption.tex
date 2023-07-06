@@ -114,9 +114,19 @@ Deshalb werden bei der Klassifikation die berechneten Features aus dem Schritt z
 Hierbei muss das Netz mehrmals durchlaufen werden, da zu Beginn des Trainings die Struktur zufällig gesetzt wird (siehe Kapitel \ref{sec:neuronaleNetze}).
 Anschließend werden die neuronalen Netze mit Testsdaten getestet, die nicht in den Trainingsdaten enthalten sind.
 Die Auswertung des Neuronalen Netzes wird gespeichert und nach Berechung aller Kombinationen ausgewertet.
-Somit soll die beste Kombination gefunden werden.
+Somit soll die beste Kombination gefunden und das damit trainierte neuronale Netz für das Demosystem verwendet werden.
 
 \subsubsection{Software Architektur}
 % Einfügen des Klassendiagramms
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, keepaspectratio]{images/klassendiagram-versuchssystem.pdf}
+    \caption{Klassendiagram Versuchssystem}
+    \label{fig:klassendiagram-versuchssystem}
+\end{figure}
+
+
 % Beschreibung der Architektur
 % GGF Sequenzdiagramm
+
