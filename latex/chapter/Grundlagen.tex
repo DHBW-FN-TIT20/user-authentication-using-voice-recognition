@@ -110,7 +110,7 @@ Dazu wird zunächst auf die benötigten Vorverarbeitungsschritte eingegangen, di
 Anschließend wird das grundlegende Konzept der Fourier Analyse vorgestellt, welches zusammen mit dem vorangehenden Kapitel der Stimmwahrnehmung die Basis für die \ac{MFCC} bildet.
 Abschließend werden basierend auf den Konzepten der Stimmerzeugung die \ac{LPC} Koeffizienten eingeführt.
 
-\subsubsection{Signalvorverarbeitung}
+\subsubsection{Signalvorverarbeitung}\label{preprocessing}
 Um ein gegebenes Audiosignal einheitlich verarbeiten zu können, muss dieses zunächst mittels verschiedener Verfahren vorbereitet werden.
 Ziel dieser Vorverarbeitung ist es, die Effizienz und Effektivität des anschließenden Verarbeitungsprozesses zu erhöhen und somit ein verbessertes Ergebnis zu erzielen \autocite[vgl.][S. 11672]{lokesh_speech_2019}.
 Die Vorverarbeitung im Rahmen dieser Arbeit beinhaltet die vier Schritte Rauschreduzierung, Pausen entfernen, Framing und Windowing, welche im Folgenden genauer erläutert werden.
@@ -317,7 +317,7 @@ Neben der Yule-Walker Methode stellt der Burg Algorithmus eine beliebte Alternat
 % Evtl: Was hat Yule-Walker und Levinson damit zu tun?
 
 Bei dem Verfahren \ac{LPC} wird der Ansatz verfolgt, Rückschlüsse von dem akustischen Signal auf die Stimmerzeugung zu ziehen.
-Dazu wird ein \ac{AR}-Filter verwendet um ein vereinfachtes Modell des menschlichen Stimmtrakts zu erstellen.
+Dazu wird ein \ac{AR}-Filter verwendet, um ein vereinfachtes Modell des menschlichen Stimmtrakts zu erstellen.
 Die Regressionsgewichte $a_k$ entsprechen dabei den \ac{LPC}-Koeffizienten.
 % TODO: Genauer erklären warum die Gewichte eine Rolle spielen -> Stimmerzeugung mit Grundrauschen + Koeffizienten als Filter
 
@@ -380,7 +380,7 @@ Verstärkendes Lernen ist ein verhaltensbasiertes Lernmodell.
 Hierzu interagiert der Lernalgorithmus mit der Umgebung und erhält Belohnungen, wenn er die gewünschten Ergebnisse erzielt. 
 Der Computer erlernt so das ideale Verhalten innerhalb der Umgebung \autocite[vgl][S. 12]{thakkar_beginning_2019}.
 
-\subsection{Neuronale Netze}
+\subsection{Neuronale Netze}\label{sec:neuronaleNetze}
 In engem Zusammenhang zu \acl{ML} stehen die sogenannten \aclp{NN}.
 Ein \ac{NN} ist ein maschinelles Modell, das auf dem Vorbild der Abläufe im Gehirn von Mensch und Tier basiert.
 Durch geeignete mathematische Operationen wird versucht die Art und Weise abzubilden wie das menschliche Gehirn Probleme angeht beziehungsweise Zusammenhänge aus beobachteten Daten erkennt \autocites[vgl.][S. 604]{backhaus_multivariate_2016}[vgl.][S. 31]{judith_hurwitz_machine_2018}.
