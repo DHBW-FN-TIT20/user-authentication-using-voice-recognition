@@ -40,7 +40,7 @@ Dafür werden die Hauptkomponenten des Versuchssystem (DataSetHandler, AudioPrep
     \caption{Sequenzdiagramm handle\_api\_request (Server)}
     \label{fig:SequenceHandleApiRequest}
 \end{figure}
-Abbildung~\ref{fig:SequenceHandleApiRequest} zeigt den Ablauf der über die Schnittstelle bereitgestellten Authentifizierungsfunktion des Servers.
+Abbildung~\ref{fig:SequenceHandleApiRequest} zeigt den Ablauf der über die Schnittstelle bereitgestellten Authentifizierungsfunktion des Servers als Sequenzdiagramm.
 Dabei werden wie in den Anforderungen festgelegt, die Ergebnisse der Authentifizierung an den Client zurückgegeben.
 
 \subsubsection{Client}
@@ -49,9 +49,8 @@ Diese untergliedert sich in vier Komponenten.
 Index stellt den Einstiegspunkt der Applikation dar.
 Dieser implementiert lediglich die App Komponente.
 
-Innerhalb der App Komponente wird nun der allgemeine Login-Prozess dargestellt.
-Dafür implementiert die Komponente neben der grafischen Oberfläche auch eine Funktion zum Aufruf der Authentifizierungsfunktion des Servers.
-Die Antowrt des Servers wird dabei mittels einer zusätzlichen Komponente (Result) grafisch dargestellt.
+Innerhalb der App Komponente wird nun der allgemeine Login-Prozess dargestellt (vgl. Abbildung~\ref{fig:SequenceHandleApiRequest}).
+Die Antwort des Servers wird dabei mittels einer zusätzlichen Komponente (Result) grafisch dargestellt.
 
 Für eine verbesserte Nutzerfreundlichkeit wird zusätzlich eine Info Komponente eingebunden, welche die grundlegende Bedienung und Vorgehensweise des Demosystems erklärt.
 
