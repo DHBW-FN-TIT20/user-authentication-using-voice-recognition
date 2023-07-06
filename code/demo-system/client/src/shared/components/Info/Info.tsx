@@ -33,10 +33,6 @@ export default function Info(props: InfoProps) {
             Anschließend können Sie aus einer Vielzahl an Sprachaufnahmen für die verschiedenen Sprecher eine Aufnahme auswählen die für die Authentifikation verwendet werden soll.
             Nachdem Sie auf <b>Login</b> geklickt haben, wird die Authentifikation durchgeführt und das Ergebnis angezeigt.
           </p>
-          <h3>Fragen</h3>
-          <p>
-            Bei Fragen wenden Sie sich bitte direkt an uns.
-          </p>
         </div>
         <FontAwesomeIcon 
             icon={faClose} 
