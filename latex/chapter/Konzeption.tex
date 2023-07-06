@@ -122,7 +122,8 @@ Hierzu wird zunächst basierend auf den vorangegangenen Definitionen ein Klassen
 In einem Folgeschritt wird der Ablauf in einem Sequenzdiagramm dargestellt. % optional
 \newparagraph
 Das Klassendiagramm ist in der Abb. \ref{fig:klassendiagram-versuchssystem} dargestellt.
-Das Klassendiagramm zeigt die Aufteilung in ....
+Das Klassendiagramm zeigt die Aufteilung in mehrere Komponenten (Klassen).
+Die wichtigsten Klassen werden nachfolgend kurz beschrieben.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth, keepaspectratio]{images/klassendiagram-versuchssystem.pdf}
@@ -130,12 +131,37 @@ Das Klassendiagramm zeigt die Aufteilung in ....
     \label{fig:klassendiagram-versuchssystem}
 \end{figure}\noindent
 
+
+\noindent \textbf{Controller}\\
+Der Controller stellt das zentrale Element dar, von hier werden alle Abläufe gesteuert.
+\newline
+\noindent \textbf{DatasetHandler}\\
+Der DatasetHandler stellt die Verbindung zum Datenset dar und ermöglicht den Umgang mit den Dateien.
+\newline
+\noindent \textbf{AudioPreprocessor}\\
+Der AudioPreprocessor dient im Allgemeinen zur Vorverarbeitung des Audiosignals.
+\newline
+\noindent \textbf{FeatureExtractor}\\
+Mithilfe der FeatureExtractor-Klasse werden variabel die benötigten Audio-Merkmale aus den Audio-Clips generiert. Es ruft die verschiedenen Implementierungen des ExtractorInterface auf.
+\newline
+\noindent \textbf{ModelTrainer}\\
+Der ModelTrainer generiert und trainiert neuronales Netz.
+\newline
+\noindent \textbf{Evaluator}\\
+Mit dem Evaluator werden die neuronalen Netze auf ihre Genauigkeit geprüft.
+\newline
+\noindent \textbf{Serializer}\\
+Die Serzializer-Klasse speichert die zu Laufzeit generierten Daten für weitere Untersuchungen.
+\newparagraph
+
+In Abb. \ref{fig:sequenzdiagramm-versuchssystem} ist das Sequenzdiagramm dargestellt, dies stellt den Druchlauf einer Konfiguration durch Objekte der verschiedenen Klassen dar.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.82\textwidth, keepaspectratio]{images/versuchssytem_sequenzdiagramm.pdf}
     \caption{Sequenzdiagramm Versuchssystem}
     \label{fig:sequenzdiagramm-versuchssystem}
 \end{figure}\noindent
+
 
 
 
