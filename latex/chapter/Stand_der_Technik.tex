@@ -1,40 +1,53 @@
-\section{Stand der Technik}
+\section{Stand der Technik} \label{stand_der_technik}
 
-\subsection{Feature Extraction}
+Für die Analyse von Sprachsignalen werden zunächst Merkmale (Features) des Signales benötigt, welche dann weiterverarbeitet werden können.
+Für die Weiterverarbeitung wird dann ein Klassifikations-Model benötigt, das aufgrund der Merkmale eine Aussage über den Sprecher treffen kann.
 
-Für die Analyse von Sprachsignalen werden zunächst Merkmale (Features) des Signales benötigt, welche dann weiterverarbeitet werden können...
-Dieses Kapitel zeigt, wie verschiedene vorrangeganene Projekte Features erhoben haben...
+In der vorhandenen Literatur finden sich mehrere Bücher und Fachartikel, die sich mit diesem Thema bereits auseinandergesetzt haben. 
+Dieses Kapitel zeigt, welche Merkmale von verschiedene vorangehende Arbeiten verwendet werden und wie effektiv diese im direkten Vergleich sind. Dabei wird ebenfalls auf die verwendeten Klassifikations-Modelle eingegangen.
 
-In der Literatur finden sich mehrere Bücher und Fachartikel, die sich mit diesem Bereich bereits auseinandergesetzt haben. 
+Qi (Peter) Li, ein Elektrotechnik-Doktor und Experte für Sprecherauthentifizierung, untersucht in seinem Buch \gqq{Speaker Authentification}, relevante Merkmale für die Sprechererkennung \autocite{li_speaker_2012}.
 
-Qi (Peter) Li, ein Elektrotechnik-Doktor und Spezialist im Bereich Sprecherauthentifizierung, untersuchte für sein Buch \gqq{Speaker Authentification}, welche Merkmale für eine Sprechererkennung relevant sind \autocite{li_speaker_2012}.
+Er gelangte zu folgenden Erkenntnissen:
+\ac{MFCC} und \ac{LPC} sind sehr gute Merkmale zur Identifizierung eines Sprechers in ruhigen Umgebungen, aber ihre Leistung nimmt in Umgebungen mit Hintergrundrauschen ab \autocite[vgl.][S. 136]{li_speaker_2012}.
+Die ersten und zweiten Ableitungen von \ac{MFCC} werden oft auch noch genutzt, tragen laut Qi (Peter) Li allerdings nicht zu einer Verbesserung des Authentifizierungssystems bei \autocite[vgl.][S. 143]{li_speaker_2012}.
 
-Dabei kam er auf folgende Erkenntnisse:
-MFCC und LPC sind in ruhigen Umgebungen sehr gute Merkmale, um einen Sprecher zu identifizieren, werden allerdings in Umgebungen mit Hintergrundrauschen schlechter \autocite[vgl.][S. 136]{li_speaker_2012}.
-Die ersten und zweiten Ableitungen von MFCC werden oft auch noch genutzt, tragen laut QI (Peter) Li allerdings nicht zu einer Verbesserung des Authentifizierungssystems bei \autocite[vgl.][S. 143]{li_speaker_2012}.
+Neben den Hauptmerkmalen \ac{MFCC} und \ac{LPC} werden zusätzlich Gammatone-Merkmale bewertet, die das menschliche Hören modellieren sollen.
+Diese können auch relevante Daten für eine Sprecherauthentifizierung liefern \autocite[vgl.][S. 111, 117]{li_speaker_2012}.
 
-Neben den Hauptfeatures MFCC und LPC wurden in dem Buch auch noch Gammatone Features, welche das menschliche Hören modellieren sollen, bewertet.
-Diese können auch relevante Daten für eine Sprecherauthentifizierung liefer \autocite[vgl.][S. 111, 117]{li_speaker_2012}.
+Qi (Peter) Li hat im Zuge seiner Arbeit auch ein ganz neues Merkmal (CFCC\footnote{Cochlear filter cepstral coefficients}) entwickelt, das ebenfalls das menschliche Gehör nachahmen soll und in seinen Untersuchungen am besten abgeschnitten hat \autocite[vgl.][S. 135]{li_speaker_2012}.
 
-Qi (Peter) Li hat im Zuge seiner Arbeit auch noch ein ganz neues Merkmal (CFCC) entwickelt, das ebenfalls das menschliche Gehör nachahmen soll und in seinen Untersuchungen am besten abgeschnitten hat \autocite[vgl.][S. 135]{li_speaker_2012}.
+Das Buch \gqq{Advanced Topics In Biometrics} von Haizhou Li, Kar-ann Toh und Liyuan Li bezeichnet \ac{MFCC} als das relevanteste Merkmal für die Sprecherauthentifizierung, obwohl es ursprünglich für die Spracherkennung entwickelt wurde \autocite[vgl.][S. 7, 51]{li_advanced_nodate}.
+Aber auch \ac{LPCC}, PLP\footnote{Perceptual Linear Prediction} und FM\footnote{Frequency Modulation} werden als effektive Merkmale genannt und können zusammen mit \ac{MFCC} sehr gute Ergebnisse erzielen \autocite[vgl.][S. 6, 67]{li_advanced_nodate}.
 
-Das Buch \gqq{Advanced Topics In Biometrics} von Haizhou Li, Kar-ann Toh und Liyuan Li nennt MFCC das relevanteste Feature für die Sprecherauthentifizierung, auch wenn das Merkmal uhrsprünglich für die Spracherkennung entwickelt wurde \autocite[vgl.][S. 7, 51]{li_advanced_nodate}.
-Aber auch LPCC, PLP und FM wurden als effektiv bezeichnet und können zusammen mit MFCC sehr gute Ergebnisse erziehlen \autocite[vgl.][S. 6, 67]{li_advanced_nodate}.
+Das Paper \gqq{Multilingual Speaker Recognition Using Neural Network} protokoliert gute Ergebnisse durch die Extraktion von \ac{LPC} und der Nutzung eines neuronalen Netzes \autocite[vgl.][S. 9]{kumar_rajeev_multilingual_nodate}.
 
-Das Paper \gqq{Multilingual Speaker Recognition Using Neural Network} hatte mit der Extraktion von LPC und der Nutzung eines Neuronalen Netzes gute Ergebnisse erziehlt \autocite[vgl.][S. 9]{kumar_rajeev_multilingual_nodate}.
+Auch eine ältere Untersuchung von Reynolds and Rose ergab, dass \ac{LPC} in einer ruhigen Umgebung effektiv ist, \ac{MFCC} allerdings robuster ist und daher von den Autoren bevorzugt wurde \autocite[vgl.][S. 2f]{reynolds_robust_1995}.
+Als Klassifikations-Model wurden hierbei Gaussian Mixture Models (GMM) genutzt und als effektiv erachtet.
+Auch neuronale Netze und Hidden Markov Modelle werden als mögliche Klassifikatoren erwähnt, allerdings nicht getestet \autocite[vgl.][S. 2f, 11]{reynolds_robust_1995}.
 
-Auch eine ältere Untersuchung von Reynolds and Rose ergab, dass LPC in einer ruhigen Umgebung effektiv ist, MFCC allerdings robuster ist und daher von den Autoren bevorzugt wurde \autocite[vgl.][S. 2f]{reynolds_robust_1995}.
+Ein weiters Paper, welches sich mit Sprecherauthentifikation auf performance-kritischen Systemen beschäftigt, nennt \ac{LPCC} als bestes Merkmal \autocite[vgl.][S. 7]{thullier_text-independent_2017}.
+Hierbei wurde ein Naive-Bayes-Klassifikator verwendet, welcher gute Ergebnisse erzielte \autocite[vgl.][S. 18f]{thullier_text-independent_2017}.
 
-Ein anderes Paper, bei welchem die für die Merkmalberechnung benötigte Computing-Power kritisch war, nannte LPCC als bestes Merkmal \autocite[vgl.][S. 7]{thullier_text-independent_2017}.
+Fatma Zohra Chelali1 und Amar Djeradi geben in ihrem Artikel zur Sprechererkennung zunächst \ac{MFCC} und PLP als relevante Merkmale an \autocite[vgl.][S. 276]{chelali_text_2017}.
+Allerdings vergleichen sie auch verschiedene Kombinationen von \ac{MFCC}, den Ableitungen \ac{dMFCC} und \ac{ddMFCC}, DWT\footnote{Discrete Wavelet Transform} und \ac{LPC}.
+Bei diesen Untersuchungen hat die Kombination von \ac{MFCC}, \ac{dMFCC}, DWT und \ac{LPC} am besten abgeschnitten.
+\ac{ddMFCC} konnte das System nicht verbessern \autocite[vgl.][S. 276, 739]{chelali_text_2017}.
+Hier wurde ein neuronales Netz als Klassifikations-Model verwendet \autocite[vgl.][S. 735]{chelali_text_2017}.
 
-Fatma Zohra Chelali1 und Amar Djeradi gaben in ihrem Artikel zur Sprechererkennung zunächst MFCC und PLP als relevante Merkmale an \autocite[vgl.][S. 276]{chelali_text_2017}.
-Allerdings vergleichen sie auch verschiedene Kombinationen von MFCC, dMFCC, ddMFCC, DWT und LPC.
-Bei diesen Untersuchungen hat die Kombination von MFCC, dMFCC, DWT und LPC am besten abgeschnitten.
-ddMFCC konnte das System nicht verbessern \autocite[vgl.][S. 276, 739]{chelali_text_2017}.
+Ein Paper der Tokyo Institute of Technology hatte ebenfalls mit \ac{MFCC} und \ac{LPC} sehr gute Ergebnisse.
+Durch das Hinzufügen von ZCR\footnote{Zero-crossing Rate} konnten diese noch verbessert werden.
+Die Versuche wurden hier mit einem neuronalen Netz und einer Support Vector Machine durchgeführt.
+Die beiden Klassifizierer haben sich dabei in ihrer Effektivität kaum unterschieden, mit dem Neuralen Netz wurden allerdings die besten Ergebnisse erziehlt \autocite[vgl.][S. 4]{neha_chauhan_2019_2019}.
 
-Ein Paper der Tokyo Institute of Technology hatte ebenfalls mit MFCC und LPC sehr gute Ergebnisse.
-Durch das Hinzufügen von ZCR konnten diese sogar noch verbessert werden \autocite[vgl.][S. 4]{neha_chauhan_2019_2019}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, keepaspectratio]{images/vergleich-feature-extraction.pdf}
+    \caption{Literaturbewertung zu Features}
+    \label{fig:vergleichFeatureExtraction}
+\end{figure}
 
-
-Die analysierten Bücher und Artikel lassen darauf schließen, dass eine Kombination von MFCC, LPC und LPCC sinnvoll für eine Sprecherauthentifizierung ist.
+Die analysierten Bücher und Artikel legen nahe, dass eine Kombination von \ac{MFCC}, \ac{LPC} und \ac{LPCC} sinnvoll für eine Sprecherauthentifizierung ist.
 Zwar hatten einige Paper noch vereinzelt andere Features als effektiv erachtet, die grobe Schnittmenge besteht jedoch aus den oben genannten Features.
+
+Als Klassifikations-Modelle wurden in den meisten Experimenten neuronale Netze verwendet, aber auch GMM, HMN und SVM wurden als effektiv erachtet.
