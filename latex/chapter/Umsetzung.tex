@@ -1,0 +1,59 @@
+\section{Umsetzung}
+
+\subsection{Technologieentscheidung}
+\subsubsection{Versuchssystem}\label{sec:TechnologieVersuchssystem}
+\subsubsection{Demosystem}
+Für die Technologieentscheidung muss zunächst zwischen den zwei Komponenten Client und Server unterscheiden werden.
+Da für beide Teile unterschiedliche Anforderungen erfüllt werden müssen, erfolgt die Technologieentscheidung separat.
+Außerdem findet eine Festlegung des verwendeten Protokolls für die Schnittstellenkommunikation statt.
+
+\paragraph{Client}
+Die grundlegende Anforderung an den Client ist die Umsetzung als Webapplikation.
+Daraus leiten sich in erster Linie vier verschiedene Programmiersprachen ab: JavaScript/Type\-Script, Python, PhP und Ruby.
+
+Für eine weitergehende Einschränkung ist der vorausgesetzte Funktionsumfang relevant.
+Dieser ist sehr gering, da lediglich Input-Elemente für die Angabe eines zu authentifizierenden Sprechers, sowie zur Auswahl einer zu verwendeten Datei bereitgestellt werden müssen.
+Außerdem muss eine Verbindung zu einem Back-End (Server) aufgebaut werden können.
+
+Da diese Anforderungen durch alle vier Kandidaten erfüllt werden, muss die Entscheidung durch andere Kriterien erfolgen.
+Hierbei spielen vor allem zwei Aspekte eine Rolle.
+Eine Umfrage von Stack Overflow aus dem Jahr 2020 zeigt, dass JavaScript die beliebteste Programmiersprache von professionellen Entwickler ist.
+Moderne Frameworks wie Reactjs und Angular haben die klassische Webprogrammierung in PHP über die letzten Jahre abgelöst \autocite[vgl.][]{stack_overflow_stack_nodate}.
+
+Da es sich außerdem um ein Demosystem handelt, welches lediglich die Ergebnisse dieser Arbeit präsentieren soll und somit nicht in einem produktiven Umfeld betrieben wird, spielt die Technologieentscheidung allgemein nur eine untergeordnete Rolle.
+Aus diesem Grund kann auch die Erfahrung der Entwickler mit in die Technologieentscheidung einfließen.
+Die Kompetenzen des Entwicklerteams liegen dabei vor allem im Bereich der React Programmierung mit JavaScript beziehungsweise Typescript.
+
+Zusammenfassend fällt die Technologieentscheidung für die Client Implementierung somit auf das JavaScript Framework Reactjs in Kombination mit Typescript.
+Typescript ermöglicht dabei gegenüber JavaScript die Verwendung von Datentypen, wodurch Datentypfehler im Rahmen der Implementierung vermieden werden können.
+
+\paragraph{Schnittstelle}
+Im Web-Umfeld spielt das \ac{HTTP} eine besondere Rolle.
+Dabei handelt es sich um ein zustandsloses Protokoll zur Übertragung von Daten auf der Anwendungsschicht.
+Ein Anwendungsfall ist dabei die Anfrage von Websiten im Browser über die URL.
+Dazu wird eine sogenannte \ac{HTTP}-GET Anfrage an den Zielserver gesendet, welcher anschließend mit der angeforderten Ressource antwortet.
+
+Nach dem selben Prinzip kann das HTTP Protokoll ebenfalls dazu verwendet werden, eine Kommunikation zwischen Client und Server zu ermöglichen.
+Die zu übergebenden Variablen des Clients an den Server können dabei innerhalb der URL des GET Requests übertragen werden.
+Gleichzeitig können die Ergebnisse des Servers beispielsweise im JSON-Format an den Client zurück gesendet werden.
+
+Da das HTTP Protokoll somit alle benötigten Anforderungen erfüllt, kommt es für die Schnittstellenkommunikation zum Einsatz.
+
+\paragraph{Server}
+Für den Authentifizierungsprozess implementiert der Server den selben Ablauf wie das Versuchssystem.
+Um eine doppelte Entwicklung zu vermeiden entsteht somit eine Abhängigkeit zwischen der Technologieentscheidung des Versuchssystems und des Servers.
+Aus der Technologieentscheidung des Versuchssystems in Kapitel~\ref{sec:TechnologieVersuchssystem} geht die Programmiersprache Python hervor.
+Somit sollte zunächst geprüft werden, ob die Anforderungen des Servers in der Sprache Python umsetzbar sind.
+
+Neben dem Authentifizierungsprozess spielt ausschließlich die Schnittstellenkommunikation zwischen Client und Server eine Rolle für die Technologieentscheidung des Servers.
+Da als Kommunikationsprotokoll HTTP eingesetzt wird muss also eine Bibliothek gefunden werden, die die Verwendung dieses Protokolls in Python ermöglicht.
+Hierzu kann Flask verwendet werden.
+
+Bei Flask handelt es sich um ein Web Framework, welches eine Bereitstellung von \ac{API} Endpunkten die über das HTTP Protokoll abrufbar sind ermöglicht.
+
+Somit können alle Anforderungen an die Serverapplikation mittels der Programmiersprache Python umgesetzt werden.
+Dazu können die bereits entwickelten Komponenten für den Authentifizierungsprozess aus dem Versuchssystem übernommen werden.
+
+\subsection{Versuchssystem}
+\subsection{Demosystem}
+Abschließend werden einzelne Schlüsselpunkte der Implementierung genauer betrachtet und erläutert.
