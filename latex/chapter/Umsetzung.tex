@@ -53,9 +53,22 @@ Configs = {
 Der \codestyle{weight} Parameter gibt lediglich an ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
 
 \subsubsection{Datensatz}
+Für die Evaluierung der Stimmmerkmale wird ein geeigneter Datensatz benötigt.
+Hierzu wurde nach einer Internetrecherche auf der Plattform \gqq{Kaggle} ein entsprechender Datensatz gefunden, der die Anforderung aus Kapitel~\ref{sec:KonzeptDatensatz} erfüllt. \autocite[vgl.][]{jain_speaker_2019}
+Der Originaldatensatz enthält Audiodaten zu 50 Sprechern mit mindestens 60 Minuten Aufzeichnung pro Sprecher in mehreren kompressionslosen WAV Dateien.
 
-
+In einem ersten Schritt müssen die Daten aufbereitet werden.
+Der Originaldatensatz lässt sich in zwei Teile teilen, während der erste Teil aus YouTube Videos besteht, sind im zweiten Teil Aufnahmen von englischen Hörbüchern enthalten.
+Da die Aufnahmequalität der Hörbücher deutlich besser ist, wurden nur diese Datensätze weiterverwendet.
+In einem Folgeschritt werden die einzelnen Dateien der Datensätze zu einer Datei zusammengefügt und genauer betrachtet.
+Hierbei konnten längere Pausen und Abweichungen der Datensätze, wie z.B. mehrere Sprecher oder eine andere Sprache identifiziert werden.
+Diese Pausen wurden entfernt und die betroffenen Datensätze aus dem Datensatz entfernt.
+Dadurch bleiben 25 geeignete Datensätze übrig, aus diesen wurden unter dem Aspekt des Geschlechts 20 Datensätze ausgewählt, sodass neun weibliche und elf männliche Sprecher im finalen Datensatz sind, da nur neun weibliche Datensätze geeignet sind.
+Abschließend wurde für jeden Sprecher eine Audiodatei zum Trainieren des neuronalen Netzes mit acht Minuten erstellt und zur Evaluation 5 Sequenzen mit jeweils 15 Sekunden.
+Das Testmaterial ist nicht im Trainingsmaterial enthalten.
 
 \subsubsection{Vorverarbeitung und Feature Extraktion}
+
+Um eine effektive Verarbeitung eines Audiosignals zu ermöglichen, muss zunächst eine Vorverarbeitung des Signals erfolgen(s. Kapitel~\ref{sec:preprocessing})
 
 \subsection{Demosystem}

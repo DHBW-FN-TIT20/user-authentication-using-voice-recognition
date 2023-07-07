@@ -96,7 +96,7 @@ Die vorhin genannten Werte sind übersichtlich in der nachfolgenden Tabelle darg
 % Um die Anzahl der Konfigurationen zu reduzieren und da die Relevanz von \ac{dMFCC} am geringsten ist, wird hier auf den zweiten Wert verzichtet.
 % Der \codestyle{weight} Parameter gibt lediglich an ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
 
-\subsubsection{Datensatz}
+\subsubsection{Datensatz} \label{sec:KonzeptDatensatz}
 
 Um die unterschiedlichen Kombinationen an Features zu vergleichen wird ein Datensatz benötigt, der mindestens 20 verschiedene Sprecher mit mindestens ca. 15 min unterschiedlichem Audio-Material enthält.
 Die Audio-Clips müssen unter gleichen Bedingungen aufgenommen sein und in kompressionslosem WAV-Format vorliegen.
@@ -104,7 +104,7 @@ Die Audio-Clips müssen unter gleichen Bedingungen aufgenommen sein und in kompr
 \subsubsection{Feature Extraktion}
 
 In der Feature Extraktion werden die Stimmmerkmale aus den Trainingsdaten extrahiert.
-Hierzu müssen die Audiosignale zunächst vorverarbeitet werden (siehe Kapitel \ref{preprocessing}).
+Hierzu müssen die Audiosignale zunächst vorverarbeitet werden (siehe Kapitel \ref{sec:preprocessing}).
 In welcher Form die Merkmale extrahiert werden hängt dabei von der aktuellen Konfiguration ab.
 
 \subsubsection{Klassifikation und Evaluierung}
