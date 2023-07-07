@@ -7,9 +7,9 @@ Da diese Anforderungsbeschreibung noch viel Spielraum über den Funktionsumfang 
 
 \begin{itemize}
     \item Das System soll lediglich ein Demo-System darstellen, welches die Machbarkeit eines text-unabhängigen Sprecheridentifikationssystems aufzeigt. Es soll nicht in einem produktiven Umfeld eingesetzt werden können.
-    \item Der Datensatz für das System ist zu Begin festgelegt. Das heißt, es werden nur bereits bekannte Sprecher identifiziert. Zudem können keine neuen Sprecher registriert werden, wodurch das Sprecheridentifikationssystem keine dynamische Erweiterung um Sprecher bereitstellen muss.
+    \item Der Datensatz für das System ist zu Beginn festgelegt. Das heißt, es werden nur bereits bekannte Sprecher identifiziert. Zudem können keine neuen Sprecher registriert werden, wodurch das Sprecheridentifikationssystem keine dynamische Erweiterung um Sprecher bereitstellen muss.
     \item Das System beschränkt sich auf das Identifizieren eines Sprechers unter 20 Sprechern.
-    \item Zur Authentifizierung eines Sprechers wird ein 20 sekündiger Audio-Clip an das System übermittelt. Der Audio-Clip ist dem System bisher unbekannt, aber in gleichen Bedingungen aufgenommen, wie die bekannten Clips.
+    \item Zur Authentifizierung eines Sprechers wird ein 20-sekündiger Audio-Clip an das System übermittelt. Der Audio-Clip ist dem System bisher unbekannt, aber in gleichen Bedingungen aufgenommen, wie die bekannten Clips.
     \item Das Sprecheridentifikationssystem sollte Teil des Back-Ends sein. Die Bedienung erfolgt über eine Webapplikation, die mit dem System über eine Schnittstelle kommuniziert.
     \item In der Web-Oberfläche des Demo-Systems soll der zu authentifizierende Sprecher (einer der 20) und ein Verifikations-Clip ausgewählt werden können. Es soll für jeden Sprecher 5 Clips zur Auswahl geben.
     \item So soll der Nutzer des Demo-Systems testen können, was passiert, wenn ein zu dem zu authentifizierenden Sprecher passender bzw. unpassender Verifikations-Clip ins System gegeben wird.
@@ -21,7 +21,7 @@ Da diese Anforderungsbeschreibung noch viel Spielraum über den Funktionsumfang 
 \subsubsection{Systemidee}
 
 Aus der Literaturrecherche in Kapitel \ref{stand_der_technik} gehen verschiedene Stimmmerkmale zur Benutzerauthentifizierung hervor.
-Die Ergebnisse der dargestellten Untersuchungen unterscheiden sich darin, inwieweit die unterschiedlichen Stimmerkmale die Stimme repräsentieren bzw. zuverlässig für eine korrekte Authentifizierung sind.
+Die Ergebnisse der dargestellten Untersuchungen unterscheiden sich darin, inwieweit die unterschiedlichen Stimmmerkmale die Stimme repräsentieren bzw. zuverlässig für eine korrekte Authentifizierung sind.
 
 Da die Features \ac{LPC}, \ac{LPCC}, \ac{MFCC} und \ac{dMFCC} die grobe Schnittmenge der Untersuchungen darstellt, werden diese in einer eigens durchgeführten Versuchsreihe getestet und evaluiert.
 Hierfür wird ein System entworfen, das die Merkmale aus einem Datenset extrahiert und verschiedene Kombinationen vergleicht.
@@ -112,7 +112,7 @@ Die Literaturrecherche hat ergeben, dass sich neuronale Netze gut als Klassifika
 Deshalb werden bei der Klassifikation die berechneten Features aus dem Schritt zuvor genutzt, um neuronale Netze zu trainieren, sodass die Feature-Kombinationen bewertet werden können.
 Hierbei muss das Netz mehrmals durchlaufen werden, da zu Beginn des Trainings die Struktur zufällig gesetzt wird (siehe Kapitel \ref{sec:neuronaleNetze}).
 Anschließend werden die neuronalen Netze mit Testdaten getestet, die nicht in den Trainingsdaten enthalten sind.
-Die Auswertung des neuronalen Netzes wird gespeichert und nach Berechung aller Kombinationen ausgewertet.
+Die Auswertung des neuronalen Netzes wird gespeichert und nach Berechnung aller Kombinationen ausgewertet.
 Somit soll die beste Kombination gefunden und das damit trainierte neuronale Netz für das Demo-System verwendet werden.
 
 \subsubsection{Software Architektur}
@@ -153,7 +153,7 @@ Mit dem Evaluator werden die neuronalen Netze auf ihre Genauigkeit geprüft.
 Die Serzializer-Klasse speichert die zu Laufzeit generierten Daten für weitere Untersuchungen.
 \newparagraph
 
-In Abb. \ref{fig:sequenzdiagramm-versuchssystem} ist das Sequenzdiagramm dargestellt, dies stellt den Druchlauf einer Konfiguration durch Objekte der verschiedenen Klassen dar.
+In Abb. \ref{fig:sequenzdiagramm-versuchssystem} ist das Sequenzdiagramm dargestellt, dies stellt den Durchlauf einer Konfiguration durch Objekte der verschiedenen Klassen dar.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.82\textwidth, keepaspectratio]{images/versuchssytem_sequenzdiagramm.pdf}
@@ -196,7 +196,7 @@ Für eine verbesserte Nutzerfreundlichkeit wird zusätzlich eine \textKlasse{Inf
 
 \subsubsection{Server}
 Der Server stellt einen Schnittstellenendpunkt bereit der Authentifizierungsanfragen eines Clients annimmt, verarbeitet und beantwortet.
-In Abbildung~\ref{fig:SequenceHandleApiRequest} ist ein exemplarischer Ablauf des gesamten Prozesses Modelliert.
+In Abbildung~\ref{fig:SequenceHandleApiRequest} ist ein exemplarischer Ablauf des gesamten Prozesses modelliert.
 
 \begin{figure}[H]
     \centering
@@ -206,7 +206,7 @@ In Abbildung~\ref{fig:SequenceHandleApiRequest} ist ein exemplarischer Ablauf de
 \end{figure}
 
 Eine eingehende Authentifizierungsanfrage wird von der Funktion \textFunktion{handle\_api\_request()} verarbeitet.
-Die Klassifizierung der übergebenen Audiodatei verläuft dabei Analog zum Versuchssystem, weshalb hier die Komponenten des Versuchssystems (\textKlasse{Dataset\-Handler}, \textKlasse{Audio\-Preprocessor}, \textKlasse{Feature\-Extractor}) innerhalb der Funktionen \textFunktion{generate\_test\_data()} und \textFunktion{extract\_features()} genutzt werden können. % TODO: Evtl. Referenz auf Versuchssystem Konzept
+Die Klassifizierung der übergebenen Audiodatei verläuft dabei analog zum Versuchssystem, weshalb hier die Komponenten des Versuchssystems (\textKlasse{Dataset\-Handler}, \textKlasse{Audio\-Preprocessor}, \textKlasse{Feature\-Extractor}) innerhalb der Funktionen \textFunktion{generate\_test\_data()} und \textFunktion{extract\_features()} genutzt werden können. % TODO: Evtl. Referenz auf Versuchssystem Konzept
 
 Die Ergebnisse der Authentifizierung werden über die Schnittstelle zurück an den Client gesendet.
 
