@@ -23,7 +23,36 @@ Zusätzlich wird das Modul \gqq{Keras} verwendet, welches eine entwicklerfreundl
 
 \subsection{Versuchssystem}
 
+\subsubsection{Feature Kombination}
+Wie bereits in Kapitel~\ref{sec:FeatureKombination} erwähnt müssen zuerst die Konfigurationen erzeugt werden.
+Hierzu werden die vorher definierten Werte in einer JSON Datei erfasst und durch ein Tool werden alle möglichen Konfiguration mit einer ID erzeugt.
+Hierbei muss beachtet werden, dass durch die Kombination Konfigurationen entstehen in welchen, nichts berechnet werden muss.
+Die erstellte JSON Datei ist in dem Listing~\ref{configs} dargestellt.
+\begin{lstlisting}[language=JavaScript,numbers=none,caption=Konfigurationsmöglichkeiten,label=configs]
+Configs = {
+    "amount_of_frames": [10000, 15000],
+    "size_of_frame": [400, 600],
+    "LPC": {
+        "order": [13, 20],
+        "weight": [0, 1]
+    },
+    "MFCC": {
+        "order": [13, 20],
+        "weight": [0, 1]
+    },
+    "LPCC": {
+        "order": [13, 20],
+        "weight": [0, 1]
+    },
+    "delta_MFCC": {
+        "order": [13],
+        "weight": [0, 1]
+    }
+}
+\end{lstlisting}
+Der \codestyle{weight} Parameter gibt lediglich an ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
 
 
+\subsubsection{Datensatz}
 
 \subsection{Demosystem}
