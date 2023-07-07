@@ -116,4 +116,4 @@ def handle_api_request():
     return jsonify(result)
 
 if __name__ == '__main__':
-    app.run(debug=False, host='localhost', port=5500)
+    app.run(debug=False, host='127.0.0.1', port=5500)
