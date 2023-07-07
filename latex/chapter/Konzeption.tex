@@ -1,6 +1,6 @@
 \section{Konzeption}
 
-\subsection{Festlegung der Systemanforderungen}
+\subsection{Festlegung der Systemanforderungen}\label{sec:Anforderungen}
 
 Die grundlegende Anforderung an diese Studienarbeit war es, ein Sprecheridentifikationssystem zu entwickeln, welches über eine Webapplikation bedient werden kann.
 Da diese Anforderungsbeschreibung noch viel Spielraum über den Funktionsumfang dieses Systems lässt, werden in diesem Kapitel die Anforderungen an das System genauer spezifiziert.
@@ -167,3 +167,60 @@ In Abb. \ref{fig:sequenzdiagramm-versuchssystem} ist das Sequenzdiagramm dargest
 
 % Beschreibung der Architektur
 % GGF Sequenzdiagramm
+
+\subsection{Demosystem}
+Ziel des Demosystems ist es, den Authentifizierungsprozess mittels Sprechererkennung zu implementieren und damit die Ergebnisse der Arbeit zu präsentieren.
+Aus den Anforderungen in Kapitel~\ref{sec:Anforderungen} geht dabei hervor, dass dies als Webapplikation umzusetzen ist.
+Dadurch ergibt sich als Basisarchitektur eine Client-Server Architektur, wobei der Client die Weboberfläche und der Server den Authentifizierungsprozess implementiert.
+Abbildung~\ref{fig:ArchitectureDemoSystem} zeigt die grundlegende Architektur des Demosystems.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth, keepaspectratio]{images/Architektur-Demosystem}
+    \caption{Architektur Demosystem}
+    \label{fig:ArchitectureDemoSystem}
+\end{figure}
+
+\subsubsection{Client}
+Der Client wird wie bereits erwähnt als Weboberfläche konzipiert.
+Dabei stellt er Eingabemöglichkeiten in Form eines Logins bereit, die für das Anstoßen des Authentifizierungsprozesses benötigt werden.
+Im Architekturbild geschieht dies über die \textKlasse{App} Komponente.
+Über die \textFunktion{login()} Funktion der Komponente wird die Authentifizierungsanfrage an den Server gestellt.
+
+Dabei werden die Daten \textVariable{authenticatingUserId}, \textVariable{sample\-File\-User\-Id} und \textVariable{sample\-File\-Index} über eine Schnittstelle übermittelt.
+Da sich das Demosystem auf einen vordefinierten Datensatz beschränkt muss keine Funktion zur Aufnahme neuer Sprechdaten bereitgestellt werden.
+Aus diesem Grund werden vordefinierte Audiosequenzen für jeden Sprecher bereitgestellt, die mittels den Variablen \textVariable{sampleFileUserId} und \textVariable{sampleFileIndex} eindeutig identifiziert werden können.
+
+Die Darstellung des Ergebnisses des Authentifizierungsprozesses wird in eine separate Komponente namens \textKlasse{Results} ausgelagert.
+
+Für eine verbesserte Nutzerfreundlichkeit wird zusätzlich eine \textKlasse{Info} Komponente eingebunden, welche die grundlegende Bedienung und Vorgehensweise des Demosystems erklärt.
+
+\subsubsection{Server}
+Der Server stellt einen Schnittstellenendpunkt bereit der Authentifizierungsanfragen eines Clients annimmt, verarbeitet und beantwortet.
+In Abbildung~\ref{fig:SequenceHandleApiRequest} ist ein exemplarischer Ablauf des gesamten Prozesses Modelliert.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth, keepaspectratio]{images/SequenzdiagrammClientServer}
+    \caption{Sequenzdiagramm login()}
+    \label{fig:SequenceHandleApiRequest}
+\end{figure}
+
+Eine eingehende Authentifizierungsanfrage wird von der Funktion \textFunktion{handle\_api\_request()} verarbeitet.
+Die Klassifizierung der übergebenen Audiodatei verläuft dabei Analog zum Versuchssystem, weshalb hier die Komponenten des Versuchssystems (\textKlasse{Dataset\-Handler}, \textKlasse{Audio\-Preprocessor}, \textKlasse{Feature\-Extractor}) innerhalb der Funktionen \textFunktion{generate\_test\_data()} und \textFunktion{extract\_features()} genutzt werden können. % TODO: Evtl. Referenz auf Versuchssystem Konzept
+
+Die Ergebnisse der Authentifizierung werden über die Schnittstelle zurück an den Client gesendet.
+
+\subsubsection{Schnittstellendefinition}
+Im Konkreten enthält die Anfrage des Clients die folgenden Informationen:
+\begin{itemize}
+    \item Zu authentifizierender Sprecher
+    \item Index der ausgewählten Sprachdatei
+    \item Sprecher der ausgewählten Sprachdatei
+\end{itemize}
+Die Antwort des Servers beinhaltet die Informationen:
+\begin{itemize}
+    \item Ermittelte Wahrscheinlichkeit des zu authentifizierenden Sprechers
+    \item Authentifizierungsstatus
+    \item Ermittelte Wahrscheinlichkeit je Sprecher
+\end{itemize}
