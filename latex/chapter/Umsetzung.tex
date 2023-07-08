@@ -9,7 +9,7 @@ Außerdem findet eine Festlegung des verwendeten Protokolls für die Schnittstel
 
 \paragraph{Client}
 Die grundlegende Anforderung an den Client ist die Umsetzung als Webapplikation.
-Daraus leiten sich in erster Linie vier verschiedene Programmiersprachen ab: JavaScript/Type\-Script, Python, PhP und Ruby.
+Daraus leiten sich in erster Linie vier verschiedene Programmiersprachen ab: JavaScript/Type\-Script, Python, PHP und Ruby.
 
 Für eine weitergehende Einschränkung ist der vorausgesetzte Funktionsumfang relevant.
 Dieser ist sehr gering, da lediglich Input-Elemente für die Angabe eines zu authentifizierenden Sprechers, sowie zur Auswahl einer zu verwendeten Datei bereitgestellt werden müssen.
@@ -22,10 +22,10 @@ Moderne Frameworks wie Reactjs und Angular haben die klassische Webprogrammierun
 
 Da es sich außerdem um ein Demosystem handelt, welches lediglich die Ergebnisse dieser Arbeit präsentieren soll und somit nicht in einem produktiven Umfeld betrieben wird, spielt die Technologieentscheidung allgemein nur eine untergeordnete Rolle.
 Aus diesem Grund kann auch die Erfahrung der Entwickler mit in die Technologieentscheidung einfließen.
-Die Kompetenzen des Entwicklerteams liegen dabei vor allem im Bereich der React Programmierung mit JavaScript beziehungsweise Typescript.
+Die Kompetenzen des Entwicklerteams liegen dabei vor allem im Bereich der React Programmierung mit JavaScript beziehungsweise TypeScript.
 
-Zusammenfassend fällt die Technologieentscheidung für die Client Implementierung somit auf das JavaScript Framework Reactjs in Kombination mit Typescript.
-Typescript ermöglicht dabei gegenüber JavaScript die Verwendung von Datentypen, wodurch Datentypfehler im Rahmen der Implementierung vermieden werden können.
+Zusammenfassend fällt die Technologieentscheidung für die Client Implementierung somit auf das JavaScript Framework Reactjs in Kombination mit TypeScript.
+TypeScript ermöglicht dabei gegenüber JavaScript die Verwendung von Datentypen, wodurch Datentypfehler im Rahmen der Implementierung vermieden werden können.
 
 \paragraph{Schnittstelle}
 Im Web-Umfeld spielt das \ac{HTTP} eine besondere Rolle.
@@ -33,15 +33,15 @@ Dabei handelt es sich um ein zustandsloses Protokoll zur Übertragung von Daten 
 Ein Anwendungsfall ist dabei die Anfrage von Websiten im Browser über die URL.
 Dazu wird eine sogenannte \ac{HTTP}-GET Anfrage an den Zielserver gesendet, welcher anschließend mit der angeforderten Ressource antwortet.
 
-Nach dem selben Prinzip kann das HTTP Protokoll ebenfalls dazu verwendet werden, eine Kommunikation zwischen Client und Server zu ermöglichen.
-Die zu übergebenden Variablen des Clients an den Server können dabei innerhalb der URL des GET Requests übertragen werden.
-Gleichzeitig können die Ergebnisse des Servers beispielsweise im JSON-Format an den Client zurück gesendet werden.
+Nach demselben Prinzip kann das HTTP Protokoll ebenfalls dazu verwendet werden, eine Kommunikation zwischen Client und Server zu ermöglichen.
+Die zu übergebenden Variablen des Clients an den Server können dabei innerhalb der URL des GET-Requests übertragen werden.
+Gleichzeitig können die Ergebnisse des Servers beispielsweise im JSON-Format an den Client zurückgesendet werden.
 
 Da das HTTP Protokoll somit alle benötigten Anforderungen erfüllt, kommt es für die Schnittstellenkommunikation zum Einsatz.
 
 \paragraph{Server}
-Für den Authentifizierungsprozess implementiert der Server den selben Ablauf wie das Versuchssystem.
-Um eine doppelte Entwicklung zu vermeiden entsteht somit eine Abhängigkeit zwischen der Technologieentscheidung des Versuchssystems und des Servers.
+Für den Authentifizierungsprozess implementiert der Server denselben Ablauf wie das Versuchssystem.
+Um eine doppelte Entwicklung zu vermeiden, entsteht somit eine Abhängigkeit zwischen der Technologieentscheidung des Versuchssystems und des Servers.
 Aus der Technologieentscheidung des Versuchssystems in Kapitel~\ref{sec:TechnologieVersuchssystem} geht die Programmiersprache Python hervor.
 Somit sollte zunächst geprüft werden, ob die Anforderungen des Servers in der Sprache Python umsetzbar sind.
 
