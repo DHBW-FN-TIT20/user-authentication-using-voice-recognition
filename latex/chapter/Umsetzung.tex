@@ -69,8 +69,39 @@ Das Testmaterial ist nicht im Trainingsmaterial enthalten.
 
 \subsubsection{Vorverarbeitung und Feature Extraktion}
 
-Um eine effektive Verarbeitung eines Audiosignals zu ermöglichen, muss zunächst eine Vorverarbeitung des Signals erfolgen(s. Kapitel~\ref{sec:preprocessing})
-% librosa load
+Um eine effektive Verarbeitung eines Audiosignals zu ermöglichen, muss zunächst eine Vorverarbeitung des Signals erfolgen (s. Kapitel~\ref{sec:preprocessing}).
+Hierfür wird der Audio-Clip zunächst mittels der Bibliothek \gqq{Librosa} geladen.
+Anschließend folgt der erste Schritt der Vorverarbeitung, das Entfernen von stillen Passagen.
+Hierfür wird ein selbst entwickelter Algorithmus verwendet, der erkennt, wenn sich die Amplitude des Audiosignals über einen gewissen Zeitraum unterhalb eines definierten Schwellwerts befindet.
+
+\begin{lstlisting}[language=Python,numbers=none,caption=Remove Silence,label=lst-remove-silence]
+for i, amp in enumerate(y):
+if abs(amp) < threshold:
+    counter_below_threshold += 1
+else:
+    if counter_below_threshold > pause_length_in_ms:
+        for index in range(i-counter_below_threshold+keep_at_start_and_end, i-keep_at_start_and_end):
+            indices_to_remove.append(index)
+    counter_below_threshold = 0
+\end{lstlisting}
+
+Nach dem Entfernen der Pausen wird das Hintergrundrauschen entfernt.
+Dafür wird ein externer Algorithmus von Tim Sainburg \autocite[][]{sainburg_timsainbnoisereduce_2019}.
+
+Die abschließende Unterteilung des Audiosignals
+in Frames, sowie das Windowing der Frames findet mit Hilfe von \codestyle{numpy}-Operationen in den Funktionen \codestyle{create_frames} und \codestyle{window_frames} statt.
+Die passende Fensterfunktion wird dabei ebenfalls durch die \codestyle{numpy}-Bibliothek bereitgestellt.
+
+Für das Extrahieren der Merkmale aus dem Audiosignal wird ein Ansatz gewählt, der eine einfache Erweiterung des Programms um verschiedene andere Verfahren ermöglicht.
+Dazu wird das Designmuster Strategie in abgewandelter Form verwendet, wobei zunächst ein Interface für die Berechnungsverfahren erstellt werden muss.
+Dieses definiert die Funktion \codestyle{calculate_features}, welche in den abgeleiteten Klassen implementiert wird.
+Für die eigentlichen Berechnungen der Koeffizienten wird wieder die Signal-Verarbeitungs-Bibliothek Librosa verwendet.
+
+
+Da für die Versuchsreihe sehr viele zeitaufwändige Berechnungen laufen müssen, ist das Extrahieren der Merkmale mit Mulitprocessing implementiert.
+Dies beschleunigt den Prozess um bis zu 50 \%.
+
+% librosa load 
 % remove silence 
 % noice_reduce#
 
