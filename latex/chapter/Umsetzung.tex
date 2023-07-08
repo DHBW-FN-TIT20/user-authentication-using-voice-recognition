@@ -57,3 +57,38 @@ Dazu können die bereits entwickelten Komponenten für den Authentifizierungspro
 \subsection{Versuchssystem}
 \subsection{Demosystem}
 Abschließend werden einzelne Schlüsselpunkte der Implementierung genauer betrachtet und erläutert.
+\paragraph{Client}
+Die im Client implementierte Benutzeroberfläche zeigt eine Login-Abfrage (siehe Abbildung~\ref{fig:AppLogin}).
+Diese unterteilt sich in zwei Abschnitte.
+Zunächst kann über ein Eingabefeld die ID des zu authentifizierenden Nutzers angegeben werden.
+Anschließend kann eine zu verwendende Audiodatei aus einer Liste ausgewählt werden.
+Dabei stehen für jeden Nutzer mindestens fünf verschiedene Dateien zur Verfügung.
+Um die Benutzerfreundlichkeit zu verbessern besteht dabei zusätzlich die Möglichkeit, die ausgewählte Datei im Browser abzuspielen.
+Dafür wird der HTML \textFunktion{<audio>} tag verwendet.
+\begin{figure}[H]
+    \begin{subfigure}[c]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth, keepaspectratio]{images/UI.png}
+        \subcaption{App/Login}
+        \label{fig:AppLogin}
+    \end{subfigure}
+    \begin{subfigure}[c]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth, keepaspectratio]{images/UIResult.png}
+        \caption{Result}
+        \label{fig:Result}
+    \end{subfigure}
+    \caption{Weboberfläche}
+\end{figure}
+Über den Login-Knopf wird die Authentifizierungsanfrage an den Server gesendet.
+Dafür wird die \textFunktion{fetch()} Funktion von JavaScript verwendet.
+Die zu übergebenden Parameter werden als URL-Parameter angegeben.
+
+Die Darstellung des Ergebnisses mittels der \textKlasse{Result} Komponente ist in Abbildung~\ref{fig:Result} dargestellt.
+Dem Benutzer werden sowohl seine Authentifizierungsangaben, als auch das Ergebnis der Authentifizierung in Textform angezeigt.
+Die Klassifikation als \gqq{erfolgreich} oder \gqq{fehlgeschlagen} kann sowohl dem Text als auch der Farbe der Überschrift (grün oder rot) entnommen werden.
+
+Zusätzlich erhält der Benutzer einen grafischen Einblick in die Wahrscheinlichkeitsverteilung der Zuordnung der ausgewählten Sprecherdatei zu den verschiedenen Sprechern.
+Das Diagramm wird mit Hilfe der Bibliotheken chart.js und react-chartjs-2 eingebunden.
+
+\paragraph{Server}

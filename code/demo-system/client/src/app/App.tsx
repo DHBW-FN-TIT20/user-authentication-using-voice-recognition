@@ -25,7 +25,7 @@ async function login(authenticatingUserId: number, sampleFileUserId: number, sam
     return json;
   } catch (e) {
     console.error(e);
-    alert(`Es konnte keine Verbindung zum Server (${configData.SERVER_URL}:${configData.SERVER_PORT}) hergesetellt werden!`)
+    alert(`Es konnte keine Verbindung zum Server (${configData.SERVER_URL}:${configData.SERVER_PORT}) hergestellt werden!`)
     return {
       absolute_accuracy_of_selected_speaker: 0,
       is_authenticated: false,
