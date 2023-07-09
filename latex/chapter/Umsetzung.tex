@@ -91,4 +91,23 @@ Die Klassifikation als \gqq{erfolgreich} oder \gqq{fehlgeschlagen} kann sowohl d
 Zusätzlich erhält der Benutzer einen grafischen Einblick in die Wahrscheinlichkeitsverteilung der Zuordnung der ausgewählten Sprecherdatei zu den verschiedenen Sprechern.
 Das Diagramm wird mit Hilfe der Bibliotheken chart.js und react-chartjs-2 eingebunden.
 
-\paragraph{Server}
+\paragraph{Server} 
+Wie in der Technologieentscheidung bereits erwähnt, wird der Server mit Hilfe der Bibliothek Flask implementiert.
+Listing~\ref{lst:serverPy} zeigt dabei die wesentlichen Codeabschnitte für die Umsetzung des Servers als Flask Applikation.
+\begin{lstlisting}[language=Python,numbers=none,caption=Ausschnitt server.py,label=lst:serverPy]
+    app = Flask(__name__)
+    CORS(app)
+
+    @app.route("/", methods=["GET", "POST"])
+    def handle_api_request():
+        ...
+
+    if __name__ == '__main__':
+        app.run(debug=False, host='127.0.0.1', port=5500)
+\end{lstlisting}
+Zunächst muss eine neue Flask \textVariable{app} erstellt werden.
+Mittels \textFunktion{CORS(app)} wird dabei sichergestellt, dass eine Verbindung zwischen Client und Server trotz unterschiedlichem Ursprung möglich ist.
+
+Die Authentifizierungsfunktion wird über die Wrapper-Funktion \textFunktion{handle\_api\_request()} und dem Decorator \textFunktion{@app.route()} als \ac{API} Endpoint verfügbar gemacht.
+
+Abschließend kann der Server über die Anweisung \textFunktion{app.run()} unter Angabe der IP-Adresse und des Ports gestartet werden.
