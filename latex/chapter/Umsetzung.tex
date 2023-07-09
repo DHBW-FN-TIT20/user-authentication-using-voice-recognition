@@ -20,9 +20,8 @@ Hierbei spielen vor allem zwei Aspekte eine Rolle.
 Eine Umfrage von Stack Overflow aus dem Jahr 2020 zeigt, dass JavaScript die beliebteste Programmiersprache von professionellen Entwickler ist.
 Moderne Frameworks wie Reactjs und Angular haben die klassische Webprogrammierung in PHP über die letzten Jahre abgelöst \autocite[vgl.][]{stack_overflow_stack_nodate}.
 
-Da es sich außerdem um ein Demosystem handelt, welches lediglich die Ergebnisse dieser Arbeit präsentieren soll und somit nicht in einem produktiven Umfeld betrieben wird, spielt die Technologieentscheidung allgemein nur eine untergeordnete Rolle.
-Aus diesem Grund kann auch die Erfahrung der Entwickler mit in die Technologieentscheidung einfließen.
-Die Kompetenzen des Entwicklerteams liegen dabei vor allem im Bereich der React Programmierung mit JavaScript beziehungsweise TypeScript.
+Da es sich außerdem um ein Demosystem handelt, welches lediglich die Ergebnisse dieser Arbeit präsentieren soll und somit nicht in einem produktiven Umfeld betrieben wird, spielt die Technologieentscheidung nur eine untergeordnete Rolle.
+Die Kompetenzen des Entwicklerteams liegen vor allem im Bereich der React Programmierung mit JavaScript beziehungsweise TypeScript.
 
 Zusammenfassend fällt die Technologieentscheidung für die Client Implementierung somit auf das JavaScript Framework Reactjs in Kombination mit TypeScript.
 TypeScript ermöglicht dabei gegenüber JavaScript die Verwendung von Datentypen, wodurch Datentypfehler im Rahmen der Implementierung vermieden werden können.
@@ -46,17 +45,20 @@ Aus der Technologieentscheidung des Versuchssystems in Kapitel~\ref{sec:Technolo
 Somit sollte zunächst geprüft werden, ob die Anforderungen des Servers in der Sprache Python umsetzbar sind.
 
 Neben dem Authentifizierungsprozess spielt ausschließlich die Schnittstellenkommunikation zwischen Client und Server eine Rolle für die Technologieentscheidung des Servers.
-Da als Kommunikationsprotokoll HTTP eingesetzt wird muss also eine Bibliothek gefunden werden, die die Verwendung dieses Protokolls in Python ermöglicht.
+Da als Kommunikationsprotokoll HTTP eingesetzt wird, muss also eine Bibliothek gefunden werden, die die Verwendung dieses Protokolls in Python ermöglicht.
 Hierzu kann Flask verwendet werden.
 
-Bei Flask handelt es sich um ein Web Framework, welches eine Bereitstellung von \ac{API} Endpunkten die über das HTTP Protokoll abrufbar sind ermöglicht.
+Bei Flask handelt es sich um ein Web Framework, welches eine Bereitstellung von \ac{API} Endpunkten, die über das \ac{HTTP} Protokoll abrufbar sind, ermöglicht.
 
 Somit können alle Anforderungen an die Serverapplikation mittels der Programmiersprache Python umgesetzt werden.
 Dazu können die bereits entwickelten Komponenten für den Authentifizierungsprozess aus dem Versuchssystem übernommen werden.
 
 \subsection{Versuchssystem}
 \subsection{Demosystem}
-Abschließend werden einzelne Schlüsselpunkte der Implementierung genauer betrachtet und erläutert.
+Die Umsetzung von Client und Server ist im Folgenden kurz beschrieben.
+Dabei werden lediglich die wichtigsten Aspekte benannt.
+Da der Authentifizierungsablauf bereits im vorangehenden Kapitel erläutert wurde, wird in der Umsetzung des Servers nicht mehr darauf eingegangen.
+
 \paragraph{Client}
 Die im Client implementierte Benutzeroberfläche zeigt eine Login-Abfrage (siehe Abbildung~\ref{fig:AppLogin}).
 Diese unterteilt sich in zwei Abschnitte.
