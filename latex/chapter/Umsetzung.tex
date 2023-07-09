@@ -8,7 +8,7 @@ Um weitere Technologieenscheidungen zu treffen muss zunächst eine Programmiersp
 Da in einer Umfrage unter Machine-Learning-Entwicklern und Data Scientists 57\% Python als Programmiersprache nutzen und 33\% diese sogar priorisieren, wird für dieses Projekt Python als Programmiersprache festgelegt \autocite[vgl. ][S. 16]{vision_mobile_state_2017}.
 In einer allgemeinen Umfrage zu verwendeten Programmiersprachen liegt Python mit 49,2\% auf Platz drei \autocite[vgl.][]{yepis_2023_2023}.
 Das bedeutet, dass knapp die Hälfte der befragten Entwickler unter anderem Python verwenden, somit ist eine ausreichende Verbreitung gewährleistet.
-Die Verbreitung ist vorallem deshalb ein wichtiger Aspekt, da es durch eine hohe Verbreitung ein großes Eco-System mit viele quelloffene Ressourcen und bereits durchgeführte Projekte gibt.
+Die Verbreitung ist vorallem deshalb ein wichtiger Aspekt, da es durch eine hohe Verbreitung ein großes Eco-System mit vielen quelloffenen Ressourcen und bereits durchgeführten Projekten gibt.
 
 Um Machine-Learning mit Python zu betreiben, gibt es mehrere Bibliotheken zur Auswahl.
 Die 3 bekanntesten Open-Source-Bibliotheken sind dabei \gqq{TensorFlow}, \gqq{PyTorch} und \gqq{SciKit-Lern} \autocite[vgl.][]{msv_tensorflow_2020}.
@@ -25,8 +25,8 @@ Zusätzlich wird das Modul \gqq{Keras} verwendet, welches eine entwicklerfreundl
 
 \subsubsection{Feature Kombination}
 Wie bereits in Kapitel~\ref{sec:FeatureKombination} erwähnt müssen zuerst die Konfigurationen erzeugt werden.
-Hierzu werden die vorher definierten Werte in einer JSON Datei erfasst und durch ein Tool werden alle möglichen Konfiguration mit einer ID erzeugt.
-Hierbei muss beachtet werden, dass durch die Kombination Konfigurationen entstehen in welchen, nichts berechnet werden muss.
+Hierzu werden die vorher definierten Werte in einer JSON Datei erfasst und durch ein Tool alle möglichen Konfiguration mit einer ID erzeugt.
+Hierbei muss beachtet werden, dass durch die Kombination Konfigurationen entstehen in welchen nichts berechnet werden muss.
 Die erstellte JSON Datei ist in dem Listing~\ref{configs} dargestellt.
 \begin{lstlisting}[language=JavaScript,numbers=none,caption=Konfigurationsmöglichkeiten,label=configs]
 Configs = {
@@ -86,7 +86,7 @@ else:
 \end{lstlisting}
 
 Nach dem Entfernen der Pausen wird das Hintergrundrauschen entfernt.
-Dafür wird ein externer Algorithmus von Tim Sainburg \autocite[][]{sainburg_timsainbnoisereduce_2019}.
+Dafür wird ein externer Algorithmus von Tim Sainburg verwendet \autocite[][]{sainburg_timsainbnoisereduce_2019}.
 
 Die abschließende Unterteilung des Audiosignals
 in Frames, sowie das Windowing der Frames findet mit Hilfe von \codestyle{numpy}-Operationen in den Funktionen \codestyle{create_frames} und \codestyle{window_frames} statt.
@@ -98,7 +98,7 @@ Dieses definiert die Funktion \codestyle{calculate_features}, welche in den abge
 Für die eigentlichen Berechnungen der Koeffizienten wird wieder die Signal-Verarbeitungs-Bibliothek Librosa verwendet.
 
 
-Da für die Versuchsreihe sehr viele zeitaufwändige Berechnungen laufen müssen, ist das Extrahieren der Merkmale mit Mulitprocessing implementiert.
+Da für die Versuchsreihe sehr viele zeitaufwändige Berechnungen laufen müssen, ist das Extrahieren der Merkmale mit Multiprocessing implementiert.
 Dies beschleunigt den Prozess um bis zu 50 \%.
 
 % librosa load 
@@ -108,20 +108,20 @@ Dies beschleunigt den Prozess um bis zu 50 \%.
 % berechnung der Merkmale für Trainings- und Testdaten --> benötigt für Traditionellen Authentifizierungsprozess
 
 \subsubsection{Klassifikation und Evaluierung}
-In dem Kapitel~\ref{sec:KonzeptKlassifikation} wurden neuronale Netze als Klassifikationsmodell gewählt, um die zuvor berechneten Merkmale zu evaluiert.
+In dem Kapitel~\ref{sec:KonzeptKlassifikation} wurden neuronale Netze als Klassifikationsmodell gewählt, um die zuvor berechneten Merkmale zu evaluieren.
 Hierbei werden zuerst neuronale Netze mit den berechneten Trainingsdaten trainiert, diese Netze bestehen aus drei Hidden-Layer mit jeweils 128, 64 und 32 Neuronen.
 Dieser absteigende Aufbau stellt sich bei Versuchen als geeignete Lösung heraus.
 Wie bereits im Konzept dargestellt müssen mehrere neuronale Netze trainiert werden, in diesem Fall werden für jede Konfiguration drei neuronale Netze erstellt.
 
 % TODO: @Henry noch mal drüber schauen...
 Nach dem Training erfolgt die Evaluation der neuronalen Netze, hierzu wird der tatsächliche Authentifizierungsprozess nachgebildet.
-Die berechneten Testdaten werden auf die neuronalen Netze angewandt, das neuronale Netz klassifiziert also die Daten.
-Daraus erhält man die Anzahl der zugeordneten Merkmale zu jedem Sprecher pro Testdatei.
-Aufgrund der unterschiedlichen Anzahl Merkmale je nach Konfiguration müssen die Werte normiert werden, dazu wird die absolute Zuordnung in eine relative umgerechnet.
-Da für jeden Sprecher fünf Testdateien vorliegen entstehen pro neuronales Netz 100 Datensätze und für jede Konfiguration somit 300.
+Die berechneten Testdaten werden auf die neuronalen Netze angewandt, das neuronale Netz klassifiziert also die Daten indem es die Features jedes Frames einem der 20 Sprecher zuordnet.
+Die Anzahl der Frames ist dabei von der Frame-Länge der jeweiligen Konfiguration abhängig, weshalb die Zuordnungsverteilungen normiert, also von einer absoluten in eine relative Zuordnung umgerechnet werden müssen.
 
-Nach Abschluss der Klassifikationen aller Features können diese Datensätze ausgewertet werden und somit ein Rückschluss auf die beste Merkmalskombination getroffen werden.
+Da für jeden Sprecher fünf Testdateien vorliegen entstehen pro neuronalem Netz 100 Zuordnungsverteilungen.
+Durch die Berechnung von drei neuronalen Netzen pro Konfiguration ergibt dies 300 Zuordnungsverteilungen pro Konfiguration.
+
+Nach Abschluss der Klassifikation aller Features können diese Datensätze ausgewertet werden und somit ein Rückschluss auf die beste Merkmalskombination getroffen werden.
 Die Durchführung und Evaluation des Versuchs sind in Kapitel~\ref{sec:Evaluation} dargestellt.
-
 
 \subsection{Demosystem}
