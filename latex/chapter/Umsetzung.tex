@@ -50,7 +50,7 @@ Configs = {
     }
 }
 \end{lstlisting}
-Der \codestyle{weight} Parameter gibt lediglich an ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
+Der \codestyle{weight} Parameter gibt lediglich an, ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
 
 \subsubsection{Datensatz}
 Für die Evaluierung der Stimmmerkmale wird ein geeigneter Datensatz benötigt.
@@ -72,7 +72,7 @@ Das Testmaterial ist nicht im Trainingsmaterial enthalten.
 Um eine effektive Verarbeitung eines Audiosignals zu ermöglichen, muss zunächst eine Vorverarbeitung des Signals erfolgen (s. Kapitel~\ref{sec:preprocessing}).
 Hierfür wird der Audio-Clip zunächst mittels der Bibliothek \gqq{Librosa} geladen.
 Anschließend folgt der erste Schritt der Vorverarbeitung, das Entfernen von stillen Passagen.
-Hierfür wird ein selbst entwickelter Algorithmus verwendet, der erkennt, wenn sich die Amplitude des Audiosignals über einen gewissen Zeitraum unterhalb eines definierten Schwellwerts befindet.
+Dafür wird ein selbst entwickelter Algorithmus verwendet, der erkennt, wenn sich die Amplitude des Audiosignals über einen gewissen Zeitraum unterhalb eines definierten Schwellwerts befindet.
 
 \begin{lstlisting}[language=Python,numbers=none,caption=Remove Silence,label=lst-remove-silence]
 for i, amp in enumerate(y):
@@ -113,6 +113,20 @@ In dem Kapitel~\ref{sec:KonzeptKlassifikation} wurden neuronale Netze als Klassi
 Hierbei werden zuerst neuronale Netze mit den berechneten Trainingsdaten trainiert, diese Netze bestehen aus drei Hidden-Layer mit jeweils 128, 64 und 32 Neuronen.
 Dieser absteigende Aufbau stellt sich bei Versuchen als geeignete Lösung heraus.
 Wie bereits im Konzept dargestellt müssen mehrere neuronale Netze trainiert werden, in diesem Fall werden für jede Konfiguration drei neuronale Netze erstellt.
+
+\begin{lstlisting}[language=Python,numbers=none,caption=Erstellen und Trainieren eines neuronalen Netzes,label=lst-nn]
+# create model
+tf.keras.backend.clear_session()
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Flatten(input_shape=[input_layer_neurons]),
+    *hidden_layer, # 128, 64, 32
+    tf.keras.layers.Dense(output_layer_neurons, activation=tf.nn.softmax),
+])
+model.compile(optimizer=tf.optimizers.Adam(), loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+# train model
+model.fit(X, y, epochs=epochs)
+\end{lstlisting}
 
 Nach dem Training erfolgt die Evaluation der neuronalen Netze, hierzu wird der tatsächliche Authentifizierungsprozess nachgebildet.
 Die berechneten Testdaten werden auf die neuronalen Netze angewandt, das neuronale Netz klassifiziert also die Daten indem es die Features jedes Frames einem der 20 Sprecher zuordnet.
