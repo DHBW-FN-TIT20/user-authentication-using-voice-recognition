@@ -110,11 +110,12 @@ Dies beschleunigt den Prozess um bis zu 50 \%.
 \subsubsection{Klassifikation und Evaluierung}
 In dem Kapitel~\ref{sec:KonzeptKlassifikation} wurden neuronale Netze als Klassifikationsmodell gewählt, um die zuvor berechneten Merkmale zu evaluiert.
 Hierbei werden zuerst neuronale Netze mit den berechneten Trainingsdaten trainiert, diese Netze bestehen aus drei Hidden-Layer mit jeweils 128, 64 und 32 Neuronen.
-% TODO  @Johannes verifizieren am besten mit Quelle
+Dieser absteigende Aufbau stellt sich bei Versuchen als geeignete Lösung heraus.
 Wie bereits im Konzept dargestellt müssen mehrere neuronale Netze trainiert werden, in diesem Fall werden für jede Konfiguration drei neuronale Netze erstellt.
 
+% TODO: @Henry noch mal drüber schauen...
 Nach dem Training erfolgt die Evaluation der neuronalen Netze, hierzu wird der tatsächliche Authentifizierungsprozess nachgebildet.
-Die berechneten Testdaten werden nun auf die neuronalen Netze angewandt, sprich das neuronale Netz klassifiziert die Daten.
+Die berechneten Testdaten werden auf die neuronalen Netze angewandt, das neuronale Netz klassifiziert also die Daten.
 Daraus erhält man die Anzahl der zugeordneten Merkmale zu jedem Sprecher pro Testdatei.
 Aufgrund der unterschiedlichen Anzahl Merkmale je nach Konfiguration müssen die Werte normiert werden, dazu wird die absolute Zuordnung in eine relative umgerechnet.
 Da für jeden Sprecher fünf Testdateien vorliegen entstehen pro neuronales Netz 100 Datensätze und für jede Konfiguration somit 300.
