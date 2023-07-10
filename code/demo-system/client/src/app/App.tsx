@@ -2,15 +2,16 @@ import { useEffect, useState, useRef } from 'react';
 import'./App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faFile, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
-import Result from './Result';
-import Info from './Info';
+import Result from '../shared/components/Result/Result';
+import Info from '../shared/components/Info/Info';
 
-async function login(userId: number, selectedUserId: number, selectedFileIndex: number) {
+import configData from '../config.json'
+
+async function login(authenticatingUserId: number, sampleFileUserId: number, sampleFileIndex: number) {
   try {
-    // get the current url and remove everything after the main url and remove the port if exists
-    const url = window.location.href.replace(/\/[^\/]*$/, "").replace(/:\d+$/, "");
-    const response = await fetch(`${url}:5500/?speaker_id=${selectedUserId}&sample_id=${selectedFileIndex}&selected_speaker_id=${userId}`);
+    const response = await fetch(`http://${configData.SERVER_URL}:${configData.SERVER_PORT}/?speaker_id=${sampleFileUserId}&sample_id=${sampleFileIndex}&selected_speaker_id=${authenticatingUserId}`);
   
+    console.log(response)
     if (!response.ok) {
       return { 
         absolute_accuracy_of_selected_speaker: 0,
@@ -24,6 +25,7 @@ async function login(userId: number, selectedUserId: number, selectedFileIndex: 
     return json;
   } catch (e) {
     console.error(e);
+    alert(`Es konnte keine Verbindung zum Server (${configData.SERVER_URL}:${configData.SERVER_PORT}) hergestellt werden!`)
     return {
       absolute_accuracy_of_selected_speaker: 0,
       is_authenticated: false,
@@ -34,9 +36,9 @@ async function login(userId: number, selectedUserId: number, selectedFileIndex: 
 
 function App() {
   const [loginDisabled, setLoginDisabled] = useState<boolean>(true);
-  const [userId, setUserId] = useState<number>(NaN);
-  const [selectedUserId, setSelectedUserId] = useState<number>(NaN);
-  const [selectedFileIndex, setSelectedFileIndex] = useState<number>(NaN);
+  const [authenticatingUserId, setAuthenticatingUserId] = useState<number>(NaN);
+  const [sampleFileUserId, setSampleFileUserId] = useState<number>(NaN);
+  const [sampleFileIndex, setSampleFileIndex] = useState<number>(NaN);
   const [showResults, setShowResults] = useState<boolean>(false);
   const [results, setResults] = useState<any>({absolute_accuracy_of_selected_speaker: 0, is_authenticated: false, absolute_accuracy_of_all_speakers: []});
   const [fetching, setFetching] = useState<boolean>(false);
@@ -53,18 +55,18 @@ function App() {
 
   useEffect(() => {
     const updateLoginStatus = () => {
-      if (!isNaN(userId) && userId >= 0 && userId < 20 && !isNaN(selectedUserId) && !isNaN(selectedFileIndex)) {
+      if (!isNaN(authenticatingUserId) && authenticatingUserId >= 0 && authenticatingUserId < 20 && !isNaN(sampleFileUserId) && !isNaN(sampleFileIndex)) {
         setLoginDisabled(false);
       } else {
         setLoginDisabled(true);
       }
     }
     updateLoginStatus();
-  }, [userId, selectedUserId, selectedFileIndex])
+  }, [authenticatingUserId, sampleFileUserId, sampleFileIndex])
 
   useEffect(() => {
     updateSong();
-  }, [selectedUserId, selectedFileIndex])
+  }, [sampleFileUserId, sampleFileIndex])
 
   useEffect(() => {
     // eventlistener on esc -> setShowResults(false);
@@ -86,9 +88,10 @@ function App() {
           if (!loginDisabled) {
             setFetching(true);
             setLoginDisabled(true);
-            setResults(await login(userId, selectedUserId, selectedFileIndex));
+            const result = await login(authenticatingUserId, sampleFileUserId, sampleFileIndex)
+            setResults(result);
             setFetching(false);
-            setShowResults(true);
+            setShowResults(result.absolute_accuracy_of_all_speakers.length > 0);
           }
         }}
       >
@@ -102,13 +105,13 @@ function App() {
           <input 
             type="number"
             placeholder="userId" 
-            value={userId.toString()} 
+            value={authenticatingUserId.toString()} 
             onChange={(e) => {
               const id = parseInt(e.target.value);
               if (id >= 0 && id < 20) {
-                setUserId(id);
+                setAuthenticatingUserId(id);
               } else {
-                setUserId(NaN);
+                setAuthenticatingUserId(NaN);
               }
             }}
           />
@@ -124,10 +127,10 @@ function App() {
                   return (
                     <div 
                       key={"speaker" + id + "file" + fileIndex}
-                      className={"fileItem " + (selectedUserId === id && selectedFileIndex === fileIndex ? "selected" : "")}
+                      className={"fileItem " + (sampleFileUserId === id && sampleFileIndex === fileIndex ? "selected" : "")}
                       onClick={() => {
-                        setSelectedUserId(id);
-                        setSelectedFileIndex(fileIndex);
+                        setSampleFileUserId(id);
+                        setSampleFileIndex(fileIndex);
                       }}
                     >
                       <span>
@@ -145,10 +148,10 @@ function App() {
             }
           </div>
           {
-            !isNaN(selectedUserId) && !isNaN(selectedFileIndex) &&
+            !isNaN(sampleFileUserId) && !isNaN(sampleFileIndex) &&
             <div className="audioPlayer">
               <audio controls ref={audioRef}>
-                <source src={`./audio_dataset/Speaker${String(selectedUserId).padStart(4, '0')}/Validation_Speaker${String(selectedUserId).padStart(2, '0')}_${String(selectedFileIndex).padStart(4, '0')}.wav`} type="audio/wav" />
+                <source src={`./audio_dataset/Speaker${String(sampleFileUserId).padStart(4, '0')}/Validation_Speaker${String(sampleFileUserId).padStart(2, '0')}_${String(sampleFileIndex).padStart(4, '0')}.wav`} type="audio/wav" />
                 Audio files are not supported by your browser.
               </audio>
             </div>
@@ -169,8 +172,8 @@ function App() {
       {
         showResults &&
           <Result 
-            authenticatingUserId={userId}
-            selectedFile={{speakerId: selectedUserId, sampleId: selectedFileIndex}}
+            authenticatingUserId={authenticatingUserId}
+            selectedFile={{speakerId: sampleFileUserId, sampleId: sampleFileIndex}}
             results={results}
             close={() => {
               setShowResults(false);

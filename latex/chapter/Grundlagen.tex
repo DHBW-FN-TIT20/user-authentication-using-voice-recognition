@@ -267,7 +267,7 @@ Allerdings ist die Komplexität der \ac{DFT} mit $\mathcal{O}(N^2)$ sehr hoch, w
 
 Die \ac{FFT} ist somit eine für Computer optimierte Implementierung der \ac{DFT}.
 Eine genaue Erklärung, warum \ac{FFT} signifikant weniger Berechnungen benötigt, würde für diese Seminararbeit zu sehr ins Detail gehen.
-Einfach gesagt, nutzt der Algorithmus die Eigenschaft von Sinus- und Cosinus-Wellen, dass Wellen mehrfacher Frequenz an bestimmten Stellen dieselben Werte annehmen und so nur einmal berechnet werden müssen.
+Einfach gesagt, nutzt der Algorithmus die Eigenschaft von Sinus- und Kosinus-Wellen, dass Wellen mehrfacher Frequenz an bestimmten Stellen dieselben Werte annehmen und so nur einmal berechnet werden müssen.
 
 \begin{figure}
     \centering
@@ -420,13 +420,30 @@ Im Regelfall werden hierbei Daten verwendet, welche zwar aus dem gleichen Datens
 \autocite[vgl.][]{marcel_mikl_wie_2018}
 % Arten von NN
 
-\subsection{Gefahrenanalyse (Attack Trees)}
+\subsection{Gefahrenanalyse}
 Eine Möglichkeit der Beurteilung von sicherheitskritischen Systemen stellt die Gefahrenanalyse dar.
 Dabei wird durch verschiedene Herangehensweisen versucht, möglichst viele potenzielle Gefahren und Angriffsstellen des Systems zu ermitteln und anschließend zu bewerten.
 Als Resultat ergibt sich eine klare Einschätzung der Gefahrensituation, wodurch eine Aussage über die Sicherheit des entwickelten Systems getroffen werden kann.
 
-Eine Vorgehensweise stellen dabei die sogenannten Attack Trees dar.
-Sie ermöglichen es in erster Linie, Gefahren strukturiert zu verwalten und übersichtlich darzustellen.
+In diesem Kapitel werden drei Verfahren zur Ermittlung und Beurteilung von Gefahren vorgestellt.
+STRIDE bietet einen grundlegenden Ansatz um den Ermittlungsprozess zu unterstützen.
+Mittels sogenannter Attack Trees können die ermittelten Gefahren anschließend grafisch aufbereitet werden.
+Abschließend ermöglicht DREAD eine Bewertung der einzelnen Gefahren.
+
+Für einen erleichterten Einstieg in die drei Verfahren, kann im Vorhinein ein Datenflussdiagramm des Systems modelliert werden.
+Dieses zeigt neben dem allgemeinen Datenfluss zwischen verschiedenen Komponenten auch sogenannte Trust Boundaries (Vertrauensgrenzen) die für die Ermittlung der Gefahren behilflich sein können \autocite[vgl.][S. 14]{bundesamt_fur_sicherheit_in_der_informationstechnik_leitfaden_nodate}.
+
+\subsubsection{STRIDE}
+Das Akronym STRIDE steht für Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service und Elevation of Privilege.
+Es beschreiben somit verschiedene Kategorien von Gefahren.
+Im Ermittlungsprozess liefern diese Kategorien dabei eine Eingrenzung der Analyse auf eine bestimmte Art von Gefahren, wodurch ein gezielteres Vorgehen ermöglicht wird.
+Beispielsweise können verschiedene Gefahrensammlungen herangezogen werden, welche gängige Gefahren der jeweiligen Kategorien auflisten.
+
+Die Zuteilung einer Gefahr zu exakt einer STRIDE Kategorie ist dabei nicht immer möglich und von STRIDE nicht vorhergesehen.
+Für die anschließende Evaluierung der Gefahren, sowie die Entwicklung möglicher Gegenmaßnahmen, wird durch die Zuteilung einer Gefahr zu mehreren Kategorien der Horizont gegenüber möglichen Lösungsansätzen erweitert, wodurch die Gefahr besser eingeschätzt und verhindert werden kann \autocite[vgl.][S. 61-64]{shostack_threat_2014}.
+
+\subsubsection{Attack Trees}
+Attack Trees ermöglichen es in erster Linie, Gefahren strukturiert zu verwalten und übersichtlich darzustellen.
 Mittels einer Baumstruktur werden dabei Gefahren Schicht für Schicht in ihre Komponenten zerlegt.
 Dabei können Komponenten eines Elements entweder durch eine \gqq{oder} oder eine \gqq{und} Verknüpfung verbunden werden.
 Somit kann definiert werden, ob für das Eintreten einer Gefahr lediglich eine Komponente oder eine Kombination von Komponenten eintreffen muss.
@@ -439,3 +456,13 @@ Nachdem der Attack Tree aufgestellt ist, können verschiedene Auswertungen durch
 Dabei handelt es sich grundsätzlich um subjektive Einschätzungen.
 Beispielhaft kann eine binäre Einteilung der Basisgefahren in \gqq{möglich} und \gqq{unmöglich} stattfinden.
 Durch die Verknüpfungsregeln kann somit die Einteilung der Elternknoten ermittelt werden.
+
+\subsubsection{DREAD}
+Im Gegensatz zu den Attack Trees ermöglicht die DREAD Methode eine feinere Beurteilung der Gefahren.
+Dafür wird jede Gefahr in fünf verschiedenen Kategorien bewertet.
+Die Kategorien lauten Damage, Reproducibility, Exploitability, Affected users und Discoverability (DREAD).
+
+Für jede der fünf Kategorien werden dabei zwischen einem und zehn Punkte vergeben.
+Die Bewertungen der Kategorien werden anschließend aufsummiert und der Mittelwert gebildet.
+Anhand dieses Mittelwertes kann nun eine priorisierte Liste erstellt werden, wobei ein hoher Wert eine hohe Gefahr bedeutet.
+Ausgehend von dieser Liste kann somit entschieden werden, welche Gefahren priorisiert behandelt werden müssen \autocite[vgl.][]{domars_threat_2023}.
