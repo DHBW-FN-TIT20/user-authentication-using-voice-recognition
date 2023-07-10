@@ -110,7 +110,7 @@ Dazu wird zunächst auf die benötigten Vorverarbeitungsschritte eingegangen, di
 Anschließend wird das grundlegende Konzept der Fourier Analyse vorgestellt, welches zusammen mit dem vorangehenden Kapitel der Stimmwahrnehmung die Basis für die \ac{MFCC} bildet.
 Abschließend werden basierend auf den Konzepten der Stimmerzeugung die \ac{LPC} Koeffizienten eingeführt.
 
-\subsubsection{Signalvorverarbeitung}\label{preprocessing}
+\subsubsection{Signalvorverarbeitung}\label{sec:preprocessing}
 Um ein gegebenes Audiosignal einheitlich verarbeiten zu können, muss dieses zunächst mittels verschiedener Verfahren vorbereitet werden.
 Ziel dieser Vorverarbeitung ist es, die Effizienz und Effektivität des anschließenden Verarbeitungsprozesses zu erhöhen und somit ein verbessertes Ergebnis zu erzielen \autocite[vgl.][S. 11672]{lokesh_speech_2019}.
 Die Vorverarbeitung im Rahmen dieser Arbeit beinhaltet die vier Schritte Rauschreduzierung, Pausen entfernen, Framing und Windowing, welche im Folgenden genauer erläutert werden.
@@ -139,7 +139,7 @@ Durch die Überlappung wird ein Zusammenhang zwischen zwei benachbarten Frames u
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth, keepaspectratio]{images/hann_window.png}
-  \caption{Von Hann Fensterfunktion \autocite{noauthor_numpyhanning_nodate}}
+  \caption{Von Hann Fensterfunktion \autocite{noauthor_numpyhanning_2022}}
   \label{fig:vonHannFenster}
 \end{figure}
 Um die bei der Unterteilung des Audiosignals entstandenen Diskontinuitäten aufzulösen, wird eine Fensterfunktion auf die einzelnen Blöcke angewendet.
@@ -409,20 +409,20 @@ Somit können durch die Gewichte der Kanten und den Wert der Neuronen Informatio
 \autocite[vgl.][S. 27]{sonnet_neuronale_2022}
 
 Für das Training von neuronalen Netzen werden viele klassifizierte Daten benötigt, welche als Ausgangspunkt dienen.
-Das Training läuft iterativ in Schleifen, in sogenannte Epochen ab.
+Das Training läuft iterativ in Schleifen, sogenannte Epochen ab.
 Nach jedem Durchlauf werden mithilfe des Feedbacks der Ausgabeschicht die Gewichte der Kanten und der Wert der Neuronen angepasst.
 Zu Beginn werden die Kanten-Gewichte und der Wert eines Neurons zufällig gesetzt.
 Dies wirkt sich auf das Ergebnis des gesamten Trainingsprozesses aus, da die zufällig gesetzten Werte so ungünstig sein können, dass das Netz während des Durchlaufs die Gewichte nicht ausreichend anpassen kann.
 Nach Abschluss des Trainings kann das Netz bewertet werden.
 Hierbei werden abhängig von der gewählten Technologie unterschiedlich Parameter ausgegeben.
-Grundsätzlich kann ein Netz immer beurteilt werden indem bereits klassifizierte Daten durch das Netz klassifiziert werden und die Ergebnisse anschließend mit dem tatsächlichen Ergebnis verglichen werden.
+Grundsätzlich kann ein Netz immer beurteilt werden, indem bereits klassifizierte Daten durch das Netz klassifiziert werden und die Ergebnisse anschließend mit dem tatsächlichen Ergebnis verglichen werden.
 Im Regelfall werden hierbei Daten verwendet, welche zwar aus dem gleichen Datensatz stammen, jedoch nicht für das Training genutzt wurden.
 \autocite[vgl.][]{marcel_mikl_wie_2018}
 % Arten von NN
 
 \subsection{Gefahrenanalyse}
 Eine Möglichkeit der Beurteilung von sicherheitskritischen Systemen stellt die Gefahrenanalyse dar.
-Dabei wird durch verschiedene Herangehensweisen versucht, möglichst viele potentielle Gefahren und Angriffsstellen des Systems zu ermitteln und anschließend zu bewerten.
+Dabei wird durch verschiedene Herangehensweisen versucht, möglichst viele potenzielle Gefahren und Angriffsstellen des Systems zu ermitteln und anschließend zu bewerten.
 Als Resultat ergibt sich eine klare Einschätzung der Gefahrensituation, wodurch eine Aussage über die Sicherheit des entwickelten Systems getroffen werden kann.
 
 In diesem Kapitel werden drei Verfahren zur Ermittlung und Beurteilung von Gefahren vorgestellt.
@@ -446,9 +446,9 @@ Für die anschließende Evaluierung der Gefahren, sowie die Entwicklung möglich
 Attack Trees ermöglichen es in erster Linie, Gefahren strukturiert zu verwalten und übersichtlich darzustellen.
 Mittels einer Baumstruktur werden dabei Gefahren Schicht für Schicht in ihre Komponenten zerlegt.
 Dabei können Komponenten eines Elements entweder durch eine \gqq{oder} oder eine \gqq{und} Verknüpfung verbunden werden.
-Somit kann definiert werden ob für das Eintreten einer Gefahr lediglich eine Komponente oder eine Kombination von Komponenten eintreffen muss.
+Somit kann definiert werden, ob für das Eintreten einer Gefahr lediglich eine Komponente oder eine Kombination von Komponenten eintreffen muss.
 
-Um festzustellen ob bereits alle Gefahren gefunden wurden, muss für jedes Element überprüft werden, ob es zusätzliche Wege gibt diese Gefahr zu erreichen.
+Um festzustellen, ob bereits alle Gefahren gefunden wurden, muss für jedes Element überprüft werden, ob es zusätzliche Wege gibt diese Gefahr zu erreichen.
 Dabei können neben der eigenen Erfahrung auch zusätzliche Quellen wie das Internet oder bereits existierende Attack Trees herangezogen werden.
 Wichtig ist dabei, dass auch von dem System bereits abgedeckte Gefahren mit aufgelistet und als solche markiert werden, sodass für den Betrachter ersichtlich wird, dass die Gefahr berücksichtigt wird \autocite[vgl.][S. 88-94]{shostack_threat_2014}.
 
