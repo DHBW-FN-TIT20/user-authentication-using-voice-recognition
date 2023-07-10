@@ -245,3 +245,8 @@ Mittels \textFunktion{CORS(app)} wird dabei sichergestellt, dass eine Verbindung
 Die Authentifizierungsfunktion wird über die Wrapper-Funktion \textFunktion{handle\_api\_request()} und dem Decorator \textFunktion{@app.route()} als \ac{API} Endpoint verfügbar gemacht.
 
 Abschließend kann der Server über die Anweisung \textFunktion{app.run()} unter Angabe der IP-Adresse und des Ports gestartet werden.
+
+Das neuronale Netz, welches vom Server für die Authentifizierung von Benutzern verwendet wird, ergibt sich aus der Evaluation des Versuchssystems im nachfolgenden Kapitel~\ref{sec:Evaluation}.
+Hierzu wird mit der ermittelten Konfiguration ein neues neuronales Netz trainiert, unter Verwendung von einer erhöhten Anzahl an Epochen, um die Genauigkeit des Systems noch einmal zu verbessern.
+Vorgreifend muss hierbei erwähnt werden, dass das System durch die Erhöhung der Epochen in so fern verbessert werden konnte, dass die Grenze für die Anzahl an Frames die dem zu authentifizierenden Nutzer zugeordnet werden müssen, von 65 \% auf 70 \% erhöht werden kann.
+Deshalb zeigt die Abbildung~\ref{fig:Result} in der Wahrscheinlichkeitsverteilung einen Threshold von 70 \%.
