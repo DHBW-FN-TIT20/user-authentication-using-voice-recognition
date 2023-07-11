@@ -79,11 +79,13 @@ Dazu können die bereits entwickelten Komponenten für den Authentifizierungspro
 \subsection{Versuchssystem}
 
 \subsubsection{Feature Kombination}
-Wie bereits in Kapitel~\ref{sec:FeatureKombination} erwähnt müssen zuerst die Konfigurationen erzeugt werden.
-Hierzu werden die vorher definierten Werte in einer JSON Datei erfasst und durch ein Tool alle möglichen Konfiguration mit einer ID erzeugt.
-Hierbei muss beachtet werden, dass durch die Kombination Konfigurationen entstehen in welchen nichts berechnet werden muss.
-Die erstellte JSON Datei ist in dem Listing~\ref{configs} dargestellt.
-\begin{lstlisting}[language=JavaScript,numbers=none,caption=Konfigurationsmöglichkeiten,label=configs]
+
+Wie bereits in Kapitel~\ref{sec:FeatureKombination} erwähnt, müssen zuerst die verschiedenen Konfigurationen erzeugt werden.
+Hierzu werden die vorher definierten Werte in einer JSON-Datei erfasst und durch ein eigenes Kombinierungs-Skript alle möglichen Konfiguration mit einer ID erzeugt.
+
+Die Konfigurationswerte für die Kombinierung sind im Listing~\ref{lst-configs} dargestellt.
+
+\begin{lstlisting}[language=Python,numbers=none,caption=Konfigurationsmöglichkeiten,label=lst-configs]
 Configs = {
     "amount_of_frames": [10000, 15000],
     "size_of_frame": [400, 600],
@@ -105,8 +107,12 @@ Configs = {
     }
 }
 \end{lstlisting}
-Der \codestyle{weight} Parameter gibt lediglich an, ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht, um verschiedene Kobinationen zu erreichen.
-Die anderen Variablen und dessen Werte wurde bereits in ~\ref{sec:FeatureKombination} erklärt.
+
+Der \codestyle{weight} Parameter gibt lediglich an, ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht, um verschiedene Kombinationen zu erreichen.
+So gibt es auch manche Kombinationen, die beispielsweise nur \ac{MFCC}-Merkmale in der Analyse berücksichtigen.
+Hierbei muss beachtet werden, dass durch die Kombination auch Konfigurationen entstehen, in welchen nichts berechnet werden muss.
+Diese werden nicht berechnet.
+Die anderen Variablen wie \codestyle{order} und dessen Werte wurde bereits in ~\ref{sec:FeatureKombination} erklärt.
 
 \subsubsection{Datensatz}
 Für die Evaluierung der Stimmmerkmale wird ein geeigneter Datensatz benötigt.
