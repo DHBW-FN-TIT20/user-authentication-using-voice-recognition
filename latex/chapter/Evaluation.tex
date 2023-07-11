@@ -24,6 +24,24 @@ Eine Testdatei gilt als korrekt zugeteilt, wenn dem zu authentifizierenden Benut
 Analog gilt die Testdatei als nicht korrekt zugeteilt, wenn einem anderen Benutzer mindestens 65 \% der Frames zugeordnet werden.
 Erreicht kein Nutzer mindestens 65 \%, so wird die Testdatei als nicht zugeteilt eingestuft.
 
+Für die Bewertung der Konfigurationen gibt es grundsätzlich zwei unterschiedliche Ansätze.
+Zunächst kann eine Konfiguration anhand der Anzahl an richtig zugewiesenen Samples bewertet werden.
+Dabei steht der Fokus besonders darauf, dass möglichst viele Sprecher möglichst zuversichtlich erkannt und damit auch authentifiziert werden.
+In dieser Betrachtung wird allerdings die Anzahl an falsch, beziehungsweise nicht zugewiesenen Samples vernachlässigt, was bedeutet, dass es trotz einer hohen Anzahl an richtigen Zuweisungen auch eine verhältnismäßig hohe Anzahl an falschen Zuweisungen geben kann.
+Dies bedeutet für das System, dass die Wahrscheinlichkeit erhöht ist, dass sich eine Person als einen anderen Benutzer ausgeben und authentifizieren kann.
+
+Der dazu gegenteilige Ansatz fokussiert sich auf die Anzahl der falsch zugeordneten Samples.
+Um das System möglichst sicher zu halten, sollte diese Zahl minimal (im Optimalfall null) sein.
+Es wird also sichergestellt, dass sich keine Person als ein anderer Benutzer erfolgreich authentifizieren kann.
+Im Gegenzug kann dies jedoch bedeuten, dass die Anzahl an richtig zugewiesenen Samples sinkt, beziehungsweise die Anzahl der nicht zugewiesenen Samples steigt.
+Somit ist die Wahrscheinlichkeit erhöht, dass ein Authentifizierungsversuch trotz korrektem Sprecher fehlschlägt und gegebenenfalls öfters wiederholt werden muss.
+
+Für die Bewertung der Ergebnisse zum Einsatz in dem in dieser Arbeit entwickelten Demosystem wird eine Kombination der beiden Ansätze verfolgt.
+Priorisiert wird hierbei der erste Ansatz, also die Orientierung an dem Datensatz mit den Meisten richtig zugeordneten Testdateien um eine gute Benutzerfreundlichkeit zu erzielen.
+Gleichzeitig wird aber auch darauf geachtet, dass die Anzahl der falsch zugeordneten Samples möglichst gering ist.
+Der Anzahl der nicht zugewiesenen Samples wird eine geringe Wichtigkeit zugeschrieben, da durch die Optimierung der zwei anderen Werte automatisch ein akzeptabler Wert gewährleistet ist.
+Außerdem sind die Folgen einer hohen Anzahl nicht zugeordneter Sample vergleichsweise gering, da zunächst keine Authentifikation stattfindet und die Authentifikation mit einem neuen Testsample wiederholt werden kann.
+
 Unter Betrachtung der durchschnittlichen absoluten Genauigkeit, sowie der korrekt zugeteilten Testdateien (zweites Diagramm), ergeben sich die vier markierten Cluster als beste Konfigurationen.
 Auch in den zwei verbleibenden Kategorien, zeichnen sich diese Konfigurationen vor allem durch eine niedrige Anzahl an nicht zugeordneten Dateien (kleiner 25 \%, viertes Diagramm), sowie falsch zugeordneter Dateien (kleiner 2 \%, drittes Diagramm) aus.
 
@@ -51,29 +69,47 @@ Dabei werden 1500 Frames bei einer Frame-Größe von 600 Samples generiert.
 Daraufhin werden 20 \ac{MFCC} Koeffizienten, sowie 13 \ac{dMFCC} Koeffizienten pro Frame erzeugt, welche durch das neuronale Netz ausgewertet werden.
 \ac{LPC} und \ac{LPCC} zeigen in den ausgewählten Konfigurationen keinen signifikanten Mehrwert, weshalb diese nicht verwendet werden.
 
-In einem weiteren Schritt werden basierend auf der Konfiguration 472 weitere Konfigurationen erstellt, um weitere Untersuchungen durchzuführen.
-Dabei werden die Parameter Anzahl der Frames, Länge der Frames, sowie Anzahl der \ac{MFCC} Koeffizienten um jeweils einen neuen Wert erweitert, da hier zu erkenen war, dass eine Erhöhung dieser Werte zu einer Verbesserung des Gesamtergebnisses führt.
-Folgend wurden die Parameterwerte 20000 Frames, 800 Samples pro Frame und 27 \ac{MFCC} Koeffizienten evaluiert.
+In einem weiteren Schritt werden basierend auf der Konfiguration 472 weitere Konfigurationen erstellt, um zusätzliche Untersuchungen durchzuführen.
+Dabei werden die Parameter Anzahl der Frames, Länge der Frames, sowie Anzahl der \ac{MFCC} Koeffizienten um jeweils einen neuen Wert erweitert, da hier zu erkennen ist, dass eine Erhöhung dieser Werte zu einer Verbesserung des Gesamtergebnisses führt.
+Folgend werden die Parameterwerte 20000 Frames, 800 Samples pro Frame und 27 \ac{MFCC} Koeffizienten evaluiert.
 Die Parameterverteilung der Konfigurationen sind in Tabelle~\ref{table:additionalKonfigs} dargestellt.
 \begin{table}[H]
     \centering
     \begin{tabular}{c|c|c|c|c}
     ID  & Anzahl Frames & Länge Frames & \ac{MFCC} & \ac{dMFCC} \\ \hline
-    511 & 20000         & 600          & 20        & 13     \\ \hline
-    512 & 15000         & 800          & 20        & 13     \\ \hline
-    513 & 15000         & 600          & 27        & 13     \\ \hline
-    514 & 20000         & 800          & 20        & 13     \\ \hline
-    515 & 20000         & 600          & 27        & 13     \\ \hline
+    511 & 20000         & 600          & 20        & 13         \\ \hline
+    512 & 15000         & 800          & 20        & 13         \\ \hline
+    513 & 15000         & 600          & 27        & 13         \\ \hline
+    514 & 20000         & 800          & 20        & 13         \\ \hline
+    515 & 20000         & 600          & 27        & 13         \\ \hline
     516 & 15000         & 800          & 27        & 13    
     \end{tabular}
     \caption{Zusätzliche Konfigurationen}
     \label{table:additionalKonfigs}
 \end{table}
+Die Ergebnisse der Konfigurationen sind in Tabelle~\ref{table:resultAdditionalKonfigs} aufgelistet.
+Da wie bereits beschrieben die Anzahl an richtig zugeordneten Samples in der Evaluierung bevorzugt wird, ergibt sich ein neues optimales Modell mit der Konfigurations-ID 516.
+Dabei kann ein Anstieg der richtig zugeordneten Samples um 2,6 Prozentpunkte verzeichnet werden.
+Diese Verbesserung ist damit auf die Erhöhung der Framelänge, sowie der Anzahl an \ac{MFCC} Koeffizienten zurückzuführen.
 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c|c|c|c}
+        ID            & Durchschn. abs. Genauigkeit & Richtig zug.   & Falsch zug.    & Nicht zug.     \\ \hline
+        472           & 0,8033                      & 0,897          & 0,007          & 0,097          \\ \hline \hline
+        511           & 0,8123                      & 0,885          & 0,005          & 0,110          \\ \hline
+        512           & 0,8159                      & 0,885          & 0,010          & 0,105          \\ \hline
+        513           & 0,8083                      & 0,880          & \textbf{0,003} & 0,117          \\ \hline
+        514           & \textbf{0,8416}             & 0,900          & 0,007          & 0,093          \\ \hline
+        515           & 0,8190                      & 0,877          & 0,007          & 0,117          \\ \hline
+        \textbf{516}  & 0,8377                      & \textbf{0,923} & 0,007          & \textbf{0,070} \\ \hline \hline
+        Diff 516-472  & +0,0344                     & +0,026         & 0,000          & -0,027
+    \end{tabular}
+    \caption{Ergebnisse der zusätzlichen Konfigurationen}
+    \label{table:resultAdditionalKonfigs}
+\end{table}
+Dabei muss jedoch mit beachtet werden, dass mit dieser kleinen Verbesserung auch ein zusätzlicher Aufwand kommt.
+Auf der einen Seite wird eine längere Audioaufzeichnung zur Authentifizierung benötigt, da die Framelänge um 200 Samples erhöht wird.
+Auf der anderen Seite steigt auch der Rechenaufwand, da anstelle von 20 \ac{MFCC} Koeffizienten nun 27 Koeffizienten berechnet werden müssen.
 
-Die vorliegenden Konfigurationen wurden mithilfe desselben Verfahrens ausgewertet, wie die Konfigurationen zuvor.
-Die Untersuchungen der Ergebnisse dieser Konfigurationen zeigen minimale Verbesserungen, die auf die erhöhte Datenmenge zurückzuführen sind.
-Da diese Verbesserungen im Verhältnis zur steigenden Rechenzeit minimal sind, werden diese nicht weiter verfolgt.
-Somit steht die Konfiguration \textbf{472} aus dem vorherigen Durchlauf als finale Kombination fest.
-
-% TODO Auswertung einfügen.
+Unter Anbetracht des erhöhten Aufwands wird somit von einer weiterreichenden Analyse abgesehen und die für das Demosystem zu verwendende Konfiguration auf die Konfiguration mit der ID \textbf{472} festgelegt.
