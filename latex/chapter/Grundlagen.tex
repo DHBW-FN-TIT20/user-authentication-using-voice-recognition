@@ -4,7 +4,7 @@ Dabei findet zunächst eine Definition des Begriffs Sprecherauthentifizierung st
 Anschließend wird ein Basisverständnis für die Technische Umsetzung mittels eines Exkurses über den Aufbau der menschlichen Stimme hergestellt.
 Die konkret verwendeten Algorithmen werden in dem Kapitel Audioanalyse beschrieben.
 Außerdem findet eine kurze Einführung in den Bereich der künstlichen Intelligenz, sowie der \ac{NN} statt.
-Abgeschlossen wird das Grundlagenkapitel mit einem Verfahren zur Analyse von Sicherheitsrisiken, den Attack Trees.
+Abschließend werden mehrere Ansätze zur Analyse von Sicherheitsrisiken vorgestellt.
 
 \subsection{Sprecherauthentifizierung}
 In der Kryptographie beschreibt der Begriff Authentifizierung \gqq{eine Identität durch eine identitätsgebundene Information zu überprüfen} \autocite[][S. 129]{tsolkas_rollen_2017}.
@@ -139,7 +139,7 @@ Durch die Überlappung wird ein Zusammenhang zwischen zwei benachbarten Frames u
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth, keepaspectratio]{images/hann_window.png}
-  \caption{Von Hann Fensterfunktion \autocite{noauthor_numpyhanning_2022}}
+  \caption{Von Hann Fensterfunktion \autocite[][]{noauthor_numpyhanning_2022}}
   \label{fig:vonHannFenster}
 \end{figure}
 Um die bei der Unterteilung des Audiosignals entstandenen Diskontinuitäten aufzulösen, wird eine Fensterfunktion auf die einzelnen Blöcke angewendet.

@@ -1,10 +1,14 @@
 \section{Umsetzung}
 
+Das vorliegende Kapitel befasst sich mit der Umsetzung des Versuchssystems und des Demosystems.
+Dazu wird zunächst eine Technologieentscheidung für das Versuchssystem getroffen, auf Basis dieser, wird auch eine Entscheidung für das Demosystem getroffen.
+In einem weiteren Schritt wird die systematische Umsetzung der beiden Systeme dargestellt.
+
 \subsection{Technologieentscheidung}
 \subsubsection{Versuchssystem}\label{sec:TechnologieVersuchssystem}
 Aus der Konzeption in Kapitel~\ref{sec:Konzeption} gehen verschiedene Anforderungen an die Technologie hervor.
 Durch die Verwendung von neuronalen Netzen werden die verfügbaren Technologien bzw. Programmiersprachen bereits eingeschränkt.
-Um weitere Technologieenscheidungen zu treffen muss zunächst eine Programmiersprache ausgewählt werden.
+Um weitere Technologieenscheidungen zu treffen, muss zunächst eine Programmiersprache ausgewählt werden.
 Da in einer Umfrage unter Machine-Learning-Entwicklern und Data Scientists 57\% Python als Programmiersprache nutzen und 33\% diese sogar priorisieren, wird für dieses Projekt Python als Programmiersprache festgelegt \autocite[vgl. ][S. 16]{vision_mobile_state_2017}.
 In einer allgemeinen Umfrage zu verwendeten Programmiersprachen liegt Python mit 49,2\% auf Platz drei \autocite[vgl.][]{yepis_2023_2023}.
 Das bedeutet, dass knapp die Hälfte der befragten Entwickler unter anderem Python verwenden, somit ist eine ausreichende Verbreitung gewährleistet.
@@ -16,8 +20,8 @@ Die 3 bekanntesten Open-Source-Bibliotheken sind dabei \gqq{TensorFlow}, \gqq{Py
 Diese Bibliotheken sind sich relativ ähnlich.
 Vorteile einer Bibliothek bringen automatisch auch Nachteile, die sich somit gegenseitig aufheben.
 
-Der wesentliche Unterschied zwischen den Bibliotheken ist, dass die Entwickler dieser Studienarbeit bereits Vorkenntnisse in Tensorflow haben, weshalb Tensorflow verwendet wird.
-Zusätzlich wird das Modul \gqq{Keras} verwendet, welches eine entwicklerfreundliche High-Level-Schnittstelle für Tensorflow ist und somit eine einfachere Entwicklung ermöglicht \autocite[vgl.][]{noauthor_keras_2023}.
+Der wesentliche Unterschied zwischen den Bibliotheken ist, dass die Entwickler dieser Studienarbeit bereits Vorkenntnisse in TensorFlow haben, weshalb TensorFlow verwendet wird.
+Zusätzlich wird das Modul \gqq{Keras} verwendet, welches eine entwicklerfreundliche High-Level-Schnittstelle für TensorFlow ist und somit eine einfachere Entwicklung ermöglicht \autocite[vgl.][]{noauthor_keras_2023}.
 
 \subsubsection{Demosystem}
 Für die Technologieentscheidung muss zunächst zwischen den zwei Komponenten Client und Server unterscheiden werden.
@@ -35,18 +39,18 @@ Außerdem muss eine Verbindung zu einem Back-End (Server) aufgebaut werden könn
 Da diese Anforderungen durch alle vier Kandidaten erfüllt werden, muss die Entscheidung durch andere Kriterien erfolgen.
 Hierbei spielen vor allem zwei Aspekte eine Rolle.
 Eine Umfrage von Stack Overflow aus dem Jahr 2020 zeigt, dass JavaScript die beliebteste Programmiersprache von professionellen Entwickler ist.
-Moderne Frameworks wie Reactjs und Angular haben die klassische Webprogrammierung in PHP über die letzten Jahre abgelöst \autocite[vgl.][]{stack_overflow_stack_nodate}.
+Moderne Frameworks wie ReactJS und Angular haben die klassische Webprogrammierung in PHP über die letzten Jahre abgelöst \autocite[vgl.][]{stack_overflow_stack_2020}.
 
 Da es sich außerdem um ein Demosystem handelt, welches lediglich die Ergebnisse dieser Arbeit präsentieren soll und somit nicht in einem produktiven Umfeld betrieben wird, spielt die Technologieentscheidung nur eine untergeordnete Rolle.
 Die Kompetenzen des Entwicklerteams liegen vor allem im Bereich der React Programmierung mit JavaScript beziehungsweise TypeScript.
 
-Zusammenfassend fällt die Technologieentscheidung für die Client Implementierung somit auf das JavaScript Framework Reactjs in Kombination mit TypeScript.
+Zusammenfassend fällt die Technologieentscheidung für die Client-Implementierung somit auf das JavaScript Framework ReactJS in Kombination mit TypeScript.
 TypeScript ermöglicht dabei gegenüber JavaScript die Verwendung von Datentypen, wodurch Datentypfehler im Rahmen der Implementierung vermieden werden können.
 
 \paragraph{Schnittstelle}
 Im Web-Umfeld spielt das \ac{HTTP} eine besondere Rolle.
 Dabei handelt es sich um ein zustandsloses Protokoll zur Übertragung von Daten auf der Anwendungsschicht.
-Ein Anwendungsfall ist dabei die Anfrage von Websiten im Browser über die URL.
+Ein Anwendungsfall ist dabei die Anfrage von Webseiten im Browser über die URL.
 Dazu wird eine sogenannte \ac{HTTP}-GET Anfrage an den Zielserver gesendet, welcher anschließend mit der angeforderten Ressource antwortet.
 
 Nach demselben Prinzip kann das HTTP Protokoll ebenfalls dazu verwendet werden, eine Kommunikation zwischen Client und Server zu ermöglichen.
@@ -148,7 +152,7 @@ Für die eigentlichen Berechnungen der Koeffizienten wird wieder die Signal-Vera
 
 
 Da für die Versuchsreihe sehr viele zeitaufwändige Berechnungen laufen müssen, ist das Extrahieren der Merkmale mit Multiprocessing implementiert.
-Hierfür wird die python-interne Bibliothek \gqq{mutliprocessing} genutzt, um die Berechnung auf mehrere Threads zu verteilen.
+Hierfür wird die Python-interne Bibliothek \gqq{mutliprocessing} genutzt, um die Berechnung auf mehrere Threads zu verteilen.
 
 % librosa load 
 % remove silence 
@@ -198,7 +202,7 @@ Zunächst kann über ein Eingabefeld die ID des zu authentifizierenden Nutzers a
 Anschließend kann eine zu verwendende Audiodatei aus einer Liste ausgewählt werden.
 Dabei stehen für jeden Nutzer mindestens fünf verschiedene Dateien zur Verfügung.
 Um die Benutzerfreundlichkeit zu verbessern besteht dabei zusätzlich die Möglichkeit, die ausgewählte Datei im Browser abzuspielen.
-Dafür wird der HTML \textFunktion{<audio>} tag verwendet.
+Dafür wird der HTML \textFunktion{<audio>} Tag verwendet.
 \begin{figure}[H]
     \begin{subfigure}[c]{0.49\textwidth}
         \centering
@@ -226,7 +230,7 @@ Zusätzlich erhält der Benutzer einen grafischen Einblick in die Wahrscheinlich
 Das Diagramm wird mit Hilfe der Bibliotheken chart.js und react-chartjs-2 eingebunden.
 
 \subsubsection{Server} 
-Wie in der Technologieentscheidung bereits erwähnt, wird der Server mit Hilfe der Bibliothek Flask implementiert.
+Wie in der Technologieentscheidung bereits erwähnt, wird der Server mithilfe der Bibliothek Flask implementiert.
 Listing~\ref{lst:serverPy} zeigt dabei die wesentlichen Codeabschnitte für die Umsetzung des Servers als Flask Applikation.
 \begin{lstlisting}[language=Python,numbers=none,caption=Ausschnitt server.py,label=lst:serverPy]
     app = Flask(__name__)
@@ -245,3 +249,8 @@ Mittels \textFunktion{CORS(app)} wird dabei sichergestellt, dass eine Verbindung
 Die Authentifizierungsfunktion wird über die Wrapper-Funktion \textFunktion{handle\_api\_request()} und dem Decorator \textFunktion{@app.route()} als \ac{API} Endpoint verfügbar gemacht.
 
 Abschließend kann der Server über die Anweisung \textFunktion{app.run()} unter Angabe der IP-Adresse und des Ports gestartet werden.
+
+Das neuronale Netz, welches vom Server für die Authentifizierung von Benutzern verwendet wird, ergibt sich aus der Evaluation des Versuchssystems im nachfolgenden Kapitel~\ref{sec:Evaluation}.
+Hierzu wird mit der ermittelten Konfiguration ein neues neuronales Netz trainiert, unter Verwendung von einer erhöhten Anzahl an Epochen, um die Genauigkeit des Systems noch einmal zu verbessern.
+Vorgreifend muss hierbei erwähnt werden, dass das System durch die Erhöhung der Epochen insofern verbessert werden konnte, dass die Grenze für die Anzahl an Frames die dem zu authentifizierenden Nutzer zugeordnet werden müssen, von 65 \% auf 70 \% erhöht werden kann.
+Deshalb zeigt die Abbildung~\ref{fig:Result} in der Wahrscheinlichkeitsverteilung einen Threshold von 70 \%.
