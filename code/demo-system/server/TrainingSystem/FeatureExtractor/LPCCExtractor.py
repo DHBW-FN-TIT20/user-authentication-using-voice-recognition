@@ -1,11 +1,23 @@
+"""!
+ @file LPCCExtractor.py
+ @section authors
+  - 
+"""
 from FeatureExtractor.ExtractorInterface import ExtractorInterface
 from FeatureExtractor.LPCExtractor import LPCExtractor
 from scipy.signal import lfilter
 import numpy as np
 
 class LPCCExtractor(ExtractorInterface):
-    # source: http://www.practicalcryptography.com/miscellaneous/machine-learning/tutorial-cepstrum-and-lpccs/
+    """!
+    @brief Extractor for LPCC features
+
+    """
     def calculate_features(self, frames, sr, order, multiprocessing=False):
+        """!
+        @brief Implements LPCC algorithm
+
+        """
 
         for frame in frames:
             frame = frame / np.max(np.abs(frame))

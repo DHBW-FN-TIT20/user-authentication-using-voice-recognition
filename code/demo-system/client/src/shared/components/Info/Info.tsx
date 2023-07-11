@@ -1,3 +1,7 @@
+/**
+ * @file Info.tsx
+ * @author Henry Schuler
+ */
 import React from 'react'
 import './Info.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +11,11 @@ export interface InfoProps {
   close: () => void;
 }
 
+/**
+ * A pop-up displaying information about the app and the study work
+ * @param props Passes a function reference for closing the pop-up
+ * @returns JSXElement
+ */
 export default function Info(props: InfoProps) {
   return (
     <div className='infoWrapper'

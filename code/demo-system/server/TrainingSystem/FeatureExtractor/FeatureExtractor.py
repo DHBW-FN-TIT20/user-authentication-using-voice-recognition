@@ -1,3 +1,8 @@
+"""!
+ @file FeatureExtractor.py
+ @section authors
+  - 
+"""
 from FeatureExtractor.LPCExtractor import LPCExtractor
 from FeatureExtractor.LPCCExtractor import LPCCExtractor
 from FeatureExtractor.MFCCExtractor import MFCCExtractor
@@ -7,12 +12,28 @@ import numpy as np
 from enum import Enum
 
 class Feature(Enum):
+    """!
+    @brief Enum for accessing the available feature types
+    """
     LPC = 0
     LPCC = 1
     MFCC = 2
 
 class FeatureExtractor:
+    """!
+    @brief Class implementing methods for extracting features
+
+
+    """
     def __init__(self, frames, sr):
+        """!
+        @brief Initializes the class with standard values
+
+        Parameters : 
+            @param frames => frames to work with
+            @param sr => sampling rate
+
+        """
         self.frames = frames
         self.sr = sr
         self.extractors = [
@@ -23,13 +44,13 @@ class FeatureExtractor:
         self.last_feature_count = 0
 
     def extract_features(self, feature_list, multiprocessing=False): #(*@\label{line:extract_features}@*)
-        """_summary_
+        """!
+        @brief Function to extract a set of features
 
-        Args:
-            feature_list ((Feature, int, int[])[]): 2D List of Features (enum) + order (int) + deltas (int[]) lists to extract #(*@\label{line:feature_list_info}@*)
+        Parameters :
+            @param feature_list => List of all features to extract. Format: ((Feature, int, int[])[]): 2D List of Features (enum) + order (int) + deltas (int[]) lists to extract #(*@\label{line:feature_list_info}@*)
+            @param multiprocessing = False => enables multiprocessing for supported features
 
-        Returns:
-            NDArray[]: Array of requested features for each frame
         """
         feature_set = None
         
@@ -54,4 +75,8 @@ class FeatureExtractor:
         return feature_set
     
     def get_last_feature_count(self):
+        """!
+        @brief Getter for the last_feature_count variable
+        
+        """
         return self.last_feature_count

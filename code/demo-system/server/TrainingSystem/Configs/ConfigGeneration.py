@@ -1,3 +1,8 @@
+"""!
+ @file ConfigGeneration.py
+ @section authors
+  - Johannes Brandenburger
+"""
 import json
 import os
 
