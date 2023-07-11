@@ -99,7 +99,7 @@ Die vorhin genannten Werte sind übersichtlich in der nachfolgenden Tabelle darg
 
 \subsubsection{Datensatz} \label{sec:KonzeptDatensatz}
 
-Um die unterschiedlichen Kombinationen an Features zu vergleichen wird ein Datensatz benötigt, der mindestens 20 verschiedene Sprecher mit mindestens ca. 15 min unterschiedlichem Audio-Material enthält.
+Um die unterschiedlichen Kombinationen an Features zu vergleichen wird ein Datensatz benötigt, der mindestens 20 verschiedene Sprecher mit mindestens 15 min unterschiedlichem Audio-Material enthält.
 Die Audio-Clips müssen unter gleichen Bedingungen aufgenommen sein und in kompressionslosem WAV-Format vorliegen.
 
 \subsubsection{Feature Extraktion}
@@ -112,7 +112,7 @@ In welcher Form die Merkmale extrahiert werden hängt dabei von der aktuellen Ko
 
 Die Literaturrecherche hat ergeben, dass sich neuronale Netze gut als Klassifikationsmodell eignen (siehe Kapitel \ref{stand_der_technik}). 
 Deshalb werden bei der Klassifikation die berechneten Features aus dem Schritt zuvor genutzt, um neuronale Netze zu trainieren, sodass die Feature-Kombinationen bewertet werden können.
-Hierbei muss das Netz mehrmals durchlaufen werden, da zu Beginn des Trainings die Struktur zufällig gesetzt wird (siehe Kapitel \ref{sec:neuronaleNetze}).
+Hierbei muss das Netz mehrmals durchlaufen werden, da zu Beginn des Trainings die Gewichtung zufällig gesetzt wird (siehe Kapitel \ref{sec:neuronaleNetze}).
 Anschließend werden die neuronalen Netze mit Testdaten getestet, die nicht in den Trainingsdaten enthalten sind.
 Die Auswertung des neuronalen Netzes wird gespeichert und nach Berechnung aller Kombinationen ausgewertet.
 Somit soll die beste Kombination gefunden und das damit trainierte neuronale Netz für das Demo-System verwendet werden.
@@ -193,6 +193,7 @@ Da sich das Demosystem auf einen vordefinierten Datensatz beschränkt muss keine
 Aus diesem Grund werden vordefinierte Audiosequenzen für jeden Sprecher bereitgestellt, die mittels den Variablen \textVariable{sampleFileUserId} und \textVariable{sampleFileIndex} eindeutig identifiziert werden können.
 
 Die Darstellung des Ergebnisses des Authentifizierungsprozesses wird in eine separate Komponente namens \textKlasse{Results} ausgelagert.
+Hierbei handelt es sich um eine reine darstellende Komponente.
 
 Für eine verbesserte Nutzerfreundlichkeit wird zusätzlich eine \textKlasse{Info} Komponente eingebunden, welche die grundlegende Bedienung und Vorgehensweise des Demosystems erklärt.
 
