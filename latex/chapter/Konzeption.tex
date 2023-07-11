@@ -1,18 +1,46 @@
 \section{Konzeption}\label{sec:Konzeption}
 
-Das vorliegende Kapitel behandelt die Konzeption des Versuchssystems und des Demosystems, dazu erfolgt zuvor die Festlegung der Anforderungen an das System.
+Das vorliegende Kapitel behandelt die Konzeption des Versuchssystems und des Demosystems.
+Dazu erfolgt zuvor ein grobes Konzept für ein generisches Sprecherauthentifikationssystem und die Festlegung der Anforderungen an das Demo-System.
+
+\subsection{Allgemeiner System-Aufbau}
+
+Ein allgemeiner, generischer Aufbau für ein Sprecherauthentifikationssystem ist in Abbildung~\ref{fig:allg-generisch-aufbau} dargestellt.
+
+Das Konzept wurde weitgehend eigens entwickelt, orientiert sich aber an den Ansätzen von Qi (Peter) Li \autocite[vgl. ][S. 7]{li_speaker_2012}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth, keepaspectratio]{images/allg-generisch-aufbau.pdf}
+    \caption{Informelles Komponentenkonzept für ein Sprecherauthentifikationssystem}
+    \label{fig:allg-generisch-aufbau}
+\end{figure}\noindent
+
+Das System lässt sich in zwei Prozesse aufteilen: dem Registierungs- oder Trainingsprozess und dem Anmeldungs- oder Testprozess.
+Die verschiedenen Komponenten der beiden Prozesse werden im folgenden Abschnitt kurz erklärt.
+Am Anfang des Trainingsprozesses steht die Benutzergruppe.
+Diese beinhaltet alle Personen, die das System benutzen wollen, beziehungsweise sich authentifizieren möchten.
+Die Benutzer geben Trainings-Samples in eine Verarbeitungs-Komponente, welche die Audio-Daten so aufbereitet, dass sie für ein Modell verwendet werden können.
+Die Modell-Trainer-Komponente generierten dann über mathematische Methoden eine Art Datenbank (zum Beispiel in Form eines neuronalen Netzes).
+Dies ist die Schnittstelle zum Anmeldungsprozess.
+In diesem möchte sich ein einzelner Benutzer mit dem System authentifizieren.
+Dazu wird zunächst ein Test-Sample über eine Verarbeitungs-Komponente in die Sprecher-Klassifizierungs-Komponente gegeben, welche unter Verwendung der Datenbank-Komponente eine Zuordnungsverteilung erstellt.
+Außerdem gibt der Nutzer eine Identitätsbehauptung ab, welche zusammen mit der Zuordnungsverteilung von einer Entscheidungs-Komponente verarbeitet wird.
+Hieraus resultiert eine Entscheidung, ob die Identitätsbehauptung akzeptiert wird oder nicht.
 
 \subsection{Festlegung der Systemanforderungen}\label{sec:anforderungen}
 
-Die grundlegende Anforderung an diese Studienarbeit war es, ein Sprecheridentifikationssystem zu entwickeln, welches über eine Webapplikation bedient werden kann.
+Die grundlegende praktische Anforderung an diese Studienarbeit ist es, ein Sprecherauthentifikationssystem zu entwickeln, welches über eine Webapplikation bedient werden kann.
+Dazu müssen geeignete Stimmmerkmale zur Benutzerauthentifizierung evaluiert werden.
 Da diese Anforderungsbeschreibung noch viel Spielraum über den Funktionsumfang dieses Systems lässt, werden in diesem Kapitel die Anforderungen an das System genauer spezifiziert.
 
 \begin{itemize}
-    \item Das System soll lediglich ein Demosystem darstellen, welches die Machbarkeit eines text-unabhängigen Sprecheridentifikationssystems aufzeigt. Es soll nicht in einem produktiven Umfeld eingesetzt werden können.
-    \item Der Datensatz für das System ist zu Beginn festgelegt. Das heißt, es werden nur bereits bekannte Sprecher identifiziert. Zudem können keine neuen Sprecher registriert werden, wodurch das Sprecheridentifikationssystem keine dynamische Erweiterung um Sprecher bereitstellen muss.
-    \item Das System beschränkt sich auf das Identifizieren eines Sprechers unter 20 Sprechern.
+    \item Das System soll lediglich ein Demosystem darstellen, welches die Machbarkeit eines Sprecherauthentifikationssystem aufzeigt. Es soll nicht in einem produktiven Umfeld eingesetzt werden können.
+    \item Das System soll eine text-unabhängige Authentifizierung implementieren, da der Fokus des Systems auf der Identifikation von Stimmmerkmalen zur Authentifizierung von Benutzern liegt und dies unabhängig vom gesprochenen Text erfolgen soll.
+    \item Der Datensatz für das System ist zu Beginn festgelegt. Das heißt, es können sich nur 20 bereits bekannte Sprecher authentifizieren. Zudem können keine neuen Sprecher registriert werden, wodurch das Sprecherauthentifikationssystem keine dynamische Erweiterung um Sprecher bereitstellen muss.
+    \item Das System soll eine Open-Set-Implementierung verwenden. Dadurch wird sichergestellt, dass ein Benutzer erst mit einer fest definierten Sicherheit authentifiziert wird.
     \item Zur Authentifizierung eines Sprechers wird ein 20-sekündiger Audio-Clip an das System übermittelt. Der Audio-Clip ist dem System bisher unbekannt, aber in gleichen Bedingungen aufgenommen, wie die bekannten Clips.
-    \item Das Sprecheridentifikationssystem sollte Teil des Back-Ends sein. Die Bedienung erfolgt über eine Webapplikation, die mit dem System über eine Schnittstelle kommuniziert.
+    \item Das Sprecherauthentifikationssystem sollte Teil des Back-Ends sein. Die Bedienung erfolgt über eine Webapplikation, die mit dem System über eine Schnittstelle kommuniziert.
     \item In der Web-Oberfläche des Demosystems soll der zu authentifizierende Sprecher (einer der 20) und ein Verifikations-Clip ausgewählt werden können. Es soll für jeden Sprecher 5 Clips zur Auswahl geben.
     \item So soll der Nutzer des Demosystems testen können, was passiert, wenn ein zu dem zu authentifizierenden Sprecher passender bzw. unpassender Verifikations-Clip ins System gegeben wird.
     \item Das System soll dem Nutzer dann Informationen über die Identifikations-Verteilung (zu welchem Sprecher passt der Clip zu welchem Prozentsatz) und den Authentifizierungs-Status (\gqq{erfolgreich}/\gqq{nicht erfolgreich}) als Rückmeldung darstellen.
