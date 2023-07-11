@@ -127,14 +127,26 @@ Die vorhin genannten Werte sind übersichtlich in der nachfolgenden Tabelle darg
 
 \subsubsection{Datensatz} \label{sec:KonzeptDatensatz}
 
-Um die unterschiedlichen Kombinationen an Features zu vergleichen wird ein Datensatz benötigt, der mindestens 20 verschiedene Sprecher mit mindestens ca. 15 min unterschiedlichem Audio-Material enthält.
+Um die unterschiedlichen Kombinationen an Features zu vergleichen, wird ein Datensatz benötigt, der mindestens 20 verschiedene Sprecher mit mindestens ca. 15 min unterschiedlichem Audio-Material enthält.
 Die Audio-Clips müssen unter gleichen Bedingungen aufgenommen sein und in kompressionslosem WAV-Format vorliegen.
+Der Datensatz wird aufgeteilt in Training- und Testdaten.
 
-\subsubsection{Feature Extraktion}
+\subsubsection{Vorverarbeitung und Feature-Extraktion}
 
 In der Feature Extraktion werden die Stimmmerkmale aus den Trainingsdaten extrahiert.
 Hierzu müssen die Audiosignale zunächst vorverarbeitet werden (siehe Kapitel \ref{sec:preprocessing}).
 In welcher Form die Merkmale extrahiert werden hängt dabei von der aktuellen Konfiguration ab.
+
+Abbildung~\ref{fig:ablaufdiagramm-preprocessing-extraction} zeigt den Ablauf von diesem Teil des Versuchssystems mit Bezug auf die im Klassendiagramm dargestellten Klassen und Methoden (Abbildung~\ref{fig:klassendiagram-versuchssystem}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth, keepaspectratio]{images/ablaufdiagramm-preprocessing-extraction.pdf}
+    \caption{Ablaufdiagramm Vorverarbeitung und Feature Extraktion}
+    \label{fig:ablaufdiagramm-preprocessing-extraction}
+\end{figure}\noindent
+
+Näher wird dieser Ablauf in dem dazugehörigen Umsetzungs-Kapitel (\ref{section:umsetzung-versuch-vorverarbeitung}) beschrieben.
 
 \subsubsection{Klassifikation und Evaluierung}\label{sec:KonzeptKlassifikation}
 

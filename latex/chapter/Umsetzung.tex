@@ -22,7 +22,9 @@ Die 3 bekanntesten Open-Source-Bibliotheken sind dabei \gqq{TensorFlow}, \gqq{Py
 Diese Bibliotheken sind sich relativ ähnlich.
 Vorteile einer Bibliothek bringen automatisch auch Nachteile, die sich somit gegenseitig aufheben.
 
-Der wesentliche Unterschied zwischen den Bibliotheken ist, dass die Entwickler dieser Studienarbeit bereits Vorkenntnisse in TensorFlow haben, weshalb TensorFlow verwendet wird.
+Für diese Studienarbeit wird TensorFlow genutzt, da es laut der \gqq{Stack Overflow Developer Survey 2022} eine größere Nutzerbasis hat \autocite[vgl.][]{stack_overflow_stack_2022}.
+Zudem spricht für diese Entscheidung auch die Tatsache, dass die Entwickler dieser Studienarbeit bereits Vorkenntnisse in TensorFlow haben.
+
 Zusätzlich wird das Modul \gqq{Keras} verwendet, welches eine entwicklerfreundliche High-Level-Schnittstelle für TensorFlow ist und somit eine einfachere Entwicklung ermöglicht \autocite[vgl.][]{noauthor_keras_2023}.
 
 \subsubsection{Demosystem}
@@ -129,7 +131,7 @@ Dadurch bleiben 25 geeignete Datensätze übrig, aus diesen wurden unter dem Asp
 Abschließend wurde für jeden Sprecher eine Audiodatei zum Trainieren des neuronalen Netzes mit acht Minuten erstellt und zur Evaluation fünf Sequenzen mit jeweils 15 Sekunden.
 Das Testmaterial ist nicht im Trainingsmaterial enthalten.
 
-\subsubsection{Vorverarbeitung und Feature Extraktion}
+\subsubsection{Vorverarbeitung und Feature Extraktion}\label{section:umsetzung-versuch-vorverarbeitung}
 
 Um eine effektive Verarbeitung eines Audiosignals zu ermöglichen, muss zunächst eine Vorverarbeitung des Signals erfolgen (s. Kapitel~\ref{sec:preprocessing}).
 Hierfür wird der Audio-Clip mittels der Bibliothek \gqq{Librosa} geladen.
