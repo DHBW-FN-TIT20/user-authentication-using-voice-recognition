@@ -1,9 +1,19 @@
+"""!
+ @file main.py
+ @section authors
+  - 
+"""
 from Controller import Controller
 
 import json
 import os
 
 def main():
+    """!
+    @brief Starting point of the Versuchssystem
+
+
+    """
 
     # load configs from json file
     configs = []
