@@ -7,8 +7,9 @@ class AudioPreprocessor:
     @staticmethod
     def int_to_float(array, type=np.float32):
         """
-        Change np.array int16 into np.float32
-        Parameters
+        Change np.array int16 into np.float32 Parameters
+        Author: Husein Zolkepli
+        Source: https://github.com/huseinzol05/malaya-speech/blob/master/malaya_speech/utils/astype.py
         ----------
         array: np.array
         type: np.float32
@@ -32,8 +33,9 @@ class AudioPreprocessor:
     @staticmethod
     def float_to_int(array, type=np.int16, divide_max_abs=True):
         """
-        Change np.array float32 / float64 into np.int16
-        Parameters
+        Change np.array float32 / float64 into np.int16 Parameters
+        Author: Husein Zolkepli
+        Source: https://github.com/huseinzol05/malaya-speech/blob/master/malaya_speech/utils/astype.py
         ----------
         array: np.array
         type: np.int16
