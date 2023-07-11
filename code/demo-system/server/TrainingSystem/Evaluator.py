@@ -16,14 +16,10 @@ class Evaluator:
             prediction = self.neural_network.predict(np.asarray(self.test_data_x[i]))  # generate prediction for the sample
             speaker_id = self.test_data_y[i][0] # get the speaker_id of the sample
             sample_id = i%5 # 0-4
-
             correspondence = {}
-
-            for id in range(20):
+            for id in range(20): # for each speaker
                 correspondence[f"{id}"] = np.count_nonzero(np.argmax(prediction, axis=1) == id) / len(prediction)
-            
             result = TestResult(speaker_id = speaker_id, sample_id = sample_id, correspondence = correspondence)  # create a TestResult object
-
             self.results.append(result)              # save the TestResult object in the list
     
     def get_test_data(self):

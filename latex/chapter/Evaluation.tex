@@ -1,9 +1,31 @@
 \section{Evaluation} \label{sec:Evaluation}
-% TODO durchführung ??
-In dem vorliegenden Kapitel wird die Evaluierung der Ergebnisse des Versuchssystems durchgeführt, hierzu werden die Ergebnisse aufbereitet und anhand mehrerer Metriken verglichen.
+
+In dem vorliegenden Kapitel wird kurz die Durchführung der Versuchsreihe beschrieben und die Evaluierung der Ergebnisse des Versuchssystems durchgeführt.
+Hierzu werden die Ergebnisse aufbereitet und anhand mehrerer Metriken verglichen.
+
+Das Versuchssystem wird über das Ausführen der \codestyle{main.py}-Datei gestartet (siehe linke Lane im Sequenzdiagramm (Abbildung \ref{fig:sequenzdiagramm-versuchssystem})).
+Hier lässt sich spezifizieren, welche der 517 Konfigurationen bei der aktuellen Ausführung analysiert werden sollen, wie man in Zeile~\ref{line:runrange} des Listing~\ref{lst-mainpy} erkennen kann.
+
+\begin{lstlisting}[language=Python,numbers=none,caption=Ausführen einer Versuchsreihe,label=lst-mainpy,escapechar=|]
+# load configs from json file
+configs = []
+with open(os.path.join(os.path.dirname(__file__), "Configs", "configs.json"), "r") as json_file:
+    configs = json.load(json_file)
+
+# range for current run
+controller = Controller(os.path.join(os.path.dirname(__file__), "results.csv"))
+for i in range(0, 20): |\label{line:runrange}|# range for current run
+    controller.set_config(configs[i])
+    controller.start()
+\end{lstlisting}
+
+Da die Analyse von einer Konfiguration im Durchschnitt etwa 35 Minuten dauert, werden die 517 Konfigurationen auf mehrere Geräte aufgeteilt. 
+Es kommen insgesamt fünf verschiedene Geräte mit unterschiedlicher Leistung zum Einsatz, die die Konfigurationen blockweise abarbeiten.
+Der gesamte Prozess dauert ca. eineinhalb Wochen, wobei zu beachten ist, dass die verwendeten Geräte nicht rund um die Uhr rechnen.
+Die Ergebnisse der Analysen werden in CSV-Dateien geschrieben, welche nach dem Beenden der Berechnungen zusammengeführt werden.
 
 Für die Auswertung der Zuordnungsverteilungen aller Konfigurationen des Versuchssystems werden die Ergebnisse zunächst grafisch dargestellt.
-Dabei werden in allen Grafiken die Ergebnisse der drei neuronalen Netze pro Konfiguration miteinander Verrechnet.
+Dabei werden in allen Grafiken die Ergebnisse der drei neuronalen Netze pro Konfiguration miteinander verrechnet.
 Es werden vier verschiedene Aspekte betrachtet (vgl. Abbildung~\ref{fig:AuswertungVersuchssystem}).
 \begin{figure}[H]
     \centering
