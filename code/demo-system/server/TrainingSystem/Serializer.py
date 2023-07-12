@@ -1,3 +1,8 @@
+"""
+ @file Serializer.py
+ @section authors
+  - Johannes Brandenburger
+"""
 from ModelTrainer import ModelTrainer
 from Evaluator import Evaluator
 
@@ -6,10 +11,30 @@ import tensorflow as tf
 import numpy as np
 
 class Serializer:
+    """
+    @brief Serialization functions for main components (nn and training data)
+
+
+    """
     def __init__(self, folder_path):
+        """
+        @brief Initializes the object with default values
+
+        Parameters : 
+            @param folder_path => default path for saving/loading serialized objects
+
+        """
         self.folder_path = folder_path
 
     def serialize(self, model_trainer: ModelTrainer, evaluator: Evaluator):
+        """
+        @brief Serializes a nn model trainer and evaluator
+
+        Parameters : 
+            @param model_trainer : ModelTrainer => object to serialize
+            @param evaluator : Evaluator => object to serialize
+
+        """
         # check if folder_path exists, otherwise create
         if not os.path.exists(self.folder_path):
             os.makedirs(self.folder_path)
@@ -37,6 +62,13 @@ class Serializer:
             np.save(f, np.array(test_y, dtype=object))
 
     def deserialize(self, nn_id) -> tuple[ModelTrainer, Evaluator]:
+        """
+        @brief deserializes a serialized tuple of ModelTrainer and Evaluator. Since the nn id is not serialized, it has to be provided
+
+        Parameters : 
+            @param nn_id => neural network id
+
+        """
         
         # load the neural network
         neural_network = tf.keras.models.load_model(os.path.join(self.folder_path, nn_id, "neural_network.h5"))

@@ -1,9 +1,19 @@
+"""
+ @file AudioPreprocessor.py
+ @section authors
+  - Henry Schuler
+  - Johannes Brandenburger
+  - Lukas Braun
+"""
 import numpy as np
 import librosa
 import noisereduce as nr
 
 class AudioPreprocessor:
-    
+    """
+    @brief Deals with preprocessing of audio files
+
+    """
     @staticmethod
     def int_to_float(array, type=np.float32):
         """
@@ -61,6 +71,13 @@ class AudioPreprocessor:
 
     @staticmethod
     def remove_noise(y, sr):
+        """
+        @brief Reduces noise by 0.8 using the noisereduce library
+
+        Parameters:
+            @param y => signal values
+            @param sr => sampling rate
+        """
         # prop_decrease 0.8 only reduces noise by 0.8 -> sound quality is better than at 1.0
         y_ = nr.reduce_noise(y=y, sr=sr, prop_decrease=0.8)
 
@@ -68,6 +85,14 @@ class AudioPreprocessor:
 
     @staticmethod
     def remove_silence(y):
+        """
+        @brief Removes silence when a signal is below a certain threshold for a certain amount of samples
+        @section authors
+         - Henry Schuler
+         - Johannes Brandenburger
+        Parameters :
+            @param y => signal
+        """
         threshold = 0.005
         pause_length_in_ms = 200
         keep_at_start_and_end = 50
@@ -93,6 +118,16 @@ class AudioPreprocessor:
 
     @staticmethod
     def create_frames(y, frame_size, overlap):
+        """
+        @brief Splits the signal into frames
+        @section authors
+         - Lukas Braun
+
+        Parameters:
+            @param y => signal
+            @param frame_size => amount of samples in the frame
+            @param overlap => overlap between two frames in samples
+        """
         frames = []
         
         if overlap >= frame_size or frame_size <= 0 or overlap < 0:
@@ -108,25 +143,18 @@ class AudioPreprocessor:
 
     @staticmethod
     def window_frames(frames, window_function=np.hanning):
+        """
+        @brief Applies a function to the frame (values)
+        @section authors
+         - Lukas Braun 
+
+        Parameters:
+            @param frames => frames to apply the function on
+            @param window_function = np.hanning => function to apply
+        """
         windowed_frames = []
 
         for frame in frames:
             windowed_frames.append(frame * window_function(frame.shape[0]))
-
-        return windowed_frames
-
-    @staticmethod
-    def load_preprocessed_frames(filepath=None, y=None, sr=None):
-        if filepath is None and (y is None or sr is None):
-            raise ValueError("Either filepath or y and sr must be given.")
-        
-        if y is None or sr is None:
-            y, sr = librosa.load(filepath)
-
-        y = AudioPreprocessor.remove_noise(y=y, sr=sr)
-        y = AudioPreprocessor.remove_silence(y=y)
-
-        frames = AudioPreprocessor.create_frames(y=y, frame_size=1000, overlap=100)
-        windowed_frames = AudioPreprocessor.window_frames(frames=frames)
 
         return windowed_frames

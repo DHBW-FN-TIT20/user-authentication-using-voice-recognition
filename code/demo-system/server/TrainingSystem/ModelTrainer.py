@@ -1,15 +1,37 @@
+"""
+ @file ModelTrainer.py
+ @section authors
+  - Johannes Brandenburger
+"""
 import numpy as np
 import tensorflow as tf
 import uuid
 
 class ModelTrainer:
+    """
+    @brief Class providing functionality for training a neural network
+
+
+    """
     def __init__(self):
+        """
+        @brief Initializes the object and sets default values
+
+        """
         self.training_data = { "X": None, "y": None}
         self.neural_network = None
         self.neural_network_id = None
 
     @staticmethod
     def unison_shuffled_copies(X, y):
+        """
+        @brief Shuffles two arrays in the same order
+
+        Parameters : 
+            @param X => array 1 to shuffle
+            @param y => array 2 to shuffle
+
+        """
         a = np.asarray(X)
         b = np.asarray(y)
         assert len(a) == len(b)
@@ -17,6 +39,10 @@ class ModelTrainer:
         return a[p], b[p]
 
     def generate_neural_network(self):
+        """
+        @brief trains a neural network with the provided training data
+
+        """
 
         # guard
         if (self.training_data["X"] is None or self.training_data["y"] is None or len(self.training_data["X"]) != len(self.training_data["y"])):
@@ -63,8 +89,11 @@ class ModelTrainer:
         # crate a uuid for the neural network
         self.neural_network_id = str(uuid.uuid4())
 
-
     def get_neural_network(self) -> tuple[tf.keras.models.Sequential, str]:
+        """
+        @brief returns the created neural network and its id
+
+        """
 
         # guard
         assert self.neural_network is not None and self.neural_network_id is not None
@@ -72,11 +101,31 @@ class ModelTrainer:
         return self.neural_network, self.neural_network_id
 
     def set_neural_network(self, neural_network, neural_network_id):
+        """
+        @brief sets the nn and nn id value for serialization purpose
+
+        Parameters : 
+            @param neural_network => new nn value
+            @param neural_network_id => new nn id
+
+        """
         self.neural_network = neural_network
         self.neural_network_id = neural_network_id
 
     def get_training_data(self):
+        """
+        @brief Getter for the training data (X and y)
+
+        """
         return (self.training_data["X"], self.training_data["y"])
 
     def set_training_data(self, X, y):
+        """
+        @brief Setter for the training data (X and y)
+
+        Parameters : 
+            @param X => new X value
+            @param y => new y value
+
+        """
         self.training_data = { "X": X, "y": y }

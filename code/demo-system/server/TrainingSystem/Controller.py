@@ -1,3 +1,8 @@
+"""
+ @file Controller.py
+ @section authors
+  - Lukas Braun
+"""
 from AudioPreprocessor import AudioPreprocessor
 from DatasetHandler import DatasetHandler
 from FeatureExtractor.FeatureExtractor import FeatureExtractor, Feature
@@ -11,13 +16,32 @@ import librosa
 import os
 
 class Controller:
+    """
+    @brief Controlling instance that calls all sub components for creating the evaluation values of the Versuchssystem
+
+    """
     def __init__(self, csv_path):
+        """
+        @brief Sets default values
+
+        Parameters : 
+            @param csv_path => path for saving the evaluated data
+
+        """
         self.config = None
         self.data_path = os.path.join(os.path.dirname(__file__), "..", "data", "audio_dataset")
         self.serialize_base_path = os.path.join(os.path.dirname(__file__), "serializations")
         self.csv_path = csv_path
 
     def append_results_to_csv(self, test_results, neural_network_id):
+        """
+        @brief Appends the provided results to the csv selected at initialization of the Class
+
+        Parameters : 
+            @param test_results => TestResult object to append
+            @param neural_network_id => corresponding nn id
+
+        """
         with open(self.csv_path, "a") as csv_file:
             for test_result in test_results:
                 csv_string = f'{neural_network_id};{test_result.sample_id};{self.config["amount_of_frames"]};{self.config["size_of_frame"]};{self.config["lpc_weight"]};{self.config["lpc_order"]};{self.config["mfcc_weight"]};{self.config["mfcc_order"]};{self.config["lpcc_weight"]};{self.config["lpcc_order"]};{self.config["delta_mfcc_weight"]};{self.config["delta_mfcc_order"]};{test_result.speaker_id};'
@@ -27,9 +51,27 @@ class Controller:
                 csv_file.write(csv_string + "\n")
 
     def set_config(self, config):
+        """
+        @brief Set the currently used config
+
+        Parameters : 
+            @param config => JSON config object from the config.json file containing all relevant information
+
+        """
         self.config = config
 
     def extract_features(self, file_path, speaker_id, feature_list, limit_frames=True, multiprocessing=False):
+        """
+        @brief Wrapper function implementing a complete feature extraction process from audio file to features
+
+        Parameters : 
+            @param file_path => path to the audio file
+            @param speaker_id => operating speaker id
+            @param feature_list => features to calculate
+            @param limit_frames = True => assure that the defined amount of frames from the config are used (no more, no less)
+            @param multiprocessing = False => enables multiprocessing if available
+
+        """
         audio_preprocessor = AudioPreprocessor()
 
         # load and preprocess file
@@ -64,8 +106,11 @@ class Controller:
 
         return clustered_features
 
-
     def start(self):
+        """
+        @brief Starts a evaluation process for multiple configurations
+
+        """
         # INITIALIZATION
         print("Initialization started.")
         
