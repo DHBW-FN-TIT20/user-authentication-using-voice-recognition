@@ -136,3 +136,26 @@ Auf der anderen Seite steigt auch der Rechenaufwand, da anstelle von 20 \ac{MFCC
 
 Unter Anbetracht des erhöhten Aufwands wird somit von einer weiterreichenden Analyse abgesehen.
 Da die Veränderungen die zu dem verbesserten Ergebnis führen für die einmalige Berechnung des Neuronalen Netzes des Demosystems tragbar sind, wird die für das Demosystem zu verwendende Konfiguration auf die Konfiguration mit der ID \textbf{516} festgelegt.
+
+Wie in Kapitel~\ref{sec:UmsetzungServer} bereits vorweggenommen, wird das neuronale Netz für die Verwendung in dem Demosystem erneut Trainiert, wobei die Epochen von 250 auf 500 erhöht werden.
+Die Ergebnisse sind in Tabelle~\ref{table:resultsDemoSystemNN} aufgeführt.
+Unter Verwendung des selben Thresholds von 65 \% wird eine weitere Verbesserung um 2,7 Prozentpunkte im Bereich der richtig zugeordneten Samples erreicht.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c|c|c}
+        Threshold & Richtig zug. & Falsch zug. & Nicht zug. \\ \hline
+        65 \%     & 0,95         & 0,01        & 0,04       \\ \hline
+        70 \%     & 0,90         & 0,00        & 0,10       \\ 
+    \end{tabular}
+    \caption{Ergebnisse des neuronalen Netz des Demosystems}
+    \label{table:resultsDemoSystemNN}
+\end{table}
+
+Da die Anzahl an falsch zugeordneten Samples mit einem Prozentpunkt bereits sehr gering ist, kann hier durch eine Erhöhung des Thresholds das System im Bezug auf den Aspekt der Sicherheit weiter optimiert werden.
+Durch die Erhöhung von 65 \% auf 70 \% werden keine Samples mehr falsch zugeordnet, gleichzeitig verschlechtert sich jedoch auch die Anzahl an richtig zugeordneten Samples.
+
+Die Verschlechterung lässt sich durch zwei Aspekte rechtfertigen.
+Auf der einen Seite ist es für Benutzer durch die Optimierung nicht mehr möglich, sich als eine andere Person zu authentifizieren.
+Auf der anderen Seite sorgt die erhöhte Anzahl nicht zugeordneter Samples lediglich dafür, dass in 10 \% der Fälle eine erneute Aufzeichnung der Stimme für die Authentifizierung von Nöten ist.
+Dieser Aufwand ist in Relation zu der gewonnenen Sicherheit sehr gering.
