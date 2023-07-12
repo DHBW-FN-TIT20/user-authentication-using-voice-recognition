@@ -1,4 +1,4 @@
-"""!
+"""
  @file ResultEvaluation.py
  @section authors
   - 
@@ -11,7 +11,7 @@ import json
 import copy
 
 def get_config_id_without_features():
-    """!
+    """
     @brief Searches for all configs with no parameters and returns their ids in order to be removed.
 
 
@@ -33,7 +33,7 @@ def get_config_id_without_features():
 
 
 def get_config_id_from_features(arguments):
-    """!
+    """
     @brief Helper function to determine the config id from a given set of arguments (CSV)
 
     Parameters : 
@@ -59,7 +59,7 @@ def get_config_id_from_features(arguments):
             return config["id"]
     
 def write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distance, min_rel_distance_speaker_id, correct_asserted_test_samples, correct_asserted_absolute, false_asserted_absolute, not_asserted_absolute, value_count):
-    """!
+    """
     @brief Saves the given values to the data_list for displaying as a graph
 
     Parameters : 
@@ -128,7 +128,7 @@ def write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distanc
             break
     
 def compare_nn_accuracy_per_config():
-    """!
+    """
     @brief Calculates different metrics and displays them as a graph
 
 
@@ -338,7 +338,7 @@ def compare_nn_accuracy_per_config():
         Output("graph", "figure"), 
         Input("type_value", "value"))
     def update_bar_chart(type_value):
-        """!
+        """
         @brief Refresh function for changing the selected metric in the web graph view.
 
         Parameters : 

@@ -1,4 +1,4 @@
-"""!
+"""
  @file Serializer.py
  @section authors
   - 
@@ -11,13 +11,13 @@ import tensorflow as tf
 import numpy as np
 
 class Serializer:
-    """!
+    """
     @brief Serialization functions for main components (nn and training data)
 
 
     """
     def __init__(self, folder_path):
-        """!
+        """
         @brief Initializes the object with default values
 
         Parameters : 
@@ -27,7 +27,7 @@ class Serializer:
         self.folder_path = folder_path
 
     def serialize(self, model_trainer: ModelTrainer, evaluator: Evaluator):
-        """!
+        """
         @brief Serializes a nn model trainer and evaluator
 
         Parameters : 
@@ -62,7 +62,7 @@ class Serializer:
             np.save(f, np.array(test_y, dtype=object))
 
     def deserialize(self, nn_id) -> tuple[ModelTrainer, Evaluator]:
-        """!
+        """
         @brief deserializes a serialized tuple of ModelTrainer and Evaluator. Since the nn id is not serialized, it has to be provided
 
         Parameters : 

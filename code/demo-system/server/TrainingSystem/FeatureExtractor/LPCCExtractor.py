@@ -1,4 +1,4 @@
-"""!
+"""
  @file LPCCExtractor.py
  @section authors
   - 
@@ -9,12 +9,12 @@ from scipy.signal import lfilter
 import numpy as np
 
 class LPCCExtractor(ExtractorInterface):
-    """!
+    """
     @brief Extractor for LPCC features
 
     """
     def calculate_features(self, frames, sr, order, multiprocessing=False):
-        """!
+        """
         @brief Implements LPCC algorithm
 
         """

@@ -1,4 +1,4 @@
-"""!
+"""
  @file AudioPreprocessor.py
  @section authors
   - 
@@ -8,7 +8,7 @@ import librosa
 import noisereduce as nr
 
 class AudioPreprocessor:
-    """!
+    """
     @brief Deals with preprocessing of audio files
 
     """
@@ -69,7 +69,7 @@ class AudioPreprocessor:
 
     @staticmethod
     def remove_noise(y, sr):
-        """!
+        """
         @brief Reduces noise by 0.8 using the noisereduce library
 
         Parameters:
@@ -83,7 +83,7 @@ class AudioPreprocessor:
 
     @staticmethod
     def remove_silence(y):
-        """!
+        """
         @brief Removes silence when a signal is below a certain threshold for a certain amount of samples
 
         Parameters :
@@ -114,7 +114,7 @@ class AudioPreprocessor:
 
     @staticmethod
     def create_frames(y, frame_size, overlap):
-        """!
+        """
         @brief Splits the signal into frames
 
         Parameters:
@@ -137,7 +137,7 @@ class AudioPreprocessor:
 
     @staticmethod
     def window_frames(frames, window_function=np.hanning):
-        """!
+        """
         @brief Applies a function to the frame (values)
 
         Parameters:
@@ -153,7 +153,7 @@ class AudioPreprocessor:
 
     @staticmethod
     def load_preprocessed_frames(filepath=None, y=None, sr=None):
-        """!
+        """
         @brief Loads an audio file or uses the given y and sr parameters and applies the available preprocessing methods on the audio
 
         Parameters :

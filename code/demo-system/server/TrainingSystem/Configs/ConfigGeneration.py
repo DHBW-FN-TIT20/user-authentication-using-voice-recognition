@@ -1,4 +1,4 @@
-"""!
+"""
  @file ConfigGeneration.py
  @section authors
   - Johannes Brandenburger

@@ -1,16 +1,16 @@
-"""!
+"""
  @file TestResult.py
  @section authors
   - 
 """
 class TestResult:
-    """!
+    """
     @brief Data class for storing test results
 
 
     """
     def __init__(self, speaker_id: int, sample_id: int, correspondence: dict[int, float]):
-        """!
+        """
         @brief Initializes the object with the given values
 
         Parameters : 

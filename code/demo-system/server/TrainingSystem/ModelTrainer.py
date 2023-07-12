@@ -1,4 +1,4 @@
-"""!
+"""
  @file ModelTrainer.py
  @section authors
   - 
@@ -8,13 +8,13 @@ import tensorflow as tf
 import uuid
 
 class ModelTrainer:
-    """!
+    """
     @brief Class providing functionality for training a neural network
 
 
     """
     def __init__(self):
-        """!
+        """
         @brief Initializes the object and sets default values
 
         """
@@ -24,7 +24,7 @@ class ModelTrainer:
 
     @staticmethod
     def unison_shuffled_copies(X, y):
-        """!
+        """
         @brief Shuffles two arrays in the same order
 
         Parameters : 
@@ -39,7 +39,7 @@ class ModelTrainer:
         return a[p], b[p]
 
     def generate_neural_network(self):
-        """!
+        """
         @brief trains a neural network with the provided training data
 
         """
@@ -90,7 +90,7 @@ class ModelTrainer:
         self.neural_network_id = str(uuid.uuid4())
 
     def get_neural_network(self) -> tuple[tf.keras.models.Sequential, str]:
-        """!
+        """
         @brief returns the created neural network and its id
 
         """
@@ -101,7 +101,7 @@ class ModelTrainer:
         return self.neural_network, self.neural_network_id
 
     def set_neural_network(self, neural_network, neural_network_id):
-        """!
+        """
         @brief sets the nn and nn id value for serialization purpose
 
         Parameters : 
@@ -113,14 +113,14 @@ class ModelTrainer:
         self.neural_network_id = neural_network_id
 
     def get_training_data(self):
-        """!
+        """
         @brief Getter for the training data (X and y)
 
         """
         return (self.training_data["X"], self.training_data["y"])
 
     def set_training_data(self, X, y):
-        """!
+        """
         @brief Setter for the training data (X and y)
 
         Parameters : 

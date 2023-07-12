@@ -1,4 +1,4 @@
-"""!
+"""
  @file FeatureExtractor.py
  @section authors
   - 
@@ -12,7 +12,7 @@ import numpy as np
 from enum import Enum
 
 class Feature(Enum):
-    """!
+    """
     @brief Enum for accessing the available feature types
     """
     LPC = 0
@@ -20,13 +20,13 @@ class Feature(Enum):
     MFCC = 2
 
 class FeatureExtractor:
-    """!
+    """
     @brief Class implementing methods for extracting features
 
 
     """
     def __init__(self, frames, sr):
-        """!
+        """
         @brief Initializes the class with standard values
 
         Parameters : 
@@ -44,7 +44,7 @@ class FeatureExtractor:
         self.last_feature_count = 0
 
     def extract_features(self, feature_list, multiprocessing=False): #(*@\label{line:extract_features}@*)
-        """!
+        """
         @brief Function to extract a set of features
 
         Parameters :
@@ -75,7 +75,7 @@ class FeatureExtractor:
         return feature_set
     
     def get_last_feature_count(self):
-        """!
+        """
         @brief Getter for the last_feature_count variable
         
         """

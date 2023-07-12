@@ -1,4 +1,4 @@
-"""!
+"""
  @file Evaluator.py
  @section authors
   - 
@@ -8,13 +8,13 @@ from TestResult import TestResult
 import numpy as np
 
 class Evaluator:
-    """!
+    """
     @brief Evaluates a feature set using the neural network
 
 
     """
     def __init__(self, neural_network, neural_network_id, test_data_x, test_data_y):
-        """!
+        """
         @brief Initializes the object
 
         Parameters : 
@@ -31,7 +31,7 @@ class Evaluator:
         self.test_data_y = test_data_y # [[]] for each file, for each Frame the same speaker_id
 
     def evaluate(self):
-        """!
+        """
         @brief Evaluates the given test data using the given neural network and saves the results to the self.results list
 
         """

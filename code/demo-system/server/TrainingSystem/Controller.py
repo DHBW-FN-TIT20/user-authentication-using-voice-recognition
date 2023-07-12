@@ -1,4 +1,4 @@
-"""!
+"""
  @file Controller.py
  @section authors
   - 
@@ -16,12 +16,12 @@ import librosa
 import os
 
 class Controller:
-    """!
+    """
     @brief Controlling instance that calls all sub components for creating the evaluation values of the Versuchssystem
 
     """
     def __init__(self, csv_path):
-        """!
+        """
         @brief Sets default values
 
         Parameters : 
@@ -34,7 +34,7 @@ class Controller:
         self.csv_path = csv_path
 
     def append_results_to_csv(self, test_results, neural_network_id):
-        """!
+        """
         @brief Appends the provided results to the csv selected at initialization of the Class
 
         Parameters : 
@@ -51,7 +51,7 @@ class Controller:
                 csv_file.write(csv_string + "\n")
 
     def set_config(self, config):
-        """!
+        """
         @brief Set the currently used config
 
         Parameters : 
@@ -61,7 +61,7 @@ class Controller:
         self.config = config
 
     def extract_features(self, file_path, speaker_id, feature_list, limit_frames=True, multiprocessing=False):
-        """!
+        """
         @brief Wrapper function implementing a complete feature extraction process from audio file to features
 
         Parameters : 
@@ -107,7 +107,7 @@ class Controller:
         return clustered_features
 
     def start(self):
-        """!
+        """
         @brief Starts a evaluation process for multiple configurations
 
         """

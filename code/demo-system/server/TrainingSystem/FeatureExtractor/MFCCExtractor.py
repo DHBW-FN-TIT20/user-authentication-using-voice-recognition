@@ -1,4 +1,4 @@
-"""!
+"""
  @file MFCCExtractor.py
  @section authors
   - 
@@ -10,13 +10,13 @@ import librosa
 
 
 class MFCCExtractor(ExtractorInterface):
-    """!
+    """
     @brief Extractor for MFCC features
 
     """
     @staticmethod
     def calculate_mfcc(frame, sr, order):
-        """!
+        """
         @brief Implements MFCC algorithm using librosa function
 
         """
@@ -25,7 +25,7 @@ class MFCCExtractor(ExtractorInterface):
         return mfcc_of_frame
 
     def calculate_features(self, frames, sr, order, multiprocessing=False):
-        """!
+        """
         @brief Calls calculate_mfcc with/without multiprocessing
 
         """

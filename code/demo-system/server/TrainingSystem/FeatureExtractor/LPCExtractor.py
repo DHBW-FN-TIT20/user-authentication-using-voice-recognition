@@ -1,4 +1,4 @@
-"""!
+"""
  @file LPCExtractor.py
  @section authors
   - 
@@ -8,12 +8,12 @@ from multiprocessing import Pool
 import librosa
 
 class LPCExtractor(ExtractorInterface):
-    """!
+    """
     @brief Extractor for LPC features
 
     """
     def calculate_features(self, frames, sr, order, multiprocessing=False):
-        """!
+        """
         @brief Implements LPC algorithm using librosa function
 
         """

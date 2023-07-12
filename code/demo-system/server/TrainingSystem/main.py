@@ -1,4 +1,4 @@
-"""!
+"""
  @file main.py
  @section authors
   - 
@@ -9,7 +9,7 @@ import json
 import os
 
 def main():
-    """!
+    """
     @brief Starting point of the Versuchssystem
 
 

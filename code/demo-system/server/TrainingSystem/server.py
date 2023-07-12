@@ -1,4 +1,4 @@
-"""!
+"""
  @file server.py
  @section authors
   - 
@@ -14,7 +14,7 @@ from AudioPreprocessor import AudioPreprocessor
 import librosa
 
 def extract_features(file_path, speaker_id, feature_list, limit_frames=True, multiprocessing=False):
-    """!
+    """
     @brief Extracts the required features for the authentication process
 
     Parameters : 
@@ -54,7 +54,7 @@ def extract_features(file_path, speaker_id, feature_list, limit_frames=True, mul
     return clustered_features
 
 def generate_test_data(speaker_id: int, sample_id: int):
-    """!
+    """
     @brief generates the test data for the given speaker id and sample id
 
     Parameters : 
@@ -89,7 +89,7 @@ CORS(app)
 
 @app.route("/", methods=["GET", "POST"])
 def handle_api_request():
-    """!
+    """
     @brief API endpoint for authentication requests
 
 
