@@ -32,7 +32,7 @@ def extract_features(file_path, speaker_id, feature_list, limit_frames=True, mul
     y = audio_preprocessor.remove_silence(y)
     y = audio_preprocessor.remove_noise(y, sr)
 
-    frames = audio_preprocessor.create_frames(y=y, frame_size=int(600), overlap=int(0.5 * int(600)))
+    frames = audio_preprocessor.create_frames(y=y, frame_size=int(800), overlap=int(0.5 * int(800)))
 
     if limit_frames:
         if len(frames) < 15000:
@@ -67,7 +67,7 @@ def generate_test_data(speaker_id: int, sample_id: int):
     test_X = []
     test_y = []
     test_file_path = ds_handler.get_validation_file_path(speaker_id, sample_id)
-    feature_list = [[Feature.MFCC, 20, [0,1]]]
+    feature_list = [[Feature.MFCC, 27, [0]], [Feature.MFCC, 13, [1]]]
     features = extract_features(
         file_path=test_file_path,
         speaker_id=speaker_id,

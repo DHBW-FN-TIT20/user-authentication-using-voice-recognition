@@ -29,7 +29,7 @@ class Controller:
 
         """
         self.config = None
-        self.data_path = os.path.join(os.path.dirname(__file__), "..", "data", "audio_dataset")
+        self.data_path = os.path.join(os.path.dirname(__file__), "..", "..", "..", "data", "audio_dataset")
         self.serialize_base_path = os.path.join(os.path.dirname(__file__), "serializations")
         self.csv_path = csv_path
 
