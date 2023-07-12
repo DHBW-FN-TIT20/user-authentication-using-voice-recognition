@@ -78,7 +78,7 @@ Bei Flask handelt es sich um ein Web Framework, welches eine Bereitstellung von 
 Somit können alle Anforderungen an die Serverapplikation mittels der Programmiersprache Python umgesetzt werden.
 Dazu können die bereits entwickelten Komponenten für den Authentifizierungsprozess aus dem Versuchssystem übernommen werden.
 
-\subsection{Versuchssystem}
+\subsection{Versuchssystem}\label{sec:UmsetzungVersuchssystem}
 
 \subsubsection{Feature Kombination}
 
@@ -121,7 +121,7 @@ Für die Evaluierung der Stimmmerkmale wird ein geeigneter Datensatz benötigt.
 Hierzu wurde nach einer Internetrecherche auf der Plattform \gqq{Kaggle} ein entsprechender Datensatz gefunden, der die Anforderung aus Kapitel~\ref{sec:KonzeptDatensatz} erfüllt \autocite[vgl.][]{jain_speaker_2019}. 
 Der Originaldatensatz enthält Audiodaten zu 50 Sprechern mit mindestens 60 Minuten Aufzeichnung pro Sprecher in mehreren kompressionslosen WAV Dateien.
 
-In einem ersten Schritt müssen die Daten aufbereitet werden.
+In einem ersten Schritt müssen die manuell Daten aufbereitet werden.
 Der Originaldatensatz lässt sich in zwei Teile teilen, während der erste Teil aus YouTube Videos besteht, sind im zweiten Teil Aufnahmen von englischen Hörbüchern enthalten.
 Da die Aufnahmequalität der Hörbücher deutlich besser ist, wurden nur diese Datensätze weiterverwendet.
 In einem Folgeschritt werden die einzelnen Dateien der Datensätze zu einer Datei zusammengefügt und genauer betrachtet.
@@ -240,18 +240,55 @@ Nach Abschluss der Klassifikation aller Features können diese Datensätze ausge
 Die Durchführung und Evaluation des Versuchs sind in Kapitel~\ref{sec:Evaluation} dargestellt.
 
 \subsection{Demosystem}
-Die Umsetzung von Client und Server ist im Folgenden kurz beschrieben.
+Die Umsetzung von Client und Server ist im Folgenden beschrieben.
 Dabei werden lediglich die wichtigsten Aspekte benannt.
 Da der Authentifizierungsablauf bereits im vorangehenden Kapitel erläutert wurde, wird in der Umsetzung des Servers nicht mehr darauf eingegangen.
 
 \subsubsection{Client}
-Die im Client implementierte Benutzeroberfläche zeigt eine Login-Abfrage (siehe Abbildung~\ref{fig:AppLogin}).
-Diese unterteilt sich in zwei Abschnitte.
-Zunächst kann über ein Eingabefeld die ID des zu authentifizierenden Nutzers angegeben werden.
-Anschließend kann eine zu verwendende Audiodatei aus einer Liste ausgewählt werden.
-Dabei stehen für jeden Nutzer mindestens fünf verschiedene Dateien zur Verfügung.
-Um die Benutzerfreundlichkeit zu verbessern besteht dabei zusätzlich die Möglichkeit, die ausgewählte Datei im Browser abzuspielen.
-Dafür wird der HTML \textFunktion{<audio>} Tag verwendet.
+Durch die Verwendung von ReactJS wird die Ordnerstruktur durch das Framework vorgeschrieben.
+Diese ist in Abbildung~\ref{fig:OrdnerstrukturClient} dargestellt.
+\begin{figure}[H]
+    \dirtree{%
+      .1 /.
+      .2 public.
+      .3 audio\_dataset.
+      .4 Speaker0000.
+      .4 Speaker0001.
+      .4 ....
+      .3 ....
+      .2 src.
+      .3 app.
+      .4 App.tsx.
+      .4 App.css.
+      .3 shared.
+      .4 components.
+      .5 Info.
+      .6 Info.tsx.
+      .6 Info.css.
+      .5 Result.
+      .6 Result.tsx.
+      .6 Result.css.
+      .3 index.tsx.
+      .3 index.css.
+      .3 ....
+      .2 ....
+    }
+    \caption{Ordnerstruktur Demosystem Client}
+    \label{fig:OrdnerstrukturClient}
+\end{figure}
+Die Projektspezifischen Dateien befinden sich dabei in dem Unterordner \textOrdner{public}, sowie \textOrdner{src}.
+Über den \textOrdner{public}-Ordner können Ressourcen wie Bilder oder sonstige Objekte die durch die Website angezeigt werden zur Verfügung gestellt werden.
+Sie können dadurch ebenfalls direkt über die URL im Browser abgerufen werden.
+
+Die aufrufbaren Webseiten befinden sich im \textOrdner{src}-Ordner.
+Der \ac{HTML}-Code ist in ReactJS in den \textOrdner{*.tsx} Dateien enthalten und erlaubt somit die direkte Einbindung von JavaScript Variablen in die \ac{HTML} Komponenten.
+Da es sich bei der Client-Applikation um eine Single Page Application handelt, stellt die \textOrdner{index.tsx} Datei den einzigen Einstiegspunkt der Applikation dar.
+Darin wird die Komponente \textKlasse{App} aus der Datei \textOrdner{App.tsx} eingebunden.
+
+Zusätzlich können einzelne Komponenten in separate Dateien ausgelagert werden um auf der einen Seite eine bessere Codeübersicht zu erzeugen und auf der anderen Seite einzelne Visualisierungen an verschiedenen Stellen zu implementieren.
+Diese Komponenten werden in dem Unterordner \textOrdner{src/shared/components} abgelegt.
+
+Die Benutzeroberfläche der \textKlasse{App} Komponente zeigt eine Login-Abfrage (siehe Abbildung~\ref{fig:AppLogin}).
 \begin{figure}[H]
     \begin{subfigure}[c]{0.49\textwidth}
         \centering
@@ -267,9 +304,89 @@ Dafür wird der HTML \textFunktion{<audio>} Tag verwendet.
     \end{subfigure}
     \caption{Weboberfläche}
 \end{figure}
+Diese unterteilt sich in zwei Abschnitte.
+Zunächst kann über ein Eingabefeld die ID des zu authentifizierenden Nutzers angegeben werden.
+Die Eingabe ist dabei auf die Zahlen 0-19 begrenzt.
+Die Eingabe anderer Zeichen führt dazu, dass der Inhalt des Eingabefelds gelöscht wird.
+Anschließend kann eine zu verwendende Audiodatei aus einer Liste ausgewählt werden.
+Für die Erzeugung der Liste in der Benutzeroberfläche, wird die JSX-Funktion \textFunktion{map()} verwendet um Schaltflächen für jeweils neun Dateien pro Sprecher zu generieren (vgl. Listing~\ref{lst:AudiodateiAuswahl}, Z.~\ref{line:MapOneAppTsx},\ref{line:MapTwoAppTsx}).
+Über einen \textFunktion{onClick()} Event-Listener (Z.~\ref{line:OnClickAppTsx}) wird dabei der jeweilige Index des selektierten Elements gespeichert.
+\lstset{escapeinside={//(*@}{@*)}}
+\begin{lstlisting}[language=HTML,caption=Auswahl der Audiodatei - App.tsx,label=lst:AudiodateiAuswahl]
+<div className="fileList">
+    {
+        // create an array with all numbers from 0 to 20
+        Array.from(Array(20).keys()).map((id) => { //(*@\label{line:MapOneAppTsx}@*)
+            return Array.from(Array(9).keys()).map((fileIndex) => { //(*@\label{line:MapTwoAppTsx}@*)
+                return (
+                    <div 
+                        key={"speaker" + id + "file" + fileIndex}
+                        className={"fileItem " + (sampleFileUserId === id && sampleFileIndex === fileIndex ? "selected" : "")}
+                        onClick={() => { //(*@\label{line:OnClickAppTsx}@*)
+                            setSampleFileUserId(id);
+                            setSampleFileIndex(fileIndex);
+                        }}
+                    >
+                        <span>
+                            <FontAwesomeIcon icon={faUser} />
+                            &nbsp;{id}
+                        </span>
+                        <span>
+                            <FontAwesomeIcon icon={faFile} />
+                            &nbsp;{fileIndex}
+                        </span>
+                    </div>
+                )
+            })
+        })
+    }
+</div>
+\end{lstlisting}
+
+Um die Benutzerfreundlichkeit zu verbessern besteht dabei zusätzlich die Möglichkeit, die ausgewählte Datei im Browser abzuspielen.
+Dafür wird (wie in Listing~\ref{lst:AudioAppTsx} dargestellt) der \ac{HTML} \textFunktion{<audio>} Tag verwendet.
+Die dafür benötigten Ressourcen (WAV-Dateien) werden im Ordner \textOrdner{public/audio\_dataset} zur Verfügung gestellt.
+\begin{lstlisting}[language=HTML,caption=Audio Tag - App.tsx,label=lst:AudioAppTsx]
+<audio controls ref={audioRef}>
+    <source src={`./audio_dataset/Speaker${String(sampleFileUserId).padStart(4, '0')}/Validation_Speaker${String(sampleFileUserId).padStart(2, '0')}_${String(sampleFileIndex).padStart(4, '0')}.wav`} type="audio/wav" />
+    Audio files are not supported by your browser.
+</audio>
+\end{lstlisting}
+
 Über den Login-Knopf wird die Authentifizierungsanfrage an den Server gesendet.
-Dafür wird die \textFunktion{fetch()} Funktion von JavaScript verwendet.
+Der Knopf kann dabei erst durch den Benutzer gedrückt werden, wenn sowohl in dem Eingabefeld eine valide Zahl steht, als auch eine Authentifizierungsdatei ausgewählt ist.
+
+Für die Anfrage an den Server wird die \textFunktion{fetch()} Funktion von JavaScript verwendet (Z.~\ref{line:FetchAppTsx}).
 Die zu übergebenden Parameter werden als URL-Parameter angegeben.
+Ist der Server über die angegebene IP-Adresse und Port nicht erreichbar, so wird dies dem Benutzer mittels eines \textFunktion{alert()} mitgeteillt (Z.~\ref{line:AlertAppTsx}).
+\begin{lstlisting}[language=JavaScript,caption=login() App.tsx,label=lst:LoginAppTsx]
+async function login(authenticatingUserId: number, sampleFileUserId: number, sampleFileIndex: number) {
+    try {
+        const response = await fetch(`http://${configData.SERVER_URL}:${configData.SERVER_PORT}/?speaker_id=${sampleFileUserId}&sample_id=${sampleFileIndex}&selected_speaker_id=${authenticatingUserId}`); //(*@\label{line:FetchAppTsx}@*)
+    
+        console.log(response)
+        if (!response.ok) {
+            return { 
+                absolute_accuracy_of_selected_speaker: 0,
+                is_authenticated: false,
+                absolute_accuracy_of_all_speakers: []
+            };
+        }
+    
+        const json = await response.json();
+        
+        return json;
+    } catch (e) {
+        console.error(e);
+        alert(`Es konnte keine Verbindung zum Server (${configData.SERVER_URL}:${configData.SERVER_PORT}) hergestellt werden!`) //(*@\label{line:AlertAppTsx}@*)
+        return {
+            absolute_accuracy_of_selected_speaker: 0,
+            is_authenticated: false,
+            absolute_accuracy_of_all_speakers: []
+        }
+    }
+}
+\end{lstlisting}
 
 Die Darstellung des Ergebnisses mittels der \textKlasse{Result} Komponente ist in Abbildung~\ref{fig:Result} dargestellt.
 Dem Benutzer werden sowohl seine Authentifizierungsangaben, als auch das Ergebnis der Authentifizierung in Textform angezeigt.
@@ -281,25 +398,48 @@ Das Diagramm wird mit Hilfe der Bibliotheken chart.js und react-chartjs-2 eingeb
 \subsubsection{Server} 
 Wie in der Technologieentscheidung bereits erwähnt, wird der Server mithilfe der Bibliothek Flask implementiert.
 Listing~\ref{lst:serverPy} zeigt dabei die wesentlichen Codeabschnitte für die Umsetzung des Servers als Flask Applikation.
-\begin{lstlisting}[language=Python,numbers=none,caption=Ausschnitt server.py,label=lst:serverPy]
-    app = Flask(__name__)
-    CORS(app)
+\begin{lstlisting}[language=Python,caption=Ausschnitt server.py,label=lst:serverPy]
+app = Flask(__name__) //(*@\label{line:FlaskAppServerPy}@*)
+CORS(app)
 
-    @app.route("/", methods=["GET", "POST"])
-    def handle_api_request():
-        ...
+@app.route("/", methods=["GET", "POST"])
+def handle_api_request():
+    ...
 
-    if __name__ == '__main__':
-        app.run(debug=False, host='127.0.0.1', port=5500)
+if __name__ == '__main__':
+    app.run(debug=False, host='127.0.0.1', port=5500) //(*@\label{line:AppRunServerPy}@*)
 \end{lstlisting}
-Zunächst muss eine neue Flask \textVariable{app} erstellt werden.
+Zunächst muss eine neue Flask \textVariable{app} erstellt werden (Z.~\ref{line:FlaskAppServerPy}).
 Mittels \textFunktion{CORS(app)} wird dabei sichergestellt, dass eine Verbindung zwischen Client und Server trotz unterschiedlichem Ursprung möglich ist.
 
 Die Authentifizierungsfunktion wird über die Wrapper-Funktion \textFunktion{handle\_api\_request()} und dem Decorator \textFunktion{@app.route()} als \ac{API} Endpoint verfügbar gemacht.
-
-Abschließend kann der Server über die Anweisung \textFunktion{app.run()} unter Angabe der IP-Adresse und des Ports gestartet werden.
+Die Abarbeitung der Anfragen unterteilt sich in die in Abbildung~\ref{fig:AblaufdiagrammServerHandleApiRequest} dargestellten fünf Schritte.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth, keepaspectratio]{images/AblaufdiagrammServerHandleApiRequest.pdf}
+    \caption{Ablauf handle\_api\_request()}
+    \label{fig:AblaufdiagrammServerHandleApiRequest}
+\end{figure}
+Dafür werden zunächst die übergebenen Parameter aus der URL ausgelesen.
+Anschließend wird überprüft ob es sich bei den Werten um numerische Werte handelt, die im vorgegebenen Definitionsbereich liegen (vgl. Listing~\ref{lst:ParameterValidationServerPy}).
+\begin{lstlisting}[language=Python,caption=Parametervalidierung handle\_api\_request() - server.py,label=lst:ParameterValidationServerPy]
+if not (
+    speaker_id.isnumeric() and 
+    sample_id.isnumeric() and 
+    selected_speaker_id.isnumeric() and
+    0 <= int(speaker_id) <= 19 and
+    0 <= int(sample_id) <= 8 and
+    0 <= int(selected_speaker_id) <= 19
+):
+    return parameter_error_message
+\end{lstlisting}
+% TODO: evtl. Ref auf genaues Kapitel aktualisieren
+Da die Generierung der Testdaten analog zu Kapitel~\ref{sec:UmsetzungVersuchssystem} verläuft, wird darauf nicht weiter eingegangen.
+Mit den generierten Daten wird anschließend die Klassifikation durch das \ac{NN} durchgeführt und die Ergebnisse aufbereitet und im JSON-Format an den Client zurück gesendet.
 
 Das neuronale Netz, welches vom Server für die Authentifizierung von Benutzern verwendet wird, ergibt sich aus der Evaluation des Versuchssystems im nachfolgenden Kapitel~\ref{sec:Evaluation}.
-Hierzu wird mit der ermittelten Konfiguration ein neues neuronales Netz trainiert, unter Verwendung von einer erhöhten Anzahl an Epochen, um die Genauigkeit des Systems noch einmal zu verbessern.
+Hierzu wird mit der ermittelten Konfiguration ein neues neuronales Netz unter Verwendung von einer erhöhten Anzahl an Epochen generiert, um die Genauigkeit des Systems noch einmal zu verbessern.
 Vorgreifend muss hierbei erwähnt werden, dass das System durch die Erhöhung der Epochen insofern verbessert werden konnte, dass die Grenze für die Anzahl an Frames die dem zu authentifizierenden Nutzer zugeordnet werden müssen, von 65 \% auf 70 \% erhöht werden kann.
 Deshalb zeigt die Abbildung~\ref{fig:Result} in der Wahrscheinlichkeitsverteilung einen Threshold von 70 \%.
+
+Über die Anweisung \textFunktion{app.run()} unter Angabe der IP-Adresse und des Ports, kann der Server gestartet werden (Listing~\ref{lst:serverPy}, Z.~\ref{line:AppRunServerPy}).

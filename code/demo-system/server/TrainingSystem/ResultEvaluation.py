@@ -137,7 +137,7 @@ def compare_nn_accuracy_per_config():
 
     # Read results.csv
     # with open(os.path.join(os.path.dirname(__file__), "results.csv"), "r") as csv_file:
-    with open("/home/henry/Documents/Studium/Studienarbeit/Ergebnisse/without.csv", "r") as csv_file:
+    with open("/home/scu8bh/Documents/code/sa-hs-lb-jb/code/demo-system/server/TrainingSystem/results_combined.csv", "r") as csv_file:
         lines = csv_file.readlines()
         uuid = ""
         uuid_line = []
@@ -152,6 +152,7 @@ def compare_nn_accuracy_per_config():
         absolute_percent = 0.65
         value_count = 0
         has_one_value = False
+        max_config_id=517
         for line in lines:
             arguments = line.split(";")
             if uuid == "":
@@ -168,7 +169,8 @@ def compare_nn_accuracy_per_config():
                 if has_one_value:
                     print(f"Config {config_id} has 0.0 value")
 
-                write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distance, min_rel_distance_speaker_id, correct_asserted_test_samples, correct_asserted_absolute, false_asserted_absolute, not_asserted_absolute, value_count)
+                if not has_one_value and (config_id == 472 or config_id > 510):
+                    write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distance, min_rel_distance_speaker_id, correct_asserted_test_samples, correct_asserted_absolute, false_asserted_absolute, not_asserted_absolute, value_count)
 
                 # reset values
                 uuid = arguments[0]
@@ -236,7 +238,7 @@ def compare_nn_accuracy_per_config():
 
     # Create datasets that combine the data of all 3 NN per config
 
-    for config_id in range(511):
+    for config_id in range(max_config_id):
         found_items = 0
         acc = 0
         for i in range(3):
@@ -248,7 +250,7 @@ def compare_nn_accuracy_per_config():
             data_list['absolute_accuracy_per_config'][0]['x'].append(config_id)
             data_list['absolute_accuracy_per_config'][0]['y'].append(acc)
 
-    for config_id in range(511):
+    for config_id in range(max_config_id):
         found_items = 0
         acc = 0
         for i in range(3):
@@ -260,7 +262,7 @@ def compare_nn_accuracy_per_config():
             data_list['correct_asserted_per_config'][0]['x'].append(config_id)
             data_list['correct_asserted_per_config'][0]['y'].append(acc)
 
-    for config_id in range(511):
+    for config_id in range(max_config_id):
         found_items = 0
         acc = 0
         for i in range(3):
@@ -272,7 +274,7 @@ def compare_nn_accuracy_per_config():
             data_list['false_asserted_per_config'][0]['x'].append(config_id)
             data_list['false_asserted_per_config'][0]['y'].append(acc)
 
-    for config_id in range(511):
+    for config_id in range(max_config_id):
         found_items = 0
         acc = 0
         for i in range(3):
