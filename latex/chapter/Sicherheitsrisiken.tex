@@ -2,7 +2,7 @@
 \section{Analyse der Sicherheitsrisiken}
 In dem vorliegenden Kapitel wird die Analyse der Sicherheitsrisiken von Sprecherauthentifikationssystemen durchgeführt.
 Dabei wird die Analyse zunächst auf ein allgemeines System bezogen und die erarbeiteten Sicherheitsrisiken dann auf das entwickelte Demosystem bezogen.
-Dies ist möglich da das Demosystem, wessen Entwicklungen in den vorausgegangenen Kapiteln beschrieben wurde, von diesem allgemeinen System abgeleitet ist.
+Dies ist möglich, da das Demosystem, wessen Entwicklungen in den vorausgegangenen Kapiteln beschrieben wurde, von diesem allgemeinen System abgeleitet ist.
 
 \subsection{Allgemeine Sicherheitsrisiken}
 In diesem Abschnitt erfolgt die Analyse der Sicherheitsrisiken für ein allgemeines Sprecherauthentifikationssystem.
@@ -11,16 +11,32 @@ Grundsätzlich gibt es drei Arten von Sicherheitsrisiken für Sprecherauthentifi
 Im Folgenden sind diese drei Sicherheitsrisiken dargestellt und erläutert.
 
 Voice Spoofing bezieht sich auf die Nachahmung einer bestimmten Stimme oder die Manipulation einer Sprachaufnahme um so jemanden zu täuschen oder Zugriff auf ein System zu erhalten.
-Die Nachahmung der Stimme wird auch als Stimmimitation bezeichnet eine Untersuchung der Universität of Birmingham in Alabama zeigt, dass bereits wenige Minuten Audio des Opfers ausreichen um die Stimme vollständig zu klonen.
+Die Nachahmung der Stimme wird auch als Stimmimitation bezeichnet.
+Eine Untersuchung der Universität of Birmingham in Alabama zeigt, dass bereits wenige Minuten Audio des Opfers ausreichen, um die Stimme vollständig zu klonen.
 Auch die Optionen zur Beschaffung dieser Informationen werden präsentiert.
 Der Angreifer kann sich in der Nähe des Opfers aufhalten und Sprachaufnahmen machen, im Internet nach Aufnahmen suchen oder gezielt über Spam-Anrufe die benötigten Daten erhalten \autocite[vgl.][]{katherine_shonesy_uab_2015}.
 
+Die Manipulation einer Sprachaufnahme bedeutet das Anpassen, beziehungsweise das Bearbeiten, des ursprünglichen Audiosignals.
+Guangke Chen setzt in seinem Angriffssystem \gqq{FakeBob} auf Pertubation.
+Hierbei wird auf ein Audio Quellsignal eine Störung angewandt, die es ermöglicht, dass das attackierte Sprecherauthentifikationssystem einen anderen Benutzer authentifiziert.
+Dabei ist es für einen Menschen nicht möglich einen Unterschied zwischen der originalen Aufnahme und der veränderten Aufnahme wahrzunehmen.
+\gqq{FakeBob} attackiert hierbei im Black-Box Modus und hat somit lediglich Zugang zu dem Authentifizierungsergebnis und bei zwei von drei Versuchs-Systemen auf die Ergebnisverteilung.
+In Rahmen der Arbeit wird \gqq{FakeBob} auf das Open-Source System \gqq{Kaldi} und auf die kommerziellen Systeme \gqq{Talentedsoft} und \gqq{Microsoft Azure} angewandt.
+\gqq{FakeBob} erzielt hierbei eine 100 \% Attack-Succes-Rate bei \gqq{Kaldi} und \gqq{Talentedsoft}, welche sowohl die Verteilung als auch die Entscheidung bereitstellen.
+Bei \gqq{Microsoft Azure} steht nur die Entscheidung zur Verfügung.
+Hier erreicht \gqq{FakeBob} eine Attack-Success-Rate von 26 \% \autocite[vgl. ][]{chen_who_2020}.
 
+Um biometrischen Spoofing Attacken entgegenzuwirken, gibt es eine sogenannte \ac{PAD}.
+\ac{PAD} verwendet verschiedene Techniken und Algorithmen um gefälschte oder vorab aufgezeichnete Sprachaufnahmen zu identifizieren \autocite[vgl. ][]{paravision_introduction_2022}
 
+Backdoor Attacken beschreiben das Vorgehen, bei dem der Hacker gezielt die Trainingsdaten verändert um somit eine Hintertür zu schaffen, über die das System infiltriert werden kann.
+Die Untersuchungen von Tongqing Zhai zeigen ein solches Verfahren auf.
+Hierzu bearbeitet der Hacker der Trainingsdatensatz, ohne Kenntnis über den eigentlichen Anmeldungsprozess.
+In der Arbeit werden unterschiedliche Ansätze zur Veränderung auf zwei Datensätzen durchgeführt.
+Hierbei werden Attack Success Rates zwischen mindestens 45\% und maximal 99,5\% erreicht \autocite[vgl. ][]{zhai_backdoor_2021}
 
-
-
-
+Um sich vor Backdoor Attacken zu schützen, kann die Integrität des Datensatzes überprüft werden, um so Manipulationen zu identifizieren.
+Dies kann beispielsweise durch ein Prüfsummen Verfahren realisiert werden.
 
 
 
