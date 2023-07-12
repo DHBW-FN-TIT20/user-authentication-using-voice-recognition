@@ -113,7 +113,7 @@ Configs = {
 Der \codestyle{weight} Parameter gibt lediglich an, ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht, um verschiedene Kombinationen zu erreichen.
 So gibt es auch manche Kombinationen, die beispielsweise nur \ac{MFCC}-Merkmale in der Analyse berücksichtigen.
 Hierbei muss beachtet werden, dass durch die Kombination auch Konfigurationen entstehen, in welchen nichts berechnet werden muss.
-Diese werden nicht berechnet.
+Diese werden manuell entfernt.
 Die anderen Variablen wie \codestyle{order} und dessen Werte wurde bereits in ~\ref{sec:FeatureKombination} erklärt.
 
 \subsubsection{Datensatz}
@@ -128,7 +128,7 @@ In einem Folgeschritt werden die einzelnen Dateien der Datensätze zu einer Date
 Hierbei konnten längere Pausen und Abweichungen der Datensätze, wie z.B. mehrere Sprecher oder eine andere Sprache identifiziert werden.
 Diese Pausen wurden entfernt und die betroffenen Datensätze aus dem Datensatz entfernt.
 Dadurch bleiben 25 geeignete Datensätze übrig, aus diesen wurden unter dem Aspekt des Geschlechts 20 Datensätze ausgewählt, sodass neun weibliche und elf männliche Sprecher im finalen Datensatz sind, da nur neun weibliche Datensätze geeignet sind.
-Abschließend wurde für jeden Sprecher eine Audiodatei zum Trainieren des neuronalen Netzes mit acht Minuten erstellt und zur Evaluation fünf Sequenzen mit jeweils 15 Sekunden.
+Abschließend wurde für jeden Sprecher eine Audiodatei zum Trainieren des neuronalen Netzes mit acht Minuten erstellt und zur Evaluation neun Sequenzen mit jeweils 15 Sekunden.
 Das Testmaterial ist nicht im Trainingsmaterial enthalten.
 
 \subsubsection{Vorverarbeitung und Feature Extraktion}\label{section:umsetzung-versuch-vorverarbeitung}
@@ -233,7 +233,7 @@ for id in range(20): # for each speaker
 
 Die Anzahl der Frames ist dabei von der Frame-Länge der jeweiligen Konfiguration abhängig, weshalb die Zuordnungsverteilungen normiert, also von einer absoluten in eine relative Zuordnung umgerechnet, werden müssen.
 
-Da für jeden Sprecher fünf Testdateien vorliegen (die Schleife hierfür wird übersichtlichkeitshalber nicht in den Listings gezeigt), entstehen pro neuronalem Netz 100 Zuordnungsverteilungen.
+Da für jeden Sprecher fünf Testdateien verwendet werden (die Schleife hierfür wird übersichtlichkeitshalber nicht in den Listings gezeigt), entstehen pro neuronalem Netz 100 Zuordnungsverteilungen.
 Durch die Berechnung von drei neuronalen Netzen pro Konfiguration ergibt dies 300 Zuordnungsverteilungen pro Konfiguration.
 
 Nach Abschluss der Klassifikation aller Features können diese Datensätze ausgewertet werden und somit ein Rückschluss auf die beste Merkmalskombination getroffen werden.

@@ -4,7 +4,7 @@ In dem vorliegenden Kapitel wird kurz die Durchführung der Versuchsreihe beschr
 Hierzu werden die Ergebnisse aufbereitet und anhand mehrerer Metriken verglichen.
 
 Das Versuchssystem wird über das Ausführen der \codestyle{main.py}-Datei gestartet (siehe linke Lane im Sequenzdiagramm (Abbildung \ref{fig:sequenzdiagramm-versuchssystem})).
-Hier lässt sich spezifizieren, welche der 517 Konfigurationen bei der aktuellen Ausführung analysiert werden sollen, wie man in Zeile~\ref{line:runrange} des Listing~\ref{lst-mainpy} erkennen kann.
+Hier lässt sich spezifizieren, welche der Konfigurationen bei der aktuellen Ausführung analysiert werden sollen, wie man in Zeile~\ref{line:runrange} des Listing~\ref{lst-mainpy} erkennen kann.
 
 \begin{lstlisting}[language=Python,numbers=none,caption=Ausführen einer Versuchsreihe,label=lst-mainpy,escapechar=|]
 # load configs from json file
@@ -19,7 +19,7 @@ for i in range(0, 20): |\label{line:runrange}|# range for current run
     controller.start()
 \end{lstlisting}
 
-Da die Analyse von einer Konfiguration im Durchschnitt etwa 35 Minuten dauert, werden die 517 Konfigurationen auf mehrere Geräte aufgeteilt. 
+Da die Analyse von einer Konfiguration im Durchschnitt etwa 35 Minuten dauert, werden die Konfigurationen auf mehrere Geräte aufgeteilt. 
 Es kommen insgesamt fünf verschiedene Geräte mit unterschiedlicher Leistung zum Einsatz, die die Konfigurationen blockweise abarbeiten.
 Der gesamte Prozess dauert ca. eineinhalb Wochen, wobei zu beachten ist, dass die verwendeten Geräte nicht rund um die Uhr rechnen.
 Die Ergebnisse der Analysen werden in CSV-Dateien geschrieben, welche nach dem Beenden der Berechnungen zusammengeführt werden.
