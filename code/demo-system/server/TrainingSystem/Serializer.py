@@ -1,7 +1,7 @@
 """
  @file Serializer.py
  @section authors
-  - 
+  - Johannes Brandenburger
 """
 from ModelTrainer import ModelTrainer
 from Evaluator import Evaluator

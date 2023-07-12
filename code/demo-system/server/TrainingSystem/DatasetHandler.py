@@ -1,7 +1,7 @@
 """
  @file DatasetHandler.py
  @section authors
-  - 
+  - Johannes Brandenburger
 """
 import os
 

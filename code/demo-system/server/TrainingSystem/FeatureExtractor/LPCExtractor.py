@@ -1,7 +1,7 @@
 """
  @file LPCExtractor.py
  @section authors
-  - 
+  - Henry Schuler
 """
 from FeatureExtractor.ExtractorInterface import ExtractorInterface
 from multiprocessing import Pool

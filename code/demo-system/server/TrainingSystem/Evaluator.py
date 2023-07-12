@@ -1,7 +1,7 @@
 """
  @file Evaluator.py
  @section authors
-  - 
+  - Lukas Braun
 """
 from TestResult import TestResult
 

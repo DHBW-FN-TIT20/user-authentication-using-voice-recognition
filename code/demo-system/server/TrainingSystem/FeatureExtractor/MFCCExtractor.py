@@ -1,7 +1,7 @@
 """
  @file MFCCExtractor.py
  @section authors
-  - 
+  - Johannes Brandenburger
 """
 from FeatureExtractor.ExtractorInterface import ExtractorInterface
 from multiprocessing import Pool

@@ -1,7 +1,9 @@
 """
  @file AudioPreprocessor.py
  @section authors
-  - 
+  - Henry Schuler
+  - Johannes Brandenburger
+  - Lukas Braun
 """
 import numpy as np
 import librosa
@@ -85,7 +87,9 @@ class AudioPreprocessor:
     def remove_silence(y):
         """
         @brief Removes silence when a signal is below a certain threshold for a certain amount of samples
-
+        @section authors
+         - Henry Schuler
+         - Johannes Brandenburger
         Parameters :
             @param y => signal
         """
@@ -116,6 +120,8 @@ class AudioPreprocessor:
     def create_frames(y, frame_size, overlap):
         """
         @brief Splits the signal into frames
+        @section authors
+         - Lukas Braun
 
         Parameters:
             @param y => signal
@@ -139,6 +145,8 @@ class AudioPreprocessor:
     def window_frames(frames, window_function=np.hanning):
         """
         @brief Applies a function to the frame (values)
+        @section authors
+         - Lukas Braun 
 
         Parameters:
             @param frames => frames to apply the function on
@@ -148,29 +156,5 @@ class AudioPreprocessor:
 
         for frame in frames:
             windowed_frames.append(frame * window_function(frame.shape[0]))
-
-        return windowed_frames
-
-    @staticmethod
-    def load_preprocessed_frames(filepath=None, y=None, sr=None):
-        """
-        @brief Loads an audio file or uses the given y and sr parameters and applies the available preprocessing methods on the audio
-
-        Parameters :
-            @param filepath = None => path to the audio file
-            @param y = None => signal values
-            @param sr = None => sampling rate of y
-        """
-        if filepath is None and (y is None or sr is None):
-            raise ValueError("Either filepath or y and sr must be given.")
-        
-        if y is None or sr is None:
-            y, sr = librosa.load(filepath)
-
-        y = AudioPreprocessor.remove_noise(y=y, sr=sr)
-        y = AudioPreprocessor.remove_silence(y=y)
-
-        frames = AudioPreprocessor.create_frames(y=y, frame_size=1000, overlap=100)
-        windowed_frames = AudioPreprocessor.window_frames(frames=frames)
 
         return windowed_frames

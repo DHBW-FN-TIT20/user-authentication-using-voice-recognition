@@ -1,7 +1,7 @@
 """
  @file Controller.py
  @section authors
-  - 
+  - Lukas Braun
 """
 from AudioPreprocessor import AudioPreprocessor
 from DatasetHandler import DatasetHandler

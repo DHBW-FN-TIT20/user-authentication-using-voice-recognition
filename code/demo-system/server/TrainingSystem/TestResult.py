@@ -1,7 +1,7 @@
 """
  @file TestResult.py
  @section authors
-  - 
+  - Lukas Braun
 """
 class TestResult:
     """

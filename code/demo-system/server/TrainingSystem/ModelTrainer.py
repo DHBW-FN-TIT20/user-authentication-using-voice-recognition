@@ -1,7 +1,7 @@
 """
  @file ModelTrainer.py
  @section authors
-  - 
+  - Johannes Brandenburger
 """
 import numpy as np
 import tensorflow as tf

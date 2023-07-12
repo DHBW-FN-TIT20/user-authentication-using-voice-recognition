@@ -1,7 +1,7 @@
 """
  @file ExtractorInterface.py
  @section authors
-  - 
+  - Lukas Braun
 """
 class ExtractorInterface:
     """

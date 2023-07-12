@@ -1,7 +1,7 @@
 """
  @file LPCCExtractor.py
  @section authors
-  - 
+  - Henry Schuler
 """
 from FeatureExtractor.ExtractorInterface import ExtractorInterface
 from FeatureExtractor.LPCExtractor import LPCExtractor

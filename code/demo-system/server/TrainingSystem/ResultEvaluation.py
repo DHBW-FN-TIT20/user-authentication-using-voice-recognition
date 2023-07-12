@@ -1,7 +1,7 @@
 """
  @file ResultEvaluation.py
  @section authors
-  - 
+  - Henry Schuler
 """
 import plotly.graph_objects as go
 from dash import Dash, dcc, html, Input, Output

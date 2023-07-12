@@ -1,7 +1,7 @@
 """
  @file main.py
  @section authors
-  - 
+  - Lukas Braun
 """
 from Controller import Controller
 

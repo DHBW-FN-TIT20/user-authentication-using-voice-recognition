@@ -1,7 +1,7 @@
 """
  @file FeatureExtractor.py
  @section authors
-  - 
+  - Lukas Braun
 """
 from FeatureExtractor.LPCExtractor import LPCExtractor
 from FeatureExtractor.LPCCExtractor import LPCCExtractor
