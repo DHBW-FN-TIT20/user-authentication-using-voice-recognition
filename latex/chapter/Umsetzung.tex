@@ -5,7 +5,9 @@ Dazu wird zunächst eine Technologieentscheidung für das Versuchssystem getroff
 In einem weiteren Schritt wird die systematische Umsetzung der beiden Systeme dargestellt.
 
 \subsection{Technologieentscheidung}
+
 \subsubsection{Versuchssystem}\label{sec:TechnologieVersuchssystem}
+
 Aus der Konzeption in Kapitel~\ref{sec:Konzeption} gehen verschiedene Anforderungen an die Technologie hervor.
 Durch die Verwendung von neuronalen Netzen werden die verfügbaren Technologien bzw. Programmiersprachen bereits eingeschränkt.
 Um weitere Technologieenscheidungen zu treffen, muss zunächst eine Programmiersprache ausgewählt werden.
@@ -20,7 +22,9 @@ Die 3 bekanntesten Open-Source-Bibliotheken sind dabei \gqq{TensorFlow}, \gqq{Py
 Diese Bibliotheken sind sich relativ ähnlich.
 Vorteile einer Bibliothek bringen automatisch auch Nachteile, die sich somit gegenseitig aufheben.
 
-Der wesentliche Unterschied zwischen den Bibliotheken ist, dass die Entwickler dieser Studienarbeit bereits Vorkenntnisse in TensorFlow haben, weshalb TensorFlow verwendet wird.
+Für diese Studienarbeit wird TensorFlow genutzt, da es laut der \gqq{Stack Overflow Developer Survey 2022} eine größere Nutzerbasis hat \autocite[vgl.][]{stack_overflow_stack_2022}.
+Zudem spricht für diese Entscheidung auch die Tatsache, dass die Entwickler dieser Studienarbeit bereits Vorkenntnisse in TensorFlow haben.
+
 Zusätzlich wird das Modul \gqq{Keras} verwendet, welches eine entwicklerfreundliche High-Level-Schnittstelle für TensorFlow ist und somit eine einfachere Entwicklung ermöglicht \autocite[vgl.][]{noauthor_keras_2023}.
 
 \subsubsection{Demosystem}
@@ -77,11 +81,13 @@ Dazu können die bereits entwickelten Komponenten für den Authentifizierungspro
 \subsection{Versuchssystem}\label{sec:UmsetzungVersuchssystem}
 
 \subsubsection{Feature Kombination}
-Wie bereits in Kapitel~\ref{sec:FeatureKombination} erwähnt, müssen zuerst die Konfigurationen erzeugt werden.
-Hierzu werden die vorher definierten Werte in einer JSON Datei erfasst und durch ein Tool alle möglichen Konfiguration mit einer ID erzeugt.
-Hierbei muss beachtet werden, dass durch die Kombination Konfigurationen entstehen in welchen nichts berechnet werden muss.
-Die erstellte JSON Datei ist in dem Listing~\ref{configs} dargestellt.
-\begin{lstlisting}[language=JavaScript,numbers=none,caption=Konfigurationsmöglichkeiten,label=configs]
+
+Wie bereits in Kapitel~\ref{sec:FeatureKombination} erwähnt, müssen zuerst die verschiedenen Konfigurationen erzeugt werden.
+Hierzu werden die vorher definierten Werte in einer JSON-Datei erfasst und durch ein eigenes Kombinierungs-Skript alle möglichen Konfiguration mit einer ID erzeugt.
+
+Die Konfigurationswerte für die Kombinierung sind im Listing~\ref{lst-configs} dargestellt.
+
+\begin{lstlisting}[language=Python,numbers=none,caption=Konfigurationsmöglichkeiten,label=lst-configs]
 Configs = {
     "amount_of_frames": [10000, 15000],
     "size_of_frame": [400, 600],
@@ -103,7 +109,12 @@ Configs = {
     }
 }
 \end{lstlisting}
-Der \codestyle{weight} Parameter gibt lediglich an, ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
+
+Der \codestyle{weight} Parameter gibt lediglich an, ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht, um verschiedene Kombinationen zu erreichen.
+So gibt es auch manche Kombinationen, die beispielsweise nur \ac{MFCC}-Merkmale in der Analyse berücksichtigen.
+Hierbei muss beachtet werden, dass durch die Kombination auch Konfigurationen entstehen, in welchen nichts berechnet werden muss.
+Diese werden manuell entfernt.
+Die anderen Variablen wie \codestyle{order} und dessen Werte wurde bereits in ~\ref{sec:FeatureKombination} erklärt.
 
 \subsubsection{Datensatz}
 Für die Evaluierung der Stimmmerkmale wird ein geeigneter Datensatz benötigt.
@@ -117,10 +128,10 @@ In einem Folgeschritt werden die einzelnen Dateien der Datensätze zu einer Date
 Hierbei konnten längere Pausen und Abweichungen der Datensätze, wie z.B. mehrere Sprecher oder eine andere Sprache identifiziert werden.
 Diese Pausen wurden entfernt und die betroffenen Datensätze aus dem Datensatz entfernt.
 Dadurch bleiben 25 geeignete Datensätze übrig, aus diesen wurden unter dem Aspekt des Geschlechts 20 Datensätze ausgewählt, sodass neun weibliche und elf männliche Sprecher im finalen Datensatz sind, da nur neun weibliche Datensätze geeignet sind.
-Abschließend wurde für jeden Sprecher eine Audiodatei zum Trainieren des neuronalen Netzes mit acht Minuten erstellt und zur Evaluation 5 Sequenzen mit jeweils 15 Sekunden.
+Abschließend wurde für jeden Sprecher eine Audiodatei zum Trainieren des neuronalen Netzes mit acht Minuten erstellt und zur Evaluation neun Sequenzen mit jeweils 15 Sekunden.
 Das Testmaterial ist nicht im Trainingsmaterial enthalten.
 
-\subsubsection{Vorverarbeitung und Feature Extraktion}
+\subsubsection{Vorverarbeitung und Feature Extraktion}\label{section:umsetzung-versuch-vorverarbeitung}
 
 Um eine effektive Verarbeitung eines Audiosignals zu ermöglichen, muss zunächst eine Vorverarbeitung des Signals erfolgen (s. Kapitel~\ref{sec:preprocessing}).
 Hierfür wird der Audio-Clip mittels der Bibliothek \gqq{Librosa} geladen.
@@ -139,20 +150,47 @@ else:
 \end{lstlisting}
 
 Nach dem Entfernen der Pausen wird das Hintergrundrauschen entfernt.
-Dafür wird ein externer Algorithmus von Tim Sainburg verwendet \autocite[][]{sainburg_timsainbnoisereduce_2019}.
+Dafür wird ein externer Algorithmus von Tim Sainburg verwendet.
+Dieser basiert auf dem Vorgehen des bekannten Ton-Verarbeitungsprogramm \gqq{Audacity}.
+Zusammengefasst transformiert der Algorithmus mithilfe von \ac{FFT} das Audio-Signal zunächst in den Frequenzraum.
+Hier werden dann die Störfrequenzen über Schwellwertverfahren lokalisiert und mittels Filter eliminiert.
+Anschließend wird das Signal wieder zurücktransformiert \autocite[][]{sainburg_timsainbnoisereduce_2019}.
 
-Die abschließende Unterteilung des Audiosignals
-in Frames, sowie das Windowing der Frames findet mit Hilfe von \codestyle{numpy}-Operationen in den Funktionen \codestyle{create_frames} und \codestyle{window_frames} statt.
+Die abschließende Unterteilung des Audiosignals in Frames, sowie das Windowing der Frames findet mit Hilfe von \codestyle{numpy}-Operationen in den Funktionen \codestyle{create_frames} und \codestyle{window_frames} statt.
 Die passende Fensterfunktion wird dabei ebenfalls durch die \codestyle{numpy}-Bibliothek bereitgestellt.
+Bei dem Aufteilen in Frames wird beachtet, dass sich die Frames überlappen, da sonst durch das Windowing zu viele Informationen verloren gehen würden.
 
 Für das Extrahieren der Merkmale aus dem Audiosignal wird ein Ansatz gewählt, der eine einfache Erweiterung des Programms um verschiedene andere Verfahren ermöglicht.
 Dazu wird das Designmuster Strategie in abgewandelter Form verwendet, wobei zunächst ein Interface für die Berechnungsverfahren erstellt werden muss.
 Dieses definiert die Funktion \codestyle{calculate_features}, welche in den abgeleiteten Klassen implementiert wird.
 Für die eigentlichen Berechnungen der Koeffizienten wird wieder die Signal-Verarbeitungs-Bibliothek Librosa verwendet.
+Beispielhaft für die Berechnung von \ac{MFCC} sieht man in Listing~\ref{lst-MFCCExtractor}, wie unkompliziert sich die Bibliothek Librosa verwenden lässt.
+Allerdings müssen viele Parameter, wie zum Beispiel die Länge des zu verwendenden FFT-Fenster (\codestyle{n_fft}) gefüllt bzw. geändert werden.
+Diese Werte ergeben sich aus den von uns ausgewählten Parameter (beschrieben in~\ref{sec:FeatureKombination}) und den Anweisungen in der offiziellen Dokumentation der Librosa-Bibliothek \autocite[vgl. ][]{librosa_development_team_librosa_2023}
 
+\begin{lstlisting}[language=Python,numbers=none,caption=Klasse zur Extraktion von MFCC-Merkmalen,label=lst-MFCCExtractor]
+class MFCCExtractor(ExtractorInterface):
+
+@staticmethod
+def calculate_mfcc(frame, sr, order):
+    mfcc = librosa.feature.mfcc(y=frame, sr=sr, n_mfcc=order, n_fft=1024, hop_length=512)
+    mfcc_of_frame = np.mean(mfcc.T, axis=0)
+    return mfcc_of_frame
+
+def calculate_features(self, frames, sr, order, multiprocessing=False):
+    if multiprocessing:
+        with Pool(8) as p: # run function on 8 cores
+            mfccs = p.starmap(self.calculate_mfcc, [(frame, sr, order) for frame in frames])
+        return mfccs
+    else:
+        mfccs = []
+        for frame in frames:
+            mfccs.append(self.calculate_mfcc(frame, sr, order))
+        return mfccs
+\end{lstlisting}
 
 Da für die Versuchsreihe sehr viele zeitaufwändige Berechnungen laufen müssen, ist das Extrahieren der Merkmale mit Multiprocessing implementiert.
-Hierfür wird die Python-interne Bibliothek \gqq{mutliprocessing} genutzt, um die Berechnung auf mehrere Threads zu verteilen.
+Hierfür wird die Python-interne Bibliothek \gqq{mutliprocessing} genutzt, um die Berechnung auf mehrere Kerne zu verteilen.
 
 % librosa load 
 % remove silence 
@@ -162,8 +200,10 @@ Hierfür wird die Python-interne Bibliothek \gqq{mutliprocessing} genutzt, um di
 
 \subsubsection{Klassifikation und Evaluierung}
 In dem Kapitel~\ref{sec:KonzeptKlassifikation} wurden neuronale Netze als Klassifikationsmodell gewählt, um die zuvor berechneten Merkmale zu evaluieren.
-Hierbei werden zuerst neuronale Netze mit den berechneten Trainingsdaten trainiert, diese Netze bestehen aus drei Hidden-Layer mit jeweils 128, 64 und 32 Neuronen.
+Hierbei werden zuerst neuronale Netze mit den berechneten Trainingsdaten trainiert.
+Die Netze bestehen aus drei Hidden-Layer mit jeweils 128, 64 und 32 Neuronen.
 Dieser absteigende Aufbau stellt sich bei Versuchen als geeignete Lösung heraus.
+
 Wie bereits im Konzept dargestellt müssen mehrere neuronale Netze trainiert werden, in diesem Fall werden für jede Konfiguration drei neuronale Netze erstellt.
 
 \begin{lstlisting}[language=Python,numbers=none,caption=Erstellen und Trainieren eines neuronalen Netzes,label=lst-nn]
@@ -181,10 +221,19 @@ model.fit(X, y, epochs=epochs)
 \end{lstlisting}
 
 Nach dem Training erfolgt die Evaluation der neuronalen Netze, hierzu wird der tatsächliche Authentifizierungsprozess nachgebildet.
-Die berechneten Testdaten werden auf die neuronalen Netze angewandt, das neuronale Netz klassifiziert also die Daten indem es die Features jedes Frames einem der 20 Sprecher zuordnet.
-Die Anzahl der Frames ist dabei von der Frame-Länge der jeweiligen Konfiguration abhängig, weshalb die Zuordnungsverteilungen normiert, also von einer absoluten in eine relative Zuordnung umgerechnet werden müssen.
+Die berechneten Testdaten werden auf die neuronalen Netze angewandt, das neuronale Netz klassifiziert also die Daten, indem es die Features jedes Frames einem der 20 Sprecher zuordnet.
+Diese Klassifizierung wird durch die Tensorflow-Methode \codestyle{model.predict()} realisiert, wie das Listing~\ref{lst-model-predict} zeigt.
 
-Da für jeden Sprecher fünf Testdateien vorliegen entstehen pro neuronalem Netz 100 Zuordnungsverteilungen.
+\begin{lstlisting}[language=Python,numbers=none,caption=Evaluation mit model.predict und Normalisierung des Ergebnisses,label=lst-model-predict]
+prediction = self.neural_network.predict(np.asarray(self.test_data_x[i])) # generate prediction for the sample
+correspondence = {} # mapping: speaker to result
+for id in range(20): # for each speaker
+    correspondence[f"{id}"] = np.count_nonzero(np.argmax(prediction, axis=1) == id) / len(prediction) # normalization
+\end{lstlisting}
+
+Die Anzahl der Frames ist dabei von der Frame-Länge der jeweiligen Konfiguration abhängig, weshalb die Zuordnungsverteilungen normiert, also von einer absoluten in eine relative Zuordnung umgerechnet, werden müssen.
+
+Da für jeden Sprecher fünf Testdateien verwendet werden (die Schleife hierfür wird übersichtlichkeitshalber nicht in den Listings gezeigt), entstehen pro neuronalem Netz 100 Zuordnungsverteilungen.
 Durch die Berechnung von drei neuronalen Netzen pro Konfiguration ergibt dies 300 Zuordnungsverteilungen pro Konfiguration.
 
 Nach Abschluss der Klassifikation aller Features können diese Datensätze ausgewertet werden und somit ein Rückschluss auf die beste Merkmalskombination getroffen werden.
