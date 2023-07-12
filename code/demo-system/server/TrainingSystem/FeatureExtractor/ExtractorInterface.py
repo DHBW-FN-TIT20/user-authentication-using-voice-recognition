@@ -7,7 +7,6 @@ class ExtractorInterface:
     """!
     @brief An interface for the feature extraction
 
-
     """
     def calculate_features(self, frames, sr, order, multiprocessing=False):
         """!

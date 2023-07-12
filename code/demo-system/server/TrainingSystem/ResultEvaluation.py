@@ -1,3 +1,8 @@
+"""!
+ @file ResultEvaluation.py
+ @section authors
+  - 
+"""
 import plotly.graph_objects as go
 from dash import Dash, dcc, html, Input, Output
 import numpy as np
@@ -6,6 +11,11 @@ import json
 import copy
 
 def get_config_id_without_features():
+    """!
+    @brief Searches for all configs with no parameters and returns their ids in order to be removed.
+
+
+    """
     configs = []
     with open(os.path.join(os.path.dirname(__file__), "Configs", "config.json"), "r") as json_file:
         configs = json.load(json_file)
@@ -23,6 +33,13 @@ def get_config_id_without_features():
 
 
 def get_config_id_from_features(arguments):
+    """!
+    @brief Helper function to determine the config id from a given set of arguments (CSV)
+
+    Parameters : 
+        @param arguments => arguments in order of the csv results file
+
+    """
     # load configs
     configs = []
     with open(os.path.join(os.path.dirname(__file__), "Configs", "configs.json"), "r") as json_file:
@@ -42,6 +59,23 @@ def get_config_id_from_features(arguments):
             return config["id"]
     
 def write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distance, min_rel_distance_speaker_id, correct_asserted_test_samples, correct_asserted_absolute, false_asserted_absolute, not_asserted_absolute, value_count):
+    """!
+    @brief Saves the given values to the data_list for displaying as a graph
+
+    Parameters : 
+        @param data_list => array containing the chart data
+        @param config_id => config id for the given data
+        @param abs_accuracy => calculated absolute accuracy
+        @param rel_accuracy => calculated relative accuracy
+        @param min_rel_distance => minimal distance to the second place
+        @param min_rel_distance_speaker_id => speaker id of the second place
+        @param correct_asserted_test_samples => amount of correct asserted samples (relative, closed set)
+        @param correct_asserted_absolute => amount of correct asserted samples (absolute, open set, threshold)
+        @param false_asserted_absolute => amount of false asserted samples (absolute, open set, threshold)
+        @param not_asserted_absolute => amount of not asserted samples (absolute, open set, threshold)
+        @param value_count => amount of asserted samples
+
+    """
     ### absolute accuracy
 
     for i in range(3):
@@ -93,10 +127,14 @@ def write_data(data_list, config_id, abs_accuracy, rel_accuracy, min_rel_distanc
             data_list['not_asserted_absolute'][i]['y'].append(not_asserted_absolute / value_count)
             break
     
-
 def compare_nn_accuracy_per_config():
+    """!
+    @brief Calculates different metrics and displays them as a graph
+
+
     """
-        This function calculates the average accuracy of all three neural networks for each config.
+    """
+    The data value is a template for displaying bar data for three nn per config
     """
     data = [
         {
@@ -161,9 +199,6 @@ def compare_nn_accuracy_per_config():
                 # data collected -> process/save
                 # evaluate config id from uuid
                 config_id = get_config_id_from_features(uuid_line)
-                if config_id == 388 or uuid == "0c83734d-aea0-4805-b282-790cc885d6ee":
-                    print(388)
-                print(value_count)
 
                 if has_one_value:
                     print(f"Config {config_id} has 0.0 value")
@@ -185,8 +220,7 @@ def compare_nn_accuracy_per_config():
                 not_asserted_absolute = 0
             if uuid == arguments[0]:
                 speaker_id = int(arguments[12])
-                if uuid == "06409118-ae25-40f9-82b3-19683673f3ca":
-                    print(23)
+
                 speaker_percent = float(arguments[13 + speaker_id])
                 # absolute percentage
                 abs_accuracy += speaker_percent
@@ -304,6 +338,13 @@ def compare_nn_accuracy_per_config():
         Output("graph", "figure"), 
         Input("type_value", "value"))
     def update_bar_chart(type_value):
+        """!
+        @brief Refresh function for changing the selected metric in the web graph view.
+
+        Parameters : 
+            @param type_value => selected graph index
+
+        """
         this_data = {'data': data_list[type_value], 'layout': layout}
         fig = go.Figure(
             data=this_data,
@@ -316,6 +357,5 @@ def compare_nn_accuracy_per_config():
 
     app.run_server(debug=True)
                 
-
 if __name__ == "__main__":
     compare_nn_accuracy_per_config()
