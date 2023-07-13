@@ -6,6 +6,7 @@ Dies ist möglich, da das Demosystem, wessen Entwicklungen in den vorausgegangen
 
 \subsection{Allgemeine Sicherheitsrisiken}
 In diesem Abschnitt erfolgt die Analyse der Sicherheitsrisiken für ein allgemeines Sprecherauthentifikationssystem.
+Hierbei geht es speziell um Bedrohungen von Sprecherauthentifikationssystemen, allgemeine Risiken von IT-Systemen werden nicht näher beachtet.
 Ein solches System wird in Kapitel~\ref{sec:allgemeiner_system_aufbau} dargestellt und erläutert.
 Grundsätzlich gibt es drei Arten von Sicherheitsrisiken für Sprecherauthentifizierungssysteme: Voice-Spoofing, Backdoor-Attacken und Eavesdropping.
 Im Folgenden sind diese drei Sicherheitsrisiken dargestellt und erläutert.
@@ -21,10 +22,10 @@ Guangke Chen setzt in seinem Angriffssystem \gqq{FakeBob} auf Pertubation.
 Hierbei wird auf ein Audio Quellsignal eine Störung angewandt, die es ermöglicht, dass das attackierte Sprecherauthentifikationssystem einen anderen Benutzer authentifiziert.
 Dabei ist es für einen Menschen nicht möglich einen Unterschied zwischen der originalen Aufnahme und der veränderten Aufnahme wahrzunehmen.
 \gqq{FakeBob} attackiert hierbei im Black-Box Modus und hat somit lediglich Zugang zu dem Authentifizierungsergebnis und bei zwei von drei Versuchs-Systemen auf die Ergebnisverteilung.
-In Rahmen der Arbeit wird \gqq{FakeBob} auf das Open-Source System \gqq{Kaldi} und auf die kommerziellen Systeme \gqq{Talentedsoft} und \gqq{Microsoft Azure} angewandt.
-\gqq{FakeBob} erzielt hierbei eine 100 \% Attack-Succes-Rate bei \gqq{Kaldi} und \gqq{Talentedsoft}, welche sowohl die Verteilung als auch die Entscheidung bereitstellen.
+Im Rahmen der Arbeit wird \gqq{FakeBob} auf das Open-Source System \gqq{Kaldi} und auf die kommerziellen Systeme \gqq{Talentedsoft} und \gqq{Microsoft Azure} angewandt.
+\gqq{FakeBob} erzielt hierbei eine 100~\% Attack-Succes-Rate bei \gqq{Kaldi} und \gqq{Talentedsoft}, welche sowohl die Verteilung als auch die Entscheidung bereitstellen.
 Bei \gqq{Microsoft Azure} steht nur die Entscheidung zur Verfügung.
-Hier erreicht \gqq{FakeBob} eine Attack-Success-Rate von 26 \% \autocite[vgl. ][]{chen_who_2020}.
+Hier erreicht \gqq{FakeBob} eine Attack-Success-Rate von 26~\% \autocite[vgl. ][]{chen_who_2020}.
 
 Um biometrischen Spoofing Attacken entgegenzuwirken, gibt es eine sogenannte \ac{PAD}.
 \ac{PAD} verwendet verschiedene Techniken und Algorithmen um gefälschte oder vorab aufgezeichnete Sprachaufnahmen zu identifizieren \autocite[vgl. ][]{paravision_introduction_2022}
@@ -33,7 +34,7 @@ Backdoor Attacken beschreiben das Vorgehen, bei dem der Hacker gezielt die Train
 Die Untersuchungen von Tongqing Zhai zeigen ein solches Verfahren auf.
 Hierzu bearbeitet der Hacker der Trainingsdatensatz, ohne Kenntnis über den eigentlichen Anmeldungsprozess.
 In der Arbeit werden unterschiedliche Ansätze zur Veränderung auf zwei Datensätzen durchgeführt.
-Hierbei werden Attack Success Rates zwischen mindestens 45\% und maximal 99,5\% erreicht \autocite[vgl. ][]{zhai_backdoor_2021}
+Hierbei werden Attack Success Rates zwischen mindestens 45~\% und maximal 99,5~\% erreicht \autocite[vgl. ][]{zhai_backdoor_2021}
 
 Um sich vor Backdoor Attacken zu schützen, kann die Integrität des Datensatzes überprüft werden, um so Manipulationen zu identifizieren.
 Dies kann beispielsweise durch ein Prüfsummen Verfahren realisiert werden.
@@ -52,14 +53,17 @@ Um oben genannte Eavesdropping Angriffe zu vermeiden, kann vor das Sprecherauthe
 Somit kann durch Vorgabe eines Satzes überprüft werden, ob es sich um eine Aufnahme handelt.
 Das klassische Eavesdropping lässt sich durch die Verwendung von verschlüsselten Kommunikationsverbindungen vermeiden.
 
+\subsubsection{Einordnen in die STRIDE-Kategorien}
 
+% textuell: Paragraph pro Kategorie
 
+\subsubsection{DREAD-Analyse}
 
+% Übersichststabelle und dann gleich mit DREAD Bewertung
 
+\subsection{Bezug zum Demosystem}
 
-
-
-
+% textuell
 
 
 
