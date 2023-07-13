@@ -21,7 +21,7 @@ Die Manipulation einer Sprachaufnahme bedeutet das Anpassen, beziehungsweise das
 Guangke Chen setzt in seinem Angriffssystem \gqq{FakeBob} auf Pertubation.
 Hierbei wird auf ein Audio Quellsignal eine Störung angewandt, die es ermöglicht, dass das attackierte Sprecherauthentifikationssystem einen anderen Benutzer authentifiziert.
 Dabei ist es für einen Menschen nicht möglich, einen Unterschied zwischen der originalen Aufnahme und der veränderten Aufnahme wahrzunehmen, wodurch der Angriff vertuschbar ist.
-\gqq{FakeBob} attackiert hierbei im Black-Box Modus und hat somit lediglich Zugang zum Authentifizierungsergebnis und bei zwei von drei Versuchs-Systemen auf die Ergebnisverteilung.
+\gqq{FakeBob} attackiert hierbei im Black-Box Modus und hat somit lediglich Zugang zum Authentifizierungsergebnis und bei zwei von drei Versuchssystemen auf die Ergebnisverteilung.
 Im Rahmen der Arbeit wird \gqq{FakeBob} auf das Open-Source System \gqq{Kaldi} und auf die kommerziellen Systeme \gqq{Talentedsoft} und \gqq{Microsoft Azure} angewandt.
 \gqq{FakeBob} erzielt hierbei eine 100~\% Attack-Succes-Rate bei \gqq{Kaldi} und \gqq{Talentedsoft}, welche sowohl die Verteilung als auch die Entscheidung bereitstellen.
 Bei \gqq{Microsoft Azure} steht nur die Entscheidung zur Verfügung.
@@ -131,7 +131,7 @@ Bei einer Entwicklung als Produktivsystem sollten diese Risiken beachtet werden 
 \subsection{Bezug zum Demosystem}
 
 Das in Kapitel~\ref{sec:umsetzung_demo} entwickelte Demosystem unterscheidet sich gravierend von einer Produktivlösung.
-Dieses System wurde ausschließlich dazu entwickelt, um die Ergebnisse aus dem Versuchs-System anhand eines praktischen Authentifizierungsablaufs darzustellen und kann auf keinen Fall mit einem ausgereiften System verglichen werden.
+Dieses System wurde ausschließlich dazu entwickelt, um die Ergebnisse aus dem Versuchssystem anhand eines praktischen Authentifizierungsablaufs darzustellen und kann auf keinen Fall mit einem ausgereiften System verglichen werden.
 Die oben genannte Sicherheitsrisiken existieren somit nicht für das Demosystem, da zum einen keine externen Eingaben wie Stimm-Aufnahmen ins System gegeben werden können und das System zum anderen keine persönlichen oder kritischen Daten schützt.
 
 Wenn das System als Produktivlösung implementiert werden würde, müssten die oben genannten Maßnahmen zur Risikominimierung berücksichtigt werden.
