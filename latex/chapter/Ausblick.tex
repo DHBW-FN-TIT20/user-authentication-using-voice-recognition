@@ -1,10 +1,10 @@
 \section{Ausblick}\label{sec:Ausblick}
-Wie bereits im vorangehenden Kapitel beschrieben, wurden in dieser Arbeit ein grundlegendes System für die Sprecherauthentifizierung erarbeitet.
-In dieser Arbeit wird dabei nur ein kleiner Teilaspekt der Sprecherauthentifizierung genauer untersucht, während andere Aspekte nicht genauer betrachtet werden.
+Wie bereits im vorangehenden Kapitel beschrieben, wurden in dieser Arbeit ein grundlegendes System für die Sprecherauthentifikation erarbeitet.
+In dieser Arbeit wird dabei nur ein kleiner Teilaspekt der Sprecherauthentifikation genauer untersucht, während andere Aspekte nicht genauer betrachtet werden.
 Diese Aspekte können im Rahmen einer anschließenden Studie genauer untersucht werden.
 Eine Auswahl möglicher Vertiefungen ist in den folgenden Unterkapiteln beschrieben.
 
-\subsection{Praktische evaluation der Sicherheitsrisiken}
+\subsection{Praktische Evaluation der Sicherheitsrisiken}
 Die in Kapitel~\ref{sec:Sicherheitsrisiken} aufgezeigten Risiken können im Rahmen einer anschließenden Arbeit genauer evaluiert werden.
 Dazu werden ausgewählte Angriffspunkte konzipiert und implementiert.
 In einer ausführlichen Durchführung kann die in dieser Arbeit getroffene Einstufung der Sicherheitsrisiken verifiziert, beziehungsweise widerlegt werden.
@@ -13,7 +13,7 @@ Denkbar wäre hier auch ein vorher-nachher Vergleich zur Evaluierung der Effekti
 
 \subsection{Weiterführende Evaluierung der in dieser Arbeit verwendeten Merkmale}
 In der Evaluation (Kapitel~\ref{sec:Evaluation}) wurde die Aussage getroffen, dass eine weiterführende Analyse der verwendeten \ac{MFCC} und \ac{dMFCC} Merkmalen unter Betracht der geringen Verbesserung über den Rahmen dieser Arbeit hinaus geht.
-Im Rahmen einer weiteren Arbeit kann dieser Punkt aufgegriffen werden und gezielt die zu verwendende Koeffizientenanzahl, sowie Framegröße und -länge evaluiert werden.
+Im Rahmen weiterer Arbeiten kann dieser Punkt aufgegriffen werden und gezielt die zu verwendende Koeffizientenanzahl, sowie Framegröße und -länge evaluiert werden.
 Um den Aspekt des Rechenaufwands dabei nicht zu vernachlässigen, kann eine Metrik erstellt werden, die die Erhöhung der Koeffizientenanzahl und damit auch des Rechenaufwands mit der erzielten Verbesserung ins Verhältnis setzt.
 
 \subsection{Optimierung durch Anpassung des Neuronalen Netzes}
@@ -24,7 +24,7 @@ Mittels detaillierterer Recherchen im Bereich der \ac{NN} sowie zusätzliche Ver
 Ein weiterer möglicher Aspekt in diesem Zusammenhang stellt die Art und Weise der Klassifizierung durch das \ac{NN} dar.
 In dieser Arbeit wird mittels des \ac{NN} jedem Frame eine SprecherId zugeordnet, wobei für jeden Sprecher ein Output-Neuron existiert.
 Zu überprüfen ist, ob eine Klassifikation als \gqq{authentifiziert}, beziehungsweise \gqq{nicht authentifiziert} direkt durch das \ac{NN} vorgenommen werden kann.
-Dabei ist zu entscheiden ob als Resultat für jeden Sprecher ein separates \ac{NN} erzeugt, oder ob der Input-Layer lediglich angepasst werden muss.
+Dabei ist zu entscheiden, ob als Resultat für jeden Sprecher ein separates \ac{NN} erzeugt, oder ob der Input-Layer lediglich angepasst werden muss.
 
 \subsection{Dynamische Erweiterbarkeit um zusätzliche Sprecher}
 Das in dieser Arbeit implementierte System ist für die Verwendung mit einem fest definierten Datensatz ausgelegt.
@@ -40,7 +40,7 @@ Zusätzlich kann aber auch die Relevanz der Länge des zur Verfügung stehenden 
 Für diese Arbeit wurde ein Datensatz ausgewählt, welcher Sprecher enthält, die sich akustisch durch die Evaluierung eines Menschen eindeutig auseinanderhalten lassen.
 Dies ist im Realeinsatz jedoch nicht immer der Fall.
 Es besteht die Möglichkeit, dass sich Stimmen verschiedener Sprecher nur minimal unterscheiden (beispielsweise bei Zwillingen).
-Durch eine Untersuchung kann evaluiert werden, in wie fern das System in der Lage ist diese Personen korrekt zu authentifizieren und damit auseinanderzuhalten.
+Durch eine Untersuchung kann evaluiert werden, inwiefern das System in der Lage ist, diese Personen korrekt zu authentifizieren und damit auseinanderzuhalten.
 Neben der Evaluation des Systems aus dieser Arbeit gilt es dabei zu erörtern, ob es spezielle Merkmale gibt, die sich in besonderer Weise für die Authentifizierung ähnlicher Sprecher eignen.
 
 \subsection{Qualität und Inhalt des Audiomaterials}
@@ -48,4 +48,4 @@ Der in dieser Arbeit verwendete Datensatz besteht ausschließlich aus Aufzeichnu
 Im realen Einsatz besteht die Möglichkeit, dass sowohl andere Sprachen, als auch verschiedene Aufnahmequalitäten auftreten.
 Diese beiden Punkte können getrennt voneinander in einer weiterführenden Arbeit evaluiert werden.
 Dabei kann bei der verwendeten Sprache sowohl eine Bewertung zwischen mehreren Systemen, die jeweils eine Sprache verwenden, durchgeführt werden, als auch innerhalb eines Systems, welches mehrere Sprecher mit unterschiedlichen Sprachen implementieren.
-Für den Aspekt der Aufnahmequalität ist können einerseits technische Einflüsse wie Störungen oder unterschiedliche Mikrofone betrachtet werden oder andererseits Störgeräusche in Form von Umgebungslärm, beispiel durch Stimmen mehrerer Personen im Hintergrund.
+Für den Aspekt der Aufnahmequalität können einerseits technische Einflüsse wie Störungen oder unterschiedliche Mikrofone betrachtet werden oder andererseits Störgeräusche in Form von Umgebungslärm, zum Beispiel durch Stimmen mehrerer Personen im Hintergrund.
