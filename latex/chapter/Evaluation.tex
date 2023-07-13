@@ -6,7 +6,7 @@ Hierzu werden die Ergebnisse aufbereitet und anhand mehrerer Metriken verglichen
 Das Versuchssystem wird über das Ausführen der \codestyle{main.py}-Datei gestartet (siehe linke Lane im Sequenzdiagramm (Abbildung \ref{fig:sequenzdiagramm-versuchssystem})).
 Hier lässt sich spezifizieren, welche der Konfigurationen bei der aktuellen Ausführung analysiert werden sollen, wie man in Zeile~\ref{line:runrange} des Listing~\ref{lst-mainpy} erkennen kann.
 
-\begin{lstlisting}[language=Python,numbers=none,caption=Ausführen einer Versuchsreihe,label=lst-mainpy,escapechar=|]
+\begin{lstlisting}[language=Python,caption=Ausführen einer Versuchsreihe,label=lst-mainpy,escapechar=|]
 # load configs from json file
 configs = []
 with open(os.path.join(os.path.dirname(__file__), "Configs", "configs.json"), "r") as json_file:
@@ -23,6 +23,8 @@ Da die Analyse von einer Konfiguration im Durchschnitt etwa 35 Minuten dauert, w
 Es kommen insgesamt fünf verschiedene Geräte mit unterschiedlicher Leistung zum Einsatz, die die Konfigurationen blockweise abarbeiten.
 Der gesamte Prozess dauert ca. eineinhalb Wochen, wobei zu beachten ist, dass die verwendeten Geräte nicht rund um die Uhr rechnen.
 Die Ergebnisse der Analysen werden in CSV-Dateien geschrieben, welche nach dem Beenden der Berechnungen zusammengeführt werden.
+
+\textauthor{\vJB}{}{}
 
 Für die Auswertung der Zuordnungsverteilungen aller Konfigurationen des Versuchssystems werden die Ergebnisse zunächst grafisch dargestellt.
 Dabei werden in allen Grafiken die Ergebnisse der drei neuronalen Netze pro Konfiguration miteinander verrechnet.
@@ -87,7 +89,7 @@ In einer detaillierteren Analyse im Direktvergleich ergeben sich die in Tabelle~
 \end{table}
 
 Die Evaluation ergibt somit, dass die Konfiguration mit der ID 472 die besten Ergebnisse erzielt.
-Dabei werden 1500 Frames bei einer Frame-Größe von 600 Samples generiert.
+Dabei werden 15000 Frames bei einer Frame-Größe von 600 Samples generiert.
 Daraufhin werden 20 \ac{MFCC} Koeffizienten, sowie 13 \ac{dMFCC} Koeffizienten pro Frame erzeugt, welche durch das neuronale Netz ausgewertet werden.
 \ac{LPC} und \ac{LPCC} zeigen in den ausgewählten Konfigurationen keinen signifikanten Mehrwert, weshalb diese nicht verwendet werden.
 
@@ -134,12 +136,12 @@ Dabei muss jedoch mit beachtet werden, dass mit dieser kleinen Verbesserung auch
 Auf der einen Seite wird eine längere Audioaufzeichnung zur Authentifizierung benötigt, da die Framelänge um 200 Samples erhöht wird.
 Auf der anderen Seite steigt auch der Rechenaufwand, da anstelle von 20 \ac{MFCC} Koeffizienten nun 27 Koeffizienten berechnet werden müssen.
 
-Unter Anbetracht des erhöhten Aufwands wird somit von einer weiterreichenden Analyse abgesehen.
+Unter Anbetracht des erhöhten Aufwands wird somit von einer weiterreichenden Analyse mit mehr als 27 Koeffizienten abgesehen.
 Da die Veränderungen die zu dem verbesserten Ergebnis führen für die einmalige Berechnung des Neuronalen Netzes des Demosystems tragbar sind, wird die für das Demosystem zu verwendende Konfiguration auf die Konfiguration mit der ID \textbf{516} festgelegt.
 
-Wie in Kapitel~\ref{sec:UmsetzungServer} bereits vorweggenommen, wird das neuronale Netz für die Verwendung in dem Demosystem erneut Trainiert, wobei die Epochen von 250 auf 500 erhöht werden.
+Um die Genauigkeit der Konfiguration für den Einsatz im Demosystem noch einmal zu erhöhen, wird das neuronale Netz erneut Trainiert, wobei die Epochen von 250 auf 500 erhöht werden.
 Die Ergebnisse sind in Tabelle~\ref{table:resultsDemoSystemNN} aufgeführt.
-Unter Verwendung des selben Thresholds von 65 \% wird eine weitere Verbesserung um 2,7 Prozentpunkte im Bereich der richtig zugeordneten Samples erreicht.
+Unter Verwendung des selben Thresholds von 65~\% wird eine weitere Verbesserung um 2,7 Prozentpunkte im Bereich der richtig zugeordneten Samples erreicht.
 
 \begin{table}[H]
     \centering
@@ -153,9 +155,11 @@ Unter Verwendung des selben Thresholds von 65 \% wird eine weitere Verbesserung 
 \end{table}
 
 Da die Anzahl an falsch zugeordneten Samples mit einem Prozentpunkt bereits sehr gering ist, kann hier durch eine Erhöhung des Thresholds das System im Bezug auf den Aspekt der Sicherheit weiter optimiert werden.
-Durch die Erhöhung von 65 \% auf 70 \% werden keine Samples mehr falsch zugeordnet, gleichzeitig verschlechtert sich jedoch auch die Anzahl an richtig zugeordneten Samples.
+Durch die Erhöhung von 65~\% auf 70~\% werden keine Samples mehr falsch zugeordnet, gleichzeitig verschlechtert sich jedoch auch die Anzahl an richtig zugeordneten Samples.
 
 Die Verschlechterung lässt sich durch zwei Aspekte rechtfertigen.
 Auf der einen Seite ist es für Benutzer durch die Optimierung nicht mehr möglich, sich als eine andere Person zu authentifizieren.
-Auf der anderen Seite sorgt die erhöhte Anzahl nicht zugeordneter Samples lediglich dafür, dass in 10 \% der Fälle eine erneute Aufzeichnung der Stimme für die Authentifizierung von Nöten ist.
+Auf der anderen Seite sorgt die erhöhte Anzahl nicht zugeordneter Samples lediglich dafür, dass in 10~\% der Fälle eine erneute Aufzeichnung der Stimme für die Authentifizierung von Nöten ist.
 Dieser Aufwand ist in Relation zu der gewonnenen Sicherheit sehr gering.
+
+\textauthor{\vHS}{}{}
