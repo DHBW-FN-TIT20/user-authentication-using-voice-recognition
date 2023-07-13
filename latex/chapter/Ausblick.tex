@@ -1,7 +1,7 @@
 \section{Ausblick}
-Mit dieser Arbeit konnte erfolgreich gezeigt werden, dass eine Authentifizierung mittels Sprechererkennung in einer ausgewählten Gruppe an Benutzern möglich und zuverlässig ist.
-Außerdem wurden verschiedene Sicherheitsrisiken benannt und bewertet.
-Im Zuge einer weiteren Arbeit können nun verschiedene Aspekte genauer betrachtet werden.
+Wie bereits im vorangehenden Kapitel beschrieben, wurden in dieser Arbeit ein grundlegendes System für die Sprecherauthentifizierung erarbeitet.
+In dieser Arbeit wird dabei nur ein kleiner Teilaspekt der Sprecherauthentifizierung genauer untersucht, während andere Aspekte nicht genauer betrachtet werden.
+Diese Aspekte können im Rahmen einer anschließenden Studie genauer untersucht werden.
 Eine Auswahl möglicher Vertiefungen ist in den folgenden Unterkapiteln beschrieben.
 
 \subsection{Praktische evaluation der Sicherheitsrisiken}
@@ -16,7 +16,7 @@ In der Evaluation (Kapitel~\ref{sec:Evaluation}) wurde die Aussage getroffen, da
 Im Rahmen einer weiteren Arbeit kann dieser Punkt aufgegriffen werden und gezielt die zu verwendende Koeffizientenanzahl, sowie Framegröße und -länge evaluiert werden.
 Um den Aspekt des Rechenaufwands dabei nicht zu vernachlässigen, kann eine Metrik erstellt werden, die die Erhöhung der Koeffizientenanzahl und damit auch des Rechenaufwands mit der erzielten Verbesserung ins Verhältnis setzt.
 
-\subsection{Optimierung des Systems durch Anpassung des Neuronalen Netzes}
+\subsection{Optimierung durch Anpassung des Neuronalen Netzes}
 Der in dieser Arbeit verwendete Aufbau des \ac{NN} wurde zu Beginn festgelegt und nicht näher untersucht.
 Die Struktur des \ac{NN} spielt dabei jedoch eine zentrale Rolle in der Klassifikation durch das \ac{NN}.
 Mittels detaillierterer Recherchen im Bereich der \ac{NN} sowie zusätzliche Versuchsreihen, kann evaluiert werden, ob eine Verbesserung der Authentifizierung durch eine andere \ac{NN}-Struktur erreichbar ist.
@@ -35,6 +35,13 @@ Hierbei kann neben der theoretischen Umsetzung auch der Punkt betrachtet werden,
 Gleichzeitig gewinnt auch die benötigte Länge an Audiomaterial für den Trainingsprozess von Bedeutung.
 Hier kann einerseits der allgemeine Zusammenhang zwischen der Länge des zur Verfügung stehenden Audiomaterials und der Zuverlässigkeit des \ac{NN} untersucht werden.
 Zusätzlich kann aber auch die Relevanz der Länge des zur Verfügung stehenden Audiomaterials bei einer steigenden Anzahl an Benutzern untersucht werden.
+
+\subsection{Zuverlässigkeitsanalyse ähnlicher Sprecher}
+Für diese Arbeit wurde ein Datensatz ausgewählt, welcher Sprecher enthält, die sich akustisch durch die Evaluierung eines Menschen eindeutig auseinanderhalten lassen.
+Dies ist im Realeinsatz jedoch nicht immer der Fall.
+Es besteht die Möglichkeit, dass sich Stimmen verschiedener Sprecher nur minimal unterscheiden (beispielsweise bei Zwillingen).
+Durch eine Untersuchung kann evaluiert werden, in wie fern das System in der Lage ist diese Personen korrekt zu authentifizieren und damit auseinanderzuhalten.
+Neben der Evaluation des Systems aus dieser Arbeit gilt es dabei zu erörtern, ob es spezielle Merkmale gibt, die sich in besonderer Weise für die Authentifizierung ähnlicher Sprecher eignen.
 
 \subsection{Qualität und Inhalt des Audiomaterials}
 Der in dieser Arbeit verwendete Datensatz besteht ausschließlich aus Aufzeichnungen englischer Sprache, die unter gleicher Bedingung aufgenommen sind.
