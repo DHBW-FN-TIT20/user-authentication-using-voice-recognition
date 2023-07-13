@@ -1,6 +1,6 @@
-% TODO Auch mögliche Lösungen werden vorgestellt nicht nur die Risiken.
 \section{Analyse der Sicherheitsrisiken}
 In dem vorliegenden Kapitel wird die Analyse der Sicherheitsrisiken von Sprecherauthentifikationssystemen durchgeführt.
+Dazu werden mögliche Angriffsszenarien und entsprechende Gegenmaßnahmen vorgestellt.
 Dabei wird die Analyse zunächst auf ein allgemeines System bezogen und die erarbeiteten Sicherheitsrisiken dann auf das entwickelte Demosystem bezogen.
 Dies ist möglich, da das Demosystem, wessen Entwicklungen in den vorausgegangenen Kapiteln beschrieben wurde, von diesem allgemeinen System abgeleitet ist.
 
@@ -38,6 +38,19 @@ Hierbei werden Attack Success Rates zwischen mindestens 45\% und maximal 99,5\% 
 Um sich vor Backdoor Attacken zu schützen, kann die Integrität des Datensatzes überprüft werden, um so Manipulationen zu identifizieren.
 Dies kann beispielsweise durch ein Prüfsummen Verfahren realisiert werden.
 
+Eavesdropping bezeichnet im Allgemeinen das Abhören.
+Dies kann im Bezug auf Sprecherauthentifikationssysteme auf unterschiedliche Art und Weise durchgeführt werden.
+Grundsätzlich kann der zu authentifizierende Sprecher direkt aufgenommen werden.
+Hierzu eignen sich beispielsweise Telefongespräche oder Fake-Interviews.
+Diese Aufnahme kann im Anschluss zur Authentifizierung am System verwendet werden.
+Alternativ können Angreifer auf online Sprach- bzw. Videoaufnahmen zurückgreifen.
+
+Ein weiterer Ansatz ist das klassische Eavesdropping, hierbei spioniert der Angreifer die Kommunikationsverbindung zwischen Benutzer und System aus und zeichnet diese auf.
+Mit dieser Aufzeichnung kann er sich zu späterem Zeitpunkt ebenfalls am System anmelden.
+
+Um oben genannte Eavesdropping Angriffe zu vermeiden, kann vor das Sprecherauthentifikationssystem eine Texterkennung geschaltet werden.
+Somit kann durch Vorgabe eines Satzes überprüft werden, ob es sich um eine Aufnahme handelt.
+Das klassische Eavesdropping lässt sich durch die Verwendung von verschlüsselten Kommunikationsverbindungen vermeiden.
 
 
 
