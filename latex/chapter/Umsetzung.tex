@@ -1,23 +1,25 @@
 \section{Umsetzung}
 
 Das vorliegende Kapitel befasst sich mit der Umsetzung des Versuchssystems und des Demosystems.
-Dazu wird zunächst eine Technologieentscheidung für das Versuchssystem getroffen, auf Basis dieser, wird auch eine Entscheidung für das Demosystem getroffen.
+Dazu wird zunächst eine Technologieentscheidung durchgeführt.
 In einem weiteren Schritt wird die systematische Umsetzung der beiden Systeme dargestellt.
 
 \subsection{Technologieentscheidung}
+Die Technologieentscheidung unterteilt sich ebenfalls in eine eigenständige Entscheidung für das Versuchssystem, sowie das Demosystem.
+Durch die Abhängigkeit der beiden Systeme, bezieht sich die Technologieentscheidung des Demosystems auf die Entscheidung des Versuchssystems.
 
 \subsubsection{Versuchssystem}\label{sec:TechnologieVersuchssystem}
 
 Aus der Konzeption in Kapitel~\ref{sec:Konzeption} gehen verschiedene Anforderungen an die Technologie hervor.
 Durch die Verwendung von neuronalen Netzen werden die verfügbaren Technologien bzw. Programmiersprachen bereits eingeschränkt.
-Um weitere Technologieenscheidungen zu treffen, muss zunächst eine Programmiersprache ausgewählt werden.
-Da in einer Umfrage unter Machine-Learning-Entwicklern und Data Scientists 57\% Python als Programmiersprache nutzen und 33\% diese sogar priorisieren, wird für dieses Projekt Python als Programmiersprache festgelegt \autocite[vgl. ][S. 16]{vision_mobile_state_2017}.
-In einer allgemeinen Umfrage zu verwendeten Programmiersprachen liegt Python mit 49,2\% auf Platz drei \autocite[vgl.][]{yepis_2023_2023}.
+Um weitere Technologieentscheidungen zu treffen, muss zunächst eine Programmiersprache ausgewählt werden.
+Da in einer Umfrage unter Machine-Learning-Entwicklern und Data Scientists 57~\% Python als Programmiersprache nutzen und 33~\% diese sogar priorisieren, wird für dieses Projekt Python als Programmiersprache festgelegt \autocite[vgl. ][S. 16]{vision_mobile_state_2017}.
+In einer allgemeinen Umfrage zu verwendeten Programmiersprachen liegt Python mit 49,2~\% auf Platz drei \autocite[vgl.][]{yepis_2023_2023}.
 Das bedeutet, dass knapp die Hälfte der befragten Entwickler unter anderem Python verwenden, somit ist eine ausreichende Verbreitung gewährleistet.
 Die Verbreitung ist vor allem deshalb ein wichtiger Aspekt, da es durch eine hohe Verbreitung ein großes Eco-System mit vielen quelloffenen Ressourcen und bereits durchgeführten Projekten gibt.
 
 Um Machine-Learning mit Python zu betreiben, gibt es mehrere Bibliotheken zur Auswahl.
-Die 3 bekanntesten Open-Source-Bibliotheken sind dabei \gqq{TensorFlow}, \gqq{PyTorch} und \gqq{SciKit-Lern} \autocite[vgl.][]{msv_tensorflow_2020}.
+Die drei bekanntesten Open-Source-Bibliotheken sind dabei \gqq{TensorFlow}, \gqq{PyTorch} und \gqq{SciKit-Lern} \autocite[vgl.][]{msv_tensorflow_2020}.
 
 Diese Bibliotheken sind sich relativ ähnlich.
 Vorteile einer Bibliothek bringen automatisch auch Nachteile, die sich somit gegenseitig aufheben.
@@ -26,6 +28,8 @@ Für diese Studienarbeit wird TensorFlow genutzt, da es laut der \gqq{Stack Over
 Zudem spricht für diese Entscheidung auch die Tatsache, dass die Entwickler dieser Studienarbeit bereits Vorkenntnisse in TensorFlow haben.
 
 Zusätzlich wird das Modul \gqq{Keras} verwendet, welches eine entwicklerfreundliche High-Level-Schnittstelle für TensorFlow ist und somit eine einfachere Entwicklung ermöglicht \autocite[vgl.][]{noauthor_keras_2023}.
+
+\textauthor{\vJB,}{\vLB}{}
 
 \subsubsection{Demosystem}
 Für die Technologieentscheidung muss zunächst zwischen den zwei Komponenten Client und Server unterscheiden werden.
@@ -78,9 +82,16 @@ Bei Flask handelt es sich um ein Web Framework, welches eine Bereitstellung von 
 Somit können alle Anforderungen an die Serverapplikation mittels der Programmiersprache Python umgesetzt werden.
 Dazu können die bereits entwickelten Komponenten für den Authentifizierungsprozess aus dem Versuchssystem übernommen werden.
 
-\subsection{Versuchssystem}\label{sec:UmsetzungVersuchssystem}
+\textauthor{\vHS}{}{}
 
-\subsubsection{Feature Kombination}
+\subsection{Versuchssystem}\label{sec:UmsetzungVersuchssystem}
+Die Umsetzung des Versuchssystems unterteilt sich in vier Unterkapitel.
+Analog zu der Konzeption des Versuchssystems in Kapitel~\ref{sec:KonzeptVersuchssystem}, wird zunächst auf die Generierung der Feature-Kombinationen eingegangen.
+Anschließend wird ein Datensatz ausgewählt und für die Verwendung in diesem System vorbereitet.
+Daraufhin wird die Umsetzung der Audio-Vorverarbeitung sowie der Feature Extraktion genau beschrieben.
+Abgeschlossen wird das Kapitel mit der Umsetzung der Klassifikation und Evaluierung.
+
+\subsubsection{Feature-Kombination}
 
 Wie bereits in Kapitel~\ref{sec:FeatureKombination} erwähnt, müssen zuerst die verschiedenen Konfigurationen erzeugt werden.
 Hierzu werden die vorher definierten Werte in einer JSON-Datei erfasst und durch ein eigenes Kombinierungs-Skript alle möglichen Konfiguration mit einer ID erzeugt.
@@ -114,21 +125,21 @@ Der \codestyle{weight} Parameter gibt lediglich an, ob in dieser Konfiguration d
 So gibt es auch manche Kombinationen, die beispielsweise nur \ac{MFCC}-Merkmale in der Analyse berücksichtigen.
 Hierbei muss beachtet werden, dass durch die Kombination auch Konfigurationen entstehen, in welchen nichts berechnet werden muss.
 Diese werden manuell entfernt.
-Die anderen Variablen wie \codestyle{order} und dessen Werte wurde bereits in ~\ref{sec:FeatureKombination} erklärt.
+Die anderen Variablen wie \codestyle{order} und dessen Werte wurden bereits in Kapitel~\ref{sec:FeatureKombination} erklärt.
 
 \subsubsection{Datensatz}
 Für die Evaluierung der Stimmmerkmale wird ein geeigneter Datensatz benötigt.
 Hierzu wurde nach einer Internetrecherche auf der Plattform \gqq{Kaggle} ein entsprechender Datensatz gefunden, der die Anforderung aus Kapitel~\ref{sec:KonzeptDatensatz} erfüllt \autocite[vgl.][]{jain_speaker_2019}. 
 Der Originaldatensatz enthält Audiodaten zu 50 Sprechern mit mindestens 60 Minuten Aufzeichnung pro Sprecher in mehreren kompressionslosen WAV Dateien.
 
-In einem ersten Schritt müssen die manuell Daten aufbereitet werden.
+In einem ersten Schritt müssen die Daten manuell aufbereitet werden.
 Der Originaldatensatz lässt sich in zwei Teile teilen, während der erste Teil aus YouTube Videos besteht, sind im zweiten Teil Aufnahmen von englischen Hörbüchern enthalten.
-Da die Aufnahmequalität der Hörbücher deutlich besser ist, wurden nur diese Datensätze weiterverwendet.
+Da die Aufnahmequalität der Hörbücher deutlich besser ist, werden nur diese Datensätze weiterverwendet.
 In einem Folgeschritt werden die einzelnen Dateien der Datensätze zu einer Datei zusammengefügt und genauer betrachtet.
-Hierbei konnten längere Pausen und Abweichungen der Datensätze, wie z.B. mehrere Sprecher oder eine andere Sprache identifiziert werden.
-Diese Pausen wurden entfernt und die betroffenen Datensätze aus dem Datensatz entfernt.
-Dadurch bleiben 25 geeignete Datensätze übrig, aus diesen wurden unter dem Aspekt des Geschlechts 20 Datensätze ausgewählt, sodass neun weibliche und elf männliche Sprecher im finalen Datensatz sind, da nur neun weibliche Datensätze geeignet sind.
-Abschließend wurde für jeden Sprecher eine Audiodatei zum Trainieren des neuronalen Netzes mit acht Minuten erstellt und zur Evaluation neun Sequenzen mit jeweils 15 Sekunden.
+Hierbei können längere Pausen und Abweichungen der Datensätze, wie z.B. mehrere Sprecher oder eine andere Sprache identifiziert werden.
+Diese Pausen werden entfernt und die betroffenen Datensätze aus dem Datensatz entfernt.
+Dadurch bleiben 25 geeignete Datensätze übrig, aus diesen werden unter dem Aspekt des Geschlechts 20 Datensätze ausgewählt, sodass neun weibliche und elf männliche Sprecher im finalen Datensatz sind, da nur neun weibliche Datensätze geeignet sind.
+Abschließend wird für jeden Sprecher eine Audiodatei zum Trainieren des neuronalen Netzes mit acht Minuten und zur Evaluation neun Sequenzen mit jeweils 15 Sekunden erstellt.
 Das Testmaterial ist nicht im Trainingsmaterial enthalten.
 
 \subsubsection{Vorverarbeitung und Feature Extraktion}\label{section:umsetzung-versuch-vorverarbeitung}
@@ -158,15 +169,15 @@ Anschließend wird das Signal wieder zurücktransformiert \autocite[][]{sainburg
 
 Die abschließende Unterteilung des Audiosignals in Frames, sowie das Windowing der Frames findet mit Hilfe von \codestyle{numpy}-Operationen in den Funktionen \codestyle{create_frames} und \codestyle{window_frames} statt.
 Die passende Fensterfunktion wird dabei ebenfalls durch die \codestyle{numpy}-Bibliothek bereitgestellt.
-Bei dem Aufteilen in Frames wird beachtet, dass sich die Frames überlappen, da sonst durch das Windowing zu viele Informationen verloren gehen würden.
+Bei dem Aufteilen in Frames wird eine Überlappung von 50 \% gewählt.
 
 Für das Extrahieren der Merkmale aus dem Audiosignal wird ein Ansatz gewählt, der eine einfache Erweiterung des Programms um verschiedene andere Verfahren ermöglicht.
 Dazu wird das Designmuster Strategie in abgewandelter Form verwendet, wobei zunächst ein Interface für die Berechnungsverfahren erstellt werden muss.
 Dieses definiert die Funktion \codestyle{calculate_features}, welche in den abgeleiteten Klassen implementiert wird.
 Für die eigentlichen Berechnungen der Koeffizienten wird wieder die Signal-Verarbeitungs-Bibliothek Librosa verwendet.
 Beispielhaft für die Berechnung von \ac{MFCC} sieht man in Listing~\ref{lst-MFCCExtractor}, wie unkompliziert sich die Bibliothek Librosa verwenden lässt.
-Allerdings müssen viele Parameter, wie zum Beispiel die Länge des zu verwendenden FFT-Fenster (\codestyle{n_fft}) gefüllt bzw. geändert werden.
-Diese Werte ergeben sich aus den von uns ausgewählten Parameter (beschrieben in~\ref{sec:FeatureKombination}) und den Anweisungen in der offiziellen Dokumentation der Librosa-Bibliothek \autocite[vgl. ][]{librosa_development_team_librosa_2023}
+Allerdings müssen viele Parameter, wie zum Beispiel die Länge des zu verwendenden FFT-Fensters (\codestyle{n_fft}) gefüllt bzw. geändert werden.
+Diese Werte ergeben sich aus den von uns ausgewählten Parameter (beschrieben in~\ref{sec:FeatureKombination}) und den Anweisungen in der offiziellen Dokumentation der Librosa-Bibliothek \autocite[vgl. ][]{librosa_development_team_librosa_2023}.
 
 \begin{lstlisting}[language=Python,numbers=none,caption=Klasse zur Extraktion von MFCC-Merkmalen,label=lst-MFCCExtractor]
 class MFCCExtractor(ExtractorInterface):
@@ -236,8 +247,10 @@ Die Anzahl der Frames ist dabei von der Frame-Länge der jeweiligen Konfiguratio
 Da für jeden Sprecher fünf Testdateien verwendet werden (die Schleife hierfür wird übersichtlichkeitshalber nicht in den Listings gezeigt), entstehen pro neuronalem Netz 100 Zuordnungsverteilungen.
 Durch die Berechnung von drei neuronalen Netzen pro Konfiguration ergibt dies 300 Zuordnungsverteilungen pro Konfiguration.
 
-Nach Abschluss der Klassifikation aller Features können diese Datensätze ausgewertet werden und somit ein Rückschluss auf die beste Merkmalskombination getroffen werden.
+Nach Abschluss der Klassifikation aller Features können diese Datensätze ausgewertet und somit ein Rückschluss auf die beste Merkmalskombination getroffen werden.
 Die Durchführung und Evaluation des Versuchs sind in Kapitel~\ref{sec:Evaluation} dargestellt.
+
+\textauthor{\vJB,}{\vLB}{}
 
 \subsection{Demosystem}
 Die Umsetzung von Client und Server ist im Folgenden beschrieben.
@@ -285,7 +298,7 @@ Der \ac{HTML}-Code ist in ReactJS in den \textOrdner{*.tsx} Dateien enthalten un
 Da es sich bei der Client-Applikation um eine Single Page Application handelt, stellt die \textOrdner{index.tsx} Datei den einzigen Einstiegspunkt der Applikation dar.
 Darin wird die Komponente \textKlasse{App} aus der Datei \textOrdner{App.tsx} eingebunden.
 
-Zusätzlich können einzelne Komponenten in separate Dateien ausgelagert werden um auf der einen Seite eine bessere Codeübersicht zu erzeugen und auf der anderen Seite einzelne Visualisierungen an verschiedenen Stellen zu implementieren.
+Zusätzlich können einzelne Komponenten in separate Dateien ausgelagert werden, um auf der einen Seite eine bessere Codeübersicht zu erzeugen und auf der anderen Seite einzelne Visualisierungen an verschiedenen Stellen zu implementieren.
 Diese Komponenten werden in dem Unterordner \textOrdner{src/shared/components} abgelegt.
 
 Die Benutzeroberfläche der \textKlasse{App} Komponente zeigt eine Login-Abfrage (siehe Abbildung~\ref{fig:AppLogin}).
@@ -343,7 +356,7 @@ Für die Erzeugung der Liste in der Benutzeroberfläche, wird die JSX-Funktion \
 </div>
 \end{lstlisting}
 
-Um die Benutzerfreundlichkeit zu verbessern besteht dabei zusätzlich die Möglichkeit, die ausgewählte Datei im Browser abzuspielen.
+Um die Benutzerfreundlichkeit zu verbessern, besteht dabei zusätzlich die Möglichkeit, die ausgewählte Datei im Browser abzuspielen.
 Dafür wird (wie in Listing~\ref{lst:AudioAppTsx} dargestellt) der \ac{HTML} \textFunktion{<audio>} Tag verwendet.
 Die dafür benötigten Ressourcen (WAV-Dateien) werden im Ordner \textOrdner{public/audio\_dataset} zur Verfügung gestellt.
 \begin{lstlisting}[language=HTML,caption=Audio Tag - App.tsx,label=lst:AudioAppTsx]
@@ -356,10 +369,10 @@ Die dafür benötigten Ressourcen (WAV-Dateien) werden im Ordner \textOrdner{pub
 Über den Login-Knopf wird die Authentifizierungsanfrage an den Server gesendet.
 Der Knopf kann dabei erst durch den Benutzer gedrückt werden, wenn sowohl in dem Eingabefeld eine valide Zahl steht, als auch eine Authentifizierungsdatei ausgewählt ist.
 
-Für die Anfrage an den Server wird die \textFunktion{fetch()} Funktion von JavaScript verwendet (Z.~\ref{line:FetchAppTsx}).
+Für die Anfrage an den Server wird die \textFunktion{fetch()} Funktion von JavaScript verwendet (vgl. Listing~\ref{lst:LoginAppTsx}, Z.~\ref{line:FetchAppTsx}).
 Die zu übergebenden Parameter werden als URL-Parameter angegeben.
 Ist der Server über die angegebene IP-Adresse und Port nicht erreichbar, so wird dies dem Benutzer mittels eines \textFunktion{alert()} mitgeteillt (Z.~\ref{line:AlertAppTsx}).
-\begin{lstlisting}[language=JavaScript,caption=login() App.tsx,label=lst:LoginAppTsx]
+\begin{lstlisting}[language=JavaScript,caption=login() - App.tsx,label=lst:LoginAppTsx]
 async function login(authenticatingUserId: number, sampleFileUserId: number, sampleFileIndex: number) {
     try {
         const response = await fetch(`http://${configData.SERVER_URL}:${configData.SERVER_PORT}/?speaker_id=${sampleFileUserId}&sample_id=${sampleFileIndex}&selected_speaker_id=${authenticatingUserId}`); //(*@\label{line:FetchAppTsx}@*)
@@ -417,7 +430,7 @@ Die Abarbeitung der Anfragen unterteilt sich in die in Abbildung~\ref{fig:Ablauf
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth, keepaspectratio]{images/AblaufdiagrammServerHandleApiRequest.pdf}
-    \caption{Ablauf handle\_api\_request()}
+    \caption{Ablaufdiagramm handle\_api\_request()}
     \label{fig:AblaufdiagrammServerHandleApiRequest}
 \end{figure}
 Dafür werden zunächst die übergebenen Parameter aus der URL ausgelesen.
@@ -435,11 +448,13 @@ if not (
 \end{lstlisting}
 % TODO: evtl. Ref auf genaues Kapitel aktualisieren
 Da die Generierung der Testdaten analog zu Kapitel~\ref{sec:UmsetzungVersuchssystem} verläuft, wird darauf nicht weiter eingegangen.
-Mit den generierten Daten wird anschließend die Klassifikation durch das \ac{NN} durchgeführt und die Ergebnisse aufbereitet und im JSON-Format an den Client zurück gesendet.
+Mit den generierten Daten wird anschließend die Klassifikation durch das \ac{NN} durchgeführt und die Ergebnisse aufbereitet und im JSON-Format an den Client zurückgesendet.
 
 Das neuronale Netz, welches vom Server für die Authentifizierung von Benutzern verwendet wird, ergibt sich aus der Evaluation des Versuchssystems im nachfolgenden Kapitel~\ref{sec:Evaluation}.
-Hierzu wird mit der ermittelten Konfiguration ein neues neuronales Netz unter Verwendung von einer erhöhten Anzahl an Epochen generiert, um die Genauigkeit des Systems noch einmal zu verbessern.
-Vorgreifend muss hierbei erwähnt werden, dass das System durch die Erhöhung der Epochen insofern verbessert werden konnte, dass die Grenze für die Anzahl an Frames die dem zu authentifizierenden Nutzer zugeordnet werden müssen, von 65 \% auf 70 \% erhöht werden kann.
-Deshalb zeigt die Abbildung~\ref{fig:Result} in der Wahrscheinlichkeitsverteilung einen Threshold von 70 \%.
+% Hierzu wird mit der ermittelten Konfiguration ein neues neuronales Netz unter Verwendung von einer erhöhten Anzahl an Epochen generiert, um die Genauigkeit des Systems noch einmal zu verbessern.
+% Vorgreifend muss hierbei erwähnt werden, dass das System durch die Erhöhung der Epochen insofern verbessert werden konnte, dass die Grenze für die Anzahl an Frames die dem zu authentifizierenden Nutzer zugeordnet werden müssen, von 65 \% auf 70 \% erhöht werden kann.
+% Deshalb zeigt die Abbildung~\ref{fig:Result} in der Wahrscheinlichkeitsverteilung einen Threshold von 70 \%.
 
 Über die Anweisung \textFunktion{app.run()} unter Angabe der IP-Adresse und des Ports, kann der Server gestartet werden (Listing~\ref{lst:serverPy}, Z.~\ref{line:AppRunServerPy}).
+
+\textauthor{\vHS}{}{}

@@ -1,19 +1,19 @@
 \section{Grundlagen}
 Um die Hintergründe und Herangehensweisen der Studienarbeit nachzuvollziehen müssen zunächst verschiedene Grundlagen vorgestellt werden.
-Dabei findet zunächst eine Definition des Begriffs Sprecherauthentifizierung statt.
+Dabei findet eine Definition des Begriffs Sprecherauthentifikation statt.
 Anschließend wird ein Basisverständnis für die Technische Umsetzung mittels eines Exkurses über den Aufbau der menschlichen Stimme hergestellt.
-Die konkret verwendeten Algorithmen werden in dem Kapitel Audioanalyse beschrieben.
-Außerdem findet eine kurze Einführung in den Bereich der künstlichen Intelligenz, sowie der \ac{NN} statt.
+Die konkret verwendeten Algorithmen werden in dem Kapitel \nameref{sec:Audioanalyse} beschrieben.
+Außerdem findet eine kurze Einführung in den Bereich der künstlichen Intelligenz, sowie der \acp{NN} statt.
 Abschließend werden mehrere Ansätze zur Analyse von Sicherheitsrisiken vorgestellt.
 
-\subsection{Sprecherauthentifizierung}
+\subsection{Sprecherauthentifikation}
 In der Kryptographie beschreibt der Begriff Authentifizierung \gqq{eine Identität durch eine identitätsgebundene Information zu überprüfen} \autocite[][S. 129]{tsolkas_rollen_2017}.
-Zu den identitätsgebundenen Informationen zählt unter Anderem die biometrische Information der Stimme für die Sprecherauthentifizierung.
+Zu den identitätsgebundenen Informationen zählt unter Anderem die biometrische Information der Stimme für die Sprecherauthentifikation.
 
-Zu den heutigen Einsatzgebieten der Sprecherauthentifizierung zählen hauptsächlich Telefon-Hotlines, welche anstelle oder in Ergänzung zu wissensbasierten Sicherheitsfragen auch die Informationen der Stimme auswerten um diese für die Authentifizierung zu verwenden.
-So kommt die Sprecherauthentifizierung beispielsweise bereits bei den Hotlines der schweizer Banken Postfinance, Migros und Cler, aber auch der deutschen Telekom zum Einsatz, wodurch eine Authentifizierung mittels Kundendaten unterstützt wird oder gänzlich entfällt \autocite[vgl.][]{anz_mit_2023} \autocite[vgl.][]{noauthor_authentifizierung_nodate} \autocite[vgl.][]{noauthor_meine_nodate}.
+Zu den heutigen Einsatzgebieten der Sprecherauthentifikation zählen hauptsächlich Telefon-Hotlines, welche anstelle oder in Ergänzung zu wissensbasierten Sicherheitsfragen auch die Informationen der Stimme auswerten um diese für die Authentifizierung zu verwenden.
+So kommt die Sprecherauthentifikation beispielsweise bereits bei den Hotlines der schweizer Banken Postfinance, Migros und Cler, aber auch der deutschen Telekom zum Einsatz, wodurch eine Authentifizierung mittels Kundendaten unterstützt wird oder gänzlich entfällt \autocite[vgl.][]{anz_mit_2023} \autocite[vgl.][]{noauthor_authentifizierung_nodate} \autocite[vgl.][]{noauthor_meine_nodate}.
 
-Im konkreten Anwendungsfall der Sprecherauthentifizierung wird zwischen Textunabhängigen und Textabhängigen Authentifizierungssystemen mit open-set oder closed-set Datensätzen unterschieden.
+Im konkreten Anwendungsfall der Sprecherauthentifikation wird zwischen Textunabhängigen und Textabhängigen Authentifizierungssystemen mit open-set oder closed-set Datensätzen unterschieden.
 % TODO: Grundlagen der Authentifizierung (Definition, Verfahren, ...)
 % Heutige Anwendungsbereiche und gängige Verfahren
 % (Wo/Warum) wird Stimmauthentifizierung aktuell eingesetzt?
@@ -38,7 +38,7 @@ Dadurch kann das Authentifizierungssystem mit einem bestimmten Satz trainiert we
 Im Gegensatz zu Textunabhängigen Systemen steigen jedoch die Anforderungen an die Trainingsdaten stark an, da der verwendete Satz von jedem Sprecher einzeln eingesprochen werden muss und somit keine bereits existierenden Aufzeichnungen verwendet werden können.
 
 \subsubsection{Open- und closed-set}
-Open- und closed-set Sprecherauthentifizierung unterscheidet sich in der Zusammensetzung und Klassifizierung des Test- und Anwendungsdatensatzes.
+Open- und closed-set Sprecherauthentifikation unterscheidet sich in der Zusammensetzung und Klassifizierung des Test- und Anwendungsdatensatzes.
 Während bei open-set Anwendungen sowohl Sprachaufzeichnungen von bekannten, als auch unbekannten Sprechern ausgewertet werden, ist die Anwendung bei closed-set ausschließlich auf die bekannten Sprecher begrenzt.
 
 Somit ordnet eine closed-set Anwendung eine Sprachaufzeichnung immer einem der bekannten Sprecher zu, während in einer open-set Anwendung auch eine Klassifikation als unbekannt stattfindet.
@@ -104,7 +104,9 @@ Für die Umrechnung zwischen den beiden Skalen wird folgende Formel verwendet \a
     h(f) = 2595 \cdot \log_{10}\left(1 + \frac{f}{700}\right)
 \end{equation}
 
-\subsection{Audioanalyse}
+\textauthor{\vHS}{}{}
+
+\subsection{Audioanalyse}\label{sec:Audioanalyse}
 Basierend auf den biologischen Grundlagen der menschlichen Stimme, welche im vorangehenden Kapitel vorgestellt wurden, beschäftigt sich dieses Kapitel nun mit der Generierung von Parametern aus Stimmaufzeichnungen, die einen Rückschluss auf den Sprecher erlauben.
 Dazu wird zunächst auf die benötigten Vorverarbeitungsschritte eingegangen, die zur Weiterverarbeitung der aufgezeichneten Audiodatei benötigt werden.
 Anschließend wird das grundlegende Konzept der Fourier Analyse vorgestellt, welches zusammen mit dem vorangehenden Kapitel der Stimmwahrnehmung die Basis für die \ac{MFCC} bildet.
@@ -122,7 +124,7 @@ Dabei wird zunächst die Signatur des Rauschens ermittelt.
 Basierend darauf kann das Rauschen anschließend verringert werden \autocite[vgl.][S. 25]{kiapuchinski_spectral_2012}.
 
 \paragraph{Pausen entfernen}
-Die für die Sprecherauthentifizierung relevanten Daten stecken in dem aufgezeichneten Signal der Stimme.
+Die für die Sprecherauthentifikation relevanten Daten stecken in dem aufgezeichneten Signal der Stimme.
 Sprechpausen innerhalb des Audiosignals enthalten somit keine brauchbaren Informationen, weshalb diese herausgefiltert werden müssen.
 Durch den vorangehenden Schritt der Rauschreduzierung kann hier ein stark vereinfachtes Verfahren gewählt werden.
 Liegt das Signal für einen definierten Zeitraum unterhalb einer definierten Lautstärke, werden die entsprechenden Signalwerte aus dem Gesamtsignal entfernt.
@@ -150,7 +152,7 @@ Wird der Schritt des Windowing nicht durchgeführt, führt dies zu einem Phänom
 Bei der Transformation des Signals von dem Zeitbereich in den Frequenzbereich resultiert der Amplitudensprung an den Blockenden in der Registrierung einer Vielzahl von Frequenzen.
 Wie der Name bereits beschreibt, wird aus einer eindeutigen Frequenz, ein Spektrum aus Frequenzen, die nicht Teil des Signals sind \autocite[vgl.][S. 1296]{wu_new_2012}.
 
-%%%% paste from t3000
+\textauthor{\vJB,}{\vHS}{}
 
 \subsubsection{Fourier Analyse}
 Die Grundlage für die Fourier Analyse stellt die von Jean-Baptiste Joseph Fourier entwickelte Fourier Reihe dar.
@@ -298,6 +300,8 @@ Um die \ac{MFCC} zu berechnen sind die folgenden vier Schritte notwendig \autoci
 
 Durch die Abbildung der ermittelten Frequenzen auf die Mel-Skala orientiert sich das Verfahren somit an der menschlichen Stimmwahrnehmung, welche bereits im vorangehenden Kapitel erläutert wurde.
 
+\textauthor{\vJB}{}{}
+
 \subsubsection{Linear Predicitve Coding}
 Die Grundlage von \ac{LPC} bildet das \ac{AR} Modell.
 Die \ac{AR} basiert auf dem Konzept der multiplen Regression und wird auf zeitlich veränderliche Prozesse angewandt.
@@ -327,6 +331,8 @@ Da die Struktur der Formanten sprecherspezifisch ist, kann der Sprecher somit ü
 Zur Berechnung der \ac{LPC}-Koeffizienten wird zunächst die selbe Annahme wie in Kapitel~\ref{sec:Framing} getroffen, dass sich die Form des Vokaltrakts und das in den Stimmritzen erzeugte Signal über den betrachteten Zeitraum nicht verändert \autocite[vgl.][S. 1304]{atal_effectiveness_1974}.
 Somit lassen sich die Koeffizienten des \ac{AR}-Filters mittels des Burg-Algorithmus berechnen.
 
+\textauthor{\vHS}{}{}
+
 \subsection{Künstliche Intelligenz}
 \ac{KI} hat in den letzten Jahren stark an Aufmerksamkeit gewonnen und gilt als eine der wichtigsten Technologien des 21. Jahrhunderts.
 Spätestens seit der Veröffentlichung und dem Erfolg durch den Chatbot ChatGPT am 30. November 2022 sind die Möglichkeiten von \ac{KI} den meisten Menschen bekannt. 
@@ -338,7 +344,7 @@ Dies entspricht einer Steigerung von 171 Milliarden US-Dollar (44,6 \%) im Vergl
 Dies unterstreicht noch einmal die Relevanz von \ac{KI} im aktuellen Zeitalter.
 Doch was ist \ac{KI} und wie ist Sie für diese Arbeit von Relevanz, diese Fragen werden im Folgenden beantwortet.
 
-Die Idee einer \acl{KI} ist bereits seit Mitte des 20. Jahrhunderts existent. 1955 definierte John McCarthy, einer der Pioniere der \ac{KI}, als erster den Begriff der \acl{KI} wie folgt:
+Die Idee einer \ac{KI} ist bereits seit Mitte des 20. Jahrhunderts existent. 1955 definierte John McCarthy, einer der Pioniere der \ac{KI}, als Erster den Begriff der \ac{KI} wie folgt:
 \begin{quote}
   \gqq{Ziel der KI ist es, Maschinen zu entwickeln, die sich verhalten, als verfügten sie über Intelligenz.}
   \autocite[][S. 1]{ertel_grundkurs_2016}
@@ -363,7 +369,7 @@ Insbesondere das Thema \ac{ML} hat in den letzten zehn Jahren viel Beachtung gef
 Der Aufschwung von \ac{ML} im letzten Jahrzehnt ist auf steigende und bezahlbare Rechenleistung bzw. Speichergrößen zurückzuführen.
 \ac{ML} beschreibt den Prozess bei dem Computeralgorithmen trainiert werden, um ihre Leistung bei einer bestimmten Aufgabe zu verbessern ohne dass dies explizit programmiert werden muss.
 Hierzu werden dem Computer Daten bereitgestellt aus welchen er lernt.
-Der Computer kann anschließend aus den Daten gewonnenen Erkenntnisse nutzen, um Vorhersagen für neue Daten zu treffen \autocite[vgl.][S. 4]{judith_hurwitz_machine_2018}.
+Der Computer kann anschließend die aus den Daten gewonnenen Erkenntnisse nutzen, um Vorhersagen für neue Daten zu treffen \autocite[vgl.][S. 4]{judith_hurwitz_machine_2018}.
 % Beispielsweise wird dem Computer eine Liste mit Häusern, deren Eigenschaften (z.B. Anzahl Zimmer, Wohnfläche, Alter und Standort) und einem Verkaufspreis zu Verfügung gestellt.
 % Mit \ac{ML} wird ein Modell trainiert, das die Auswirkungen der Eigenschaften auf den Verkaufspreis analysiert.
 % Dieses Modell kann verwendet werden, um den Verkaufspreis von anderen Häusern vorherzusagen.
@@ -402,8 +408,8 @@ Ein grundsätzlicher Aufbau eines neuronalen Netzes ist in Abb. \ref{fig:Structu
 \end{figure}\noindent
 Ein Neuron ermittelt seine Aktivierung aufgrund der Eingaben der vorherigen Neuronen und gibt daraus aufbauend einen Wert aus.
 Dieser Wert kann durch die Gewichte auf den Kanten beeinflusst werden.
-Von der Aktivierung ist abhängig, ob das Neuron feuert, sprich seinen errechneten Wert weitergibt.
-Dies gibt Aufschluss über die Relevanz die vorangegangenen Werte.
+Eine Aktivierungsfunktion entscheidet dabei, ob das Neuron feuert, sprich seinen errechneten Wert weitergibt.
+Dies gibt Aufschluss über die Relevanz der vorangegangenen Werte.
 % //TODO Quelle dazu suchen sonst \autocite[vgl.][S. 27]{sonnet_neuronale_2022}. beschreibt aber nut Aktivierung nicht was dies bedeutet
 Somit können durch die Gewichte der Kanten und den Wert der Neuronen Informationen abgebildet werden.
 \autocite[vgl.][S. 27]{sonnet_neuronale_2022}
@@ -420,17 +426,19 @@ Im Regelfall werden hierbei Daten verwendet, welche zwar aus dem gleichen Datens
 \autocite[vgl.][]{marcel_mikl_wie_2018}
 % Arten von NN
 
+\textauthor{\vLB}{}{}
+
 \subsection{Gefahrenanalyse}
-Eine Möglichkeit der Beurteilung von sicherheitskritischen Systemen stellt die Gefahrenanalyse dar.
+Eine Möglichkeit der Beurteilung von sicherheitskritischen Systemen stellt die Gefahrenanalyse (Threat Analyse) dar.
 Dabei wird durch verschiedene Herangehensweisen versucht, möglichst viele potenzielle Gefahren und Angriffsstellen des Systems zu ermitteln und anschließend zu bewerten.
 Als Resultat ergibt sich eine klare Einschätzung der Gefahrensituation, wodurch eine Aussage über die Sicherheit des entwickelten Systems getroffen werden kann.
 
-In diesem Kapitel werden drei Verfahren zur Ermittlung und Beurteilung von Gefahren vorgestellt.
+In diesem Kapitel werden zwei Verfahren zur Ermittlung und Beurteilung von Gefahren vorgestellt.
 STRIDE bietet einen grundlegenden Ansatz um den Ermittlungsprozess zu unterstützen.
-Mittels sogenannter Attack Trees können die ermittelten Gefahren anschließend grafisch aufbereitet werden.
+% Mittels sogenannter Attack Trees können die ermittelten Gefahren anschließend grafisch aufbereitet werden.
 Abschließend ermöglicht DREAD eine Bewertung der einzelnen Gefahren.
 
-Für einen erleichterten Einstieg in die drei Verfahren, kann im Vorhinein ein Datenflussdiagramm des Systems modelliert werden.
+Für einen erleichterten Einstieg in die zwei Verfahren, kann im Vorhinein ein Datenflussdiagramm des Systems modelliert werden.
 Dieses zeigt neben dem allgemeinen Datenfluss zwischen verschiedenen Komponenten auch sogenannte Trust Boundaries (Vertrauensgrenzen) die für die Ermittlung der Gefahren behilflich sein können \autocite[vgl.][S. 14]{bundesamt_fur_sicherheit_in_der_informationstechnik_leitfaden_nodate}.
 
 \subsubsection{STRIDE}
@@ -442,23 +450,24 @@ Beispielsweise können verschiedene Gefahrensammlungen herangezogen werden, welc
 Die Zuteilung einer Gefahr zu exakt einer STRIDE Kategorie ist dabei nicht immer möglich und von STRIDE nicht vorhergesehen.
 Für die anschließende Evaluierung der Gefahren, sowie die Entwicklung möglicher Gegenmaßnahmen, wird durch die Zuteilung einer Gefahr zu mehreren Kategorien der Horizont gegenüber möglichen Lösungsansätzen erweitert, wodurch die Gefahr besser eingeschätzt und verhindert werden kann \autocite[vgl.][S. 61-64]{shostack_threat_2014}.
 
-\subsubsection{Attack Trees}
-Attack Trees ermöglichen es in erster Linie, Gefahren strukturiert zu verwalten und übersichtlich darzustellen.
-Mittels einer Baumstruktur werden dabei Gefahren Schicht für Schicht in ihre Komponenten zerlegt.
-Dabei können Komponenten eines Elements entweder durch eine \gqq{oder} oder eine \gqq{und} Verknüpfung verbunden werden.
-Somit kann definiert werden, ob für das Eintreten einer Gefahr lediglich eine Komponente oder eine Kombination von Komponenten eintreffen muss.
+% \subsubsection{Attack Trees}
+% Attack Trees ermöglichen es in erster Linie, Gefahren strukturiert zu verwalten und übersichtlich darzustellen.
+% Mittels einer Baumstruktur werden dabei Gefahren Schicht für Schicht in ihre Komponenten zerlegt.
+% Dabei können Komponenten eines Elements entweder durch eine \gqq{oder} oder eine \gqq{und} Verknüpfung verbunden werden.
+% Somit kann definiert werden, ob für das Eintreten einer Gefahr lediglich eine Komponente oder eine Kombination von Komponenten eintreffen muss.
 
-Um festzustellen, ob bereits alle Gefahren gefunden wurden, muss für jedes Element überprüft werden, ob es zusätzliche Wege gibt diese Gefahr zu erreichen.
-Dabei können neben der eigenen Erfahrung auch zusätzliche Quellen wie das Internet oder bereits existierende Attack Trees herangezogen werden.
-Wichtig ist dabei, dass auch von dem System bereits abgedeckte Gefahren mit aufgelistet und als solche markiert werden, sodass für den Betrachter ersichtlich wird, dass die Gefahr berücksichtigt wird \autocite[vgl.][S. 88-94]{shostack_threat_2014}.
+% Um festzustellen, ob bereits alle Gefahren gefunden wurden, muss für jedes Element überprüft werden, ob es zusätzliche Wege gibt diese Gefahr zu erreichen.
+% Dabei können neben der eigenen Erfahrung auch zusätzliche Quellen wie das Internet oder bereits existierende Attack Trees herangezogen werden.
+% Wichtig ist dabei, dass auch von dem System bereits abgedeckte Gefahren mit aufgelistet und als solche markiert werden, sodass für den Betrachter ersichtlich wird, dass die Gefahr berücksichtigt wird \autocite[vgl.][S. 88-94]{shostack_threat_2014}.
 
-Nachdem der Attack Tree aufgestellt ist, können verschiedene Auswertungen durchgeführt werden.
-Dabei handelt es sich grundsätzlich um subjektive Einschätzungen.
-Beispielhaft kann eine binäre Einteilung der Basisgefahren in \gqq{möglich} und \gqq{unmöglich} stattfinden.
-Durch die Verknüpfungsregeln kann somit die Einteilung der Elternknoten ermittelt werden.
+% Nachdem der Attack Tree aufgestellt ist, können verschiedene Auswertungen durchgeführt werden.
+% Dabei handelt es sich grundsätzlich um subjektive Einschätzungen.
+% Beispielhaft kann eine binäre Einteilung der Basisgefahren in \gqq{möglich} und \gqq{unmöglich} stattfinden.
+% Durch die Verknüpfungsregeln kann somit die Einteilung der Elternknoten ermittelt werden.
 
 \subsubsection{DREAD}
-Im Gegensatz zu den Attack Trees ermöglicht die DREAD Methode eine feinere Beurteilung der Gefahren.
+% Im Gegensatz zu den Attack Trees ermöglicht die DREAD Methode eine feinere Beurteilung der Gefahren.
+Die DREAD Methode ermöglicht eine feine Beurteilung der Gefahren.
 Dafür wird jede Gefahr in fünf verschiedenen Kategorien bewertet.
 Die Kategorien lauten Damage, Reproducibility, Exploitability, Affected users und Discoverability (DREAD).
 
@@ -466,3 +475,5 @@ Für jede der fünf Kategorien werden dabei zwischen einem und zehn Punkte verge
 Die Bewertungen der Kategorien werden anschließend aufsummiert und der Mittelwert gebildet.
 Anhand dieses Mittelwertes kann nun eine priorisierte Liste erstellt werden, wobei ein hoher Wert eine hohe Gefahr bedeutet.
 Ausgehend von dieser Liste kann somit entschieden werden, welche Gefahren priorisiert behandelt werden müssen \autocite[vgl.][]{domars_threat_2023}.
+
+\textauthor{\vHS}{}{}

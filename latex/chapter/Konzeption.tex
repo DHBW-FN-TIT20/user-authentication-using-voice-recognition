@@ -18,15 +18,18 @@ Das Konzept wurde weitgehend eigens entwickelt, orientiert sich aber an den Ans�
 
 Das System lässt sich in zwei Prozesse aufteilen: dem Registierungs- oder Trainingsprozess und dem Anmeldungs- oder Testprozess.
 Die verschiedenen Komponenten der beiden Prozesse werden im folgenden Abschnitt kurz erklärt.
+
 Am Anfang des Trainingsprozesses steht die Benutzergruppe.
 Diese beinhaltet alle Personen, die das System benutzen wollen, beziehungsweise sich authentifizieren möchten.
 Die Benutzer geben Trainings-Samples in eine Verarbeitungs-Komponente, welche die Audio-Daten so aufbereitet, dass sie für ein Modell verwendet werden können.
-Die Modell-Trainer-Komponente generierten dann über mathematische Methoden eine Art Datenbank (zum Beispiel in Form eines neuronalen Netzes).
+Die Modell-Trainer-Komponente generiert dann über mathematische Methoden eine Art Datenbank (zum Beispiel in Form eines neuronalen Netzes).
 Dies ist die Schnittstelle zum Anmeldungsprozess.
 In diesem möchte sich ein einzelner Benutzer mit dem System authentifizieren.
 Dazu wird zunächst ein Test-Sample über eine Verarbeitungs-Komponente in die Sprecher-Klassifizierungs-Komponente gegeben, welche unter Verwendung der Datenbank-Komponente eine Zuordnungsverteilung erstellt.
 Außerdem gibt der Nutzer eine Identitätsbehauptung ab, welche zusammen mit der Zuordnungsverteilung von einer Entscheidungs-Komponente verarbeitet wird.
 Hieraus resultiert eine Entscheidung, ob die Identitätsbehauptung akzeptiert wird oder nicht.
+
+\textauthor{\vJB,}{\vLB}{}
 
 \subsection{Festlegung der Systemanforderungen}\label{sec:anforderungen}
 
@@ -46,7 +49,14 @@ Da diese Anforderungsbeschreibung noch viel Spielraum über den Funktionsumfang 
     \item Das System soll dem Nutzer dann Informationen über die Identifikations-Verteilung (zu welchem Sprecher passt der Clip zu welchem Prozentsatz) und den Authentifizierungs-Status (\gqq{erfolgreich}/\gqq{nicht erfolgreich}) als Rückmeldung darstellen.
 \end{itemize}
 
-\subsection{Konzept Versuchssystem}
+\textauthor{\vJB,}{\vLB}{}
+
+\subsection{Konzept Versuchssystem}\label{sec:KonzeptVersuchssystem}
+Die Konzeption des Versuchssystems unterteilt sich in mehrere Unterkapitel.
+Zunächst wird die allgemeine Systemidee vorgestellt.
+Anschließend wird auf die in dieser Arbeit evaluierten Feature Kombinationen eingegangen.
+Daraufhin werden die Anforderungen an den Datensatz konkretisiert, woraufhin anschließend noch einmal auf den allgemeinen Verarbeitungsprozess der Audiodateien eingegangen wird.
+Abgeschlossen wird das Kapitel mit einer Beschreibung der Klassifikation und Evaluierung, sowie der spezifischen Softwarearchitektur des Versuchssystems.
 
 \subsubsection{Systemidee}
 
@@ -202,16 +212,15 @@ In Abb. \ref{fig:sequenzdiagramm-versuchssystem} ist das Sequenzdiagramm dargest
     \label{fig:sequenzdiagramm-versuchssystem}
 \end{figure}\noindent
 
-
-
-
 % Beschreibung der Architektur
 % GGF Sequenzdiagramm
+
+\textauthor{\vJB,}{\vLB}{}
 
 \subsection{Demosystem}
 Ziel des Demosystems ist es, den Authentifizierungsprozess mittels Sprechererkennung zu implementieren und damit die Ergebnisse der Arbeit zu präsentieren.
 Aus den Anforderungen in Kapitel~\ref{sec:anforderungen} geht dabei hervor, dass dies als Webapplikation umzusetzen ist.
-Dadurch ergibt sich als Basisarchitektur eine Client-Server Architektur, wobei der Client die Weboberfläche und der Server den Authentifizierungsprozess implementiert.
+Dadurch ergibt sich als Basisarchitektur eine Client-Server-Architektur, wobei der Client die Weboberfläche und der Server den Authentifizierungsprozess implementiert.
 Abbildung~\ref{fig:ArchitectureDemoSystem} zeigt die grundlegende Architektur des Demosystems.
 
 \begin{figure}[H]
@@ -237,7 +246,7 @@ Hierbei handelt es sich um eine reine darstellende Komponente.
 Für eine verbesserte Nutzerfreundlichkeit wird zusätzlich eine \textKlasse{Info} Komponente eingebunden, welche die grundlegende Bedienung und Vorgehensweise des Demosystems erklärt.
 
 \subsubsection{Server}
-Der Server stellt einen Schnittstellenendpunkt bereit der Authentifizierungsanfragen eines Clients annimmt, verarbeitet und beantwortet.
+Der Server stellt einen Schnittstellenendpunkt bereit, der Authentifizierungsanfragen eines Clients annimmt, verarbeitet und beantwortet.
 In Abbildung~\ref{fig:SequenceHandleApiRequest} ist ein exemplarischer Ablauf des gesamten Prozesses modelliert.
 
 \begin{figure}[H]
@@ -265,3 +274,5 @@ Die Antwort des Servers beinhaltet die Informationen:
     \item Authentifizierungsstatus
     \item Ermittelte Wahrscheinlichkeit je Sprecher
 \end{itemize}
+
+\textauthor{\vHS}{}{}
