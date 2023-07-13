@@ -91,7 +91,37 @@ In diese Kategorie fällt die Backdoor Attacke, da der Angreifer gezielt die Tra
 In vorliegenden Kapitel werden die zuvor ermittelten Risiken mit der DREAD-Methodik bewertet.
 Die DREAD-Methodik ermöglicht den Schweregrad bzw. das Risiko des Angriffs zu messen.
 % TODO evtl noch in grundlagen ergänzen.
-Die Ergebnisse sind in der Tabelle ... dargestellt.
+Die Ergebnisse sind in der Tabelle \ref{tab:dread-analyse} dargestellt.
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\begin{landscape}
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|L{1cm}|L{3cm}|L{3cm}|L{1.7cm}|L{1.7cm}|L{1.7cm}|L{1.7cm}|L{1.7cm}|L{1.7cm}|L{1.7cm}|}
+            \hline
+            ID &
+              Grundsätzliches Sicherheitsrisiko &
+              \textbf{Attackierungs\-möglichkeit} &
+              STRIDE Ein\-stufung &
+              Damage &
+              Re\-pro\-ducibil\-i\-ty &
+              Ex\-ploitabil\-i\-ty &
+              Affected Users &
+              Dis\-cov\-er\-abil\-i\-ty &
+              \textbf{Average} \\ \hline
+            1                                 & Voice Spoofing   & \textbf{Synthetische Stimme}                                   & ST & 8 & 8 & 3  & 1  & 3  & \textbf{4,6} \\ \hline
+            2                                 & Voice Spoofing   & \textbf{Manipulation der Stimme durch Störung}                 & ST & 8 & 7 & 3  & 1  & 5  & \textbf{4,8} \\ \hline
+            3                                 & Backdoor Attacke & \textbf{Manipulation der Trainingsdaten für Backdoor}          & TE & 9 & 3 & 2  & 10 & 4  & \textbf{5,6} \\ \hline
+            4                                 & Eavesdropping    & \textbf{Aufzeichnen des Opfers}                                & I  & 8 & 8 & 8  & 1  & 10 & \textbf{7}   \\ \hline
+            5                                 & Eavesdropping    & \textbf{Verwenden von vorhandenen Sprach- oder Videoaufnahmen} & I  & 8 & 6 & 10 & 1  & 10 & \textbf{7}   \\ \hline
+            6                                 & Eavesdropping    & \textbf{Aufzeichnen der Verbindung zwischen Client und Server} & I  & 8 & 5 & 5  & 1  & 9  & \textbf{5,6} \\ \hline
+        \end{tabular}
+        \caption{DREAD-Analyse}
+        \label{tab:dread-analyse}
+    \end{table}
+\end{landscape}
+
 
 % Übersichststabelle und dann gleich mit DREAD Bewertung
 
