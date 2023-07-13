@@ -1,9 +1,9 @@
 \section{Konzeption}\label{sec:Konzeption}
 
 Das vorliegende Kapitel behandelt die Konzeption des Versuchssystems und des Demosystems.
-Dazu erfolgt zuvor ein grobes Konzept für ein generisches Sprecherauthentifikationssystem und die Festlegung der Anforderungen an das Demo-System.
+Dazu erfolgt zuvor ein grobes Konzept für ein generisches Sprecherauthentifikationssystem und die Festlegung der Anforderungen an das Demosystem.
 
-\subsection{Allgemeiner System-Aufbau}
+\subsection{Allgemeiner System-Aufbau}\label{sec:allgemeiner_system_aufbau}
 
 Ein allgemeiner, generischer Aufbau für ein Sprecherauthentifikationssystem ist in Abbildung~\ref{fig:allg-generisch-aufbau} dargestellt.
 
@@ -142,7 +142,7 @@ Der Datensatz wird aufgeteilt in Training- und Testdaten.
 
 \subsubsection{Vorverarbeitung und Feature-Extraktion}
 
-In der Feature Extraktion werden die Stimmmerkmale aus den Trainingsdaten extrahiert.
+In der Feature-Extraktion werden die Stimmmerkmale aus den Trainingsdaten extrahiert.
 Hierzu müssen die Audiosignale zunächst vorverarbeitet werden (siehe Kapitel \ref{sec:preprocessing}).
 In welcher Form die Merkmale extrahiert werden hängt dabei von der aktuellen Konfiguration ab.
 
@@ -151,7 +151,7 @@ Abbildung~\ref{fig:ablaufdiagramm-preprocessing-extraction} zeigt den Ablauf von
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth, keepaspectratio]{images/ablaufdiagramm-preprocessing-extraction.pdf}
-    \caption{Ablaufdiagramm Vorverarbeitung und Feature Extraktion}
+    \caption{Ablaufdiagramm Vorverarbeitung und Feature-Extraktion}
     \label{fig:ablaufdiagramm-preprocessing-extraction}
 \end{figure}\noindent
 
@@ -164,7 +164,7 @@ Deshalb werden bei der Klassifikation die berechneten Features aus dem Schritt z
 Hierbei muss das Netz mehrmals durchlaufen werden, da zu Beginn des Trainings die Gewichtung zufällig gesetzt wird (siehe Kapitel \ref{sec:neuronaleNetze}).
 Anschließend werden die neuronalen Netze mit Testdaten getestet, die nicht in den Trainingsdaten enthalten sind.
 Die Auswertung des neuronalen Netzes wird gespeichert und nach Berechnung aller Kombinationen ausgewertet.
-Somit soll die beste Kombination gefunden und das damit trainierte neuronale Netz für das Demo-System verwendet werden.
+Somit soll die beste Kombination gefunden und das damit trainierte neuronale Netz für das Demosystem verwendet werden.
 
 \subsubsection{Software Architektur}
 Um eine solide Grundlage für die Entwicklung zu schaffen, wird im Folgenden die Softwarearchitektur für das System entwickelt.
