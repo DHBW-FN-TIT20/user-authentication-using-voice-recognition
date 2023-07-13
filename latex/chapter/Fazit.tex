@@ -3,16 +3,38 @@ Im Rahmen dieser Arbeit wurde ein Versuchssystem, sowie ein drauf aufbauendes De
 Ausgehend von einer ausführlichen Grundlagenrecherche wurden dabei zunächst die Features \ac{LPC}, \ac{LPCC}, \ac{MFCC} und \ac{dMFCC} in Kombination mit einem \ac{NN} als geeignete Kandidaten für die Umsetzung einer Sprecherauthentifizierung ermittelt.
 In einem weiteren Schritt ergab sich daraus sowohl die grundlegende Architektur für ein Sprecherauthentifizierungssystem, als auch eine spezifische Architektur für das Versuchs- und Demosystem.
 Dazu wurden zunächst Systemanforderungen definiert, um die zu entwickelnden Systeme genauer einzugrenzen und grundlegende Entscheidungen zu treffen.
-In einer ausführlichen Technologieentscheidung, wurden verschiedene Technologien miteinander verglichen und schlussendlich eine begründete Wahl getroffen.
+In einer ausführlichen Technologieentscheidung, wurden verschiedene Technologien miteinander verglichen und schlussendlich die Verwendung von Python in Kombination mit TensorFlow (Versuchssystem/Back-End), sowie React (Front-End) begründet.
 Diese bildetet die Grundlage für die anschließende Implementierung der beiden Systeme.
-Die Ergebnisse der Durchführung des Versuchssystems sind in er Evaluation ausführlich beschrieben und führen zu der Schlussfolgerung, dass \ac{MFCC} und \ac{dMFCC} für die Sprecherauthentifizierung relevant sind, während \ac{LPC} und \ac{LPCC} keine gewinnbringenden Ergebnisse erzielen.
-Die ermittelte Konfiguration zum Einsatz im Demosystem authentifiziert dabei in 90 \% der Fälle die richtige, in 10 \% keine und in 0 \% die falsche Person.
-Aufbauend auf diesem Ergebnis, wurde abschließend eine Sicherheitsbewertung in Form einer Threat-Analyse durchgeführt, welche hauptsächlich verfahrensspezifische Sicherheitsrisiken auflistet und bewertet.
-Insgesamt konnte somit erfolgreich gezeigt werden, dass eine Sprecherauthentifizierung innerhalb einer fest definierten Gruppe an Benutzern nicht nur möglich, sondern auch zuverlässig umsetzbar ist.
+Die Ergebnisse der Durchführung des Versuchssystems sind in der \nameref{sec:Evaluation} ausführlich beschrieben und führen zu der Schlussfolgerung, dass \ac{MFCC} und \ac{dMFCC} für die Sprecherauthentifizierung relevant sind, während \ac{LPC} und \ac{LPCC} keine gewinnbringenden Ergebnisse erzielen.
+Die ermittelte Konfiguration zum Einsatz im Demosystem authentifiziert dabei in 90~\% der Fälle die richtige, in 10~\% keine und in 0~\% die falsche Person.
+Aufbauend auf diesem Ergebnis, wurde abschließend eine Sicherheitsbewertung in Form einer Threat-Analyse durchgeführt, welche verfahrensspezifische Sicherheitsrisiken auflistet und bewertet.
+
+Insgesamt konnte erfolgreich gezeigt werden, dass eine Sprecherauthentifizierung innerhalb einer fest definierten Gruppe an Benutzern nicht nur möglich, sondern auch zuverlässig umsetzbar ist.
 Die abschließende Sicherheitsbewertung zeigt dabei auf, dass Sprecherauthentifizierung aufgrund der vielen verschiedenen Risiken nicht sicher eingesetzt werden kann.
 Durch die zusätzliche Integration des Authentifizierungsprozesses in das Demosystem, wurde das in Kapitel~\ref{sec:Zielsetzung} definierte Ziel dieser Arbeit somit erreicht.
+
+Das entwickelte Demosystem kann zur Präsentation des in dieser Arbeit erzielten Ergebnisses im Informatik-Labor der Hochschule bereitgestellt werden.
+Dies ermöglicht das eigenständige Verifizieren und Nachvollziehen der Ergebnisse durch andere Studenten.
+Gleichzeitig bietet diese Arbeit eine Grundlage für weiterführende anschließende Studienarbeit.
+Potenzielle Themenbereiche werden dabei im anschließenden Kapitel (\nameref{sec:Ausblick}) vorgestellt. 
+
+Wirft man einen kritischen Blick auf diese Arbeit, so kann zunächst angemerkt werden, dass es sich bei den in diesem System verwendeten Audio-Aufzeichnungen nicht um Beispiele eines Realeinsatzes handelt.
+Die verwendeten Aufzeichnungen von Hörbüchern sind unter idealen Bedingungen erstellt worden, wodurch sich die Qualität der verschiedenen Audio-Aufzeichnungen nur geringfügig unterscheidet.
+Zusätzlich sind alle Audio-Segmente aus einem kontinuierlichen Redefluss entnommen, wodurch Schwankungen der Stimme nur begrenzt auftreten.
+Eine Integration des Systems in ein Produktivsystem erreicht somit aufgrund schwankender Qualitätsunterschiede der Stimmaufzeichnung gegebenenfalls schlechtere Ergebnisse.
+
+Auch eine Vergleichbarkeit zu anderen Studien ist nur begrenzt möglich, da das System verschiedene Faktoren enthält, die das Ergebnis maßgeblich beeinflussen.
+Dazu zählt unter anderem der verwendete Datensatz, der Aufbau des \ac{NN} und die Art und Weise der Durchführung und Evaluation.
+Diese Tatsache beeinflusst auch den Detailgrad das Kapitels \nameref{sec:StandDerTechnik}, da hier auf die Ergebnisse der aufgelisteten Studien aufgrund der fehlenden Vergleichbarkeit nicht näher eingegangen wird.
+
+% Auch die verwendete Struktur des \ac{NN} ist kritisch zu betrachten.
+% Hier wurden Hidden Layer der Größenordnung 128, 64 und 32 verwendet um den Authentifizierungsprozess abzubilden.
+% Eine detaillierte Evaluation diese Zusammensetzung findet dabei nicht statt, weshalb das Ergebnis gegebenenfalls durch eine abgeänderte Struktur optimiert werden könnte.
 
 % Kritische Punkte
 % - Auswahl/verwendeter Datensatz -> gleiche Qualität, ein Redefluss, nur Englisch, nur 20 Personen
 % - Neuronales Netz ist fix definiert -> Erfahrungswert, keine ausführliche Literaturbegründung
-% - Abhängigkeit bei Erzeugung der NN zwar durch 3 Netze pro Konfig abgefangen, jedoch nicht 100% vergleichbar/reproduzierbar
+% - Kein fertiges Authentifizierungssytem sondern nur Demo
+% - Keine eigene Sprachaufzeichnungen
+
+% Ausblick: Zwillinge
