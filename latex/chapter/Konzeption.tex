@@ -50,7 +50,7 @@ Da diese Anforderungsbeschreibung noch viel Spielraum über den Funktionsumfang 
 
 \subsubsection{Systemidee}
 
-Aus der Literaturrecherche in Kapitel \ref{stand_der_technik} gehen verschiedene Stimmmerkmale zur Benutzerauthentifizierung hervor.
+Aus der Literaturrecherche in Kapitel \ref{sec:StandDerTechnik} gehen verschiedene Stimmmerkmale zur Benutzerauthentifizierung hervor.
 Die Ergebnisse der dargestellten Untersuchungen unterscheiden sich darin, inwieweit die unterschiedlichen Stimmmerkmale die Stimme repräsentieren bzw. zuverlässig für eine korrekte Authentifizierung sind.
 
 Da die Features \ac{LPC}, \ac{LPCC}, \ac{MFCC} und \ac{dMFCC} die grobe Schnittmenge der Untersuchungen darstellt, werden diese in einer eigens durchgeführten Versuchsreihe getestet und evaluiert.
@@ -149,7 +149,7 @@ Näher wird dieser Ablauf in dem dazugehörigen Umsetzungs-Kapitel (\ref{section
 
 \subsubsection{Klassifikation und Evaluierung}\label{sec:KonzeptKlassifikation}
 
-Die Literaturrecherche hat ergeben, dass sich neuronale Netze gut als Klassifikationsmodell eignen (siehe Kapitel \ref{stand_der_technik}). 
+Die Literaturrecherche hat ergeben, dass sich neuronale Netze gut als Klassifikationsmodell eignen (siehe Kapitel \ref{sec:StandDerTechnik}). 
 Deshalb werden bei der Klassifikation die berechneten Features aus dem Schritt zuvor genutzt, um neuronale Netze zu trainieren, sodass die Feature-Kombinationen bewertet werden können.
 Hierbei muss das Netz mehrmals durchlaufen werden, da zu Beginn des Trainings die Gewichtung zufällig gesetzt wird (siehe Kapitel \ref{sec:neuronaleNetze}).
 Anschließend werden die neuronalen Netze mit Testdaten getestet, die nicht in den Trainingsdaten enthalten sind.
