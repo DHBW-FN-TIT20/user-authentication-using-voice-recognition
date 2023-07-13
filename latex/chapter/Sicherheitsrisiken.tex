@@ -54,8 +54,37 @@ Somit kann durch Vorgabe eines Satzes überprüft werden, ob es sich um eine Auf
 Das klassische Eavesdropping lässt sich durch die Verwendung von verschlüsselten Kommunikationsverbindungen vermeiden.
 
 \subsubsection{Einordnen in die STRIDE-Kategorien}
-
+% TODO Muss Mann das belegen was das ist?
+Im Folgenden werden die oben genannten Sicherheitsrisiken in die STRIDE-Kategorien eingeordnet.
+Wie bereits oben genannt, werden lediglich spezielle Bedrohungen von Sprecherauthentifikationssystemen behandelt.
+STRIDE steht für sechs verschiedene Kategorien zur Bewertung von Sicherheitsrisiken für IT-Systeme (s. Kapitel~\ref{sec:stride}).
 % textuell: Paragraph pro Kategorie
+\paragraph{Spoofing}
+Wie im Namen enthalten fällt unter Spoofing das Voice Spoofing.
+Das Risiko besteht darin, dass die Stimme eines autorisierten Sprechers nachgeahmt wird, oder eine manipulierte Sprachaufnahme verwendet wird.
+
+\paragraph{Tampering}
+Tampering bedeutet zu Deutsch Manipulation.
+Deshalb fällt der Teil der Manipulation einer Aufnahme des Voice Spoofings in das Tampering.
+Ebenso fällt die Backdoor Attacke in diese Kategorie.
+
+\paragraph{Repudiation}
+% TODO was das
+Diese Kategorie findet jedoch auf allgemeine Bedrohungen für Sprecherauthentifikationssystemen keine Anwendung.
+
+\paragraph{Information disclosure}
+Information disclosure beschreibt die Offenlegung von vertraulichen Daten.
+Dies kann durch Eavesdropping Angriffe auftreten, da ein Angreifer durch Aufzeichnung von Authentifizierungsinformationen Zugang zum System erhalten kann.
+
+\paragraph{Denial of service}
+Denial of service bedeutet \gqq{Verweigerung des Dienstes}, bei einer solchen Attacke wird gezielt das System überlastet, um einen Ausfall zu provozieren.
+Diese Kategorie findet wie Repudiation keine Anwendung auf allgemeine Bedrohungen für Sprecherauthentifikationssystemen.
+
+\paragraph{Elevation of privilege}
+Elevation of privilege beschreibt das Erlangen zusätzlicher Berechtigungen um so Zugang zu weiteren Ressourcen zu erhalten.
+In diese Kategorie fällt die Backdoor Attacke, da der Angreifer gezielt die Trainingsdaten verändert, um eine Hintertür zu schaffen, sodass er das System infiltrieren kann.
+
+
 
 \subsubsection{DREAD-Analyse}
 
