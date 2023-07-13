@@ -1,1 +1,13 @@
 \section{Fazit und kritische Reflexion}
+Im Rahmen dieser Arbeit wurde ein Versuchssystem, sowie ein drauf aufbauendes Demosystem zunächst konzipiert und anschließend implementiert.
+Ausgehend von einer ausführlichen Grundlagenrecherche wurden dabei zunächst die Features \ac{LPC}, \ac{LPCC}, \ac{MFCC} und \ac{dMFCC} in Kombination mit einem \ac{NN} als geeignete Kandidaten für die Umsetzung einer Sprecherauthentifizierung ermittelt.
+In einem weiteren Schritt ergab sich daraus sowohl die grundlegende Architektur für ein Sprecherauthentifizierungssystem, als auch eine spezifische Architektur für das Versuchs- und Demosystem.
+Dazu wurden zunächst Systemanforderungen definiert, um die zu entwickelnden Systeme genauer einzugrenzen und grundlegende Entscheidungen zu treffen.
+In einer ausführlichen Technologieentscheidung, wurden verschiedene Technologien miteinander verglichen und schlussendlich eine begründete Wahl getroffen.
+Diese bildetet die Grundlage für die anschließende Implementierung der beiden Systeme.
+Die Ergebnisse der Durchführung des Versuchssystems sind in er Evaluation ausführlich beschrieben und führen zu der Schlussfolgerung, dass \ac{MFCC} und \ac{dMFCC} für die Sprecherauthentifizierung relevant sind, während \ac{LPC} und \ac{LPCC} keine gewinnbringenden Ergebnisse erzielen.
+Die ermittelte Konfiguration zum Einsatz im Demosystem authentifiziert dabei in 90 \% der Fälle die richtige, in 10 \% keine und in 0 \% die falsche Person.
+Aufbauend auf diesem Ergebnis, wurde abschließend eine Sicherheitsbewertung in Form einer Threat-Analyse durchgeführt, welche hauptsächlich verfahrensspezifische Sicherheitsrisiken auflistet und bewertet.
+Insgesamt konnte somit erfolgreich gezeigt werden, dass eine Sprecherauthentifizierung innerhalb einer fest definierten Gruppe an Benutzern nicht nur möglich, sondern auch zuverlässig umsetzbar ist.
+Die abschließende Sicherheitsbewertung zeigt dabei auf, dass Sprecherauthentifizierung aufgrund der vielen verschiedenen Risiken nicht sicher eingesetzt werden kann.
+Durch die zusätzliche Integration des Authentifizierungsprozesses in das Demosystem, wurde das in Kapitel~\ref{sec:Zielsetzung} definierte Ziel dieser Arbeit somit erreicht.
