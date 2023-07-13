@@ -12,7 +12,7 @@ Durch die Abhängigkeit der beiden Systeme, bezieht sich die Technologieentschei
 
 Aus der Konzeption in Kapitel~\ref{sec:Konzeption} gehen verschiedene Anforderungen an die Technologie hervor.
 Durch die Verwendung von neuronalen Netzen werden die verfügbaren Technologien bzw. Programmiersprachen bereits eingeschränkt.
-Um weitere Technologieenscheidungen zu treffen, muss zunächst eine Programmiersprache ausgewählt werden.
+Um weitere Technologieentscheidungen zu treffen, muss zunächst eine Programmiersprache ausgewählt werden.
 Da in einer Umfrage unter Machine-Learning-Entwicklern und Data Scientists 57~\% Python als Programmiersprache nutzen und 33~\% diese sogar priorisieren, wird für dieses Projekt Python als Programmiersprache festgelegt \autocite[vgl. ][S. 16]{vision_mobile_state_2017}.
 In einer allgemeinen Umfrage zu verwendeten Programmiersprachen liegt Python mit 49,2~\% auf Platz drei \autocite[vgl.][]{yepis_2023_2023}.
 Das bedeutet, dass knapp die Hälfte der befragten Entwickler unter anderem Python verwenden, somit ist eine ausreichende Verbreitung gewährleistet.
@@ -86,12 +86,12 @@ Dazu können die bereits entwickelten Komponenten für den Authentifizierungspro
 
 \subsection{Versuchssystem}\label{sec:UmsetzungVersuchssystem}
 Die Umsetzung des Versuchssystems unterteilt sich in vier Unterkapitel.
-Analog zu der Konzeption des Versuchssystems in Kapitel~\ref{sec:KonzeptVersuchssystem}, wird zunächst auf die Generierung der Feature Kombinationen eingegangen.
+Analog zu der Konzeption des Versuchssystems in Kapitel~\ref{sec:KonzeptVersuchssystem}, wird zunächst auf die Generierung der Feature-Kombinationen eingegangen.
 Anschließend wird ein Datensatz ausgewählt und für die Verwendung in diesem System vorbereitet.
 Daraufhin wird die Umsetzung der Audio-Vorverarbeitung sowie der Feature Extraktion genau beschrieben.
 Abgeschlossen wird das Kapitel mit der Umsetzung der Klassifikation und Evaluierung.
 
-\subsubsection{Feature Kombination}
+\subsubsection{Feature-Kombination}
 
 Wie bereits in Kapitel~\ref{sec:FeatureKombination} erwähnt, müssen zuerst die verschiedenen Konfigurationen erzeugt werden.
 Hierzu werden die vorher definierten Werte in einer JSON-Datei erfasst und durch ein eigenes Kombinierungs-Skript alle möglichen Konfiguration mit einer ID erzeugt.
@@ -298,7 +298,7 @@ Der \ac{HTML}-Code ist in ReactJS in den \textOrdner{*.tsx} Dateien enthalten un
 Da es sich bei der Client-Applikation um eine Single Page Application handelt, stellt die \textOrdner{index.tsx} Datei den einzigen Einstiegspunkt der Applikation dar.
 Darin wird die Komponente \textKlasse{App} aus der Datei \textOrdner{App.tsx} eingebunden.
 
-Zusätzlich können einzelne Komponenten in separate Dateien ausgelagert werden um auf der einen Seite eine bessere Codeübersicht zu erzeugen und auf der anderen Seite einzelne Visualisierungen an verschiedenen Stellen zu implementieren.
+Zusätzlich können einzelne Komponenten in separate Dateien ausgelagert werden, um auf der einen Seite eine bessere Codeübersicht zu erzeugen und auf der anderen Seite einzelne Visualisierungen an verschiedenen Stellen zu implementieren.
 Diese Komponenten werden in dem Unterordner \textOrdner{src/shared/components} abgelegt.
 
 Die Benutzeroberfläche der \textKlasse{App} Komponente zeigt eine Login-Abfrage (siehe Abbildung~\ref{fig:AppLogin}).
@@ -356,7 +356,7 @@ Für die Erzeugung der Liste in der Benutzeroberfläche, wird die JSX-Funktion \
 </div>
 \end{lstlisting}
 
-Um die Benutzerfreundlichkeit zu verbessern besteht dabei zusätzlich die Möglichkeit, die ausgewählte Datei im Browser abzuspielen.
+Um die Benutzerfreundlichkeit zu verbessern, besteht dabei zusätzlich die Möglichkeit, die ausgewählte Datei im Browser abzuspielen.
 Dafür wird (wie in Listing~\ref{lst:AudioAppTsx} dargestellt) der \ac{HTML} \textFunktion{<audio>} Tag verwendet.
 Die dafür benötigten Ressourcen (WAV-Dateien) werden im Ordner \textOrdner{public/audio\_dataset} zur Verfügung gestellt.
 \begin{lstlisting}[language=HTML,caption=Audio Tag - App.tsx,label=lst:AudioAppTsx]
@@ -448,7 +448,7 @@ if not (
 \end{lstlisting}
 % TODO: evtl. Ref auf genaues Kapitel aktualisieren
 Da die Generierung der Testdaten analog zu Kapitel~\ref{sec:UmsetzungVersuchssystem} verläuft, wird darauf nicht weiter eingegangen.
-Mit den generierten Daten wird anschließend die Klassifikation durch das \ac{NN} durchgeführt und die Ergebnisse aufbereitet und im JSON-Format an den Client zurück gesendet.
+Mit den generierten Daten wird anschließend die Klassifikation durch das \ac{NN} durchgeführt und die Ergebnisse aufbereitet und im JSON-Format an den Client zurückgesendet.
 
 Das neuronale Netz, welches vom Server für die Authentifizierung von Benutzern verwendet wird, ergibt sich aus der Evaluation des Versuchssystems im nachfolgenden Kapitel~\ref{sec:Evaluation}.
 % Hierzu wird mit der ermittelten Konfiguration ein neues neuronales Netz unter Verwendung von einer erhöhten Anzahl an Epochen generiert, um die Genauigkeit des Systems noch einmal zu verbessern.

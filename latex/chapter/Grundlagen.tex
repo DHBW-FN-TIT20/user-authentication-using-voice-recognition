@@ -1,19 +1,19 @@
 \section{Grundlagen}
 Um die Hintergründe und Herangehensweisen der Studienarbeit nachzuvollziehen müssen zunächst verschiedene Grundlagen vorgestellt werden.
-Dabei findet eine Definition des Begriffs Sprecherauthentifizierung statt.
+Dabei findet eine Definition des Begriffs Sprecherauthentifikation statt.
 Anschließend wird ein Basisverständnis für die Technische Umsetzung mittels eines Exkurses über den Aufbau der menschlichen Stimme hergestellt.
 Die konkret verwendeten Algorithmen werden in dem Kapitel \nameref{sec:Audioanalyse} beschrieben.
 Außerdem findet eine kurze Einführung in den Bereich der künstlichen Intelligenz, sowie der \acp{NN} statt.
 Abschließend werden mehrere Ansätze zur Analyse von Sicherheitsrisiken vorgestellt.
 
-\subsection{Sprecherauthentifizierung}
+\subsection{Sprecherauthentifikation}
 In der Kryptographie beschreibt der Begriff Authentifizierung \gqq{eine Identität durch eine identitätsgebundene Information zu überprüfen} \autocite[][S. 129]{tsolkas_rollen_2017}.
-Zu den identitätsgebundenen Informationen zählt unter Anderem die biometrische Information der Stimme für die Sprecherauthentifizierung.
+Zu den identitätsgebundenen Informationen zählt unter Anderem die biometrische Information der Stimme für die Sprecherauthentifikation.
 
-Zu den heutigen Einsatzgebieten der Sprecherauthentifizierung zählen hauptsächlich Telefon-Hotlines, welche anstelle oder in Ergänzung zu wissensbasierten Sicherheitsfragen auch die Informationen der Stimme auswerten um diese für die Authentifizierung zu verwenden.
-So kommt die Sprecherauthentifizierung beispielsweise bereits bei den Hotlines der schweizer Banken Postfinance, Migros und Cler, aber auch der deutschen Telekom zum Einsatz, wodurch eine Authentifizierung mittels Kundendaten unterstützt wird oder gänzlich entfällt \autocite[vgl.][]{anz_mit_2023} \autocite[vgl.][]{noauthor_authentifizierung_nodate} \autocite[vgl.][]{noauthor_meine_nodate}.
+Zu den heutigen Einsatzgebieten der Sprecherauthentifikation zählen hauptsächlich Telefon-Hotlines, welche anstelle oder in Ergänzung zu wissensbasierten Sicherheitsfragen auch die Informationen der Stimme auswerten um diese für die Authentifizierung zu verwenden.
+So kommt die Sprecherauthentifikation beispielsweise bereits bei den Hotlines der schweizer Banken Postfinance, Migros und Cler, aber auch der deutschen Telekom zum Einsatz, wodurch eine Authentifizierung mittels Kundendaten unterstützt wird oder gänzlich entfällt \autocite[vgl.][]{anz_mit_2023} \autocite[vgl.][]{noauthor_authentifizierung_nodate} \autocite[vgl.][]{noauthor_meine_nodate}.
 
-Im konkreten Anwendungsfall der Sprecherauthentifizierung wird zwischen Textunabhängigen und Textabhängigen Authentifizierungssystemen mit open-set oder closed-set Datensätzen unterschieden.
+Im konkreten Anwendungsfall der Sprecherauthentifikation wird zwischen Textunabhängigen und Textabhängigen Authentifizierungssystemen mit open-set oder closed-set Datensätzen unterschieden.
 % TODO: Grundlagen der Authentifizierung (Definition, Verfahren, ...)
 % Heutige Anwendungsbereiche und gängige Verfahren
 % (Wo/Warum) wird Stimmauthentifizierung aktuell eingesetzt?
@@ -38,7 +38,7 @@ Dadurch kann das Authentifizierungssystem mit einem bestimmten Satz trainiert we
 Im Gegensatz zu Textunabhängigen Systemen steigen jedoch die Anforderungen an die Trainingsdaten stark an, da der verwendete Satz von jedem Sprecher einzeln eingesprochen werden muss und somit keine bereits existierenden Aufzeichnungen verwendet werden können.
 
 \subsubsection{Open- und closed-set}
-Open- und closed-set Sprecherauthentifizierung unterscheidet sich in der Zusammensetzung und Klassifizierung des Test- und Anwendungsdatensatzes.
+Open- und closed-set Sprecherauthentifikation unterscheidet sich in der Zusammensetzung und Klassifizierung des Test- und Anwendungsdatensatzes.
 Während bei open-set Anwendungen sowohl Sprachaufzeichnungen von bekannten, als auch unbekannten Sprechern ausgewertet werden, ist die Anwendung bei closed-set ausschließlich auf die bekannten Sprecher begrenzt.
 
 Somit ordnet eine closed-set Anwendung eine Sprachaufzeichnung immer einem der bekannten Sprecher zu, während in einer open-set Anwendung auch eine Klassifikation als unbekannt stattfindet.
@@ -124,7 +124,7 @@ Dabei wird zunächst die Signatur des Rauschens ermittelt.
 Basierend darauf kann das Rauschen anschließend verringert werden \autocite[vgl.][S. 25]{kiapuchinski_spectral_2012}.
 
 \paragraph{Pausen entfernen}
-Die für die Sprecherauthentifizierung relevanten Daten stecken in dem aufgezeichneten Signal der Stimme.
+Die für die Sprecherauthentifikation relevanten Daten stecken in dem aufgezeichneten Signal der Stimme.
 Sprechpausen innerhalb des Audiosignals enthalten somit keine brauchbaren Informationen, weshalb diese herausgefiltert werden müssen.
 Durch den vorangehenden Schritt der Rauschreduzierung kann hier ein stark vereinfachtes Verfahren gewählt werden.
 Liegt das Signal für einen definierten Zeitraum unterhalb einer definierten Lautstärke, werden die entsprechenden Signalwerte aus dem Gesamtsignal entfernt.

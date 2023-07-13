@@ -37,16 +37,16 @@ Es werden vier verschiedene Aspekte betrachtet (vgl. Abbildung~\ref{fig:Auswertu
 \end{figure}
 
 Für die durchschnittliche absolute Genauigkeit (erstes Diagramm) werden die Wahrscheinlichkeiten für den zu identifizierenden Benutzer pro Testdatei aufsummiert und der Durchschnitt gebildet.
-Eine Genauigkeit von 80 \% entspricht damit der Aussage, dass das neuronale Netz in Kombination mit der jeweiligen Konfiguration dem zu authentifizierenden Benutzer im Durchschnitt 80 \% der Frames der Testdatei zuordnet.
+Eine Genauigkeit von 80~\% entspricht damit der Aussage, dass das neuronale Netz in Kombination mit der jeweiligen Konfiguration dem zu authentifizierenden Benutzer im Durchschnitt 80~\% der Frames der Testdatei zuordnet.
 
 % TODO: Eingehen auf Closed-Set sobald die Entscheidung im Konzept beschrieben ist (Threshold)
 Bereits in dieser Grafik zeigt sich die Bildung von Clustern.
-Die besten Konfigurationen erreichen eine Genauigkeit von über 65 \%, weshalb dieser Wert für die folgenden drei Auswertungen verwendet wird.
+Die besten Konfigurationen erreichen eine Genauigkeit von über 65~\%, weshalb dieser Wert für die folgenden drei Auswertungen verwendet wird.
 Hier werden die Testdateien mittels dieses Wertes in die drei Kategorien korrekt zugeteilt, falsch zugeteilt und nicht zugeteilt eingeordnet.
 
-Eine Testdatei gilt als korrekt zugeteilt, wenn dem zu authentifizierenden Benutzer mindestens 65 \% der Frames zugeordnet werden.
-Analog gilt die Testdatei als nicht korrekt zugeteilt, wenn einem anderen Benutzer mindestens 65 \% der Frames zugeordnet werden.
-Erreicht kein Nutzer mindestens 65 \%, so wird die Testdatei als nicht zugeteilt eingestuft.
+Eine Testdatei gilt als korrekt zugeteilt, wenn dem zu authentifizierenden Benutzer mindestens 65~\% der Frames zugeordnet werden.
+Analog gilt die Testdatei als nicht korrekt zugeteilt, wenn einem anderen Benutzer mindestens 65~\% der Frames zugeordnet werden.
+Erreicht kein Nutzer mindestens 65~\%, so wird die Testdatei als nicht zugeteilt eingestuft.
 
 Für die Bewertung der Konfigurationen gibt es grundsätzlich zwei unterschiedliche Ansätze.
 Zunächst kann eine Konfiguration anhand der Anzahl an richtig zugewiesenen Samples bewertet werden.
@@ -67,7 +67,7 @@ Der Anzahl der nicht zugewiesenen Samples wird eine geringe Wichtigkeit zugeschr
 Außerdem sind die Folgen einer hohen Anzahl nicht zugeordneter Sample vergleichsweise gering, da zunächst keine Authentifikation stattfindet und die Authentifikation mit einem neuen Testsample wiederholt werden kann.
 
 Unter Betrachtung der durchschnittlichen absoluten Genauigkeit, sowie der korrekt zugeteilten Testdateien (zweites Diagramm), ergeben sich die vier markierten Cluster als beste Konfigurationen.
-Auch in den zwei verbleibenden Kategorien, zeichnen sich diese Konfigurationen vor allem durch eine niedrige Anzahl an nicht zugeordneten Dateien (kleiner 25 \%, viertes Diagramm), sowie falsch zugeordneter Dateien (kleiner 2 \%, drittes Diagramm) aus.
+Auch in den zwei verbleibenden Kategorien, zeichnen sich diese Konfigurationen vor allem durch eine niedrige Anzahl an nicht zugeordneten Dateien (kleiner 25~\%, viertes Diagramm), sowie falsch zugeordneter Dateien (kleiner 2~\%, drittes Diagramm) aus.
 
 Die Bildung der Cluster ist dabei auf die Art und Weise wie die Konfigurationen erzeugt werden zurückzuführen.
 Da hier eine bestimmte Systematik vorliegt, enthalten diese Cluster jeweils ähnliche Feature-Kombinationen, wobei die für die Ergebnisse relevanten Features in jeder Konfiguration des Clusters vorhanden sind.
@@ -137,18 +137,18 @@ Auf der einen Seite wird eine längere Audioaufzeichnung zur Authentifizierung b
 Auf der anderen Seite steigt auch der Rechenaufwand, da anstelle von 20 \ac{MFCC} Koeffizienten nun 27 Koeffizienten berechnet werden müssen.
 
 Unter Anbetracht des erhöhten Aufwands wird somit von einer weiterreichenden Analyse mit mehr als 27 Koeffizienten abgesehen.
-Da die Veränderungen die zu dem verbesserten Ergebnis führen für die einmalige Berechnung des Neuronalen Netzes des Demosystems tragbar sind, wird die für das Demosystem zu verwendende Konfiguration auf die Konfiguration mit der ID \textbf{516} festgelegt.
+Da die Veränderungen, die zu dem verbesserten Ergebnis führen für die einmalige Berechnung des Neuronalen Netzes des Demosystems tragbar sind, wird die für das Demosystem zu verwendende Konfiguration auf die Konfiguration mit der ID \textbf{516} festgelegt.
 
 Um die Genauigkeit der Konfiguration für den Einsatz im Demosystem noch einmal zu erhöhen, wird das neuronale Netz erneut Trainiert, wobei die Epochen von 250 auf 500 erhöht werden.
 Die Ergebnisse sind in Tabelle~\ref{table:resultsDemoSystemNN} aufgeführt.
-Unter Verwendung des selben Thresholds von 65~\% wird eine weitere Verbesserung um 2,7 Prozentpunkte im Bereich der richtig zugeordneten Samples erreicht.
+Unter Verwendung desselben Thresholds von 65~\% wird eine weitere Verbesserung um 2,7 Prozentpunkte im Bereich der richtig zugeordneten Samples erreicht.
 
 \begin{table}[H]
     \centering
     \begin{tabular}{c|c|c|c}
         Threshold & Richtig zug. & Falsch zug. & Nicht zug. \\ \hline
-        65 \%     & 0,95         & 0,01        & 0,04       \\ \hline
-        70 \%     & 0,90         & 0,00        & 0,10       \\ 
+        65~\%     & 0,95         & 0,01        & 0,04       \\ \hline
+        70~\%     & 0,90         & 0,00        & 0,10       \\ 
     \end{tabular}
     \caption{Ergebnisse des neuronalen Netz des Demosystems}
     \label{table:resultsDemoSystemNN}
@@ -159,7 +159,7 @@ Durch die Erhöhung von 65~\% auf 70~\% werden keine Samples mehr falsch zugeord
 
 Die Verschlechterung lässt sich durch zwei Aspekte rechtfertigen.
 Auf der einen Seite ist es für Benutzer durch die Optimierung nicht mehr möglich, sich als eine andere Person zu authentifizieren.
-Auf der anderen Seite sorgt die erhöhte Anzahl nicht zugeordneter Samples lediglich dafür, dass in 10~\% der Fälle eine erneute Aufzeichnung der Stimme für die Authentifizierung von Nöten ist.
+Auf der anderen Seite sorgt die erhöhte Anzahl nicht zugeordneter Samples lediglich dafür, dass in 10~\% der Fälle eine erneute Aufzeichnung der Stimme für die Authentifizierung vonnöten ist.
 Dieser Aufwand ist in Relation zu der gewonnenen Sicherheit sehr gering.
 
 \textauthor{\vHS}{}{}
