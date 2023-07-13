@@ -1,16 +1,16 @@
 \section{Fazit und kritische Reflexion}
-Im Rahmen dieser Arbeit wurde ein Versuchssystem, sowie ein drauf aufbauendes Demosystem zunächst konzipiert und anschließend implementiert.
-Ausgehend von einer ausführlichen Grundlagenrecherche wurden dabei zunächst die Features \ac{LPC}, \ac{LPCC}, \ac{MFCC} und \ac{dMFCC} in Kombination mit einem \ac{NN} als geeignete Kandidaten für die Umsetzung einer Sprecherauthentifizierung ermittelt.
-In einem weiteren Schritt ergab sich daraus sowohl die grundlegende Architektur für ein Sprecherauthentifizierungssystem, als auch eine spezifische Architektur für das Versuchs- und Demosystem.
+Im Rahmen dieser Arbeit wurde ein Versuchssystem, sowie ein darauf aufbauendes Demosystem zunächst konzipiert und anschließend implementiert.
+Ausgehend von einer ausführlichen Grundlagenrecherche, wurden dabei zunächst die Features \ac{LPC}, \ac{LPCC}, \ac{MFCC} und \ac{dMFCC} in Kombination mit einem \ac{NN} als geeignete Kandidaten für die Umsetzung einer Sprecherauthentifikation ermittelt.
+In einem weiteren Schritt ergab sich daraus sowohl die grundlegende Architektur für ein Sprecherauthentifikationssystem, als auch eine spezifische Architektur für das Versuchs- und Demosystem.
 Dazu wurden zunächst Systemanforderungen definiert, um die zu entwickelnden Systeme genauer einzugrenzen und grundlegende Entscheidungen zu treffen.
 In einer ausführlichen Technologieentscheidung, wurden verschiedene Technologien miteinander verglichen und schlussendlich die Verwendung von Python in Kombination mit TensorFlow (Versuchssystem/Back-End), sowie React (Front-End) begründet.
 Diese bildetet die Grundlage für die anschließende Implementierung der beiden Systeme.
-Die Ergebnisse der Durchführung des Versuchssystems sind in der \nameref{sec:Evaluation} ausführlich beschrieben und führen zu der Schlussfolgerung, dass \ac{MFCC} und \ac{dMFCC} für die Sprecherauthentifizierung relevant sind, während \ac{LPC} und \ac{LPCC} keine gewinnbringenden Ergebnisse erzielen.
+Die Ergebnisse der Durchführung des Versuchssystems sind in der \nameref{sec:Evaluation} ausführlich beschrieben und führen zu der Schlussfolgerung, dass \ac{MFCC} und \ac{dMFCC} für die Sprecherauthentifikation relevant sind, während \ac{LPC} und \ac{LPCC} keine gewinnbringenden Ergebnisse erzielen.
 Die ermittelte Konfiguration zum Einsatz im Demosystem authentifiziert dabei in 90~\% der Fälle die richtige, in 10~\% keine und in 0~\% die falsche Person.
-Aufbauend auf diesem Ergebnis, wurde abschließend eine Sicherheitsbewertung in Form einer Threat-Analyse durchgeführt, welche verfahrensspezifische Sicherheitsrisiken auflistet und bewertet.
+Aufbauend auf diesem Ergebnis, wurde abschließend eine Sicherheitsbewertung in Form einer Threat-Analyse durchgeführt, welche verfahrensspezifische Sicherheitsrisiken erläutert und bewertet.
 
-Insgesamt konnte erfolgreich gezeigt werden, dass eine Sprecherauthentifizierung innerhalb einer fest definierten Gruppe an Benutzern nicht nur möglich, sondern auch zuverlässig umsetzbar ist.
-Die abschließende Sicherheitsbewertung zeigt dabei auf, dass Sprecherauthentifizierung aufgrund der vielen verschiedenen Risiken nicht sicher eingesetzt werden kann.
+Insgesamt konnte erfolgreich gezeigt werden, dass eine Sprecherauthentifikation innerhalb einer fest definierten Gruppe an Benutzern nicht nur möglich, sondern auch zuverlässig umsetzbar ist.
+Die abschließende Sicherheitsbewertung zeigt aber auf, dass Sprecherauthentifikation aufgrund der vielen verschiedenen Risiken nicht sicher in der Praxis eingesetzt werden kann.
 Durch die zusätzliche Integration des Authentifizierungsprozesses in das Demosystem, wurde das in Kapitel~\ref{sec:Zielsetzung} definierte Ziel dieser Arbeit somit erreicht.
 
 Das entwickelte Demosystem kann zur Präsentation des in dieser Arbeit erzielten Ergebnisses im Informatik-Labor der Hochschule bereitgestellt werden.
