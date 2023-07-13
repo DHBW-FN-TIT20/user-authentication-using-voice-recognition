@@ -96,6 +96,8 @@
 \newcommand{\newparagraph}{\newline \newline}
 \newcommand{\customcaption}[2]{\caption[#1]{ #1. #2.}}
 
+\newcommand{\textauthor}[3]{\textit{Author: #1 #2 #3}}
+
 
 %%%%%%%%%%%%%%%%%%%% Zitatbibliothek einbinden %%%%%%%%%%%%%%%%%%%%%
 \addbibresource{./literatur/literatur.bib}
@@ -192,7 +194,8 @@
   morecomment=[l]//,
   morecomment=[s]{/**}{*/}, % JavaDoc style comments
   morestring=[b]',
-  morestring=[b]"
+  morestring=[b]",
+  morestring=[b]`
 }[keywords, comments, strings]
 
 
@@ -255,5 +258,5 @@
   \renewcommand{\thelstlisting}{\Alph{section}.\arabic{lstlisting}}
   \pagenumbering{Alph}
 
-  \include{pages/anhang}
+  % \include{pages/anhang}
 \end{document}

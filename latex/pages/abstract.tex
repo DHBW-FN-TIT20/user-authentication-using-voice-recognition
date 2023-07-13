@@ -9,24 +9,76 @@
 
 % Deutsche Zusammenfassung
 \begin{abstract}
+	In dieser Studienarbeit wird die Authentifizierung von Benutzern mittels Stimmmerkmalen erarbeitet und untersucht.
+	Dazu werden zunächst basierend auf einer ausführlichen Literaturrecherche verschiedene Verfahren, Ansätze und Merkmale verglichen, um anschließend eine genauere Eingrenzung der Studienarbeit vorzunehmen.
+	Folgend ergibt sich als Ziel dieser Arbeit das Finden der optimalen Kombination der Sprechermerkmale LPC, LPCC, MFCC und Delta MFCC für die Sprecherauthentifizierung unter Verwendung eines neuronalen Netzes.
 	
+	Für die Evaluierung der besten Kombination wird ein eigenständiges Versuchssystem konzipiert und implementiert.
+	Dieses vergleicht dabei verschiedene Werte für die Parameter Anzahl der Frames, Länge der Frames und Anzahl der LPC, LPCC, MFCC und Delta MFCC Koeffizienten in über 500 verschiedenen Kombinationen.
+
+	Parallel zum Versuchssystem wird ein Demosystem konzipiert und implementiert, welches einen Authentifizierungsprozess unter Verwendung der ermittelten optimalen Konfiguration abbildet.
+	Dieses dient zur Präsentation des Ergebnisses dieser Arbeit.
+	
+	Die Auswertungen des Versuchssystem führen zu der Erkenntnis, dass für eine optimale Authentifizierung hauptsächlich MFCC und Delta MFCC Koeffizienten relevant sind.
+	LPC und LPCC Koeffizienten unterstützen den Authentifizierungsprozess nur gering und erreichen alleinstehend keine ausreichenden Ergebnisse.
+
+	Die Arbeit kommt zu dem Schluss, dass das optimale Authentifizierungssystem 15000 Frames mit einer Länge von je 800 Samples verwendet und dabei 27 MFCC und 13 Delta MFCC Koeffizienten pro Frame berechnet.
+	Dabei wird zu 90~\% die korrekte Person, zu 10~\% keine Person und zu 0~\% die falsche Person authentifiziert.
+
+	Abschließend werden verschiedene Sicherheitsaspekte in Zusammenhang mit der Sprecherauthentifizierung beleuchtet und bewertet.
+
+	Die Arbeit ist besonders für Softwareentwickler interessant, die im Bereich der Python- und Webentwicklung in Kombination mit biometrischer Authentifizierung tätig sind.
+
+	\textauthor{\vHS}{}{}
 \end{abstract}
 
 % Schlüsselwörter Deutsch
 \begin{keywords}
-	
+	Sprecherauthentifizierung, LPC, LPCC, MFCC, Delta MFCC, Neuronales Netz
+	% Grundlegende Idee
+	% - Sprecherauthentifizierung als Alternative zu klassischen oder anderen biometrischen Authentifizierungsverfahren
+	% Voraussetzung:
+	% - basierend auf Literaturrecherche: MFCC, dMFCC, LPC, LPCC
+	% - basierend auf Literaturrecherche: 10000/15000 Frames, 400/600 samples per frame, 13/20 Koeffizienten
+	% Durchführung:
+	% - Versuchssystem und Demosystem
+	% Ergebnis:
+	% - Features MFCC (27) und dMFCC (13) erzielen gute Ergebnisse, LPC und LPCC unterstützen den Prozess nur minimal und können deshalb vernachlässigt werden
+	% - Mit dem entwickelten System werden 92,3 \% der Anfragen richtig authentifiziert, 0,7 \% falsch (eine andere Person lässt sich mit der Stimme authentifizieren) und 7 \% führen zu keiner Authentifizierung
 \end{keywords}
 
-
+\newpage
 \selectlanguage{english}
 % Englisches Abstract
 \begin{abstract}
+	This study deals with authenticating users based on features of their voice.
+	Based on thorough research, different features and approaches are compared to specify the goal of the study.
+	As a result, the goal of the study is defined as to evaluate the optimal combination of the voice features LPC, LPCC, MFCC, and delta MFCC for speaker authentication using a neural network.
 
+	To evaluate this combination, an evaluation system (Versuchssystem) is designed and implemented.
+	Within over 500 combinations, the system compares different values for the parameters amount of frames, frame length, and amount of LPC, LPCC, MFCC, and delta MFCC coefficients.
+
+	In addition to the evaluation system, a demo system is created, which implements an authentication process using the evaluated optimal combination of parameters.
+	The purpose of this system is to present the achievements of this study.
+
+	The evaluation of the evaluation system concludes, that to achieve the best authentication results, mainly MFCC and delta MFCC features are required.
+	Adding LPC and LPCC features to the authentication process shows little improvement, which is why they are not used.
+
+	In summary, the optimal authentication system uses 15000 frames with a length of 800 samples per frame.
+	For each frame, a set of 27 MFCC and 13 delta MFCC coefficients are calculated and used within the neural network.
+	Using this feature set, the correct user is authenticated in 90 \% of all test cases, while no user is authenticated in 10 \% and the wrong user in 0 \% of all test cases.
+
+	Following the evaluation, the study is supplemented by a consideration of security aspects concerning speaker authentication.
+	Therefore different aspects are presented and evaluated.
+
+	This study is of particular interest to software developers working in the field of Python and web development in combination with biometric authentication.
+	
+	\textauthor{\vHS}{}{}
 \end{abstract}
 
 % Schlüsselwörter Englisch
 \begin{keywords}
-
+	speaker authentication, LPC, LPCC, MFCC, delta MFCC, neuronal network
 \end{keywords}
 
 

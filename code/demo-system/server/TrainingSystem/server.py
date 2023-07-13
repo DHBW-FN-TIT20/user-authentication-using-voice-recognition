@@ -1,3 +1,8 @@
+"""
+ @file server.py
+ @section authors
+  - Johannes Brandenburger
+"""
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import tensorflow as tf
@@ -9,6 +14,17 @@ from AudioPreprocessor import AudioPreprocessor
 import librosa
 
 def extract_features(file_path, speaker_id, feature_list, limit_frames=True, multiprocessing=False):
+    """
+    @brief Extracts the required features for the authentication process
+
+    Parameters : 
+        @param file_path => path to the audio sample
+        @param speaker_id => speaker id to verify
+        @param feature_list => features that will be calculated
+        @param limit_frames = True => assure that the defined amount of frames are calculated
+        @param multiprocessing = False => enables multiprocessing in available components
+
+    """
     audio_preprocessor = AudioPreprocessor()
 
     # load and preprocess file
@@ -16,7 +32,7 @@ def extract_features(file_path, speaker_id, feature_list, limit_frames=True, mul
     y = audio_preprocessor.remove_silence(y)
     y = audio_preprocessor.remove_noise(y, sr)
 
-    frames = audio_preprocessor.create_frames(y=y, frame_size=int(600), overlap=int(0.5 * int(600)))
+    frames = audio_preprocessor.create_frames(y=y, frame_size=int(800), overlap=int(0.5 * int(800)))
 
     if limit_frames:
         if len(frames) < 15000:
@@ -38,12 +54,20 @@ def extract_features(file_path, speaker_id, feature_list, limit_frames=True, mul
     return clustered_features
 
 def generate_test_data(speaker_id: int, sample_id: int):
+    """
+    @brief generates the test data for the given speaker id and sample id
+
+    Parameters : 
+        @param speaker_id : int => speaker id of the test file
+        @param sample_id : int => test file index
+
+    """
 
     ds_handler = DatasetHandler(os.path.join(os.path.dirname(__file__), "..", "..", "..", "data", "audio_dataset"))
     test_X = []
     test_y = []
     test_file_path = ds_handler.get_validation_file_path(speaker_id, sample_id)
-    feature_list = [[Feature.MFCC, 20, [0,1]]]
+    feature_list = [[Feature.MFCC, 27, [0]], [Feature.MFCC, 13, [1]]]
     features = extract_features(
         file_path=test_file_path,
         speaker_id=speaker_id,
@@ -65,6 +89,11 @@ CORS(app)
 
 @app.route("/", methods=["GET", "POST"])
 def handle_api_request():
+    """
+    @brief API endpoint for authentication requests
+
+
+    """
 
     parameter_error_message = """
     <h1>Parameter Error</h1>

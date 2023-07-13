@@ -18,15 +18,18 @@ Das Konzept wurde weitgehend eigens entwickelt, orientiert sich aber an den Ans�
 
 Das System lässt sich in zwei Prozesse aufteilen: dem Registierungs- oder Trainingsprozess und dem Anmeldungs- oder Testprozess.
 Die verschiedenen Komponenten der beiden Prozesse werden im folgenden Abschnitt kurz erklärt.
+
 Am Anfang des Trainingsprozesses steht die Benutzergruppe.
 Diese beinhaltet alle Personen, die das System benutzen wollen, beziehungsweise sich authentifizieren möchten.
 Die Benutzer geben Trainings-Samples in eine Verarbeitungs-Komponente, welche die Audio-Daten so aufbereitet, dass sie für ein Modell verwendet werden können.
-Die Modell-Trainer-Komponente generierten dann über mathematische Methoden eine Art Datenbank (zum Beispiel in Form eines neuronalen Netzes).
+Die Modell-Trainer-Komponente generiert dann über mathematische Methoden eine Art Datenbank (zum Beispiel in Form eines neuronalen Netzes).
 Dies ist die Schnittstelle zum Anmeldungsprozess.
 In diesem möchte sich ein einzelner Benutzer mit dem System authentifizieren.
 Dazu wird zunächst ein Test-Sample über eine Verarbeitungs-Komponente in die Sprecher-Klassifizierungs-Komponente gegeben, welche unter Verwendung der Datenbank-Komponente eine Zuordnungsverteilung erstellt.
 Außerdem gibt der Nutzer eine Identitätsbehauptung ab, welche zusammen mit der Zuordnungsverteilung von einer Entscheidungs-Komponente verarbeitet wird.
 Hieraus resultiert eine Entscheidung, ob die Identitätsbehauptung akzeptiert wird oder nicht.
+
+\textauthor{\vJB,}{\vLB}{}
 
 \subsection{Festlegung der Systemanforderungen}\label{sec:anforderungen}
 
@@ -39,18 +42,25 @@ Da diese Anforderungsbeschreibung noch viel Spielraum über den Funktionsumfang 
     \item Das System soll eine text-unabhängige Authentifizierung implementieren, da der Fokus des Systems auf der Identifikation von Stimmmerkmalen zur Authentifizierung von Benutzern liegt und dies unabhängig vom gesprochenen Text erfolgen soll.
     \item Der Datensatz für das System ist zu Beginn festgelegt. Das heißt, es können sich nur 20 bereits bekannte Sprecher authentifizieren. Zudem können keine neuen Sprecher registriert werden, wodurch das Sprecherauthentifikationssystem keine dynamische Erweiterung um Sprecher bereitstellen muss.
     \item Das System soll eine Open-Set-Implementierung verwenden. Dadurch wird sichergestellt, dass ein Benutzer erst mit einer fest definierten Sicherheit authentifiziert wird.
-    \item Zur Authentifizierung eines Sprechers wird ein 20-sekündiger Audio-Clip an das System übermittelt. Der Audio-Clip ist dem System bisher unbekannt, aber in gleichen Bedingungen aufgenommen, wie die bekannten Clips.
+    \item Zur Authentifizierung eines Sprechers wird ein 15-sekündiger Audio-Clip an das System übermittelt. Der Audio-Clip ist dem System bisher unbekannt, aber in gleichen Bedingungen aufgenommen, wie die Clips des Trainingsprozesses.
     \item Das Sprecherauthentifikationssystem sollte Teil des Back-Ends sein. Die Bedienung erfolgt über eine Webapplikation, die mit dem System über eine Schnittstelle kommuniziert.
-    \item In der Web-Oberfläche des Demosystems soll der zu authentifizierende Sprecher (einer der 20) und ein Verifikations-Clip ausgewählt werden können. Es soll für jeden Sprecher 5 Clips zur Auswahl geben.
+    \item In der Web-Oberfläche des Demosystems soll der zu authentifizierende Sprecher (einer der 20) und ein Verifikations-Clip ausgewählt werden können. Es soll für jeden Sprecher mindestens 5 Clips zur Auswahl geben.
     \item So soll der Nutzer des Demosystems testen können, was passiert, wenn ein zu dem zu authentifizierenden Sprecher passender bzw. unpassender Verifikations-Clip ins System gegeben wird.
     \item Das System soll dem Nutzer dann Informationen über die Identifikations-Verteilung (zu welchem Sprecher passt der Clip zu welchem Prozentsatz) und den Authentifizierungs-Status (\gqq{erfolgreich}/\gqq{nicht erfolgreich}) als Rückmeldung darstellen.
 \end{itemize}
 
-\subsection{Konzept Versuchssystem}
+\textauthor{\vJB,}{\vLB}{}
+
+\subsection{Konzept Versuchssystem}\label{sec:KonzeptVersuchssystem}
+Die Konzeption des Versuchssystems unterteilt sich in mehrere Unterkapitel.
+Zunächst wird die allgemeine Systemidee vorgestellt.
+Anschließend wird auf die in dieser Arbeit evaluierten Feature Kombinationen eingegangen.
+Daraufhin werden die Anforderungen an den Datensatz konkretisiert, woraufhin anschließend noch einmal auf den allgemeinen Verarbeitungsprozess der Audiodateien eingegangen wird.
+Abgeschlossen wird das Kapitel mit einer Beschreibung der Klassifikation und Evaluierung, sowie der spezifischen Softwarearchitektur des Versuchssystems.
 
 \subsubsection{Systemidee}
 
-Aus der Literaturrecherche in Kapitel \ref{stand_der_technik} gehen verschiedene Stimmmerkmale zur Benutzerauthentifizierung hervor.
+Aus der Literaturrecherche in Kapitel \ref{sec:StandDerTechnik} gehen verschiedene Stimmmerkmale zur Benutzerauthentifizierung hervor.
 Die Ergebnisse der dargestellten Untersuchungen unterscheiden sich darin, inwieweit die unterschiedlichen Stimmmerkmale die Stimme repräsentieren bzw. zuverlässig für eine korrekte Authentifizierung sind.
 
 Da die Features \ac{LPC}, \ac{LPCC}, \ac{MFCC} und \ac{dMFCC} die grobe Schnittmenge der Untersuchungen darstellt, werden diese in einer eigens durchgeführten Versuchsreihe getestet und evaluiert.
@@ -126,21 +136,32 @@ Die vorhin genannten Werte sind übersichtlich in der nachfolgenden Tabelle darg
 % Der \codestyle{weight} Parameter gibt lediglich an ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
 
 \subsubsection{Datensatz} \label{sec:KonzeptDatensatz}
-
-Um die unterschiedlichen Kombinationen an Features zu vergleichen wird ein Datensatz benötigt, der mindestens 20 verschiedene Sprecher mit mindestens ca. 15 min unterschiedlichem Audio-Material enthält.
+Um die unterschiedlichen Kombinationen an Features zu vergleichen, wird ein Datensatz benötigt, der mindestens 20 verschiedene Sprecher mit mindestens ca. 15 min unterschiedlichem Audio-Material enthält.
 Die Audio-Clips müssen unter gleichen Bedingungen aufgenommen sein und in kompressionslosem WAV-Format vorliegen.
+Der Datensatz wird aufgeteilt in Training- und Testdaten.
 
-\subsubsection{Feature Extraktion}
+\subsubsection{Vorverarbeitung und Feature-Extraktion}
 
 In der Feature Extraktion werden die Stimmmerkmale aus den Trainingsdaten extrahiert.
 Hierzu müssen die Audiosignale zunächst vorverarbeitet werden (siehe Kapitel \ref{sec:preprocessing}).
 In welcher Form die Merkmale extrahiert werden hängt dabei von der aktuellen Konfiguration ab.
 
+Abbildung~\ref{fig:ablaufdiagramm-preprocessing-extraction} zeigt den Ablauf von diesem Teil des Versuchssystems mit Bezug auf die im Klassendiagramm dargestellten Klassen und Methoden (Abbildung~\ref{fig:klassendiagram-versuchssystem}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth, keepaspectratio]{images/ablaufdiagramm-preprocessing-extraction.pdf}
+    \caption{Ablaufdiagramm Vorverarbeitung und Feature Extraktion}
+    \label{fig:ablaufdiagramm-preprocessing-extraction}
+\end{figure}\noindent
+
+Näher wird dieser Ablauf in dem dazugehörigen Umsetzungs-Kapitel (\ref{section:umsetzung-versuch-vorverarbeitung}) beschrieben.
+
 \subsubsection{Klassifikation und Evaluierung}\label{sec:KonzeptKlassifikation}
 
-Die Literaturrecherche hat ergeben, dass sich neuronale Netze gut als Klassifikationsmodell eignen (siehe Kapitel \ref{stand_der_technik}). 
+Die Literaturrecherche hat ergeben, dass sich neuronale Netze gut als Klassifikationsmodell eignen (siehe Kapitel \ref{sec:StandDerTechnik}). 
 Deshalb werden bei der Klassifikation die berechneten Features aus dem Schritt zuvor genutzt, um neuronale Netze zu trainieren, sodass die Feature-Kombinationen bewertet werden können.
-Hierbei muss das Netz mehrmals durchlaufen werden, da zu Beginn des Trainings die Struktur zufällig gesetzt wird (siehe Kapitel \ref{sec:neuronaleNetze}).
+Hierbei muss das Netz mehrmals durchlaufen werden, da zu Beginn des Trainings die Gewichtung zufällig gesetzt wird (siehe Kapitel \ref{sec:neuronaleNetze}).
 Anschließend werden die neuronalen Netze mit Testdaten getestet, die nicht in den Trainingsdaten enthalten sind.
 Die Auswertung des neuronalen Netzes wird gespeichert und nach Berechnung aller Kombinationen ausgewertet.
 Somit soll die beste Kombination gefunden und das damit trainierte neuronale Netz für das Demo-System verwendet werden.
@@ -191,16 +212,15 @@ In Abb. \ref{fig:sequenzdiagramm-versuchssystem} ist das Sequenzdiagramm dargest
     \label{fig:sequenzdiagramm-versuchssystem}
 \end{figure}\noindent
 
-
-
-
 % Beschreibung der Architektur
 % GGF Sequenzdiagramm
+
+\textauthor{\vJB,}{\vLB}{}
 
 \subsection{Demosystem}
 Ziel des Demosystems ist es, den Authentifizierungsprozess mittels Sprechererkennung zu implementieren und damit die Ergebnisse der Arbeit zu präsentieren.
 Aus den Anforderungen in Kapitel~\ref{sec:anforderungen} geht dabei hervor, dass dies als Webapplikation umzusetzen ist.
-Dadurch ergibt sich als Basisarchitektur eine Client-Server Architektur, wobei der Client die Weboberfläche und der Server den Authentifizierungsprozess implementiert.
+Dadurch ergibt sich als Basisarchitektur eine Client-Server-Architektur, wobei der Client die Weboberfläche und der Server den Authentifizierungsprozess implementiert.
 Abbildung~\ref{fig:ArchitectureDemoSystem} zeigt die grundlegende Architektur des Demosystems.
 
 \begin{figure}[H]
@@ -221,11 +241,12 @@ Da sich das Demosystem auf einen vordefinierten Datensatz beschränkt muss keine
 Aus diesem Grund werden vordefinierte Audiosequenzen für jeden Sprecher bereitgestellt, die mittels den Variablen \textVariable{sampleFileUserId} und \textVariable{sampleFileIndex} eindeutig identifiziert werden können.
 
 Die Darstellung des Ergebnisses des Authentifizierungsprozesses wird in eine separate Komponente namens \textKlasse{Results} ausgelagert.
+Hierbei handelt es sich um eine reine darstellende Komponente.
 
 Für eine verbesserte Nutzerfreundlichkeit wird zusätzlich eine \textKlasse{Info} Komponente eingebunden, welche die grundlegende Bedienung und Vorgehensweise des Demosystems erklärt.
 
 \subsubsection{Server}
-Der Server stellt einen Schnittstellenendpunkt bereit der Authentifizierungsanfragen eines Clients annimmt, verarbeitet und beantwortet.
+Der Server stellt einen Schnittstellenendpunkt bereit, der Authentifizierungsanfragen eines Clients annimmt, verarbeitet und beantwortet.
 In Abbildung~\ref{fig:SequenceHandleApiRequest} ist ein exemplarischer Ablauf des gesamten Prozesses modelliert.
 
 \begin{figure}[H]
@@ -253,3 +274,5 @@ Die Antwort des Servers beinhaltet die Informationen:
     \item Authentifizierungsstatus
     \item Ermittelte Wahrscheinlichkeit je Sprecher
 \end{itemize}
+
+\textauthor{\vHS}{}{}

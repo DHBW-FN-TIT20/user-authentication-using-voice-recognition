@@ -1,3 +1,7 @@
+/**
+ * @file Result.tsx
+ * @author Henry Schuler
+ */
 import React from 'react'
 import './Result.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,6 +15,11 @@ export interface ResultProps {
   close: () => void;
 }
 
+/**
+ * A pop-up for displaying the authentication result from the server (text and line chart)
+ * @param props Passes required values for displaying the information as well as a function reference for closing the pop-up
+ * @returns JSXElement
+ */
 export default function Result(props: ResultProps) {
   return (
     <div 

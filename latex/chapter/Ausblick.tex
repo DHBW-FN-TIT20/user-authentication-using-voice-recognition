@@ -1,1 +1,53 @@
-\section{Ausblick}
+\section{Ausblick}\label{sec:Ausblick}
+Wie bereits im vorangehenden Kapitel beschrieben, wurden in dieser Arbeit ein grundlegendes System für die Sprecherauthentifikation erarbeitet.
+In dieser Arbeit wird dabei nur ein kleiner Teilaspekt der Sprecherauthentifikation genauer untersucht, während andere Aspekte nicht genauer betrachtet werden.
+Diese Aspekte können im Rahmen einer anschließenden Studie genauer untersucht werden.
+Eine Auswahl möglicher Vertiefungen ist in den folgenden Unterkapiteln beschrieben.
+
+\subsection{Praktische Evaluation der Sicherheitsrisiken}
+Die in Kapitel~\ref{sec:Sicherheitsrisiken} aufgezeigten Risiken können im Rahmen einer anschließenden Arbeit genauer evaluiert werden.
+Dazu werden ausgewählte Angriffspunkte konzipiert und implementiert.
+In einer ausführlichen Durchführung kann die in dieser Arbeit getroffene Einstufung der Sicherheitsrisiken verifiziert, beziehungsweise widerlegt werden.
+Gleichzeitig bietet die Arbeit die Möglichkeit zur Entwicklung einer Gegenmaßnahme, sodass diese Sicherheitslücken geschlossen werden.
+Denkbar wäre hier auch ein vorher-nachher Vergleich zur Evaluierung der Effektivität der entwickelten Gegenmaßnahme.
+
+\subsection{Weiterführende Evaluierung der in dieser Arbeit verwendeten Merkmale}
+In der Evaluation (Kapitel~\ref{sec:Evaluation}) wurde die Aussage getroffen, dass eine weiterführende Analyse der verwendeten \ac{MFCC} und \ac{dMFCC} Merkmalen unter Betracht der geringen Verbesserung über den Rahmen dieser Arbeit hinaus geht.
+Im Rahmen weiterer Arbeiten kann dieser Punkt aufgegriffen werden und gezielt die zu verwendende Koeffizientenanzahl, sowie Framegröße und -länge evaluiert werden.
+Um den Aspekt des Rechenaufwands dabei nicht zu vernachlässigen, kann eine Metrik erstellt werden, die die Erhöhung der Koeffizientenanzahl und damit auch des Rechenaufwands mit der erzielten Verbesserung ins Verhältnis setzt.
+
+\subsection{Optimierung durch Anpassung des Neuronalen Netzes}
+Der in dieser Arbeit verwendete Aufbau des \ac{NN} wurde zu Beginn festgelegt und nicht näher untersucht.
+Die Struktur des \ac{NN} spielt dabei jedoch eine zentrale Rolle in der Klassifikation durch das \ac{NN}.
+Mittels detaillierterer Recherchen im Bereich der \ac{NN} sowie zusätzliche Versuchsreihen, kann evaluiert werden, ob eine Verbesserung der Authentifizierung durch eine andere \ac{NN}-Struktur erreichbar ist.
+
+Ein weiterer möglicher Aspekt in diesem Zusammenhang stellt die Art und Weise der Klassifizierung durch das \ac{NN} dar.
+In dieser Arbeit wird mittels des \ac{NN} jedem Frame eine SprecherId zugeordnet, wobei für jeden Sprecher ein Output-Neuron existiert.
+Zu überprüfen ist, ob eine Klassifikation als \gqq{authentifiziert}, beziehungsweise \gqq{nicht authentifiziert} direkt durch das \ac{NN} vorgenommen werden kann.
+Dabei ist zu entscheiden, ob als Resultat für jeden Sprecher ein separates \ac{NN} erzeugt, oder ob der Input-Layer lediglich angepasst werden muss.
+
+\subsection{Dynamische Erweiterbarkeit um zusätzliche Sprecher}
+Das in dieser Arbeit implementierte System ist für die Verwendung mit einem fest definierten Datensatz ausgelegt.
+Um das System an die Anwendungsfälle eines Produktiveinsatzes anzupassen, muss das System die Möglichkeit bieten, neue Benutzer hinzuzufügen.
+Die Art und Weise wie dies ermöglicht werden kann ist dabei Teil einer weiterführenden Arbeit.
+Hierbei kann neben der theoretischen Umsetzung auch der Punkt betrachtet werden, wie sich die Zuverlässigkeit mit einer zunehmenden Anzahl an Sprechern verändert und was die Auswirkungen für bestehende, sowie neue Benutzer sind.
+
+Gleichzeitig gewinnt auch die benötigte Länge an Audiomaterial für den Trainingsprozess von Bedeutung.
+Hier kann einerseits der allgemeine Zusammenhang zwischen der Länge des zur Verfügung stehenden Audiomaterials und der Zuverlässigkeit des \ac{NN} untersucht werden.
+Zusätzlich kann aber auch die Relevanz der Länge des zur Verfügung stehenden Audiomaterials bei einer steigenden Anzahl an Benutzern untersucht werden.
+
+\subsection{Zuverlässigkeitsanalyse ähnlicher Sprecher}
+Für diese Arbeit wurde ein Datensatz ausgewählt, welcher Sprecher enthält, die sich akustisch durch die Evaluierung eines Menschen eindeutig auseinanderhalten lassen.
+Dies ist im Realeinsatz jedoch nicht immer der Fall.
+Es besteht die Möglichkeit, dass sich Stimmen verschiedener Sprecher nur minimal unterscheiden (beispielsweise bei Zwillingen).
+Durch eine Untersuchung kann evaluiert werden, inwiefern das System in der Lage ist, diese Personen korrekt zu authentifizieren und damit auseinanderzuhalten.
+Neben der Evaluation des Systems aus dieser Arbeit gilt es dabei zu erörtern, ob es spezielle Merkmale gibt, die sich in besonderer Weise für die Authentifizierung ähnlicher Sprecher eignen.
+
+\subsection{Qualität und Inhalt des Audiomaterials}
+Der in dieser Arbeit verwendete Datensatz besteht ausschließlich aus Aufzeichnungen englischer Sprache, die unter gleicher Bedingung aufgenommen sind.
+Im realen Einsatz besteht die Möglichkeit, dass sowohl andere Sprachen, als auch verschiedene Aufnahmequalitäten auftreten.
+Diese beiden Punkte können getrennt voneinander in einer weiterführenden Arbeit evaluiert werden.
+Dabei kann bei der verwendeten Sprache sowohl eine Bewertung zwischen mehreren Systemen, die jeweils eine Sprache verwenden, durchgeführt werden, als auch innerhalb eines Systems, welches mehrere Sprecher mit unterschiedlichen Sprachen implementieren.
+Für den Aspekt der Aufnahmequalität können einerseits technische Einflüsse wie Störungen oder unterschiedliche Mikrofone betrachtet werden oder andererseits Störgeräusche in Form von Umgebungslärm, zum Beispiel durch Stimmen mehrerer Personen im Hintergrund.
+
+\textauthor{\vHS}{}{}

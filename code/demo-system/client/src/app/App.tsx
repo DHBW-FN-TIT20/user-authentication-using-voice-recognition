@@ -1,3 +1,7 @@
+/**
+ * @file App.tsx
+ * @author Henry Schuler
+ */
 import { useEffect, useState, useRef } from 'react';
 import'./App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +11,13 @@ import Info from '../shared/components/Info/Info';
 
 import configData from '../config.json'
 
+/**
+ * Sends a login request to the server and returns the answer.
+ * @param authenticatingUserId User ID to authenticate
+ * @param sampleFileUserId User ID of the sample file
+ * @param sampleFileIndex Index of the sample file
+ * @returns JSON Object containing the parameters absolute_accuracy_of_selected_speaker, is_authenticated and absolute_accuracy_of_all_speakers
+ */
 async function login(authenticatingUserId: number, sampleFileUserId: number, sampleFileIndex: number) {
   try {
     const response = await fetch(`http://${configData.SERVER_URL}:${configData.SERVER_PORT}/?speaker_id=${sampleFileUserId}&sample_id=${sampleFileIndex}&selected_speaker_id=${authenticatingUserId}`);
@@ -34,6 +45,10 @@ async function login(authenticatingUserId: number, sampleFileUserId: number, sam
   }
 }
 
+/**
+ * Main view component of the single page application displaying the login process.
+ * @returns JSXElement
+ */
 function App() {
   const [loginDisabled, setLoginDisabled] = useState<boolean>(true);
   const [authenticatingUserId, setAuthenticatingUserId] = useState<number>(NaN);
@@ -46,6 +61,9 @@ function App() {
   
   const audioRef = useRef<HTMLAudioElement>(null)
 
+  /**
+   * Is used to change the song in the <audio> tag to the selected file (reload).
+   */
   const updateSong = () => {
     if(audioRef.current){
         audioRef.current.pause();
@@ -53,6 +71,9 @@ function App() {
     }
   }
 
+  /**
+   * Enables/disables the login button dependant on the content of the inputs
+   */
   useEffect(() => {
     const updateLoginStatus = () => {
       if (!isNaN(authenticatingUserId) && authenticatingUserId >= 0 && authenticatingUserId < 20 && !isNaN(sampleFileUserId) && !isNaN(sampleFileIndex)) {
@@ -64,12 +85,18 @@ function App() {
     updateLoginStatus();
   }, [authenticatingUserId, sampleFileUserId, sampleFileIndex])
 
+  /**
+   * Updated the audio whenever a new file is selected.
+   */
   useEffect(() => {
     updateSong();
   }, [sampleFileUserId, sampleFileIndex])
 
+  /**
+   * Implements a "ESC" Key-Event listener for closing the Results pop-up
+   */
   useEffect(() => {
-    // eventlistener on esc -> setShowResults(false);
+    // event listener on esc -> setShowResults(false);
     const escFunction = (event: KeyboardEvent) => {
       if(event.key === 'Escape') {
         setShowResults(false);

@@ -1,3 +1,7 @@
+/**
+ * @file index.tsx
+ * @author Henry Schuler
+ */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
