@@ -121,11 +121,11 @@ Configs = {
 }
 \end{lstlisting}
 
-Der \codestyle{weight} Parameter gibt lediglich an, ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht, um verschiedene Kombinationen zu erreichen.
+Der \texttt{weight} Parameter gibt lediglich an, ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht, um verschiedene Kombinationen zu erreichen.
 So gibt es auch manche Kombinationen, die beispielsweise nur \ac{MFCC}-Merkmale in der Analyse berücksichtigen.
 Hierbei muss beachtet werden, dass durch die Kombination auch Konfigurationen entstehen, in welchen nichts berechnet werden muss.
 Diese werden manuell entfernt.
-Die anderen Variablen wie \codestyle{order} und dessen Werte wurden bereits in Kapitel~\ref{sec:FeatureKombination} erklärt.
+Die anderen Variablen wie \texttt{order} und dessen Werte wurden bereits in Kapitel~\ref{sec:FeatureKombination} erklärt.
 
 \subsubsection{Datensatz}
 Für die Evaluierung der Stimmmerkmale wird ein geeigneter Datensatz benötigt.
@@ -167,16 +167,16 @@ Zusammengefasst transformiert der Algorithmus mithilfe von \ac{FFT} das Audio-Si
 Hier werden dann die Störfrequenzen über Schwellwertverfahren lokalisiert und mittels Filter eliminiert.
 Anschließend wird das Signal wieder zurücktransformiert \autocite[][]{sainburg_timsainbnoisereduce_2019}.
 
-Die abschließende Unterteilung des Audiosignals in Frames, sowie das Windowing der Frames findet mit Hilfe von \codestyle{numpy}-Operationen in den Funktionen \codestyle{create_frames} und \codestyle{window_frames} statt.
-Die passende Fensterfunktion wird dabei ebenfalls durch die \codestyle{numpy}-Bibliothek bereitgestellt.
+Die abschließende Unterteilung des Audiosignals in Frames, sowie das Windowing der Frames findet mit Hilfe von \texttt{numpy}-Operationen in den Funktionen \texttt{create\_\-frames()} und \texttt{window\_\-frames()} statt.
+Die passende Fensterfunktion wird dabei ebenfalls durch die \texttt{numpy}-Bibliothek bereitgestellt.
 Bei dem Aufteilen in Frames wird eine Überlappung von 50 \% gewählt.
 
 Für das Extrahieren der Merkmale aus dem Audiosignal wird ein Ansatz gewählt, der eine einfache Erweiterung des Programms um verschiedene andere Verfahren ermöglicht.
 Dazu wird das Designmuster Strategie in abgewandelter Form verwendet, wobei zunächst ein Interface für die Berechnungsverfahren erstellt werden muss.
-Dieses definiert die Funktion \codestyle{calculate_features}, welche in den abgeleiteten Klassen implementiert wird.
+Dieses definiert die Funktion \texttt{calculate\_features()}, welche in den abgeleiteten Klassen implementiert wird.
 Für die eigentlichen Berechnungen der Koeffizienten wird wieder die Signal-Verarbeitungs-Bibliothek Librosa verwendet.
 Beispielhaft für die Berechnung von \ac{MFCC} sieht man in Listing~\ref{lst-MFCCExtractor}, wie unkompliziert sich die Bibliothek Librosa verwenden lässt.
-Allerdings müssen viele Parameter, wie zum Beispiel die Länge des zu verwendenden FFT-Fensters (\codestyle{n_fft}) gefüllt bzw. geändert werden.
+Allerdings müssen viele Parameter, wie zum Beispiel die Länge des zu verwendenden FFT-Fensters (\texttt{n\_fft}) gefüllt bzw. geändert werden.
 Diese Werte ergeben sich aus den von uns ausgewählten Parameter (beschrieben in~\ref{sec:FeatureKombination}) und den Anweisungen in der offiziellen Dokumentation der Librosa-Bibliothek \autocite[vgl. ][]{librosa_development_team_librosa_2023}.
 
 \begin{lstlisting}[language=Python,caption=Klasse zur Extraktion von MFCC-Merkmalen,label=lst-MFCCExtractor]
@@ -233,7 +233,7 @@ model.fit(X, y, epochs=epochs)
 
 Nach dem Training erfolgt die Evaluation der neuronalen Netze, hierzu wird der tatsächliche Authentifizierungsprozess nachgebildet.
 Die berechneten Testdaten werden auf die neuronalen Netze angewandt, das neuronale Netz klassifiziert also die Daten, indem es die Features jedes Frames einem der 20 Sprecher zuordnet.
-Diese Klassifizierung wird durch die Tensorflow-Methode \codestyle{model.predict()} realisiert, wie das Listing~\ref{lst-model-predict} zeigt.
+Diese Klassifizierung wird durch die Tensorflow-Methode \texttt{model.predict()} realisiert, wie das Listing~\ref{lst-model-predict} zeigt.
 
 \begin{lstlisting}[language=Python,caption=Evaluation mit model.predict und Normalisierung des Ergebnisses,label=lst-model-predict]
 prediction = self.neural_network.predict(np.asarray(self.test_data_x[i])) # generate prediction for the sample

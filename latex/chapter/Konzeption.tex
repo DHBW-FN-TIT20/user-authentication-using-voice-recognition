@@ -126,14 +126,14 @@ Die vorhin genannten Werte sind übersichtlich in der nachfolgenden Tabelle darg
 % }
 % \end{lstlisting}
 
-% Die Werte für die Anzahl und Länge der Frames \codestyle{amount_of_frames} und \codestyle{size_of_frame} berechnen sich aus vorherigen Versuchen, der verwendeten Abtastrate und der gewünschten Trainingsclip-Länge.
+% Die Werte für die Anzahl und Länge der Frames \texttt{amount\_oftexttt_frames} und \texttt{sizetexttt_oftexttt_frame} berechnen sich aus vorherigen Versuchen, der verwendeten Abtastrate und der gewünschten Trainingsclip-Länge.
 
 
-% Bei den Features gibt der \codestyle{order} Parameter die Anzahl der Features pro Frame an.
+% Bei den Features gibt der \texttt{order} Parameter die Anzahl der Features pro Frame an.
 % Der Wert 13 ist aus der Literatur abgeleitet. %TODO CITE
 % Der Wert 20 ist selbstständig ergänzt, um einen Vergleich zu ermöglichen.
 % Um die Anzahl der Konfigurationen zu reduzieren und da die Relevanz von \ac{dMFCC} am geringsten ist, wird hier auf den zweiten Wert verzichtet.
-% Der \codestyle{weight} Parameter gibt lediglich an ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
+% Der \texttt{weight} Parameter gibt lediglich an ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
 
 \subsubsection{Datensatz} \label{sec:KonzeptDatensatz}
 Um die unterschiedlichen Kombinationen an Features zu vergleichen, wird ein Datensatz benötigt, der mindestens 20 verschiedene Sprecher mit mindestens ca. 15 min unterschiedlichem Audio-Material enthält.
@@ -257,7 +257,7 @@ In Abbildung~\ref{fig:SequenceHandleApiRequest} ist ein exemplarischer Ablauf de
 \end{figure}
 
 Eine eingehende Authentifizierungsanfrage wird von der Funktion \textFunktion{handle\_api\_request()} verarbeitet.
-Die Klassifizierung der übergebenen Audiodatei verläuft dabei analog zum Versuchssystem, weshalb hier die Komponenten des Versuchssystems (\textKlasse{Dataset\-Handler}, \textKlasse{Audio\-Preprocessor}, \textKlasse{Feature\-Extractor}) innerhalb der Funktionen \textFunktion{generate\_test\_data()} und \textFunktion{extract\_features()} genutzt werden können. % TODO: Evtl. Referenz auf Versuchssystem Konzept
+Die Klassifizierung der übergebenen Audiodatei verläuft dabei analog zum Versuchssystem, weshalb hier die Komponenten des Versuchssystems (\textKlasse{Dataset\-Handler}, \textKlasse{Audio\-Preprocessor}, \textKlasse{Feature\-Extractor}) innerhalb der Funktionen \textFunktion{generate\_test\_data()} und \textFunktion{extract\_\-features()} genutzt werden können. % TODO: Evtl. Referenz auf Versuchssystem Konzept
 
 Die Ergebnisse der Authentifizierung werden über die Schnittstelle zurück an den Client gesendet.
 
