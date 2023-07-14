@@ -1,4 +1,7 @@
 \section{Grundlagen}
+
+\textauthor{\vJB,}{\vLB,}{\vHS}
+
 Um die Hintergründe und Herangehensweisen der Studienarbeit nachzuvollziehen müssen zunächst verschiedene Grundlagen vorgestellt werden.
 Dabei findet eine Definition des Begriffs Sprecherauthentifikation statt.
 Anschließend wird ein Basisverständnis für die Technische Umsetzung mittels eines Exkurses über den Aufbau der menschlichen Stimme hergestellt.
@@ -7,6 +10,9 @@ Außerdem findet eine kurze Einführung in den Bereich der künstlichen Intellig
 Abschließend werden mehrere Ansätze zur Analyse von Sicherheitsrisiken vorgestellt.
 
 \subsection{Sprecherauthentifikation}
+
+\textauthor{\vHS}{}{}
+
 In der Kryptographie beschreibt der Begriff Authentifizierung \gqq{eine Identität durch eine identitätsgebundene Information zu überprüfen} \autocite[][S. 129]{tsolkas_rollen_2017}.
 Zu den identitätsgebundenen Informationen zählt unter Anderem die biometrische Information der Stimme für die Sprecherauthentifikation.
 
@@ -30,6 +36,9 @@ Im konkreten Anwendungsfall der Sprecherauthentifikation wird zwischen Textunabh
 %     - Bsp.: Google-Assistant / Alexa
 
 \subsubsection{Textunabhängig und Textabhängig}
+
+\textauthor{\vHS}{}{}
+
 Textunabhängige Systeme beziehen sich ausschließlich auf die Charakteristiken der Stimme ohne dabei den Inhalt des Gesprochenen auszuwerten.
 Für die Authentifizierung kann somit eine beliebige Wortkombination eingesprochen werden.
 
@@ -104,20 +113,25 @@ Für die Umrechnung zwischen den beiden Skalen wird folgende Formel verwendet \a
     h(f) = 2595 \cdot \log_{10}\left(1 + \frac{f}{700}\right)
 \end{equation}
 
-\textauthor{\vHS}{}{}
-
 \subsection{Audioanalyse}\label{sec:Audioanalyse}
+
+\textauthor{\vJB,}{\vHS}{}
+
 Basierend auf den biologischen Grundlagen der menschlichen Stimme, welche im vorangehenden Kapitel vorgestellt wurden, beschäftigt sich dieses Kapitel nun mit der Generierung von Parametern aus Stimmaufzeichnungen, die einen Rückschluss auf den Sprecher erlauben.
 Dazu wird zunächst auf die benötigten Vorverarbeitungsschritte eingegangen, die zur Weiterverarbeitung der aufgezeichneten Audiodatei benötigt werden.
 Anschließend wird das grundlegende Konzept der Fourier Analyse vorgestellt, welches zusammen mit dem vorangehenden Kapitel der Stimmwahrnehmung die Basis für die \ac{MFCC} bildet.
 Abschließend werden basierend auf den Konzepten der Stimmerzeugung die \ac{LPC} Koeffizienten eingeführt.
 
 \subsubsection{Signalvorverarbeitung}\label{sec:preprocessing}
+
+\textauthor{\vJB,}{\vHS}{}
+
 Um ein gegebenes Audiosignal einheitlich verarbeiten zu können, muss dieses zunächst mittels verschiedener Verfahren vorbereitet werden.
 Ziel dieser Vorverarbeitung ist es, die Effizienz und Effektivität des anschließenden Verarbeitungsprozesses zu erhöhen und somit ein verbessertes Ergebnis zu erzielen \autocite[vgl.][S. 11672]{lokesh_speech_2019}.
 Die Vorverarbeitung im Rahmen dieser Arbeit beinhaltet die vier Schritte Rauschreduzierung, Pausen entfernen, Framing und Windowing, welche im Folgenden genauer erläutert werden.
 
 \paragraph{Rauschreduzierung}\label{sec:Rauschreduzierung}
+
 Um störende Frequenzen aus dem Audiosignal zu entfernen, wird eine Rauschreduzierungsfunktion verwendet.
 Die in dieser Arbeit verwendete Funktion nutzt den sogenannten Spectral Noise Gate Algorithmus.
 Dabei wird zunächst die Signatur des Rauschens ermittelt.
@@ -152,9 +166,10 @@ Wird der Schritt des Windowing nicht durchgeführt, führt dies zu einem Phänom
 Bei der Transformation des Signals von dem Zeitbereich in den Frequenzbereich resultiert der Amplitudensprung an den Blockenden in der Registrierung einer Vielzahl von Frequenzen.
 Wie der Name bereits beschreibt, wird aus einer eindeutigen Frequenz, ein Spektrum aus Frequenzen, die nicht Teil des Signals sind \autocite[vgl.][S. 1296]{wu_new_2012}.
 
-\textauthor{\vJB,}{\vHS}{}
-
 \subsubsection{Fourier Analyse}
+
+\textauthor{\vJB}{}{}
+
 Die Grundlage für die Fourier Analyse stellt die von Jean-Baptiste Joseph Fourier entwickelte Fourier Reihe dar.
 In diesem Unterkapitel wird dabei zunächst die Fourier Reihe vorgestellt und anschließend die in dieser Arbeit verwendete \ac{FFT} daraus schrittweise abgeleitet.
 
@@ -281,6 +296,9 @@ Einfach gesagt, nutzt der Algorithmus die Eigenschaft von Sinus- und Kosinus-Wel
 Durch diese Eigenschaft und das rekursive Aufteilen des Signals in gerade und ungerade Datenpunkte spart der Algorithmus sehr viele Berechnungen ein \autocite[vgl.][S. 643]{oppenheim_discrete-time_1999}.
 
 \subsubsection{Mel Frequency Cepstral Coefficients}
+
+\textauthor{\vJB}{}{}
+
 Die \ac{DFT} ermöglicht es bereits wesentliche Merkmale wie die Stimmlage und -farbe einer aufgezeichneten Stimme zu bestimmen.
 Um die gewonnenen Merkmale der Fourier Analyse zu verbessern, werden weitere Berechnungsschritte durchgeführt, sodass die Merkmale in \ac{MFCC} umgewandelt werden.
 
@@ -300,9 +318,10 @@ Um die \ac{MFCC} zu berechnen sind die folgenden vier Schritte notwendig \autoci
 
 Durch die Abbildung der ermittelten Frequenzen auf die Mel-Skala orientiert sich das Verfahren somit an der menschlichen Stimmwahrnehmung, welche bereits im vorangehenden Kapitel erläutert wurde.
 
-\textauthor{\vJB}{}{}
-
 \subsubsection{Linear Predicitve Coding}
+
+\textauthor{\vHS}{}{}
+
 Die Grundlage von \ac{LPC} bildet das \ac{AR} Modell.
 Die \ac{AR} basiert auf dem Konzept der multiplen Regression und wird auf zeitlich veränderliche Prozesse angewandt.
 Dabei wird eine Kriteriumsvariable unter Betrachtung von einer beliebigen Anzahl an Prädiktorvariablen vorhergesagt \autocite[vgl.][S. 37-38]{canela_multiple_2019}.
@@ -331,9 +350,10 @@ Da die Struktur der Formanten sprecherspezifisch ist, kann der Sprecher somit ü
 Zur Berechnung der \ac{LPC}-Koeffizienten wird zunächst die selbe Annahme wie in Kapitel~\ref{sec:Framing} getroffen, dass sich die Form des Vokaltrakts und das in den Stimmritzen erzeugte Signal über den betrachteten Zeitraum nicht verändert \autocite[vgl.][S. 1304]{atal_effectiveness_1974}.
 Somit lassen sich die Koeffizienten des \ac{AR}-Filters mittels des Burg-Algorithmus berechnen.
 
-\textauthor{\vHS}{}{}
-
 \subsection{Künstliche Intelligenz}
+
+\textauthor{\vLB}{}{}
+
 \ac{KI} hat in den letzten Jahren stark an Aufmerksamkeit gewonnen und gilt als eine der wichtigsten Technologien des 21. Jahrhunderts.
 Spätestens seit der Veröffentlichung und dem Erfolg durch den Chatbot ChatGPT am 30. November 2022 sind die Möglichkeiten von \ac{KI} den meisten Menschen bekannt. 
 ChatGPT hat innerhalb von fünf Tagen die Schwelle von einer Million Nutzer erreicht. 
@@ -387,6 +407,9 @@ Hierzu interagiert der Lernalgorithmus mit der Umgebung und erhält Belohnungen,
 Der Computer erlernt so das ideale Verhalten innerhalb der Umgebung \autocite[vgl][S. 12]{thakkar_beginning_2019}.
 
 \subsection{Neuronale Netze}\label{sec:neuronaleNetze}
+
+\textauthor{\vLB}{}{}
+
 In engem Zusammenhang zu \acl{ML} stehen die sogenannten \aclp{NN}.
 Ein \ac{NN} ist ein maschinelles Modell, das auf dem Vorbild der Abläufe im Gehirn von Mensch und Tier basiert.
 Durch geeignete mathematische Operationen wird versucht die Art und Weise abzubilden wie das menschliche Gehirn Probleme angeht beziehungsweise Zusammenhänge aus beobachteten Daten erkennt \autocites[vgl.][S. 604]{backhaus_multivariate_2016}[vgl.][S. 31]{judith_hurwitz_machine_2018}.
@@ -426,9 +449,10 @@ Im Regelfall werden hierbei Daten verwendet, welche zwar aus dem gleichen Datens
 \autocite[vgl.][]{marcel_mikl_wie_2018}
 % Arten von NN
 
-\textauthor{\vLB}{}{}
-
 \subsection{Gefahrenanalyse}
+
+\textauthor{\vHS}{}{}
+
 Eine Möglichkeit der Beurteilung von sicherheitskritischen Systemen stellt die Gefahrenanalyse (Threat Analyse) dar.
 Dabei wird durch verschiedene Herangehensweisen versucht, möglichst viele potenzielle Gefahren und Angriffsstellen des Systems zu ermitteln und anschließend zu bewerten.
 Als Resultat ergibt sich eine klare Einschätzung der Gefahrensituation, wodurch eine Aussage über die Sicherheit des entwickelten Systems getroffen werden kann.
@@ -475,5 +499,3 @@ Für jede der fünf Kategorien werden dabei zwischen einem und zehn Punkte verge
 Die Bewertungen der Kategorien werden anschließend aufsummiert und der Mittelwert gebildet.
 Anhand dieses Mittelwertes kann nun eine priorisierte Liste erstellt werden, wobei ein hoher Wert eine hohe Gefahr bedeutet.
 Ausgehend von dieser Liste kann somit entschieden werden, welche Gefahren priorisiert behandelt werden müssen \autocite[vgl.][]{domars_threat_2023}.
-
-\textauthor{\vHS}{}{}

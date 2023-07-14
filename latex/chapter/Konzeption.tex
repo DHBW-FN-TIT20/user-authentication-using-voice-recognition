@@ -1,9 +1,13 @@
 \section{Konzeption}\label{sec:Konzeption}
 
+\textauthor{\vJB,}{\vLB,}{\vHS}
+
 Das vorliegende Kapitel behandelt die Konzeption des Versuchssystems und des Demosystems.
 Dazu erfolgt zuvor ein grobes Konzept für ein generisches Sprecherauthentifikationssystem und die Festlegung der Anforderungen an das Demosystem.
 
 \subsection{Allgemeiner System-Aufbau}\label{sec:allgemeiner-system-aufbau}
+
+\textauthor{\vJB,}{\vLB}{}
 
 Ein allgemeiner, generischer Aufbau für ein Sprecherauthentifikationssystem ist in Abbildung~\ref{fig:allg-generisch-aufbau} dargestellt.
 
@@ -29,9 +33,11 @@ Dazu wird zunächst ein Test-Sample über eine Verarbeitungs-Komponente in die S
 Außerdem gibt der Nutzer eine Identitätsbehauptung ab, welche zusammen mit der Zuordnungsverteilung von einer Entscheidungs-Komponente verarbeitet wird.
 Hieraus resultiert eine Entscheidung, ob die Identitätsbehauptung akzeptiert wird oder nicht.
 
-\textauthor{\vJB,}{\vLB}{}
+Dieser Ablauf stellt die Grundlage für die Konzeption der nachfolgenden Systeme dar.
 
 \subsection{Festlegung der Systemanforderungen}\label{sec:anforderungen}
+
+\textauthor{\vJB}{}{}
 
 Die grundlegende praktische Anforderung an diese Studienarbeit ist es, ein Sprecherauthentifikationssystem zu entwickeln, welches über eine Webapplikation bedient werden kann.
 Dazu müssen geeignete Stimmmerkmale zur Benutzerauthentifizierung evaluiert werden.
@@ -49,9 +55,10 @@ Da diese Anforderungsbeschreibung noch viel Spielraum über den Funktionsumfang 
     \item Das System soll dem Nutzer dann Informationen über die Identifikations-Verteilung (zu welchem Sprecher passt der Clip zu welchem Prozentsatz) und den Authentifizierungs-Status (\gqq{erfolgreich}/\gqq{nicht erfolgreich}) als Rückmeldung darstellen.
 \end{itemize}
 
+\subsection{Konzept Versuchssystem}\label{sec:KonzeptVersuchssystem}
+
 \textauthor{\vJB,}{\vLB}{}
 
-\subsection{Konzept Versuchssystem}\label{sec:KonzeptVersuchssystem}
 Die Konzeption des Versuchssystems unterteilt sich in mehrere Unterkapitel.
 Zunächst wird die allgemeine Systemidee vorgestellt.
 Anschließend wird auf die in dieser Arbeit evaluierten Feature Kombinationen eingegangen.
@@ -59,6 +66,8 @@ Daraufhin werden die Anforderungen an den Datensatz konkretisiert, woraufhin ans
 Abgeschlossen wird das Kapitel mit einer Beschreibung der Klassifikation und Evaluierung, sowie der spezifischen Softwarearchitektur des Versuchssystems.
 
 \subsubsection{Systemidee}
+
+\textauthor{\vJB,}{\vLB}{}
 
 Aus der Literaturrecherche in Kapitel \ref{sec:StandDerTechnik} gehen verschiedene Stimmmerkmale zur Benutzerauthentifizierung hervor.
 Die Ergebnisse der dargestellten Untersuchungen unterscheiden sich darin, inwieweit die unterschiedlichen Stimmmerkmale die Stimme repräsentieren bzw. zuverlässig für eine korrekte Authentifizierung sind.
@@ -79,6 +88,8 @@ Ein grober Ablaufplan des Systems ist in Abbildung~\ref{fig:PAP_DemoSystem} darg
 % Abschließend erfolgt eine Auswertung der verschiedenen Konfigurationen, um eine ideale Konfiguration von Features zu ermitteln
 
 \subsubsection{Feature Kombinationen}\label{sec:FeatureKombination}
+
+\textauthor{\vJB,}{\vLB}{}
 
 Um die Kombinationen zu generieren, werden zunächst die verschiedenen Möglichkeiten definiert und anschließend miteinander kombiniert, was zu über 500 verschiedenen Konfigurationen führt.
 Hierzu werden zusätzlich zu den oben genannten Features auch die Anzahl und Länge der Frames definiert.
@@ -136,11 +147,16 @@ Die vorhin genannten Werte sind übersichtlich in der nachfolgenden Tabelle darg
 % Der \texttt{weight} Parameter gibt lediglich an ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
 
 \subsubsection{Datensatz} \label{sec:KonzeptDatensatz}
+
+\textauthor{\vLB}{}{}
+
 Um die unterschiedlichen Kombinationen an Features zu vergleichen, wird ein Datensatz benötigt, der mindestens 20 verschiedene Sprecher mit mindestens ca. 15 min unterschiedlichem Audio-Material enthält.
 Die Audio-Clips müssen unter gleichen Bedingungen aufgenommen sein und in kompressionslosem WAV-Format vorliegen.
 Der Datensatz wird aufgeteilt in Training- und Testdaten.
 
 \subsubsection{Vorverarbeitung und Feature-Extraktion}
+
+\textauthor{\vJB}{}{}
 
 In der Feature-Extraktion werden die Stimmmerkmale aus den Trainingsdaten extrahiert.
 Hierzu müssen die Audiosignale zunächst vorverarbeitet werden (siehe Kapitel \ref{sec:preprocessing}).
@@ -159,6 +175,8 @@ Näher wird dieser Ablauf in dem dazugehörigen Umsetzungs-Kapitel (\ref{section
 
 \subsubsection{Klassifikation und Evaluierung}\label{sec:KonzeptKlassifikation}
 
+\textauthor{\vLB}{}{}
+
 Die Literaturrecherche hat ergeben, dass sich neuronale Netze gut als Klassifikationsmodell eignen (siehe Kapitel \ref{sec:StandDerTechnik}). 
 Deshalb werden bei der Klassifikation die berechneten Features aus dem Schritt zuvor genutzt, um neuronale Netze zu trainieren, sodass die Feature-Kombinationen bewertet werden können.
 Hierbei muss das Netz mehrmals durchlaufen werden, da zu Beginn des Trainings die Gewichtung zufällig gesetzt wird (siehe Kapitel \ref{sec:neuronaleNetze}).
@@ -167,6 +185,9 @@ Die Auswertung des neuronalen Netzes wird gespeichert und nach Berechnung aller 
 Somit soll die beste Kombination gefunden und das damit trainierte neuronale Netz für das Demosystem verwendet werden.
 
 \subsubsection{Software Architektur}
+
+\textauthor{\vJB,}{\vLB}{}
+
 Um eine solide Grundlage für die Entwicklung zu schaffen, wird im Folgenden die Softwarearchitektur für das System entwickelt.
 Hierzu wird zunächst basierend auf den vorangegangenen Definitionen ein Klassendiagramm erstellt.
 In einem Folgeschritt wird der Ablauf in einem Sequenzdiagramm dargestellt. % optional
@@ -202,7 +223,6 @@ Mit dem Evaluator werden die neuronalen Netze auf ihre Genauigkeit geprüft.
 \newline
 \noindent \textbf{Serializer}\\
 Die Serzializer-Klasse speichert die zu Laufzeit generierten Daten für weitere Untersuchungen.
-\newparagraph
 
 In Abb. \ref{fig:sequenzdiagramm-versuchssystem} ist das Sequenzdiagramm dargestellt, dies stellt den Durchlauf einer Konfiguration durch Objekte der verschiedenen Klassen dar.
 \begin{figure}[H]
@@ -212,12 +232,10 @@ In Abb. \ref{fig:sequenzdiagramm-versuchssystem} ist das Sequenzdiagramm dargest
     \label{fig:sequenzdiagramm-versuchssystem}
 \end{figure}\noindent
 
-% Beschreibung der Architektur
-% GGF Sequenzdiagramm
-
-\textauthor{\vJB,}{\vLB}{}
-
 \subsection{Demosystem}
+
+\textauthor{\vHS}{}{}
+
 Ziel des Demosystems ist es, den Authentifizierungsprozess mittels Sprechererkennung zu implementieren und damit die Ergebnisse der Arbeit zu präsentieren.
 Aus den Anforderungen in Kapitel~\ref{sec:anforderungen} geht dabei hervor, dass dies als Webapplikation umzusetzen ist.
 Dadurch ergibt sich als Basisarchitektur eine Client-Server-Architektur, wobei der Client die Weboberfläche und der Server den Authentifizierungsprozess implementiert.
@@ -274,5 +292,3 @@ Die Antwort des Servers beinhaltet die Informationen:
     \item Authentifizierungsstatus
     \item Ermittelte Wahrscheinlichkeit je Sprecher
 \end{itemize}
-
-\textauthor{\vHS}{}{}
