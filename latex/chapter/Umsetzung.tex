@@ -98,7 +98,7 @@ Hierzu werden die vorher definierten Werte in einer JSON-Datei erfasst und durch
 
 Die Konfigurationswerte für die Kombinierung sind im Listing~\ref{lst-configs} dargestellt.
 
-\begin{lstlisting}[language=Python,numbers=none,caption=Konfigurationsmöglichkeiten,label=lst-configs]
+\begin{lstlisting}[language=Python,caption=Konfigurationsmöglichkeiten,label=lst-configs]
 Configs = {
     "amount_of_frames": [10000, 15000],
     "size_of_frame": [400, 600],
@@ -149,7 +149,7 @@ Hierfür wird der Audio-Clip mittels der Bibliothek \gqq{Librosa} geladen.
 Anschließend folgt der erste Schritt der Vorverarbeitung, das Entfernen von stillen Passagen.
 Dafür wird ein selbst entwickelter Algorithmus verwendet, der erkennt, wenn sich die Amplitude des Audiosignals über einen gewissen Zeitraum unterhalb eines definierten Schwellwerts befindet.
 
-\begin{lstlisting}[language=Python,numbers=none,caption=Remove Silence,label=lst-remove-silence]
+\begin{lstlisting}[language=Python,caption=Remove Silence,label=lst-remove-silence]
 for i, amp in enumerate(y):
 if abs(amp) < threshold:
     counter_below_threshold += 1
@@ -179,7 +179,7 @@ Beispielhaft für die Berechnung von \ac{MFCC} sieht man in Listing~\ref{lst-MFC
 Allerdings müssen viele Parameter, wie zum Beispiel die Länge des zu verwendenden FFT-Fensters (\codestyle{n_fft}) gefüllt bzw. geändert werden.
 Diese Werte ergeben sich aus den von uns ausgewählten Parameter (beschrieben in~\ref{sec:FeatureKombination}) und den Anweisungen in der offiziellen Dokumentation der Librosa-Bibliothek \autocite[vgl. ][]{librosa_development_team_librosa_2023}.
 
-\begin{lstlisting}[language=Python,numbers=none,caption=Klasse zur Extraktion von MFCC-Merkmalen,label=lst-MFCCExtractor]
+\begin{lstlisting}[language=Python,caption=Klasse zur Extraktion von MFCC-Merkmalen,label=lst-MFCCExtractor]
 class MFCCExtractor(ExtractorInterface):
 
 @staticmethod
@@ -217,7 +217,7 @@ Dieser absteigende Aufbau stellt sich bei Versuchen als geeignete Lösung heraus
 
 Wie bereits im Konzept dargestellt müssen mehrere neuronale Netze trainiert werden, in diesem Fall werden für jede Konfiguration drei neuronale Netze erstellt.
 
-\begin{lstlisting}[language=Python,numbers=none,caption=Erstellen und Trainieren eines neuronalen Netzes,label=lst-nn]
+\begin{lstlisting}[language=Python,caption=Erstellen und Trainieren eines neuronalen Netzes,label=lst-nn]
 # create model
 tf.keras.backend.clear_session()
 model = tf.keras.models.Sequential([
@@ -235,7 +235,7 @@ Nach dem Training erfolgt die Evaluation der neuronalen Netze, hierzu wird der t
 Die berechneten Testdaten werden auf die neuronalen Netze angewandt, das neuronale Netz klassifiziert also die Daten, indem es die Features jedes Frames einem der 20 Sprecher zuordnet.
 Diese Klassifizierung wird durch die Tensorflow-Methode \codestyle{model.predict()} realisiert, wie das Listing~\ref{lst-model-predict} zeigt.
 
-\begin{lstlisting}[language=Python,numbers=none,caption=Evaluation mit model.predict und Normalisierung des Ergebnisses,label=lst-model-predict]
+\begin{lstlisting}[language=Python,caption=Evaluation mit model.predict und Normalisierung des Ergebnisses,label=lst-model-predict]
 prediction = self.neural_network.predict(np.asarray(self.test_data_x[i])) # generate prediction for the sample
 correspondence = {} # mapping: speaker to result
 for id in range(20): # for each speaker
@@ -252,7 +252,7 @@ Die Durchführung und Evaluation des Versuchs sind in Kapitel~\ref{sec:Evaluatio
 
 \textauthor{\vJB,}{\vLB}{}
 
-\subsection{Demosystem} \label{sec:umsetzung_demo}
+\subsection{Demosystem} \label{sec:umsetzung-demo}
 Die Umsetzung von Client und Server ist im Folgenden kurz beschrieben.
 Dabei werden lediglich die wichtigsten Aspekte benannt.
 Da der Authentifizierungsablauf bereits im vorangehenden Kapitel erläutert wurde, wird in der Umsetzung des Servers nicht mehr darauf eingegangen.
