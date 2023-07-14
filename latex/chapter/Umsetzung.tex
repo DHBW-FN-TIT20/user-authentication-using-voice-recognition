@@ -1,14 +1,21 @@
 \section{Umsetzung}
 
+\textauthor{\vJB,}{\vLB,}{\vHS}
+
 Das vorliegende Kapitel befasst sich mit der Umsetzung des Versuchssystems und des Demosystems.
 Dazu wird zunächst eine Technologieentscheidung durchgeführt.
 In einem weiteren Schritt wird die systematische Umsetzung der beiden Systeme dargestellt.
 
 \subsection{Technologieentscheidung}
+
+\textauthor{\vJB,}{\vLB,}{\vHS}
+
 Die Technologieentscheidung unterteilt sich ebenfalls in eine eigenständige Entscheidung für das Versuchssystem, sowie das Demosystem.
 Durch die Abhängigkeit der beiden Systeme, bezieht sich die Technologieentscheidung des Demosystems auf die Entscheidung des Versuchssystems.
 
 \subsubsection{Versuchssystem}\label{sec:TechnologieVersuchssystem}
+
+\textauthor{\vJB,}{\vLB}{}
 
 Aus der Konzeption in Kapitel~\ref{sec:Konzeption} gehen verschiedene Anforderungen an die Technologie hervor.
 Durch die Verwendung von neuronalen Netzen werden die verfügbaren Technologien bzw. Programmiersprachen bereits eingeschränkt.
@@ -29,9 +36,10 @@ Zudem spricht für diese Entscheidung auch die Tatsache, dass die Entwickler die
 
 Zusätzlich wird das Modul \gqq{Keras} verwendet, welches eine entwicklerfreundliche High-Level-Schnittstelle für TensorFlow ist und somit eine einfachere Entwicklung ermöglicht \autocite[vgl.][]{noauthor_keras_2023}.
 
-\textauthor{\vJB,}{\vLB}{}
-
 \subsubsection{Demosystem}
+
+\textauthor{\vHS}{}{}
+
 Für die Technologieentscheidung muss zunächst zwischen den zwei Komponenten Client und Server unterscheiden werden.
 Da für beide Teile unterschiedliche Anforderungen erfüllt werden müssen, erfolgt die Technologieentscheidung separat.
 Außerdem findet eine Festlegung des verwendeten Protokolls für die Schnittstellenkommunikation statt.
@@ -82,9 +90,10 @@ Bei Flask handelt es sich um ein Web Framework, welches eine Bereitstellung von 
 Somit können alle Anforderungen an die Serverapplikation mittels der Programmiersprache Python umgesetzt werden.
 Dazu können die bereits entwickelten Komponenten für den Authentifizierungsprozess aus dem Versuchssystem übernommen werden.
 
-\textauthor{\vHS}{}{}
-
 \subsection{Versuchssystem}\label{sec:UmsetzungVersuchssystem}
+
+\textauthor{\vJB,}{\vLB}{}
+
 Die Umsetzung des Versuchssystems unterteilt sich in vier Unterkapitel.
 Analog zu der Konzeption des Versuchssystems in Kapitel~\ref{sec:KonzeptVersuchssystem}, wird zunächst auf die Generierung der Feature-Kombinationen eingegangen.
 Anschließend wird ein Datensatz ausgewählt und für die Verwendung in diesem System vorbereitet.
@@ -92,6 +101,8 @@ Daraufhin wird die Umsetzung der Audio-Vorverarbeitung sowie der Feature-Extrakt
 Abgeschlossen wird das Kapitel mit der Umsetzung der Klassifikation und Evaluierung.
 
 \subsubsection{Feature-Kombination}
+
+\textauthor{\vLB}{}{}
 
 Wie bereits in Kapitel~\ref{sec:FeatureKombination} erwähnt, müssen zuerst die verschiedenen Konfigurationen erzeugt werden.
 Hierzu werden die vorher definierten Werte in einer JSON-Datei erfasst und durch ein eigenes Kombinierungs-Skript alle möglichen Konfiguration mit einer ID erzeugt.
@@ -121,13 +132,16 @@ Configs = {
 }
 \end{lstlisting}
 
-Der \codestyle{weight} Parameter gibt lediglich an, ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht, um verschiedene Kombinationen zu erreichen.
+Der \texttt{weight} Parameter gibt lediglich an, ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht, um verschiedene Kombinationen zu erreichen.
 So gibt es auch manche Kombinationen, die beispielsweise nur \ac{MFCC}-Merkmale in der Analyse berücksichtigen.
 Hierbei muss beachtet werden, dass durch die Kombination auch Konfigurationen entstehen, in welchen nichts berechnet werden muss.
 Diese werden manuell entfernt.
-Die anderen Variablen wie \codestyle{order} und dessen Werte wurden bereits in Kapitel~\ref{sec:FeatureKombination} erklärt.
+Die anderen Variablen wie \texttt{order} und dessen Werte wurden bereits in Kapitel~\ref{sec:FeatureKombination} erklärt.
 
 \subsubsection{Datensatz}
+
+\textauthor{\vLB}{}{}
+
 Für die Evaluierung der Stimmmerkmale wird ein geeigneter Datensatz benötigt.
 Hierzu wurde nach einer Internetrecherche auf der Plattform \gqq{Kaggle} ein entsprechender Datensatz gefunden, der die Anforderung aus Kapitel~\ref{sec:KonzeptDatensatz} erfüllt \autocite[vgl.][]{jain_speaker_2019}. 
 Der Originaldatensatz enthält Audiodaten zu 50 Sprechern mit mindestens 60 Minuten Aufzeichnung pro Sprecher in mehreren kompressionslosen WAV Dateien.
@@ -143,6 +157,8 @@ Abschließend wird für jeden Sprecher eine Audiodatei zum Trainieren des neuron
 Das Testmaterial ist nicht im Trainingsmaterial enthalten.
 
 \subsubsection{Vorverarbeitung und Feature-Extraktion}\label{section:umsetzung-versuch-vorverarbeitung}
+
+\textauthor{\vJB}{}{}
 
 Um eine effektive Verarbeitung eines Audiosignals zu ermöglichen, muss zunächst eine Vorverarbeitung des Signals erfolgen (s. Kapitel~\ref{sec:preprocessing}).
 Hierfür wird der Audio-Clip mittels der Bibliothek \gqq{Librosa} geladen.
@@ -167,16 +183,16 @@ Zusammengefasst transformiert der Algorithmus mithilfe von \ac{FFT} das Audio-Si
 Hier werden dann die Störfrequenzen über Schwellwertverfahren lokalisiert und mittels Filter eliminiert.
 Anschließend wird das Signal wieder zurücktransformiert \autocite[][]{sainburg_timsainbnoisereduce_2019}.
 
-Die abschließende Unterteilung des Audiosignals in Frames, sowie das Windowing der Frames findet mit Hilfe von \codestyle{numpy}-Operationen in den Funktionen \codestyle{create_frames} und \codestyle{window_frames} statt.
-Die passende Fensterfunktion wird dabei ebenfalls durch die \codestyle{numpy}-Bibliothek bereitgestellt.
+Die abschließende Unterteilung des Audiosignals in Frames, sowie das Windowing der Frames findet mit Hilfe von \texttt{numpy}-Operationen in den Funktionen \texttt{create\_\-frames()} und \texttt{window\_\-frames()} statt.
+Die passende Fensterfunktion wird dabei ebenfalls durch die \texttt{numpy}-Bibliothek bereitgestellt.
 Bei dem Aufteilen in Frames wird eine Überlappung von 50 \% gewählt.
 
 Für das Extrahieren der Merkmale aus dem Audiosignal wird ein Ansatz gewählt, der eine einfache Erweiterung des Programms um verschiedene andere Verfahren ermöglicht.
 Dazu wird das Designmuster Strategie in abgewandelter Form verwendet, wobei zunächst ein Interface für die Berechnungsverfahren erstellt werden muss.
-Dieses definiert die Funktion \codestyle{calculate_features}, welche in den abgeleiteten Klassen implementiert wird.
+Dieses definiert die Funktion \texttt{calculate\_features()}, welche in den abgeleiteten Klassen implementiert wird.
 Für die eigentlichen Berechnungen der Koeffizienten wird wieder die Signal-Verarbeitungs-Bibliothek Librosa verwendet.
 Beispielhaft für die Berechnung von \ac{MFCC} sieht man in Listing~\ref{lst-MFCCExtractor}, wie unkompliziert sich die Bibliothek Librosa verwenden lässt.
-Allerdings müssen viele Parameter, wie zum Beispiel die Länge des zu verwendenden FFT-Fensters (\codestyle{n_fft}) gefüllt bzw. geändert werden.
+Allerdings müssen viele Parameter, wie zum Beispiel die Länge des zu verwendenden FFT-Fensters (\texttt{n\_fft}) gefüllt bzw. geändert werden.
 Diese Werte ergeben sich aus den von uns ausgewählten Parameter (beschrieben in~\ref{sec:FeatureKombination}) und den Anweisungen in der offiziellen Dokumentation der Librosa-Bibliothek \autocite[vgl. ][]{librosa_development_team_librosa_2023}.
 
 \begin{lstlisting}[language=Python,caption=Klasse zur Extraktion von MFCC-Merkmalen,label=lst-MFCCExtractor]
@@ -210,6 +226,9 @@ Hierfür wird die Python-interne Bibliothek \gqq{mutliprocessing} genutzt, um di
 % berechnung der Merkmale für Trainings- und Testdaten --> benötigt für Traditionellen Authentifizierungsprozess
 
 \subsubsection{Klassifikation und Evaluierung}
+
+\textauthor{\vJB,}{\vLB}{}
+
 In dem Kapitel~\ref{sec:KonzeptKlassifikation} wurden neuronale Netze als Klassifikationsmodell gewählt, um die zuvor berechneten Merkmale zu evaluieren.
 Hierbei werden zuerst neuronale Netze mit den berechneten Trainingsdaten trainiert.
 Die Netze bestehen aus drei Hidden-Layer mit jeweils 128, 64 und 32 Neuronen.
@@ -233,7 +252,7 @@ model.fit(X, y, epochs=epochs)
 
 Nach dem Training erfolgt die Evaluation der neuronalen Netze, hierzu wird der tatsächliche Authentifizierungsprozess nachgebildet.
 Die berechneten Testdaten werden auf die neuronalen Netze angewandt, das neuronale Netz klassifiziert also die Daten, indem es die Features jedes Frames einem der 20 Sprecher zuordnet.
-Diese Klassifizierung wird durch die Tensorflow-Methode \codestyle{model.predict()} realisiert, wie das Listing~\ref{lst-model-predict} zeigt.
+Diese Klassifizierung wird durch die Tensorflow-Methode \texttt{model.predict()} realisiert, wie das Listing~\ref{lst-model-predict} zeigt.
 
 \begin{lstlisting}[language=Python,caption=Evaluation mit model.predict und Normalisierung des Ergebnisses,label=lst-model-predict]
 prediction = self.neural_network.predict(np.asarray(self.test_data_x[i])) # generate prediction for the sample
@@ -250,9 +269,10 @@ Durch die Berechnung von drei neuronalen Netzen pro Konfiguration ergibt dies 30
 Nach Abschluss der Klassifikation aller Features können diese Datensätze ausgewertet und somit ein Rückschluss auf die beste Merkmalskombination getroffen werden.
 Die Durchführung und Evaluation des Versuchs sind in Kapitel~\ref{sec:Evaluation} dargestellt.
 
-\textauthor{\vJB,}{\vLB}{}
-
 \subsection{Demosystem} \label{sec:umsetzung-demo}
+
+\textauthor{\vHS}{}{}
+
 Die Umsetzung von Client und Server ist im Folgenden kurz beschrieben.
 Dabei werden lediglich die wichtigsten Aspekte benannt.
 Da der Authentifizierungsablauf bereits im vorangehenden Kapitel erläutert wurde, wird in der Umsetzung des Servers nicht mehr darauf eingegangen.
@@ -456,5 +476,3 @@ Das neuronale Netz, welches vom Server für die Authentifizierung von Benutzern 
 % Deshalb zeigt die Abbildung~\ref{fig:Result} in der Wahrscheinlichkeitsverteilung einen Threshold von 70 \%.
 
 Über die Anweisung \textFunktion{app.run()} unter Angabe der IP-Adresse und des Ports, kann der Server gestartet werden (Listing~\ref{lst:serverPy}, Z.~\ref{line:AppRunServerPy}).
-
-\textauthor{\vHS}{}{}

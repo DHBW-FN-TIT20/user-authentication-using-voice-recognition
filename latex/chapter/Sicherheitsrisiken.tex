@@ -1,10 +1,16 @@
 \section{Analyse der Sicherheitsrisiken}\label{sec:Sicherheitsrisiken}
+
+\textauthor{\vJB,}{\vLB}{}
+
 In dem vorliegenden Kapitel wird die Analyse der Sicherheitsrisiken von Sprecherauthentifikationssystemen durchgeführt.
 Dazu werden mögliche Angriffsszenarien und entsprechende Gegenmaßnahmen vorgestellt.
 Dabei wird die Analyse zunächst auf ein allgemeines System und die erarbeiteten Sicherheitsrisiken dann auf das entwickelte Demosystem bezogen.
 Dies ist möglich, da das Demosystem, dessen Entwicklungen in den vorausgegangenen Kapiteln beschrieben wurde, von diesem allgemeinen System abgeleitet ist.
 
 \subsection{Allgemeine Sicherheitsrisiken}
+
+\textauthor{\vLB}{}{}
+
 In diesem Abschnitt erfolgt die Analyse der Sicherheitsrisiken für ein allgemeines Sprecherauthentifikationssystem.
 Hierbei geht es speziell um Bedrohungen von Sprecherauthentifikationssystemen, allgemeine Risiken von IT-Systemen werden nicht näher beachtet.
 Ein solches System wird in Kapitel~\ref{sec:allgemeiner-system-aufbau} dargestellt und erläutert.
@@ -54,6 +60,9 @@ Somit kann durch Vorgabe eines Satzes überprüft werden, ob es sich um eine Auf
 Das klassische Eavesdropping lässt sich durch die Verwendung von verschlüsselten Kommunikationsverbindungen vermeiden.
 
 \subsubsection{Einordnen in die STRIDE-Kategorien}
+
+\textauthor{\vJB,}{\vLB}{}
+
 % TODO Muss Mann das belegen was das ist?
 Im Folgenden werden die oben genannten Sicherheitsrisiken in die STRIDE-Kategorien eingeordnet.
 Wie bereits oben genannt, werden lediglich spezielle Bedrohungen von Sprecherauthentifikationssystemen behandelt.
@@ -85,9 +94,10 @@ Diese Kategorie findet wie Repudiation keine Anwendung auf allgemeine Bedrohunge
 Elevation of privilege beschreibt das Erlangen zusätzlicher Berechtigungen um so Zugang zu weiteren Ressourcen zu erhalten.
 In diese Kategorie fällt die Backdoor Attacke, da der Angreifer gezielt die Trainingsdaten verändert, um eine Hintertür zu schaffen, sodass er das System infiltrieren kann.
 
-
-
 \subsubsection{DREAD-Analyse}
+
+\textauthor{\vJB,}{\vLB}{}
+
 Im vorliegenden Kapitel werden die zuvor ermittelten Risiken mit der DREAD-Methodik bewertet.
 Die DREAD-Methodik ermöglicht den Schweregrad bzw. das Risiko des Angriffs zu messen.
 % TODO evtl noch in grundlagen ergänzen.
@@ -130,13 +140,11 @@ Bei einer Entwicklung als Produktivsystem sollten diese Risiken beachtet werden 
 
 \subsection{Bezug zum Demosystem}
 
+\textauthor{\vJB,}{\vLB}{}
+
 Das in Kapitel~\ref{sec:umsetzung-demo} entwickelte Demosystem unterscheidet sich gravierend von einer Produktivlösung.
 Dieses System wurde ausschließlich dazu entwickelt, um die Ergebnisse aus dem Versuchssystem anhand eines praktischen Authentifizierungsablaufs darzustellen und kann auf keinen Fall mit einem ausgereiften System verglichen werden.
 Die oben genannte Sicherheitsrisiken existieren somit nicht für das Demosystem, da zum einen keine externen Eingaben wie Stimm-Aufnahmen ins System gegeben werden können und das System zum anderen keine persönlichen oder kritischen Daten schützt.
 
 Wenn das System als Produktivlösung implementiert werden würde, müssten die oben genannten Maßnahmen zur Risikominimierung berücksichtigt werden.
 Zusätzlich müssten zu den oben genannten speziellen Sicherheitsrisiken auch allgemeine Sicherheitsrisiken für ein solches Authentifikationssystem bewertet werden.
-
-
-\textauthor{\vLB}{}{}
-

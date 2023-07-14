@@ -1,9 +1,11 @@
 \section{Evaluation} \label{sec:Evaluation}
 
+\textauthor{\vJB,}{\vHS}{}{}
+
 In dem vorliegenden Kapitel wird kurz die Durchführung der Versuchsreihe beschrieben und die Evaluierung der Ergebnisse des Versuchssystems durchgeführt.
 Hierzu werden die Ergebnisse aufbereitet und anhand mehrerer Metriken verglichen.
 
-Das Versuchssystem wird über das Ausführen der \codestyle{main.py}-Datei gestartet (siehe linke Lane im Sequenzdiagramm (Abbildung \ref{fig:sequenzdiagramm-versuchssystem})).
+Das Versuchssystem wird über das Ausführen der \texttt{main.py}-Datei gestartet (siehe linke Lane im Sequenzdiagramm (Abbildung \ref{fig:sequenzdiagramm-versuchssystem})).
 Hier lässt sich spezifizieren, welche der Konfigurationen bei der aktuellen Ausführung analysiert werden sollen, wie man in Zeile~\ref{line:runrange} des Listing~\ref{lst-mainpy} erkennen kann.
 
 \begin{lstlisting}[language=Python,caption=Ausführen einer Versuchsreihe,label=lst-mainpy,escapechar=|]
@@ -23,8 +25,6 @@ Da die Analyse von einer Konfiguration im Durchschnitt etwa 35 Minuten dauert, w
 Es kommen insgesamt fünf verschiedene Geräte mit unterschiedlicher Leistung zum Einsatz, die die Konfigurationen blockweise abarbeiten.
 Der gesamte Prozess dauert ca. eineinhalb Wochen, wobei zu beachten ist, dass die verwendeten Geräte nicht rund um die Uhr rechnen.
 Die Ergebnisse der Analysen werden in CSV-Dateien geschrieben, welche nach dem Beenden der Berechnungen zusammengeführt werden.
-
-\textauthor{\vJB}{}{}
 
 Für die Auswertung der Zuordnungsverteilungen aller Konfigurationen des Versuchssystems werden die Ergebnisse zunächst grafisch dargestellt.
 Dabei werden in allen Grafiken die Ergebnisse der drei neuronalen Netze pro Konfiguration miteinander verrechnet.
@@ -161,5 +161,3 @@ Die Verschlechterung lässt sich durch zwei Aspekte rechtfertigen.
 Auf der einen Seite ist es für Benutzer durch die Optimierung nicht mehr möglich, sich als eine andere Person zu authentifizieren.
 Auf der anderen Seite sorgt die erhöhte Anzahl nicht zugeordneter Samples lediglich dafür, dass in 10~\% der Fälle eine erneute Aufzeichnung der Stimme für die Authentifizierung vonnöten ist.
 Dieser Aufwand ist in Relation zu der gewonnenen Sicherheit sehr gering.
-
-\textauthor{\vHS}{}{}
