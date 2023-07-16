@@ -137,9 +137,9 @@ Auf der einen Seite wird eine längere Audioaufzeichnung zur Authentifizierung b
 Auf der anderen Seite steigt auch der Rechenaufwand, da anstelle von 20 \ac{MFCC} Koeffizienten nun 27 Koeffizienten berechnet werden müssen.
 
 Unter Anbetracht des erhöhten Aufwands wird somit von einer weiterreichenden Analyse mit mehr als 27 Koeffizienten abgesehen.
-Da die Veränderungen, die zu dem verbesserten Ergebnis führen für die einmalige Berechnung des Neuronalen Netzes des Demosystems tragbar sind, wird die für das Demosystem zu verwendende Konfiguration auf die Konfiguration mit der ID \textbf{516} festgelegt.
+Da die Veränderungen, die zu dem verbesserten Ergebnis führen für die einmalige Berechnung des neuronalen Netzes des Demosystems tragbar sind, wird die für das Demosystem zu verwendende Konfiguration auf die Konfiguration mit der ID \textbf{516} festgelegt.
 
-Um die Genauigkeit der Konfiguration für den Einsatz im Demosystem noch einmal zu erhöhen, wird das neuronale Netz erneut Trainiert, wobei die Epochen von 250 auf 500 erhöht werden.
+Um die Genauigkeit der Konfiguration für den Einsatz im Demosystem noch einmal zu erhöhen, wird das neuronale Netz erneut trainiert, wobei die Epochen von 250 auf 500 erhöht werden.
 Die Ergebnisse sind in Tabelle~\ref{table:resultsDemoSystemNN} aufgeführt.
 Unter Verwendung desselben Thresholds von 65~\% wird eine weitere Verbesserung um 2,7 Prozentpunkte im Bereich der richtig zugeordneten Samples erreicht.
 
@@ -154,7 +154,7 @@ Unter Verwendung desselben Thresholds von 65~\% wird eine weitere Verbesserung u
     \label{table:resultsDemoSystemNN}
 \end{table}
 
-Da die Anzahl an falsch zugeordneten Samples mit einem Prozentpunkt bereits sehr gering ist, kann hier durch eine Erhöhung des Thresholds das System im Bezug auf den Aspekt der Sicherheit weiter optimiert werden.
+Da die Anzahl an falsch zugeordneten Samples mit einem Prozentpunkt bereits sehr gering ist, kann hier durch eine Erhöhung des Thresholds das System in Bezug auf den Aspekt der Sicherheit weiter optimiert werden.
 Durch die Erhöhung von 65~\% auf 70~\% werden keine Samples mehr falsch zugeordnet, gleichzeitig verschlechtert sich jedoch auch die Anzahl an richtig zugeordneten Samples.
 
 Die Verschlechterung lässt sich durch zwei Aspekte rechtfertigen.

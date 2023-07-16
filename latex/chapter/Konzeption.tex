@@ -11,7 +11,7 @@ Dazu erfolgt zuvor ein grobes Konzept für ein generisches Sprecherauthentifikat
 
 Ein allgemeiner, generischer Aufbau für ein Sprecherauthentifikationssystem ist in Abbildung~\ref{fig:allg-generisch-aufbau} dargestellt.
 
-Das Konzept wurde weitgehend eigens entwickelt, orientiert sich aber an den Ansätzen von Qi (Peter) Li \autocite[vgl. ][S. 7]{li_speaker_2012}.
+Das Konzept wurde weitgehend eigens entwickelt, orientiert sich aber an Ansätzen von Qi (Peter) Li \autocite[vgl. ][S. 7]{li_speaker_2012}.
 
 \begin{figure}[H]
     \centering
@@ -114,38 +114,6 @@ Die vorhin genannten Werte sind übersichtlich in der nachfolgenden Tabelle darg
     \caption{Übersicht Featurekombinationen}
 \end{table}
 
-% \begin{lstlisting}[language=JavaScript,caption=Konfigurationsmöglichkeiten,label=configs]
-% Configs = {
-%     "amount_of_frames": [10000, 15000],
-%     "size_of_frame": [400, 600],
-%     "LPC": {
-%         "order": [13, 20],
-%         "weight": [0, 1]
-%     },
-%     "MFCC": {
-%         "order": [13, 20],
-%         "weight": [0, 1]
-%     },
-%     "LPCC": {
-%         "order": [13, 20],
-%         "weight": [0, 1]
-%     },
-%     "delta_MFCC": {
-%         "order": [13],
-%         "weight": [0, 1]
-%     }
-% }
-% \end{lstlisting}
-
-% Die Werte für die Anzahl und Länge der Frames \texttt{amount\_oftexttt_frames} und \texttt{sizetexttt_oftexttt_frame} berechnen sich aus vorherigen Versuchen, der verwendeten Abtastrate und der gewünschten Trainingsclip-Länge.
-
-
-% Bei den Features gibt der \texttt{order} Parameter die Anzahl der Features pro Frame an.
-% Der Wert 13 ist aus der Literatur abgeleitet. %TODO CITE
-% Der Wert 20 ist selbstständig ergänzt, um einen Vergleich zu ermöglichen.
-% Um die Anzahl der Konfigurationen zu reduzieren und da die Relevanz von \ac{dMFCC} am geringsten ist, wird hier auf den zweiten Wert verzichtet.
-% Der \texttt{weight} Parameter gibt lediglich an ob in dieser Konfiguration dieses Feature verwendet werden soll oder nicht.
-
 \subsubsection{Datensatz} \label{sec:KonzeptDatensatz}
 
 \textauthor{\vLB}{}{}
@@ -238,7 +206,7 @@ In Abb. \ref{fig:sequenzdiagramm-versuchssystem} ist das Sequenzdiagramm dargest
 
 Ziel des Demosystems ist es, den Authentifizierungsprozess mittels Sprechererkennung zu implementieren und damit die Ergebnisse der Arbeit zu präsentieren.
 Aus den Anforderungen in Kapitel~\ref{sec:anforderungen} geht dabei hervor, dass dies als Webapplikation umzusetzen ist.
-Dadurch ergibt sich als Basisarchitektur eine Client-Server-Architektur, wobei der Client die Weboberfläche und der Server den Authentifizierungsprozess implementiert.
+Dadurch ergibt sich als Basisarchitektur eine Client-Server-Architektur, wobei der Client die Web-Oberfläche und der Server den Authentifizierungsprozess implementiert.
 Abbildung~\ref{fig:ArchitectureDemoSystem} zeigt die grundlegende Architektur des Demosystems.
 
 \begin{figure}[H]
@@ -249,7 +217,7 @@ Abbildung~\ref{fig:ArchitectureDemoSystem} zeigt die grundlegende Architektur de
 \end{figure}
 
 \subsubsection{Client}
-Der Client wird wie bereits erwähnt als Weboberfläche konzipiert.
+Der Client wird wie bereits erwähnt als Web-Oberfläche konzipiert.
 Dabei stellt er Eingabemöglichkeiten in Form eines Logins bereit, die für das Anstoßen des Authentifizierungsprozesses benötigt werden.
 Im Architekturbild geschieht dies über die \textKlasse{App} Komponente.
 Über die \textFunktion{login()} Funktion der Komponente wird die Authentifizierungsanfrage an den Server gestellt.

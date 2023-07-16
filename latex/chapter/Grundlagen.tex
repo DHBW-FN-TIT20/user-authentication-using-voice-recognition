@@ -4,22 +4,22 @@
 
 Um die Hintergründe und Herangehensweisen der Studienarbeit nachzuvollziehen müssen zunächst verschiedene Grundlagen vorgestellt werden.
 Dabei findet eine Definition des Begriffs Sprecherauthentifikation statt.
-Anschließend wird ein Basisverständnis für die Technische Umsetzung mittels eines Exkurses über den Aufbau der menschlichen Stimme hergestellt.
+Anschließend wird ein Basisverständnis für die technische Umsetzung mittels eines Exkurses über den Aufbau der menschlichen Stimme hergestellt.
 Die konkret verwendeten Algorithmen werden in dem Kapitel \nameref{sec:Audioanalyse} beschrieben.
 Außerdem findet eine kurze Einführung in den Bereich der künstlichen Intelligenz, sowie der \acp{NN} statt.
-Abschließend werden mehrere Ansätze zur Analyse von Sicherheitsrisiken vorgestellt.
+Abschließend werden zwei Ansätze zur Analyse von Sicherheitsrisiken vorgestellt.
 
 \subsection{Sprecherauthentifikation}
 
 \textauthor{\vHS}{}{}
 
-In der Kryptographie beschreibt der Begriff Authentifizierung \gqq{eine Identität durch eine identitätsgebundene Information zu überprüfen} \autocite[][S. 129]{tsolkas_rollen_2017}.
-Zu den identitätsgebundenen Informationen zählt unter Anderem die biometrische Information der Stimme für die Sprecherauthentifikation.
+In der Kryptographie beschreibt der Begriff Authentifizierung bzw. Authentifikation \gqq{eine Identität durch eine identitätsgebundene Information zu überprüfen} \autocite[][S. 129]{tsolkas_rollen_2017}.
+Zu den identitätsgebundenen Informationen zählt unter anderem die biometrische Information der Stimme für die Sprecherauthentifikation.
 
-Zu den heutigen Einsatzgebieten der Sprecherauthentifikation zählen hauptsächlich Telefon-Hotlines, welche anstelle oder in Ergänzung zu wissensbasierten Sicherheitsfragen auch die Informationen der Stimme auswerten um diese für die Authentifizierung zu verwenden.
+Zu den heutigen Einsatzgebieten der Sprecherauthentifikation zählen hauptsächlich Telefon-Hotlines, welche anstelle oder in Ergänzung zu wissensbasierten Sicherheitsfragen auch die Informationen der Stimme auswerte, um diese für die Authentifizierung zu verwenden.
 So kommt die Sprecherauthentifikation beispielsweise bereits bei den Hotlines der schweizer Banken Postfinance, Migros und Cler, aber auch der deutschen Telekom zum Einsatz, wodurch eine Authentifizierung mittels Kundendaten unterstützt wird oder gänzlich entfällt \autocite[vgl.][]{anz_mit_2023} \autocite[vgl.][]{noauthor_authentifizierung_nodate} \autocite[vgl.][]{noauthor_meine_nodate}.
 
-Im konkreten Anwendungsfall der Sprecherauthentifikation wird zwischen Textunabhängigen und Textabhängigen Authentifizierungssystemen mit open-set oder closed-set Datensätzen unterschieden.
+Im konkreten Anwendungsfall der Sprecherauthentifikation wird zwischen textunabhängigen und textabhängigen Authentifizierungssystemen mit open-set oder closed-set Datensätzen unterschieden.
 % TODO: Grundlagen der Authentifizierung (Definition, Verfahren, ...)
 % Heutige Anwendungsbereiche und gängige Verfahren
 % (Wo/Warum) wird Stimmauthentifizierung aktuell eingesetzt?
@@ -39,18 +39,18 @@ Im konkreten Anwendungsfall der Sprecherauthentifikation wird zwischen Textunabh
 
 \textauthor{\vHS}{}{}
 
-Textunabhängige Systeme beziehen sich ausschließlich auf die Charakteristiken der Stimme ohne dabei den Inhalt des Gesprochenen auszuwerten.
+Textunabhängige Systeme beziehen sich ausschließlich auf die Charakteristiken der Stimme, ohne dabei den Inhalt des Gesprochenen auszuwerten.
 Für die Authentifizierung kann somit eine beliebige Wortkombination eingesprochen werden.
 
-Textabhängige Systeme hingegen implementieren zusätzlich eine Texterkennung wodurch neben der Stimmcharakteristik auch der gesprochene Satz dem vorgegebenen Satz entsprechen muss \autocite[vgl.][S. 2]{thullier_text-independent_2017}.
+Textabhängige Systeme hingegen implementieren zusätzlich eine Texterkennung, wodurch neben der Stimmcharakteristik auch der gesprochene Satz dem vorgegebenen Satz entsprechen muss \autocite[vgl.][S. 2]{thullier_text-independent_2017}.
 Dadurch kann das Authentifizierungssystem mit einem bestimmten Satz trainiert werden, wodurch die Authentifizierung verbessert werden kann \autocite[vgl.][S.]{sidorov_text-independent_2010}.
-Im Gegensatz zu Textunabhängigen Systemen steigen jedoch die Anforderungen an die Trainingsdaten stark an, da der verwendete Satz von jedem Sprecher einzeln eingesprochen werden muss und somit keine bereits existierenden Aufzeichnungen verwendet werden können.
+Im Gegensatz zu textunabhängigen Systemen steigen jedoch die Anforderungen an die Trainingsdaten stark an, da der verwendete Satz von jedem Sprecher einzeln eingesprochen werden muss und somit keine bereits existierenden Aufzeichnungen verwendet werden können.
 
 \subsubsection{Open- und closed-set}
 Open- und closed-set Sprecherauthentifikation unterscheidet sich in der Zusammensetzung und Klassifizierung des Test- und Anwendungsdatensatzes.
 Während bei open-set Anwendungen sowohl Sprachaufzeichnungen von bekannten, als auch unbekannten Sprechern ausgewertet werden, ist die Anwendung bei closed-set ausschließlich auf die bekannten Sprecher begrenzt.
 
-Somit ordnet eine closed-set Anwendung eine Sprachaufzeichnung immer einem der bekannten Sprecher zu, während in einer open-set Anwendung auch eine Klassifikation als unbekannt stattfindet.
+Somit ordnet eine closed-set Anwendung eine Sprachaufzeichnung immer einem der bekannten Sprecher zu, während in einer open-set Anwendung auch eine Klassifikation als \gqq{unbekannt} stattfindet.
 
 \subsection{Menschliche Stimme}
 Um die grundlegenden Konzepte hinter den in dieser Arbeit verwendeten Verfahren zur Parameterextraktion zu verstehen, werden in diesem Kapitel die wesentlichen Grundlagen zu der menschlichen Stimme vorgestellt.
@@ -68,7 +68,7 @@ Durch die Artikulatoren Zunge, Lippen, Kiefer und Gaumensegel kann der Vokaltrak
 Somit können die verschiedenen Laute, aus denen die Sprache aufgebaut ist, erzeugt werden \autocite[vgl.][S. 13-14]{pfister_sprachverarbeitung_2017}.
 
 In der deutschen und englischen Sprache werden die Buchstaben des Alphabets grundlegend in Vokale und Konsonanten unterteilt.
-Im folgenden werden die beiden Kategorien kurz erläutert.
+Im Folgenden werden die beiden Kategorien kurz erläutert.
 
 \paragraph{Vokale}
 Vokale zählen zu den stimmhaften Lauten.
@@ -103,7 +103,7 @@ In der Psychoakustik unterscheidet sich die wahrgenommene Tonhöhe (auch Tonheit
 Die physikalische Tonhöhe wird durch die Grundfrequenz eines Tons bestimmt.
 Eine Verdopplung der Grundfrequenz führt dabei zu einer Verdopplung der Tonhöhe.
 Der Mensch nimmt jedoch diese Frequenzdifferenzen unterschiedlich wahr.
-Während für geringe Frequenzen bis zu 500 Hz eine Ton mit doppelter Frequenz auch doppelt so hoch wahrgenommen wird, ist für Töne höherer Frequenz ein größerer Abstand notwendig.
+Während für geringe Frequenzen bis zu 500 Hz ein Ton mit doppelter Frequenz auch doppelt so hoch wahrgenommen wird, ist für Töne höherer Frequenz ein größerer Abstand notwendig.
 Aus diesem Grund wurde im Jahr 1937 die Mel-Skala durch Stevens, Volkman und Newmann vorgeschlagen \autocite[vgl.][S. 11]{moser_psychoakustische_2018}.
 Diese verläuft logarithmisch zur Frequenz, was auf den Aufbau der Basilarmembran im Innenohr zurückzuführen ist \autocite[vgl.][S. 54]{kroger_neuronale_2018}.
 Als Bezug zwischen der Frequenz und der Mel-Skala wurde dabei die Frequenz 1000 Hz gewählt, welche 1000 mel entspricht.
@@ -162,7 +162,7 @@ Um die bei der Unterteilung des Audiosignals entstandenen Diskontinuitäten aufz
 Abbildung~\ref{fig:vonHannFenster} zeigt die von Hann Fensterfunktion, welche neben dem Hamming Fenster zu den typischen Fensterfunktionen in der Audiosignalverarbeitung zählt.
 Durch den Nulldurchgang am Anfang und Ende der Fensterfunktion werden die Amplituden des Blocksignals nach Anwenden der Funktion an den Grenzen auf Null gezogen, wodurch sich ein kontinuierlicher, periodischer Signalverlauf ergibt \autocite[vgl.][S. 462]{richter_signal_2022}.
 
-Wird der Schritt des Windowing nicht durchgeführt, führt dies zu einem Phänomen namens spectral leakage.
+Wird der Schritt des Windowing nicht durchgeführt, führt dies zu einem Phänomen namens \gqq{spectral leakage}.
 Bei der Transformation des Signals von dem Zeitbereich in den Frequenzbereich resultiert der Amplitudensprung an den Blockenden in der Registrierung einer Vielzahl von Frequenzen.
 Wie der Name bereits beschreibt, wird aus einer eindeutigen Frequenz, ein Spektrum aus Frequenzen, die nicht Teil des Signals sind \autocite[vgl.][S. 1296]{wu_new_2012}.
 
@@ -227,7 +227,7 @@ Anders als bei der Fourier Reihe, können mit der verallgemeinerten kontinuierli
     \item $\int_{-\infty}^{\infty} |s(t)| dt < \infty$
 \end{itemize}
 
-Die Fourier-Transformation liefert eine Transformierte Funktion $\underline{S}(f)$, die als Spektrum des Signals $s(t)$ bezeichnet wird.
+Die Fourier-Transformation liefert eine transformierte Funktion $\underline{S}(f)$, die als Spektrum des Signals $s(t)$ bezeichnet wird.
 Es wird also die Dimension Zeit $t$ in die Dimension Frequenz $f$ transformiert.
 Die Formel für die Fourier-Transformation lautet:
 
@@ -248,7 +248,7 @@ durchgeführt \autocite[vgl.][S. 350f]{picard_fourier-analyse_1996}.
 \paragraph{Diskrete Fourier-Transformation}
 
 % Diskrete Signale werden in diskretes Spektrum zerlegt
-Bei den bisherigen Analyseverfahren, wurden immer kontinuierliche Signale betrachtet.
+Bei den bisherigen Analyseverfahren wurden immer kontinuierliche Signale betrachtet.
 Das heißt, dass für jeden Zeitpunkt $t$ ein Wert $s(t)$ existiert.
 
 Bei der \ac{DFT} können diskrete Signale verarbeitet werden, die aus einer Folge von $N$ Werten ($s_0, s_1, \dots, s_{N-1}$) bestehen, weshalb diese Methode besonders interessant für elektronisch aufgezeichnete Signale ist.
@@ -387,7 +387,7 @@ Insbesondere das Thema \ac{ML} hat in den letzten zehn Jahren viel Beachtung gef
 \newline
 \ac{ML} ist nicht neu, bereits in den 1950er Jahren wurden von Arthur Lee Samuels die ersten \ac{ML} Programme entwickelt \autocite[vgl.][S. 5]{judith_hurwitz_machine_2018}.
 Der Aufschwung von \ac{ML} im letzten Jahrzehnt ist auf steigende und bezahlbare Rechenleistung bzw. Speichergrößen zurückzuführen.
-\ac{ML} beschreibt den Prozess bei dem Computeralgorithmen trainiert werden, um ihre Leistung bei einer bestimmten Aufgabe zu verbessern ohne dass dies explizit programmiert werden muss.
+\ac{ML} beschreibt den Prozess bei dem Computeralgorithmen trainiert werden, um ihre Leistung bei einer bestimmten Aufgabe zu verbessern, ohne dass dies explizit programmiert werden muss.
 Hierzu werden dem Computer Daten bereitgestellt aus welchen er lernt.
 Der Computer kann anschließend die aus den Daten gewonnenen Erkenntnisse nutzen, um Vorhersagen für neue Daten zu treffen \autocite[vgl.][S. 4]{judith_hurwitz_machine_2018}.
 % Beispielsweise wird dem Computer eine Liste mit Häusern, deren Eigenschaften (z.B. Anzahl Zimmer, Wohnfläche, Alter und Standort) und einem Verkaufspreis zu Verfügung gestellt.
