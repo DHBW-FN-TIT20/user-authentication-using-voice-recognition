@@ -341,11 +341,13 @@ Neben der Yule-Walker Methode stellt der Burg Algorithmus eine beliebte Alternat
 
 Bei dem Verfahren \ac{LPC} wird der Ansatz verfolgt, Rückschlüsse von dem akustischen Signal auf die Stimmerzeugung zu ziehen.
 Dazu wird ein \ac{AR}-Filter verwendet, um ein vereinfachtes Modell des menschlichen Stimmtrakts zu erstellen.
-Die Regressionsgewichte $a_k$ entsprechen dabei den \ac{LPC}-Koeffizienten.
+Das vereinfachte Modell enthält zunächst ein Rausch-Signal (z.B.: white noise), welches die Stimmbildung repräsentiert.
+Anschließend wird auf dieses Rauschen der \ac{AR}-Filter angewendet, welcher die durch Resonanzen im Vokaltrakt entstehenden Frequenzänderungen abbildet.
+Die Regressionsgewichte $a_k$ des \ac{AR}-Filters entsprechen dabei den \ac{LPC}-Koeffizienten.
 % TODO: Genauer erklären warum die Gewichte eine Rolle spielen -> Stimmerzeugung mit Grundrauschen + Koeffizienten als Filter
 
-Das durch die \ac{LPC}-Koeffizienten erstellte Modell erfasst die Resonanzeigenschaften des Signals, wodurch Rückschlüsse auf die Formanten geschlossen werden können.
-Da die Struktur der Formanten sprecherspezifisch ist, kann der Sprecher somit über die \ac{LPC}-Koeffizienten identifiziert werden \autocite[vgl.][S. 117]{sidorov_text-independent_2010}.
+Die \ac{LPC}-Koeffizienten erfassen somit die Resonanzeigenschaften des Signals, wodurch Rückschlüsse auf die Formanten gezogen werden können.
+Da die Struktur der Formanten sprecherspezifisch ist, kann der Sprecher über die \ac{LPC}-Koeffizienten identifiziert werden \autocite[vgl.][S. 117]{sidorov_text-independent_2010}.
 
 Zur Berechnung der \ac{LPC}-Koeffizienten wird zunächst die selbe Annahme wie in Kapitel~\ref{sec:Framing} getroffen, dass sich die Form des Vokaltrakts und das in den Stimmritzen erzeugte Signal über den betrachteten Zeitraum nicht verändert \autocite[vgl.][S. 1304]{atal_effectiveness_1974}.
 Somit lassen sich die Koeffizienten des \ac{AR}-Filters mittels des Burg-Algorithmus berechnen.
