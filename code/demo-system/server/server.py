@@ -63,7 +63,7 @@ def generate_test_data(speaker_id: int, sample_id: int):
 
     """
 
-    ds_handler = DatasetHandler(os.path.join(os.path.dirname(__file__), "..", "..", "..", "data", "audio_dataset"))
+    ds_handler = DatasetHandler(os.path.join(os.path.dirname(__file__), "..", "..", "data", "audio_dataset"))
     test_X = []
     test_y = []
     test_file_path = ds_handler.get_validation_file_path(speaker_id, sample_id)
