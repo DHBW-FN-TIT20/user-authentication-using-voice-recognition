@@ -98,7 +98,7 @@ Dabei ist die Position der Formanten sowohl von dem jeweiligen Vokal, als auch d
 % 
 % INFO: Wichtig für Ausblick -> Bei Einsatz in Telefonie muss das Übertragungsspektrum berücksichtigt werden (kleiner als menschliche Stimme -> Verluste, ggf. von Grundfrequenz) => Schlechtere Qualität / Erkennung
 
-\paragraph{Tonheit}
+\paragraph{Tonheit} \label{sec:tonheit}
 In der Psychoakustik unterscheidet sich die wahrgenommene Tonhöhe (auch Tonheit genannt) von der physikalischen Tonhöhe.
 Die physikalische Tonhöhe wird durch die Grundfrequenz eines Tons bestimmt.
 Eine Verdopplung der Grundfrequenz führt dabei zu einer Verdopplung der Tonhöhe.
@@ -316,7 +316,8 @@ Um die \ac{MFCC} zu berechnen sind die folgenden vier Schritte notwendig \autoci
     \item \textbf{Diskrete Kosinustransformation}\\Ähnlich zur inversen Fourier-Transformation
 \end{enumerate}
 
-Durch die Abbildung der ermittelten Frequenzen auf die Mel-Skala orientiert sich das Verfahren somit an der menschlichen Stimmwahrnehmung, welche bereits im vorangehenden Kapitel erläutert wurde.
+Durch die Abbildung der ermittelten Frequenzen auf die Mel-Skala orientiert sich das Verfahren somit an der menschlichen Stimmwahrnehmung, welche bereits im vorangehenden Kapitel (\ref{sec:tonheit}) erläutert wurde.
+Das macht \ac{MFCC} zu einem guten Merkmal, wenn es darum geht, von einem Stimmsignal auf dessen Sprecher zu schließen.
 
 \subsubsection{Linear Predicitve Coding}
 
