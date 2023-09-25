@@ -10,6 +10,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./latex
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v3
@@ -63,13 +66,13 @@ jobs:
             </body>
           </html>
           EOL
-      
+
       - name: Download build
         uses: actions/download-artifact@v3
         with:
           name: PDF
           path: public
-      
+
       - name: View downloaded artifacts
         run: ls -R
         working-directory: public
