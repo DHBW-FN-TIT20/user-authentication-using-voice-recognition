@@ -6,6 +6,7 @@ on:
   push:
     tags:
       - v*.*.*
+  workflow_dispatch:
 
 jobs:
   build:
@@ -17,12 +18,14 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: "*.tex"
+          working_directory: latex/
+          work_in_root_file_dir: true
           glob_root_file: true
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
         with:
           name: PDF
-          path: "*.pdf"
+          path: "./latex/*.pdf"
 
   release:
     runs-on: ubuntu-latest
@@ -33,7 +36,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: PDF
-
+      - name: Rename PDF
+        run: "mv main.pdf Studienarbeit_Authentifizierung_von_Benutzern_mittels_Sprechererkennung.pdf"
       - name: Create release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -63,13 +67,13 @@ jobs:
             </body>
           </html>
           EOL
-      
+
       - name: Download build
         uses: actions/download-artifact@v3
         with:
           name: PDF
           path: public
-      
+
       - name: View downloaded artifacts
         run: ls -R
         working-directory: public
