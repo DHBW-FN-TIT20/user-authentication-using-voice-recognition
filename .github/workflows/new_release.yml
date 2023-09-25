@@ -15,7 +15,7 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v3
       - name: Check files
-        run: "ls && ls latex/"
+        run: "pwd && ls && ls latex/"
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
