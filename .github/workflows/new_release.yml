@@ -15,13 +15,15 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v3
       - name: Check files
-        run: "ls && ls /latex"
+        run: "ls && ls latex/"
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
           root_file: "*.tex"
           working_directory: latex/
           work_in_root_file_dir: true
+      - name: Check files
+        run: "ls && ls latex/"
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
         with:
