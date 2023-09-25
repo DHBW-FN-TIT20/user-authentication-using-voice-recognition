@@ -17,8 +17,9 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: "./latex/*.tex"
-          glob_root_file: true
+          root_file: "*.tex"
+          working_directory: latex/
+          work_in_root_file_dir: true
       - name: Upload PDF file
         uses: actions/upload-artifact@v3
         with:
