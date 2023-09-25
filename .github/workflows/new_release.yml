@@ -22,6 +22,7 @@ jobs:
           root_file: "*.tex"
           working_directory: latex/
           work_in_root_file_dir: true
+          glob_root_file: true
       - name: Check files
         run: "ls && ls latex/"
       - name: Upload PDF file
